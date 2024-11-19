@@ -20,14 +20,15 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      // Llama a la función login del archivo auth.ts
       const response = await login(username, password);
 
-      // Manejo del token (puedes guardarlo donde prefieras: localStorage, cookies, etc.)
-      localStorage.setItem("authToken", response.token);
-
-      toast.success("Logged in successfully!");
-      router.replace("/dashboard");
+      if (response?.access_token) {
+        localStorage.setItem("accessToken", response.access_token);
+        toast.success("Logged in successfully!");
+        router.replace("/dashboard");
+      } else {
+        throw new Error("Access token not received.");
+      }
     } catch (error: any) {
       console.error(error);
       toast.error(error.message || "Failed to login.");

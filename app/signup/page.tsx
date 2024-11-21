@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation"; // Importa el router
 import config from "@/config";
 import Image from "next/image";
 import logo from "@/app/icon.png";
@@ -14,6 +15,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter(); // Usa el router
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
@@ -40,6 +42,11 @@ export default function Signup() {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+
+      // Redirige automáticamente a la página de inicio de sesión
+      setTimeout(() => {
+        router.push("/signin");
+      }, 2000); // Espera 2 segundos antes de redirigir
     } catch (error: any) {
       console.error(error);
       toast.error(error.message || "Failed to create account.");

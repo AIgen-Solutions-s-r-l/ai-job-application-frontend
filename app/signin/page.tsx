@@ -24,6 +24,7 @@ export default function Login() {
 
       if (response?.access_token) {
         localStorage.setItem("accessToken", response.access_token);
+        localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
         router.replace("/dashboard");
       } else {

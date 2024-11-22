@@ -105,10 +105,10 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="flex justify-center text-sm mt-4">
-          {/* <Link href="/forgot-password" className="text-sm font-medium text-primary">
+        <div className="flex justify-between text-sm mt-4">
+          <Link href="/update-password" className="text-sm font-medium text-primary">
             Forgot password?
-          </Link> */}
+          </Link>
           <p className="text-center text-sm">
             Don’t have an account? <Link href="/signup" className="text-sm text-primary">Sign Up</Link>
           </p>

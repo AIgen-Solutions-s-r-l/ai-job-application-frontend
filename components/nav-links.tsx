@@ -5,7 +5,6 @@ import {
   UserGroupIcon,
   BriefcaseIcon,
   CheckCircleIcon,
-  BugAntIcon,
   CreditCardIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -18,7 +17,6 @@ const links = [
   { name: 'Job Profiles', href: '/dashboard/profiles', icon: UserGroupIcon },
   { name: 'Job Roles', href: '/dashboard/roles', icon: BriefcaseIcon },
   { name: 'Jobs Applied', href: '/dashboard/jobs', icon: CheckCircleIcon },
-  { name: 'Bot', href: '/dashboard/bots', icon: BugAntIcon },
   { name: 'Subscription', href: '/dashboard/subscription', icon: CreditCardIcon },
 ];
 

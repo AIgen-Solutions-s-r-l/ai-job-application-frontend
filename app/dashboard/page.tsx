@@ -12,7 +12,7 @@ export default async function Dashboard() {
     <>
       {/* Contenido del dashboard */}
       <section className="mx-auto space-y-8">
-        {/* <StatsCards />
+        <StatsCards />
 
         <Suspense fallback={<div>Loading auto jobs...</div>}>
           <AutoJobs />
@@ -26,7 +26,7 @@ export default async function Dashboard() {
           <JobRoles />
         </Suspense>
 
-        <JobsAppliedChart /> */}
+        <JobsAppliedChart />
       </section>
     </>
   );

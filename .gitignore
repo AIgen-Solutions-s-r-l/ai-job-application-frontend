@@ -45,18 +45,18 @@ public/sitemap-0.xml
 # Ignorar la carpeta "blog" completa dentro de "app"
 app/blog/
 
-# Ignorar carpetas específicas dentro de "app/dashboard"
-app/dashboard/bots/
-app/dashboard/jobs/
-app/dashboard/profiles/
-app/dashboard/roles/
-app/dashboard/subscription/
+# # Ignorar carpetas específicas dentro de "app/dashboard"
+# app/dashboard/bots/
+# app/dashboard/jobs/
+# app/dashboard/profiles/
+# app/dashboard/roles/
+# app/dashboard/subscription/
 
-# Ignorar carpetas específicas dentro de "components"
-components/bots/
-components/datatable/
-components/jobs/
-components/profiles/
-components/roles/
-components/stats/
-components/ui/
+# # Ignorar carpetas específicas dentro de "components"
+# components/bots/
+# components/datatable/
+# components/jobs/
+# components/profiles/
+# components/roles/
+# components/stats/
+# components/ui/

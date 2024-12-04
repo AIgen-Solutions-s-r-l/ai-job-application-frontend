@@ -103,13 +103,6 @@ const TableProfiles: FC<TableProfilesProps> = ({
 
   const columns: ColumnDef<JobProfile>[] = [
     {
-      accessorKey: `personalInfo.profile_alias`,
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Profile Alias" />
-      ),
-      enableSorting: false,
-    },
-    {
       accessorKey: "personalInfo.name",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Name" />

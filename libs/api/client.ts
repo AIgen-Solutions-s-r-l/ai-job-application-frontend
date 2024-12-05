@@ -7,14 +7,6 @@ const apiClient = axios.create({
   timeout: 5000,
 });
 
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error("API Error:", error.response || error.message);
-    return Promise.reject(error);
-  }
-);
-
 const apiClientJwt = axios.create({
   headers: {
     "Content-Type": "application/json",
@@ -22,7 +14,7 @@ const apiClientJwt = axios.create({
   timeout: 5000,
 });
 
-apiClient.interceptors.request.use(
+apiClientJwt.interceptors.request.use(
   async (config) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -40,13 +32,14 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar errores de respuesta
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error("API Error:", error.response || error.message);
-    return Promise.reject(error);
-  }
-);
+const responseInterceptor = (response: any) => response;
 
-export default apiClient;
+const errorInterceptor = (error: any) => {
+  console.error("API Error:", error.response || error.message);
+  return Promise.reject(error);
+};
+
+apiClient.interceptors.response.use(responseInterceptor, errorInterceptor);
+apiClientJwt.interceptors.response.use(responseInterceptor, errorInterceptor);
+
+export { apiClient, apiClientJwt };

@@ -1,11 +1,11 @@
 "use server";
 
-import apiClient from "@/libs/api/client";
+import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
 
 export async function fetchUserResume(): Promise<any> {
   try {
-    const response = await apiClient.get(`${API_BASE_URLS.resumes}/resumes/get`, {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.resumes}/resumes/get`, {
       headers: {
         Accept: "application/json",
       },

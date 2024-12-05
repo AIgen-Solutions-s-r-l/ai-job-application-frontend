@@ -1,6 +1,6 @@
 "use server";
 
-import apiClient from "@/libs/api/client";
+import { apiClient } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
 
 export async function login(username: string, password: string) {
@@ -43,7 +43,7 @@ export async function register(username: string, email: string, password: string
   }
 
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/register`, { // Usar la URL desde config
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/register`, { 
       username,
       email,
       password,
@@ -53,7 +53,7 @@ export async function register(username: string, email: string, password: string
       throw new Error("No data received from API.");
     }
 
-    return response.data; // Devuelve los datos de la API
+    return response.data;
   } catch (error: any) {
     const status = error.response?.status;
 

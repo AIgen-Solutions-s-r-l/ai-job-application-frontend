@@ -1,9 +1,9 @@
-import { getCVAction, getUserJobProfiles } from "@/libs/data";
+import { getCVAction, getUserProfileAction } from "@/libs/data";
 import TableProfiles from "./table";
 
 export default async function JobProfiles() {
   // Obtener los perfiles de trabajo con los detalles
-  const profilesWithDetails = await getUserJobProfiles();
+  const profilesWithDetails = await getUserProfileAction();
 
   const cvFile = await getCVAction();
 

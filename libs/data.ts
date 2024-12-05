@@ -1,5 +1,6 @@
 import { createClient } from "@/libs/supabase/server";
 import { CVType, JobProfile } from "./definitions";
+import { fetchUserResume } from "@/libs/api/resume";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -22,74 +23,13 @@ export async function getCVAction(): Promise<CVType> {
   }
 }
 
-export async function getUserJobProfiles(): Promise<JobProfile[]> {
-  const supabase = createClient();
+export async function getUserProfileAction(): Promise<JobProfile[]> {
   try {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    const { data: profiles } = await supabase
-      .from("personal_information")
-      .select(
-        `*,
-        education_details(*),
-        experience_details(*),
-        projects(*),
-        achievements(*),
-        certifications(*),
-        languages(*),
-        interests(*),
-        availability(*),
-        salary_expectations(*),
-        self_identification(*),
-        legal_authorization(*),
-        work_preferences(*)
-        `
-      )
-      .eq("profile_id", user.id);
-
-    const profilesWithDetails = await Promise.all(
-      profiles.map(async (profile) => {
-        const {
-          education_details,
-          experience_details,
-          projects,
-          achievements,
-          certifications,
-          languages,
-          interests,
-          availability,
-          salary_expectations,
-          self_identification,
-          legal_authorization,
-          work_preferences,
-          ...rest
-        } = profile;
-
-        return {
-          personalInfo: rest,
-          educationDetails: education_details || [],
-          experienceDetails: experience_details || [],
-          additionalInfo: {
-            projects: projects || [],
-            achievements: achievements || [],
-            certifications: certifications || [],
-            languages: languages || [],
-            interests: interests || [],
-            availability: availability?.[0].notice_period || {},
-            salaryExpectations: salary_expectations?.[0].salary_range_usd || {},
-            selfIdentification: self_identification?.[0] || {},
-            legalAuthorization: legal_authorization?.[0] || {},
-            workPreferences: work_preferences?.[0] || {},
-          },
-        };
-      })
-    );
-
-    return profilesWithDetails as JobProfile[];
+    const userResume = await fetchUserResume();
+    const profiles: JobProfile[] = userResume || [];
+    return profiles;
   } catch (error) {
-    console.error("Error in getUserJobProfiles:", error);
+    console.error("Error fetching user profiles from API:", error);
     return [];
   }
 }

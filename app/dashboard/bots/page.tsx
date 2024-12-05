@@ -1,4 +1,4 @@
-import { getUserBots, getUserJobProfiles, getUserJobRoles } from "@/libs/data";
+import { getUserBots, getUserProfileAction, getUserJobRoles } from "@/libs/data";
 import BotStatistics from "@/components/bots/statistics";
 import BotTable from "@/components/bots/table"; // Componente que muestra los bots
 import { getPlans } from "@/libs/pricing/data";
@@ -8,7 +8,7 @@ export default async function BotsPage() {
   const bots = await getUserBots();
 
   // Fetch de job profiles y job roles
-  const jobProfiles = await getUserJobProfiles(); // Función para obtener job profiles
+  const jobProfiles = await getUserProfileAction(); // Función para obtener job profiles
   const jobRoles = await getUserJobRoles(); // Función para obtener job roles
   const userPlans = await getPlans();
 

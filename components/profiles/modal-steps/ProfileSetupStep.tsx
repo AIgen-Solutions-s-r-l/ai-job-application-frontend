@@ -60,7 +60,6 @@ const ProfileSetupStep = () => {
               <input
                 type="file"
                 accept=".pdf"
-                {...register('cv', { required: 'Resume is required' })}
                 onChange={handleFileChange}
                 className="hidden"
               />

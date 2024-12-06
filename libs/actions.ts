@@ -82,9 +82,9 @@ export const createJobProfile = async (profileData: FormData, accessToken: strin
       return { success: false, error: "Not logged in" };
     }
 
-    const entires: JobProfile = formDataToObject(profileData);
+    const entries: JobProfile = formDataToObject(profileData);
 
-    const response = await createResume(entires, accessToken);
+    const response = await createResume(entries, accessToken);
 
     if (!response.success) {
       return {

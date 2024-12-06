@@ -32,6 +32,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# prettierignore
+.prettierignore
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

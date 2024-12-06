@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+package-lock.json
 
 # testing
 /coverage
@@ -27,8 +28,6 @@ yarn-error.log*
 # local env files
 .env*.local
 
-.github*
-
 # vercel
 .vercel
 
@@ -40,22 +39,3 @@ next-env.d.ts
 public/robots.txt
 public/sitemap.xml
 public/sitemap-0.xml
-
-# Ignorar la carpeta "blog" completa dentro de "app"
-app/blog/
-
-# # Ignorar carpetas específicas dentro de "app/dashboard"
-# app/dashboard/bots/
-# app/dashboard/jobs/
-# app/dashboard/profiles/
-# app/dashboard/roles/
-# app/dashboard/subscription/
-
-# # Ignorar carpetas específicas dentro de "components"
-# components/bots/
-# components/datatable/
-# components/jobs/
-# components/profiles/
-# components/roles/
-# components/stats/
-# components/ui/

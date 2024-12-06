@@ -17,7 +17,7 @@ const apiClientJwt = axios.create({
 apiClientJwt.interceptors.request.use(
   async (config) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = 'neddtobechange'
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }

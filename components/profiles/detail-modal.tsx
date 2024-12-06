@@ -24,14 +24,11 @@ const defaultJobProfile: JobProfile = {
     date_of_birth: Date.now().toString(),
     country: "",
     city: "",
-    zip_code: "",
     address: "",
     phone_prefix: "",
     phone: "",
     email: "",
     github: "",
-    linkedin: "",
-    profile_alias: ""
   },
   educationDetails: [
     {
@@ -71,6 +68,7 @@ const defaultJobProfile: JobProfile = {
     certifications: [
       {
         name: "",
+        description: "",
       }
     ],
     languages: [
@@ -80,8 +78,12 @@ const defaultJobProfile: JobProfile = {
       }
     ],
     interests: [],
-    availability: "",
-    salaryExpectations: "",
+    availability: {
+      notice_period: "",
+    },
+    salaryExpectations: {
+      salary_range_usd: "",
+    },
     selfIdentification: {
       gender: "",
       veteran: false,

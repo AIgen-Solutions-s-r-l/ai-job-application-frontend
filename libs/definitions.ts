@@ -25,19 +25,18 @@ export interface CVType {
 
 export interface PersonalInformation {
   id?: string;
-  profile_alias: string,
   name: string;
   surname: string;
   date_of_birth: string;
   country: string;
   city: string;
-  zip_code: string;
+  zip_code?: string;
   address: string;
   phone_prefix: string;
   phone: string;
   email: string;
   github: string;
-  linkedin: string;
+  linkedin?: string;
 }
 
 export interface EducationDetails {
@@ -67,11 +66,21 @@ export interface AdditionalInfo {
   certifications: Certification[];
   languages: Language[];
   interests: string[];
-  availability: string;
-  salaryExpectations: string;
+  availability: Availability;
+  salaryExpectations: SalaryExpectations;
   selfIdentification: SelfIdentification;
   legalAuthorization: LegalAuthorization;
   workPreferences: WorkPreferences;
+}
+
+export interface Availability {
+  id?: string;
+  notice_period: string;
+}
+
+export interface SalaryExpectations {
+  id?: string;
+  salary_range_usd: string;
 }
 
 export interface ProjectDetails {
@@ -90,6 +99,7 @@ export interface Achievement {
 export interface Certification {
   id?: string;
   name: string;
+  description: string;
 }
 
 export interface Language {

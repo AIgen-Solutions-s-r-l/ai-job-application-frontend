@@ -2,7 +2,7 @@
 
 import React, { createContext, FC, useState } from "react";
 import JobProfileDetail from "./detail-modal";
-import { upsertJobProfile, deleteJobProfile } from "@/libs/actions";
+import { deleteJobProfile, createJobProfile } from "@/libs/actions";
 import ConfirmModal from "../dialog/confirm"; // Importa el componente Confirm
 import { CVType, JobProfile } from "@/libs/definitions";
 import { serialize } from "object-to-formdata";
@@ -83,13 +83,12 @@ const TableProfiles: FC<TableProfilesProps> = ({
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
     try {
-      if (cvFile instanceof File) {
-        jobProfile.cv = cvFile;
-      }
-
-      const response = await upsertJobProfile(
-        serialize(jobProfile, { indices: true, dotsForObjectNotation: true })
+      const accessToken = localStorage.getItem('accessToken');
+      
+      const response = await createJobProfile(
+        serialize(jobProfile, { indices: true, dotsForObjectNotation: true }), accessToken
       );
+
       if (response.success) {
         console.log("Profile saved successfully");
         setIsModalOpen(false);

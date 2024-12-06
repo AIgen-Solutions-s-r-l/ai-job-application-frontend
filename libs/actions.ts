@@ -7,6 +7,7 @@ import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
+import { createResume } from "./api/resume";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -69,6 +70,36 @@ export async function deleteJobRole(jobId: string) {
   }
 
   revalidatePath("/dashboard");
+}
+
+//JOB PROFILE Arys (create_resume)
+export const createJobProfile = async (profileData: FormData, accessToken: string | null): Promise<{
+  success: boolean;
+  error?: string;
+}> => {
+  try {
+    if (!accessToken) {
+      return { success: false, error: "Not logged in" };
+    }
+
+    const entires: JobProfile = formDataToObject(profileData);
+
+    const response = await createResume(entires, accessToken);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+
+    revalidatePath("/dashboard");
+
+    return { success: true };
+  } catch (error) {    
+    console.error("Error saving job profile:", error);
+    return { success: false, error: error.message };
+  }
 }
 
 //JOB PROFILE
@@ -158,7 +189,6 @@ export const upsertJobProfile = async (
       const { error: personalInfoError } = await supabase
         .from("personal_information")
         .update({
-          profile_alias: personalInfo.profile_alias,
           name: personalInfo.name,
           surname: personalInfo.surname,
           date_of_birth: personalInfo.date_of_birth,
@@ -185,7 +215,6 @@ export const upsertJobProfile = async (
           .insert([
             {
               profile_id: user.id,
-              profile_alias: personalInfo.profile_alias,
               name: personalInfo.name,
               surname: personalInfo.surname,
               date_of_birth: personalInfo.date_of_birth,

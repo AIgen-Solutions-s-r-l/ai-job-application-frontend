@@ -47,20 +47,19 @@ const ProfileSetupStep = () => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`flex flex-col items-center justify-center flex-grow rounded-xl border-2 ${
-          isDragging ? 'border-dashed border-primary bg-primary/10' : 'border-dashed border-gray-300 bg-gray-50'
+          isDragging ? 'border-dashed border-primary bg-primary/10' : 'border-dashed border-gray-300 bg-base-200'
         } transition-all duration-200 p-6`}
       >
         {!cvFile ? (
           <>
-            <AiFillFilePdf className={`text-7xl ${isDragging ? 'text-primary' : 'text-base-400'} mb-4`} />
+            <AiFillFilePdf className={`text-7xl ${isDragging ? 'text-primary' : 'text-neutral'} mb-4`} />
             <p className="text-gray-600 text-base font-medium mb-2">Drag & drop your PDF resume here</p>
             <p className="text-sm text-gray-500 mb-4">or</p>
-            <label className="btn btn-primary">
+            <label className="btn btn-neutral">
               Browse Files
               <input
                 type="file"
                 accept=".pdf"
-                {...register('cv', { required: 'Resume is required' })}
                 onChange={handleFileChange}
                 className="hidden"
               />

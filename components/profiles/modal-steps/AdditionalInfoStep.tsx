@@ -192,7 +192,7 @@ const AdditionalInfoStep: FC = (): ReactElement => {
           Availability <span className="text-error ml-1">*</span>
         </label>
         <input
-          {...register(`additionalInfo.availability`, { required: 'Availability is required' })}
+          {...register(`additionalInfo.availability.notice_period`, { required: 'Availability is required' })}
           placeholder="e.g., 2 weeks"
           className={`input input-bordered w-full ${errors.additionalInfo?.availability ? 'input-error' : ''}`}
         />
@@ -205,7 +205,7 @@ const AdditionalInfoStep: FC = (): ReactElement => {
           Salary Expectations (USD) <span className="text-error ml-1">*</span>
         </label>
         <input
-          {...register(`additionalInfo.salaryExpectations`, { required: 'Salary expectations are required' })}
+          {...register(`additionalInfo.salaryExpectations.salary_range_usd`, { required: 'Salary expectations are required' })}
           placeholder="e.g., 50000 - 60000"
           className={`input input-bordered w-full ${errors.additionalInfo?.salaryExpectations ? 'input-error' : ''}`}
         />

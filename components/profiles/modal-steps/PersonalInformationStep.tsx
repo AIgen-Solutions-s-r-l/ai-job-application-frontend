@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from "react";
-import { JobProfile, PersonalInformation } from "@/libs/definitions";  // Importa la definición del tipo
+import { JobProfile } from "@/libs/definitions";  // Importa la definición del tipo
 import { useFormContext } from "react-hook-form";
 
 type FormData = Pick<JobProfile, "personalInfo">
@@ -119,7 +119,9 @@ const PersonalInformationStep: FC = (): ReactElement => {
         <div>
           <label className="label">LinkedIn</label>
           <input
-            {...register('personalInfo.linkedin')}
+            {...register('personalInfo.linkedin', {
+              setValueAs: (value) => value || undefined,
+            })}
             type="url"
             placeholder="e.g., https://linkedin.com/in/johndoe"
             className="input input-bordered w-full"

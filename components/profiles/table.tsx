@@ -2,7 +2,7 @@
 
 import React, { createContext, FC, useState } from "react";
 import JobProfileDetail from "./detail-modal";
-import { upsertJobProfile, deleteJobProfile } from "@/libs/actions";
+import { deleteJobProfile, createJobProfile } from "@/libs/actions";
 import ConfirmModal from "../dialog/confirm"; // Importa el componente Confirm
 import { CVType, JobProfile } from "@/libs/definitions";
 import { serialize } from "object-to-formdata";
@@ -28,7 +28,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { DataTablePagination } from "../datatable/data-table-pagination";
-import { Eye, Plus, Trash } from "lucide-react";
+import { Eye, Plus, Trash } from "lucide-react"
 
 interface TableProfilesProps {
   cv: CVType;
@@ -82,14 +82,11 @@ const TableProfiles: FC<TableProfilesProps> = ({
   };
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
-    try {
-      if (cvFile instanceof File) {
-        jobProfile.cv = cvFile;
-      }
-
-      const response = await upsertJobProfile(
+    try {      
+      const response = await createJobProfile(
         serialize(jobProfile, { indices: true, dotsForObjectNotation: true })
       );
+
       if (response.success) {
         console.log("Profile saved successfully");
         setIsModalOpen(false);
@@ -290,7 +287,7 @@ const TableProfiles: FC<TableProfilesProps> = ({
         open={!!profileToDelete}
         onCancel={() => setProfileToDelete(null)}
         onConfirm={handleConfirmDelete}
-        title={`Are you sure you want to delete the profile "${profileToDelete?.personalInfo.profile_alias}"?`}
+        title={`Are you sure you want to delete the profile?`}
         confirmText="Yes, delete"
         cancelText="Cancel"
       />

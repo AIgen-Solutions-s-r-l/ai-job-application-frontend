@@ -73,18 +73,14 @@ export async function deleteJobRole(jobId: string) {
 }
 
 //JOB PROFILE Arys (create_resume)
-export const createJobProfile = async (profileData: FormData, accessToken: string | null): Promise<{
+export const createJobProfile = async (profileData: FormData): Promise<{
   success: boolean;
   error?: string;
 }> => {
   try {
-    if (!accessToken) {
-      return { success: false, error: "Not logged in" };
-    }
-
     const entries: JobProfile = formDataToObject(profileData);
 
-    const response = await createResume(entries, accessToken);
+    const response = await createResume(entries);
 
     if (!response.success) {
       return {

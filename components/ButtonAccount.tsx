@@ -21,6 +21,7 @@ import {
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { deleteServerCookie } from "@/libs/cookies";
 
 const ButtonAccount = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,8 +33,8 @@ const ButtonAccount = () => {
     setUsername(storedUsername);
   }, []);
 
-  const handleSignOut = () => {
-    localStorage.removeItem("accessToken");
+  const handleSignOut = async () => {
+    await deleteServerCookie("accessToken");
     localStorage.removeItem("username"); // Eliminar también el username al cerrar sesión
     window.location.href = "/";
   };

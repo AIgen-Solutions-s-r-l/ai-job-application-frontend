@@ -16,14 +16,16 @@ const apiClientJwt = axios.create({
 
 apiClientJwt.interceptors.request.use(
   async (config) => {
-    try {
-      const accessToken = 'neddtobechange'
+    if (typeof window === 'undefined') { // Check if running on the server
+      const cookies = require('next/headers').cookies; // Import only on server
+      const cookieStore = cookies();
+      const accessToken = cookieStore.get('accessToken')?.value;
+
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
-    } catch (error) {
-      console.error("Error reading access token from localStorage:", error);
     }
+
     return config;
   },
   (error) => {

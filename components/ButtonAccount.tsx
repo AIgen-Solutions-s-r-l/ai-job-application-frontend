@@ -35,7 +35,6 @@ const ButtonAccount = () => {
 
   const handleSignOut = async () => {
     await deleteServerCookie("accessToken");
-    localStorage.removeItem("authorized");
     localStorage.removeItem("username"); // Eliminar también el username al cerrar sesión
     window.location.href = "/";
   };

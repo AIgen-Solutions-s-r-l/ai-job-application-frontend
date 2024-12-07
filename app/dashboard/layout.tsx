@@ -2,25 +2,32 @@
 
 import SideNav from "@/components/sidenav";
 import Navbar from "@/components/navbar"; // Importar el componente de Navbar
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 import React from "react";
+import { getServerCookie } from "@/libs/cookies";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  useEffect(() => {
-    // Asegúrate de que esto solo se ejecute en el cliente
-    const accessToken = typeof window !== "undefined" ? localStorage.getItem("authorized") : null;
-
+  const checkAuthentication = useCallback(async () => {
+    const accessToken = await getServerCookie('accessToken');
     if (!accessToken) {
-      router.replace(config.auth.loginUrl); // Redirigir si no hay token
+      setIsAuthenticated(false);
+      console.log('No token');
+      router.replace(config.auth.loginUrl);
     } else {
-      setIsAuthenticated(true); // Si hay token, marca como autenticado
+      setIsAuthenticated(true);
+      console.log('yes');
+
     }
   }, [router]);
+
+  useEffect(() => {
+    checkAuthentication();
+  }, [checkAuthentication]);
 
   if (!isAuthenticated) {
     // Evita renderizar el contenido hasta que se verifique la autenticación

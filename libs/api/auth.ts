@@ -2,6 +2,7 @@
 
 import { apiClient } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
+import { setServerCookie } from "../cookies";
 
 export async function login(username: string, password: string) {
   if (!username || !password) {
@@ -17,6 +18,13 @@ export async function login(username: string, password: string) {
     if (!response || !response.data) {
       throw new Error("No data received from API.");
     }
+
+    setServerCookie("accessToken", response.data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: 'lax', 
+      maxAge: 900, 
+    });
 
     return response.data;
   } catch (error: any) {

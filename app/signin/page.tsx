@@ -23,7 +23,7 @@ export default function Login() {
       const response = await login(username, password);
 
       if (response?.access_token) {
-        localStorage.setItem("accessToken", response.access_token);
+        localStorage.setItem("authorized", "true");
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
         router.replace("/dashboard");

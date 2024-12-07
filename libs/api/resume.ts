@@ -3,7 +3,6 @@
 import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
 
-import axios from 'axios';
 import { JobProfile } from '../definitions';
 
 export async function fetchUserResume(): Promise<any> {
@@ -21,12 +20,8 @@ export async function fetchUserResume(): Promise<any> {
   }
 }
 
-export async function createResume(entries: JobProfile, accessToken: string | null): Promise<{ success: boolean; error?: string }> {
+export async function createResume(entries: JobProfile): Promise<{ success: boolean; error?: string }> {
   try {
-    if (!accessToken) {
-      return { success: false, error: 'Access token not found.' }; 
-    }
-
 		const transformedData = {
 			"personal_information": entries.personalInfo,
 			"education_details": entries.educationDetails,
@@ -34,11 +29,9 @@ export async function createResume(entries: JobProfile, accessToken: string | nu
 			...entries.additionalInfo,
 		};
 
-    const response = await axios.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, transformedData, {
+    const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, transformedData, {
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`,
       },
     })
 

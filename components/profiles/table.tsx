@@ -28,7 +28,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { DataTablePagination } from "../datatable/data-table-pagination";
-import { Eye, Plus, Trash } from "lucide-react";
+import { Eye, Plus, Trash } from "lucide-react"
 
 interface TableProfilesProps {
   cv: CVType;
@@ -82,11 +82,9 @@ const TableProfiles: FC<TableProfilesProps> = ({
   };
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
-    try {
-      const accessToken = localStorage.getItem('accessToken');
-      
+    try {      
       const response = await createJobProfile(
-        serialize(jobProfile, { indices: true, dotsForObjectNotation: true }), accessToken
+        serialize(jobProfile, { indices: true, dotsForObjectNotation: true })
       );
 
       if (response.success) {
@@ -289,7 +287,7 @@ const TableProfiles: FC<TableProfilesProps> = ({
         open={!!profileToDelete}
         onCancel={() => setProfileToDelete(null)}
         onConfirm={handleConfirmDelete}
-        title={`Are you sure you want to delete the profile "${profileToDelete?.personalInfo.profile_alias}"?`}
+        title={`Are you sure you want to delete the profile?`}
         confirmText="Yes, delete"
         cancelText="Cancel"
       />

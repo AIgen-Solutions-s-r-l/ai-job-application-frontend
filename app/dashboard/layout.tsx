@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Asegúrate de que esto solo se ejecute en el cliente
-    const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+    const accessToken = typeof window !== "undefined" ? localStorage.getItem("authorized") : null;
 
     if (!accessToken) {
       router.replace(config.auth.loginUrl); // Redirigir si no hay token

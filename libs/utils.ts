@@ -1,5 +1,6 @@
 import path from "path";
 import { z } from "zod";
+import { JobProfile, SelfIdentification } from "./definitions";
 
 const MAX_RESUME_FILE_SIZE = 5000000;   // 5MB
 function checkFileType(file: File) {
@@ -62,4 +63,27 @@ export function formDataToObject<T>(formData: FormData): T {
   });
 
   return result as T;
+}
+
+export function cVDataToJobProfile(data: any): JobProfile {
+  const jobProfile: JobProfile = {
+    personalInfo: data.personal_information,
+    // cv?: File,
+    educationDetails: data.education_details,
+    experienceDetails: data.experience_details,
+    additionalInfo: {
+      projects: data.projects,
+      achievements: data.achievements,
+      certifications: data.certifications,
+      languages: data.languages,
+      interests: data.interests,
+      availability: data.availability?.notice_period,
+      salaryExpectations:  data.salary_expectations?.salary_range_usd, //?,
+      selfIdentification: {} as SelfIdentification,
+      legalAuthorization: data.legal_authorization,
+      workPreferences: data.work_preferences
+    }
+  }
+
+  return jobProfile;
 }

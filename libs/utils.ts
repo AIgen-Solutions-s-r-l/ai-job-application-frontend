@@ -1,6 +1,5 @@
 import path from "path";
 import { z } from "zod";
-import { JobProfile, SelfIdentification } from "./definitions";
 
 const MAX_RESUME_FILE_SIZE = 5000000;   // 5MB
 function checkFileType(file: File) {

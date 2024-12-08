@@ -10,8 +10,7 @@ import ExperienceDetailsStep from "./modal-steps/ExperienceDetailsStep";
 import AdditionalInfoStep from "./modal-steps/AdditionalInfoStep";
 import ProfileSetupStep from "./modal-steps/ProfileSetupStep";
 import { CVFileContext } from "./table";
-import { cVDataToJobProfile  } from "@/libs/utils";
-import { apiClientJwt } from "@/libs/api/client";
+import { pdfToJson } from "@/libs/api/resume";
 
 interface ModalProps {
   isModalOpen: boolean;
@@ -154,19 +153,12 @@ const JobProfileDetail = ({ isModalOpen, setIsModalOpen, existingProfile, onSubm
 
       try {
         const formData = new FormData();
-        formData.append('file', cvFile);
-        const {
-          data: { data },
-        } = await apiClientJwt.post('/api/upload/resume', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          timeout: 20000,
-        });
+        formData.append('pdf_file', cvFile);
+
+        const { data } = await pdfToJson(formData)
 
         setCVData(data);
-        const newProfile = cVDataToJobProfile(data);
-        methods.reset(newProfile || defaultJobProfile);
+        methods.reset(data || defaultJobProfile);
       } catch (e) {
         console.error(e);
       }

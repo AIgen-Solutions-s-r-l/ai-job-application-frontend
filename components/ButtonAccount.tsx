@@ -73,7 +73,7 @@ const ButtonAccount = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="w-56 bg-white dark:bg-black"
+          className="w-56 bg-base-100"
           align="end"
         >
           <Link href="/dashboard/settings" passHref>

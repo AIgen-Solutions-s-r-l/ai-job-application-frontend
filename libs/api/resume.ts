@@ -2,8 +2,7 @@
 
 import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
-
-import { JobProfile } from '../definitions';
+import { JobProfile, SelfIdentification } from '../definitions';
 
 export async function fetchUserResume(): Promise<any> {
   try {
@@ -50,5 +49,39 @@ export async function createResume(entries: JobProfile): Promise<{ success: bool
   } catch (error) {
     console.error(`Error creating job profile: ${entries}`, error);
     return { success: false, error: error.message };
+  }
+}
+
+export async function pdfToJson(formData: FormData): Promise<{ data: JobProfile; error?: string }> {
+  try {
+    const { data }: { data: any } = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/pdf_to_json`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      timeout: 20000,
+    })
+
+    const jobProfile: JobProfile = {
+      personalInfo: data.personal_information,
+      educationDetails: data.education_details,
+      experienceDetails: data.experience_details,
+      additionalInfo: {
+        projects: data.projects,
+        achievements: data.achievements,
+        certifications: data.certifications,
+        languages: data.languages,
+        interests: data.interests,
+        availability: data.availability?.notice_period,
+        salaryExpectations: data.salary_expectations?.salary_range_usd, //?,
+        selfIdentification: {} as SelfIdentification,
+        legalAuthorization: data.legal_authorization,
+        workPreferences: data.work_preferences
+      }
+    }
+
+    return { data: jobProfile };
+  } catch (error) {
+    console.error('Error parsing PDF', error);
+    return { data: null, error: error.message };
   }
 }

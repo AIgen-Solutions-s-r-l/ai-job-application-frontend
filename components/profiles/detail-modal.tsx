@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useCallback, FormEvent } from "react";
+import React, { useState, useEffect, useCallback, FormEvent, useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { JobProfile } from "@/libs/definitions";
 import { FaSpinner } from 'react-icons/fa';
@@ -9,6 +9,8 @@ import EducationDetailsStep from "./modal-steps/EducationDetailsStep";
 import ExperienceDetailsStep from "./modal-steps/ExperienceDetailsStep";
 import AdditionalInfoStep from "./modal-steps/AdditionalInfoStep";
 import ProfileSetupStep from "./modal-steps/ProfileSetupStep";
+import { CVFileContext } from "./table";
+import { pdfToJson } from "@/libs/api/resume";
 
 interface ModalProps {
   isModalOpen: boolean;
@@ -123,6 +125,8 @@ const defaultJobProfile: JobProfile = {
 const JobProfileDetail = ({ isModalOpen, setIsModalOpen, existingProfile, onSubmit }: ModalProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const methods = useForm({ mode: "all" });
+  const [isLoading, setIsLoading] = useState(false);
+  const { cvFile, setCVData } = useContext(CVFileContext);
 
   useEffect(() => {
     methods.reset(existingProfile || defaultJobProfile)
@@ -143,6 +147,24 @@ const JobProfileDetail = ({ isModalOpen, setIsModalOpen, existingProfile, onSubm
 
   const nextStep = async (ev: FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();
+
+    if (currentStep === 1 && cvFile instanceof File) {
+      setIsLoading(true);
+
+      try {
+        const formData = new FormData();
+        formData.append('pdf_file', cvFile);
+
+        const { data } = await pdfToJson(formData)
+
+        setCVData(data);
+        methods.reset(data || defaultJobProfile);
+      } catch (e) {
+        console.error(e);
+      }
+
+      setIsLoading(false);
+    }
 
     if (await validateStep())
       setCurrentStep((prev) => prev + 1)
@@ -196,7 +218,13 @@ const JobProfileDetail = ({ isModalOpen, setIsModalOpen, existingProfile, onSubm
                 Previous
               </button>
               {currentStep < 5 ? (
-                <button className="btn btn-primary" type="button" onClick={nextStep}>
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={nextStep}
+                  disabled={isLoading}
+                >
+                  {isLoading && <FaSpinner className="animate-spin" />}
                   Next
                 </button>
               ) : (

@@ -35,18 +35,15 @@ export default function Signup() {
 
     try {
       // Llama a la API para registrar al usuario
-      await register(username, email, password);
+      const response = await register(username, email, password);
+      
+      if (response?.access_token) {
+        throw new Error('Access token not received.');
+      }
 
-      toast.success("Account created successfully! You can now log in.");
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-
-      // Redirige automáticamente a la página de inicio de sesión
-      setTimeout(() => {
-        router.push("/signin");
-      }, 2000); // Espera 2 segundos antes de redirigir
+      localStorage.setItem('username', username);
+      toast.success('Logged in successfully!');
+      router.replace('/dashboard');
     } catch (error: any) {
       console.error(error);
       toast.error(error.message || "Failed to create account.");
@@ -87,7 +84,7 @@ export default function Signup() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              // required
               className="input input-bordered w-full"
               placeholder="Enter your email"
             />

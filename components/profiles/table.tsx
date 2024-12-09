@@ -49,6 +49,7 @@ const TableProfiles: FC<TableProfilesProps> = ({
     null
   );
   const [cvFile, setCVFile] = useState(cv);
+  const [, setCVData] = useState({});
 
   const handleAddProfile = () => {
     setCurrentProfile(null);
@@ -274,7 +275,7 @@ const TableProfiles: FC<TableProfilesProps> = ({
         </div>
       </div>
 
-      <CVFileContext.Provider value={{ cvFile, setCVFile }}>
+      <CVFileContext.Provider value={{ cvFile, setCVFile, setCVData }}>
         <JobProfileDetail
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}

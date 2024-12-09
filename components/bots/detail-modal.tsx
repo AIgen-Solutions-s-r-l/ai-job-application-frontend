@@ -107,7 +107,7 @@ export default function AddBotModal({ isOpen, setIsOpen, onSubmit, jobProfiles, 
             <option disabled value="">Select a job profile</option>
             {jobProfiles.map(profile => (
               <option key={profile.personalInfo.id} value={profile.personalInfo.id}>
-                {profile.personalInfo.profile_alias}
+                {profile.personalInfo.name}
               </option>
             ))}
           </select>

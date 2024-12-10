@@ -22,9 +22,7 @@ export const JobTable: React.FC<Props> = ({ jobs }) => {
 
   return (
     <div className="w-full min-h-full rounded-lg shadow bg-base-100 px-6">
-      <JobSearchBar
-        onSearch={handleSearch}
-      />
+      <JobSearchBar onSearch={handleSearch} />
       <JobFeedList jobs={jobs} />
     </div>
   );

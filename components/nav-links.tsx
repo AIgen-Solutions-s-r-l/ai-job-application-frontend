@@ -6,6 +6,7 @@ import {
   BriefcaseIcon,
   CheckCircleIcon,
   CreditCardIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,6 +15,7 @@ import React from 'react';
 // Mapa de enlaces con los íconos solicitados
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
+  { name: 'Job Search', href: '/dashboard/job-search', icon: MagnifyingGlassIcon },
   { name: 'Job Profiles', href: '/dashboard/profiles', icon: UserGroupIcon },
   { name: 'Job Roles', href: '/dashboard/roles', icon: BriefcaseIcon },
   { name: 'Jobs Applied', href: '/dashboard/jobs', icon: CheckCircleIcon },

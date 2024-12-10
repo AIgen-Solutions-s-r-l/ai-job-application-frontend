@@ -1,6 +1,7 @@
 import { createClient } from "@/libs/supabase/server";
-import { CVType, JobProfile } from "./definitions";
+import { CVType, JobProfile, MatchingJob } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
+import { fetchMatchingJobs } from "./api/matching";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();

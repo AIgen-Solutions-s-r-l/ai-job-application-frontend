@@ -2,12 +2,13 @@
 
 import { createClient } from "@/libs/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Bot, JobProfile, UploadFile } from "./definitions";
+import { Bot, JobProfile, JobSearchParams, MatchingJob, UploadFile } from "./definitions";
 import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
 import { createResume } from "./api/resume";
+import { fetchMatchingJobs } from "./api/matching";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -70,6 +71,17 @@ export async function deleteJobRole(jobId: string) {
   }
 
   revalidatePath("/dashboard");
+}
+
+export async function getMatchingJobsAction(params?: JobSearchParams): Promise<MatchingJob[]> {
+  try {
+    const matchings = await fetchMatchingJobs(params);
+    const matchingJobs: MatchingJob[] = matchings || [];
+    return matchingJobs;
+  } catch (error) {
+    console.error("Error fetching matching jobs from API:", error);
+    return [];
+  }
 }
 
 //JOB PROFILE Arys (create_resume)

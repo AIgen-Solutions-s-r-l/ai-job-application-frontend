@@ -58,7 +58,6 @@ export async function pdfToJson(formData: FormData): Promise<{ data: JobProfile;
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      timeout: 20000,
     })
 
     const jobProfile: JobProfile = {

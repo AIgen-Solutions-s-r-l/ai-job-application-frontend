@@ -162,6 +162,25 @@ export interface UploadFile {
   class: string;
 }
 
+export interface MatchingJob {
+  id: number;
+  title: string;
+  is_remote?: string;
+  workplace_type?: string;
+  posted_date?: string;
+  job_state?: string;
+  description?: string;
+  apply_link?: string;
+  company?: string;
+  location?: string;
+  portal?: string;
+}
+
+export interface JobSearchParams {
+  q?: string;
+  l?: string;
+}
+
 export interface JobProfile {
   personalInfo: PersonalInformation;
   cv?: File;

@@ -21,6 +21,10 @@ progress::-webkit-progress-value {
     @apply !capitalize;
   }
 
+  .drawer-menu.collapsed a span {
+    display: none;
+  }
+
   /* :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;

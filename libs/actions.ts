@@ -7,8 +7,9 @@ import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
-import { createResume } from "./api/resume";
+import { createResume, updateResume } from "./api/resume";
 import { fetchMatchingJobs } from "./api/matching";
+import { fromJobProfile } from "./job-profile-util";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -84,13 +85,12 @@ export async function getMatchingJobsAction(params?: JobSearchParams): Promise<M
   }
 }
 
-//JOB PROFILE Arys (create_resume)
-export const createJobProfile = async (profileData: FormData): Promise<{
+export const createJobProfile = async (profileData: JobProfile): Promise<{
   success: boolean;
   error?: string;
 }> => {
   try {
-    const entries: JobProfile = formDataToObject(profileData);
+    const entries: any = fromJobProfile(profileData);
 
     const response = await createResume(entries);
 
@@ -106,6 +106,31 @@ export const createJobProfile = async (profileData: FormData): Promise<{
     return { success: true };
   } catch (error) {    
     console.error("Error saving job profile:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const updateJobProfile = async (profileData: JobProfile): Promise<{
+  success: boolean;
+  error?: string;
+}> => {
+  try {
+    const entries: any = fromJobProfile(profileData);
+
+    const response = await updateResume(entries);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+
+    revalidatePath("/dashboard/profiles");
+
+    return { success: true };
+  } catch (error) {    
+    console.error("Error updating job profile:", error);
     return { success: false, error: error.message };
   }
 }

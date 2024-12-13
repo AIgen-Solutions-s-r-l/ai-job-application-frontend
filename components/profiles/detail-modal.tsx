@@ -30,7 +30,6 @@ const defaultJobProfile: JobProfile = {
     phone_prefix: "",
     phone: "",
     email: "",
-    github: "",
   },
   educationDetails: [
     {
@@ -83,17 +82,17 @@ const defaultJobProfile: JobProfile = {
     availability: {
       notice_period: "",
     },
-    salaryExpectations: {
+    salary_expectations: {
       salary_range_usd: "",
     },
-    selfIdentification: {
+    self_identification: {
       gender: "",
       veteran: false,
       pronouns: "",
       ethnicity: "",
       disability: false,
     },
-    legalAuthorization: {
+    legal_authorization: {
       requires_eu_visa: false,
       requires_uk_visa: false,
       requires_us_visa: false,
@@ -111,7 +110,7 @@ const defaultJobProfile: JobProfile = {
       legally_allowed_to_work_in_us: false,
       legally_allowed_to_work_in_canada: false
     },
-    workPreferences: {
+    work_preferences: {
       remote_work: false,
       in_person_work: false,
       open_to_relocation: false,

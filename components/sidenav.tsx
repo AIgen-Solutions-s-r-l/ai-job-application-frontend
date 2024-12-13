@@ -5,12 +5,19 @@ import Link from 'next/link';
 import NavLinks from './nav-links';
 import Image from 'next/image';
 import logo from "@/app/icon.png";
+import { SquareChevronRight, SquareChevronLeft } from "lucide-react";
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isCollapse, setIsCollapse] = useState(localStorage.getItem("collapsed-menu") === 'true');
+  
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapse(!isCollapse);
+    localStorage.setItem("collapsed-menu", isCollapse ? 'false' : 'true');
   };
 
   return (
@@ -39,7 +46,13 @@ export default function SideNav() {
       )}
 
       {/* Drawer */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-base-100 border-r border-neutral-content z-40 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0`}>
+      <div
+        className={`drawer-menu absolute md:relative h-full flex flex-col bg-base-100 border-r border-neutral-content z-40 transform ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          } transition-transform duration-300 ease-in-out md:translate-x-0 ${
+            isCollapse ? 'collapsed' : ' w-64'
+          }`}
+      >
         {/* Contenedor para el logo */}
         <Link
           className="mb-2 flex h-20 items-center justify-start rounded-md p-4 text-white"
@@ -57,8 +70,12 @@ export default function SideNav() {
           </div>
         </Link>
 
+        <button className='absolute right-0 top-4 rounded-full' onClick={toggleCollapse}>
+          {isCollapse ? <SquareChevronRight /> : <SquareChevronLeft />}
+        </button>
+
         {/* Nav Links organizados verticalmente */}
-        <div className="flex grow flex-col justify-between space-y-2">
+        <div className={`flex grow flex-col space-y-2`}>
           <NavLinks />
           <div className="hidden h-auto w-full grow rounded-md md:block"></div>
         </div>

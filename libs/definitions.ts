@@ -35,7 +35,7 @@ export interface PersonalInformation {
   phone_prefix: string;
   phone: string;
   email: string;
-  github: string;
+  github?: string;
   linkedin?: string;
 }
 
@@ -61,16 +61,16 @@ export interface ExperienceDetails {
 }
 
 export interface AdditionalInfo {
-  projects: ProjectDetails[];
-  achievements: Achievement[];
-  certifications: Certification[];
-  languages: Language[];
-  interests: string[];
-  availability: Availability;
-  salaryExpectations: SalaryExpectations;
-  selfIdentification: SelfIdentification;
-  legalAuthorization: LegalAuthorization;
-  workPreferences: WorkPreferences;
+  projects:             ProjectDetails[];
+  achievements:         Achievement[];
+  certifications:       Certification[];
+  languages:            Language[];
+  interests:            string[];
+  self_identification:  SelfIdentification;
+  legal_authorization:  LegalAuthorization;
+  work_preferences:     WorkPreferences;
+  availability:         Availability;
+  salary_expectations:  SalaryExpectations;
 }
 
 export interface Availability {

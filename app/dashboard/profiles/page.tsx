@@ -1,11 +1,8 @@
-import { getCVAction, getUserProfileAction } from "@/libs/data";
-import TableProfiles from "@/components/profiles/table";
-import { CVType } from "@/libs/definitions";
+import { MyProfile } from "@/components/profiles/MyProfile";
+import { getUserProfile } from "@/libs/data";
 
 export default async function JobProfiles() {
-  const profilesWithDetails = await getUserProfileAction();
+  const profileWithDetails = await getUserProfile();
 
-  const cvFile: CVType = await getCVAction();
-
-  return <TableProfiles cv={cvFile} profiles={profilesWithDetails} />;
+  return <MyProfile profile={profileWithDetails} />;
 }

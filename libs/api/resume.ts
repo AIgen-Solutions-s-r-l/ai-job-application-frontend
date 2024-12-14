@@ -21,14 +21,7 @@ export async function fetchUserResume(): Promise<any> {
 
 export async function createResume(entries: JobProfile): Promise<{ success: boolean; error?: string }> {
   try {
-		const transformedData = {
-			"personal_information": entries.personalInfo,
-			"education_details": entries.educationDetails,
-			"experience_details": entries.experienceDetails,
-			...entries.additionalInfo,
-		};
-
-    const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, transformedData, {
+    const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, entries, {
       headers: {
         Accept: "application/json",
       },
@@ -48,6 +41,32 @@ export async function createResume(entries: JobProfile): Promise<{ success: bool
     return { success: true};
   } catch (error) {
     console.error(`Error creating job profile: ${entries}`, error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateResume(data: any): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.resumes}/resumes/update`, data, {
+      headers: {
+      Accept: "application/json",
+      }
+    })
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    if (!response.data) {
+      return { success: false, error: "Resume creation failed" };
+    }
+
+    return { success: true};
+  } catch (error) {
+    console.error(`Error updating job profile: ${data}`, error);
     return { success: false, error: error.message };
   }
 }

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from "react";
+import React, { FC, ReactElement } from "react";
 import { JobProfile } from "@/libs/definitions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
@@ -8,7 +8,7 @@ const EducationDetailsStep: FC = (): ReactElement => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: "educationDetails", rules: { required: 'At least one education is required' } });
 
-  const addEducation = useCallback(() =>
+  const addEducation = () =>
     append({
       education_level: "",
       institution: "",
@@ -16,7 +16,7 @@ const EducationDetailsStep: FC = (): ReactElement => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
-    }), [append])
+    });
 
   return (
     <div>
@@ -89,14 +89,19 @@ const EducationDetailsStep: FC = (): ReactElement => {
               )}
             </div>
 
-            {/* Start Date - Optional */}
+            {/* Start Date - Required */}
             <div>
-              <label className="label">Start Date</label>
+              <label className="label flex justify-start">
+                Start Date <span className="text-error ml-1">*</span>
+              </label>
               <input
-                {...register(`educationDetails.${index}.start_date`)}
+                {...register(`educationDetails.${index}.start_date`, { required: 'Year of completion is required' })}
                 placeholder="e.g., 2015"
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${errors.educationDetails?.[index]?.start_date ? 'input-error' : ''}`}
               />
+              {errors.educationDetails?.[index]?.start_date && (
+                <p className="text-error mt-1">{errors.educationDetails?.[index]?.start_date.message}</p>
+              )}
             </div>
 
             {/* Year of Completion - Required */}

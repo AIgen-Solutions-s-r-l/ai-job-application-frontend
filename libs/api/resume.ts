@@ -90,10 +90,10 @@ export async function pdfToJson(formData: FormData): Promise<{ data: JobProfile;
         languages: data.languages,
         interests: data.interests,
         availability: data.availability?.notice_period,
-        salaryExpectations: data.salary_expectations?.salary_range_usd, //?,
-        selfIdentification: {} as SelfIdentification,
-        legalAuthorization: data.legal_authorization,
-        workPreferences: data.work_preferences
+        salary_expectations: data.salary_expectations?.salary_range_usd, //?,
+        self_identification: {} as SelfIdentification,
+        legal_authorization: data.legal_authorization,
+        work_preferences: data.work_preferences
       }
     }
 

@@ -2,13 +2,12 @@
 
 import { createClient } from "@/libs/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Bot, JobProfile, JobSearchParams, MatchingJob, UploadFile } from "./definitions";
+import { Bot, JobProfile, UploadFile } from "./definitions";
 import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
 import { createResume, updateResume } from "./api/resume";
-import { fetchMatchingJobs } from "./api/matching";
 import { fromJobProfile } from "./job-profile-util";
 
 const supabase = createClient();
@@ -72,17 +71,6 @@ export async function deleteJobRole(jobId: string) {
   }
 
   revalidatePath("/dashboard");
-}
-
-export async function getMatchingJobsAction(params?: JobSearchParams): Promise<MatchingJob[]> {
-  try {
-    const matchings = await fetchMatchingJobs(params);
-    const matchingJobs: MatchingJob[] = matchings || [];
-    return matchingJobs;
-  } catch (error) {
-    console.error("Error fetching matching jobs from API:", error);
-    return [];
-  }
 }
 
 export const createJobProfile = async (profileData: JobProfile): Promise<{
@@ -490,7 +478,7 @@ export const upsertJobProfile = async (
       const { error: updateSalaryExpectationsError } = await supabase
         .from("salary_expectations")
         .update({
-          salary_range_usd: additionalInfo.salaryExpectations,
+          salary_range_usd: additionalInfo.salary_expectations,
         })
         .eq("personal_information_id", personalInformationId);
 
@@ -501,24 +489,24 @@ export const upsertJobProfile = async (
         .from("salary_expectations")
         .insert({
           personal_information_id: personalInformationId,
-          salary_range_usd: additionalInfo.salaryExpectations,
+          salary_range_usd: additionalInfo.salary_expectations,
         });
 
       if (insertSalaryExpectationsError) throw insertSalaryExpectationsError;
     }
 
     // 10. Actualizar o insertar auto-identificación (self_identification)
-    if (additionalInfo.selfIdentification.id) {
+    if (additionalInfo.self_identification.id) {
       const { error: selfIdentificationError } = await supabase
         .from("self_identification")
         .update({
-          gender: additionalInfo.selfIdentification.gender,
-          pronouns: additionalInfo.selfIdentification.pronouns,
-          veteran: additionalInfo.selfIdentification.veteran,
-          disability: additionalInfo.selfIdentification.disability,
-          ethnicity: additionalInfo.selfIdentification.ethnicity,
+          gender: additionalInfo.self_identification.gender,
+          pronouns: additionalInfo.self_identification.pronouns,
+          veteran: additionalInfo.self_identification.veteran,
+          disability: additionalInfo.self_identification.disability,
+          ethnicity: additionalInfo.self_identification.ethnicity,
         })
-        .eq("id", additionalInfo.selfIdentification.id);
+        .eq("id", additionalInfo.self_identification.id);
 
       if (selfIdentificationError) throw selfIdentificationError;
     } else {
@@ -527,11 +515,11 @@ export const upsertJobProfile = async (
         .insert([
           {
             personal_information_id: personalInformationId,
-            gender: additionalInfo.selfIdentification.gender,
-            pronouns: additionalInfo.selfIdentification.pronouns,
-            veteran: additionalInfo.selfIdentification.veteran,
-            disability: additionalInfo.selfIdentification.disability,
-            ethnicity: additionalInfo.selfIdentification.ethnicity,
+            gender: additionalInfo.self_identification.gender,
+            pronouns: additionalInfo.self_identification.pronouns,
+            veteran: additionalInfo.self_identification.veteran,
+            disability: additionalInfo.self_identification.disability,
+            ethnicity: additionalInfo.self_identification.ethnicity,
           },
         ]);
 
@@ -539,13 +527,13 @@ export const upsertJobProfile = async (
     }
 
     // 11. Actualizar o insertar autorización legal (legal_authorization)
-    if (additionalInfo.legalAuthorization.id) {
+    if (additionalInfo.legal_authorization.id) {
       const { error: legalAuthorizationError } = await supabase
         .from("legal_authorization")
         .update({
-          ...additionalInfo.legalAuthorization,
+          ...additionalInfo.legal_authorization,
         })
-        .eq("id", additionalInfo.legalAuthorization.id);
+        .eq("id", additionalInfo.legal_authorization.id);
 
       if (legalAuthorizationError) throw legalAuthorizationError;
     } else {
@@ -554,7 +542,7 @@ export const upsertJobProfile = async (
         .insert([
           {
             personal_information_id: personalInformationId,
-            ...additionalInfo.legalAuthorization,
+            ...additionalInfo.legal_authorization,
           },
         ]);
 
@@ -562,13 +550,13 @@ export const upsertJobProfile = async (
     }
 
     // 12. Actualizar o insertar preferencias laborales (work_preferences)
-    if (additionalInfo.workPreferences.id) {
+    if (additionalInfo.work_preferences.id) {
       const { error: workPreferencesError } = await supabase
         .from("work_preferences")
         .update({
-          ...additionalInfo.workPreferences,
+          ...additionalInfo.work_preferences,
         })
-        .eq("id", additionalInfo.workPreferences.id);
+        .eq("id", additionalInfo.work_preferences.id);
 
       if (workPreferencesError) throw workPreferencesError;
     } else {
@@ -577,7 +565,7 @@ export const upsertJobProfile = async (
         .insert([
           {
             personal_information_id: personalInformationId,
-            ...additionalInfo.workPreferences,
+            ...additionalInfo.work_preferences,
           },
         ]);
 

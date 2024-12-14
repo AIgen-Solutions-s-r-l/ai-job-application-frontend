@@ -21,8 +21,16 @@ progress::-webkit-progress-value {
     @apply !capitalize;
   }
 
-  .drawer-menu.collapsed a span {
-    display: none;
+  @media (width <= 767px) {
+    .drawer-menu {
+      width: 16rem;
+    }
+  }
+
+  @media (width > 767px) {
+    .drawer-menu.collapsed a > span {
+      display: none;
+    }
   }
 
   /* :root {

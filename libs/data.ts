@@ -1,7 +1,7 @@
 import { createClient } from "@/libs/supabase/server";
-import { CVType, JobProfile, MatchingJob } from "./definitions";
+import { CVType, JobProfile } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
-import { fetchMatchingJobs } from "./api/matching";
+import { toJobProfile } from "./job-profile-util";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -21,6 +21,19 @@ export async function getCVAction(): Promise<CVType> {
   } catch (error) {
     console.error("Error in getCVAction:", error);
     return {} as CVType;
+  }
+}
+
+export async function getUserProfile(): Promise<JobProfile> {
+  try {
+    const userResume = await fetchUserResume();
+
+    const profile: JobProfile = toJobProfile(userResume);
+
+    return profile;
+  } catch (error) {
+    console.error("Error fetching user profiles from API:", error);
+    return null;
   }
 }
 

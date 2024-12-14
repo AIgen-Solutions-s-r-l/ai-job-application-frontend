@@ -29,6 +29,7 @@ import {
 } from "../ui/table";
 import { DataTablePagination } from "../datatable/data-table-pagination";
 import { Eye, Plus, Trash } from "lucide-react"
+import toast from "react-hot-toast";
 
 interface TableProfilesProps {
   cv: CVType;
@@ -84,14 +85,13 @@ const TableProfiles: FC<TableProfilesProps> = ({
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
     try {      
-      const response = await createJobProfile(
-        serialize(jobProfile, { indices: true, dotsForObjectNotation: true })
-      );
+      const response = await createJobProfile(jobProfile);
 
       if (response.success) {
-        console.log("Profile saved successfully");
+        toast.success("Profile saved successfully!");
         setIsModalOpen(false);
       } else {
+        toast.error("Error saving profile.");
         console.error("Error saving profile:", response.error);
       }
     } catch (error) {

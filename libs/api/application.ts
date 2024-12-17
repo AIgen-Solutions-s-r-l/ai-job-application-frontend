@@ -22,7 +22,6 @@ export async function fetchAppliedJobs(): Promise<any> {
 export async function createJobApplication(jobs: MatchingJob[]): Promise<{ success: boolean; error?: string }> {
   try {
     const data = {
-      "is_batch": jobs.length > 1,
       "jobs": jobs,
     }
 

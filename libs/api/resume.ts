@@ -10,6 +10,7 @@ export async function fetchUserResume(): Promise<any> {
       headers: {
         Accept: "application/json",
       },
+      timeout: 30000,
     });
 
     return response.data;

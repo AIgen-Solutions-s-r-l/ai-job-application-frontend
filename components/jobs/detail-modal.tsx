@@ -1,17 +1,16 @@
-import { PaperClipIcon } from '@heroicons/react/20/solid';
-import { AutoJob } from '@/libs/definitions';
+import { AppliedJob } from '@/libs/definitions';
 
 interface DetailModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
-  job: AutoJob | null;
+  job: AppliedJob | null;
 }
 
 export default function DetailModal({ isModalOpen, setIsModalOpen, job }: DetailModalProps) {
   if (!job) return null;
 
   // Obtener el nombre del archivo del resumen a partir de la ruta
-  const resumeFileName = job.resume_path.split('/').pop();
+  // const resumeFileName = job.resume_path.split('/').pop();
 
   return (
     <>
@@ -34,29 +33,45 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
               {/* Company */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Company</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.company}</dd>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.company_id}</dd>
               </div>
               {/* Job Title */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Job Title</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.job_title}</dd>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.title}</dd>
               </div>
               {/* Job Location */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Location</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.job_location}</dd>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.location_id}</dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6">Workplace Type</dt>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.workplace_type}</dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6">Location</dt>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.location_id}</dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6">Posted Date</dt>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{new Date(job.posted_date).toLocaleDateString()}</dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6">Description</dt>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.description}</dd>
               </div>
               {/* Application Link */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Job Link</dt>
                 <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">
-                  <a href={job.link} target="_blank" className="link link-primary">
+                  <a href={job.apply_link} target="_blank" className="link link-primary">
                     View Job Posting
                   </a>
                 </dd>
               </div>
               {/* Job Recruiter */}
-              {job.job_recruiter && (
+              {/* {job.job_recruiter && (
                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                   <dt className="text-sm font-medium leading-6">Recruiter LinkedIn</dt>
                   <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">
@@ -65,9 +80,9 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
                     </a>
                   </dd>
                 </div>
-              )}
+              )} */}
               {/* Resume */}
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Resume</dt>
                 <dd className="mt-2 text-sm sm:col-span-2 sm:mt-0">
                   <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
@@ -90,9 +105,9 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
                     </li>
                   </ul>
                 </dd>
-              </div>
+              </div> */}
               {/* Apply Responses */}
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Additional Responses</dt>
                 <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">
                   <ul className="list-disc pl-5">
@@ -103,30 +118,23 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
                     ))}
                   </ul>
                 </dd>
-              </div>
+              </div> */}
               {/* Status */}
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Status</dt>
                 <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">
                   <span className={`inline-block rounded-badge px-3 py-1 text-xs font-medium ${job.status === 'Success' ? 'bg-success/5 text-success' : job.status === 'Skipped' ? 'bg-info/5 text-info' : 'bg-error/5 text-error'}`}>
                     {job.status}
                   </span>
                 </dd>
-              </div>
-              {/* Date Applied */}
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6">Date Applied</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">
-                  {new Date(job.created_at).toLocaleDateString()}
-                </dd>
-              </div>
+              </div> */}
               {/* Job Role */}
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Job Role</dt>
                 <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">
                   {job?.bots?.job_roles.job_title}
                 </dd>
-              </div>
+              </div> */}
             </dl>
           </div>
 

@@ -4,6 +4,21 @@ import { MatchingJob } from "../definitions";
 import { apiClientJwt } from "./client";
 import API_BASE_URLS from "./config";
 
+export async function fetchAppliedJobs(): Promise<any> {
+  try {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching applied jobs:", error);
+    throw new Error("Unable to fetch applied jobs. Please try again later.");
+  }
+}
+
 export async function createJobApplication(jobs: MatchingJob[]): Promise<{ success: boolean; error?: string }> {
   try {
     const data = {

@@ -1,8 +1,8 @@
 import JobRoles from "@/components/roles/page";
 import JobProfiles from "@/components/profiles/page";
-import AutoJobs from "@/components/jobs/page"; // Importar el componente de Job Profiles
 import StatsCards from "@/components/stats/page"; // Componente para las cards de estadísticas
 import { Suspense } from "react";
+import AutoJobs from "./jobs/page";
 
 export const dynamic = "force-dynamic";
 

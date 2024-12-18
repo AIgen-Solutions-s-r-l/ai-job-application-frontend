@@ -35,7 +35,7 @@ export interface PersonalInformation {
   phone_prefix: string;
   phone: string;
   email: string;
-  github: string;
+  github?: string;
   linkedin?: string;
 }
 
@@ -61,16 +61,16 @@ export interface ExperienceDetails {
 }
 
 export interface AdditionalInfo {
-  projects: ProjectDetails[];
-  achievements: Achievement[];
-  certifications: Certification[];
-  languages: Language[];
-  interests: string[];
-  availability: Availability;
-  salaryExpectations: SalaryExpectations;
-  selfIdentification: SelfIdentification;
-  legalAuthorization: LegalAuthorization;
-  workPreferences: WorkPreferences;
+  projects:             ProjectDetails[];
+  achievements:         Achievement[];
+  certifications:       Certification[];
+  languages:            Language[];
+  interests:            string[];
+  self_identification:  SelfIdentification;
+  legal_authorization:  LegalAuthorization;
+  work_preferences:     WorkPreferences;
+  availability:         Availability;
+  salary_expectations:  SalaryExpectations;
 }
 
 export interface Availability {
@@ -160,6 +160,38 @@ export interface UploadFile {
   type: string;
   name: string;
   class: string;
+}
+
+export interface MatchingJob {
+  id: number;
+  title: string;
+  is_remote?: boolean;
+  workplace_type?: string;
+  posted_date?: string;
+  job_state?: string;
+  description?: string;
+  apply_link?: string;
+  company?: string;
+  location?: string;
+  portal?: string;
+}
+
+export interface AppliedJob {
+  job_id: number;
+  title: string;
+  is_remote?: boolean;
+  workplace_type?: string;
+  posted_date?: string;
+  job_state?: string;
+  description?: string;
+  apply_link?: string;
+  company_id: number;
+  location_id: number;
+}
+
+export interface JobSearchParams {
+  q?: string;
+  l?: string;
 }
 
 export interface JobProfile {

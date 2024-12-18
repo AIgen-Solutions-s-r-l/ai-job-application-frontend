@@ -77,7 +77,13 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
                   className={`input input-bordered w-full ${errors.additionalInfo?.projects?.[index]?.name ? 'input-error' : ''}`}
                 />
                 <input
-                  {...register(`additionalInfo.projects.${index}.link`, { required: 'Project link is required' })}
+                  {...register(`additionalInfo.projects.${index}.link`, { 
+                    required: 'Project link is required',
+                    pattern: {
+                      value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
+                      message: 'Invalid URL format',
+                    },
+                  })}
                   placeholder="Project Link"
                   className={`input input-bordered w-full ${errors.additionalInfo?.projects?.[index]?.link ? 'input-error' : ''}`}
                 />
@@ -152,8 +158,8 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
 const AdditionalInfoStep: FC = (): ReactElement => {
   const { register, formState: { errors }, getValues } = useFormContext<FormData>();
 
-  const legalAuthorizations: LegalAuthorization = getValues('additionalInfo.legalAuthorization');
-  const workPreferences: WorkPreferences = getValues('additionalInfo.workPreferences');
+  const legalAuthorizations: LegalAuthorization = getValues('additionalInfo.legal_authorization');
+  const workPreferences: WorkPreferences = getValues('additionalInfo.work_preferences');
 
   return (
     <div>
@@ -205,11 +211,11 @@ const AdditionalInfoStep: FC = (): ReactElement => {
           Salary Expectations (USD) <span className="text-error ml-1">*</span>
         </label>
         <input
-          {...register(`additionalInfo.salaryExpectations.salary_range_usd`, { required: 'Salary expectations are required' })}
+          {...register(`additionalInfo.salary_expectations.salary_range_usd`, { required: 'Salary expectations are required' })}
           placeholder="e.g., 50000 - 60000"
-          className={`input input-bordered w-full ${errors.additionalInfo?.salaryExpectations ? 'input-error' : ''}`}
+          className={`input input-bordered w-full ${errors.additionalInfo?.salary_expectations ? 'input-error' : ''}`}
         />
-        {errors.additionalInfo?.salaryExpectations && <p className="text-error">{errors.additionalInfo?.salaryExpectations.message}</p>}
+        {errors.additionalInfo?.salary_expectations && <p className="text-error">{errors.additionalInfo?.salary_expectations.message}</p>}
       </div>
 
       {/* Self-Identification - Required */}
@@ -219,23 +225,23 @@ const AdditionalInfoStep: FC = (): ReactElement => {
         </label>
         <div className="grid grid-cols-2 gap-4">
           <input
-            {...register(`additionalInfo.selfIdentification.gender`, { required: 'Gender is required' })}
+            {...register(`additionalInfo.self_identification.gender`, { required: 'Gender is required' })}
             placeholder="e.g., Male"
-            className={`input input-bordered w-full ${errors.additionalInfo?.selfIdentification?.gender ? 'input-error' : ''}`}
+            className={`input input-bordered w-full ${errors.additionalInfo?.self_identification?.gender ? 'input-error' : ''}`}
           />
           <input
-            {...register(`additionalInfo.selfIdentification.pronouns`, { required: 'Pronouns is required' })}
+            {...register(`additionalInfo.self_identification.pronouns`, { required: 'Pronouns is required' })}
             placeholder="e.g., He/Him"
-            className={`input input-bordered w-full ${errors.additionalInfo?.selfIdentification?.pronouns ? 'input-error' : ''}`}
+            className={`input input-bordered w-full ${errors.additionalInfo?.self_identification?.pronouns ? 'input-error' : ''}`}
           />
         </div>
-        {errors.additionalInfo?.selfIdentification?.gender && <p className="text-error">{errors.additionalInfo?.selfIdentification.gender.message}</p>}
-        {errors.additionalInfo?.selfIdentification?.pronouns && <p className="text-error">{errors.additionalInfo.selfIdentification.pronouns.message}</p>}
+        {errors.additionalInfo?.self_identification?.gender && <p className="text-error">{errors.additionalInfo?.self_identification.gender.message}</p>}
+        {errors.additionalInfo?.self_identification?.pronouns && <p className="text-error">{errors.additionalInfo.self_identification.pronouns.message}</p>}
 
         <div className="grid grid-cols-2 gap-4 mt-4">
           <label className="flex items-center capitalize">
             <input
-              {...register(`additionalInfo.selfIdentification.veteran`)}
+              {...register(`additionalInfo.self_identification.veteran`)}
               type="checkbox"
               className="checkbox checkbox-primary mr-2"
             />
@@ -244,7 +250,7 @@ const AdditionalInfoStep: FC = (): ReactElement => {
 
           <label className="flex items-center capitalize">
             <input
-              {...register(`additionalInfo.selfIdentification.disability`)}
+              {...register(`additionalInfo.self_identification.disability`)}
               type="checkbox"
               className="checkbox checkbox-primary mr-2"
             />
@@ -252,12 +258,12 @@ const AdditionalInfoStep: FC = (): ReactElement => {
           </label>
 
           <input
-            {...register(`additionalInfo.selfIdentification.ethnicity`, { required: 'Ethnicity is required' })}
+            {...register(`additionalInfo.self_identification.ethnicity`, { required: 'Ethnicity is required' })}
             placeholder="e.g., Hispanic"
-            className={`input input-bordered w-full col-span-2 ${errors.additionalInfo?.selfIdentification?.ethnicity ? 'input-error' : ''}`}
+            className={`input input-bordered w-full col-span-2 ${errors.additionalInfo?.self_identification?.ethnicity ? 'input-error' : ''}`}
           />
         </div>
-        {errors.additionalInfo?.selfIdentification?.ethnicity && <p className="text-error">{errors.additionalInfo?.selfIdentification.ethnicity.message}</p>}
+        {errors.additionalInfo?.self_identification?.ethnicity && <p className="text-error">{errors.additionalInfo?.self_identification.ethnicity.message}</p>}
       </div>
 
       {/* Legal Authorization */}
@@ -269,7 +275,7 @@ const AdditionalInfoStep: FC = (): ReactElement => {
             .map((key: keyof LegalAuthorization) => (
               <label key={key} className="flex items-center capitalize">
                 <input
-                  {...register(`additionalInfo.legalAuthorization.${key}`)}
+                  {...register(`additionalInfo.legal_authorization.${key}`)}
                   type="checkbox"
                   className="checkbox checkbox-primary mr-2"
                 />
@@ -288,7 +294,7 @@ const AdditionalInfoStep: FC = (): ReactElement => {
             .map((key: keyof WorkPreferences) => (
               <label key={key} className="flex items-center">
                 <input
-                  {...register(`additionalInfo.workPreferences.${key}`)}
+                  {...register(`additionalInfo.work_preferences.${key}`)}
                   type="checkbox"
                   className="checkbox checkbox-primary mr-2"
                 />

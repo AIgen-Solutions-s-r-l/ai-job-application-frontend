@@ -1,6 +1,9 @@
 import { createClient } from "@/libs/supabase/server";
-import { CVType, JobProfile } from "./definitions";
+import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
+import { toJobProfile } from "./job-profile-util";
+import { fetchMatchingJobs } from "./api/matching";
+import { fetchAppliedJobs } from "./api/application";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -20,6 +23,19 @@ export async function getCVAction(): Promise<CVType> {
   } catch (error) {
     console.error("Error in getCVAction:", error);
     return {} as CVType;
+  }
+}
+
+export async function getUserProfile(): Promise<JobProfile> {
+  try {
+    const userResume = await fetchUserResume();
+
+    const profile: JobProfile = toJobProfile(userResume);
+
+    return profile;
+  } catch (error) {
+    console.error("Error fetching user profiles from API:", error);
+    return null;
   }
 }
 
@@ -223,5 +239,27 @@ export async function fetchPassesData() {
   } catch (error) {
     console.error("Error in fetchPassesData:", error);
     return null;
+  }
+}
+
+export async function getMatchingJobsAction(params?: JobSearchParams): Promise<MatchingJob[]> {
+  try {
+    const matchings = await fetchMatchingJobs(params);
+    const matchingJobs: MatchingJob[] = matchings || [];
+    return matchingJobs;
+  } catch (error) {
+    console.error("Error fetching matching jobs from API:", error);
+    return [];
+  }
+}
+
+export async function getAppliedJobsAction(): Promise<AppliedJob[]> {
+  try {
+    const applies = await fetchAppliedJobs();
+    const appliedJobs: AppliedJob[] = applies || [];
+    return appliedJobs;
+  } catch (error) {
+    console.error("Error fetching applied jobs from API:", error);
+    return [];
   }
 }

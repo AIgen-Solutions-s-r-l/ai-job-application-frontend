@@ -98,7 +98,13 @@ const PersonalInformationStep: FC = (): ReactElement => {
         <div>
           <label className="label flex justify-start">Email <span className="text-error ml-1">*</span></label>
           <input
-            {...register('personalInfo.email', { required: 'Email is required' })}
+            {...register('personalInfo.email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[a-zA-Z0-9.]{8,}@[a-zA-Z0-9]{3,}\.[a-zA-Z0-9]+$/,
+                message: 'Invalid email address',
+              },
+            })}
             type="email"
             placeholder="e.g., john.doe@example.com"
             className={`input input-bordered w-full ${errors.personalInfo?.email ? 'input-error' : ''}`}
@@ -109,7 +115,13 @@ const PersonalInformationStep: FC = (): ReactElement => {
         <div>
           <label className="label">GitHub</label>
           <input
-            {...register('personalInfo.github')}
+            {...register('personalInfo.github', {
+              setValueAs: (value) => value || undefined,
+              pattern: {
+                value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
+                message: 'Invalid URL format',
+              },
+            })}
             type="url"
             placeholder="e.g., https://github.com/johndoe"
             className="input input-bordered w-full"
@@ -121,6 +133,10 @@ const PersonalInformationStep: FC = (): ReactElement => {
           <input
             {...register('personalInfo.linkedin', {
               setValueAs: (value) => value || undefined,
+              pattern: {
+                value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
+                message: 'Invalid URL format',
+              },
             })}
             type="url"
             placeholder="e.g., https://linkedin.com/in/johndoe"

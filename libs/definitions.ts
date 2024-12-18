@@ -165,7 +165,7 @@ export interface UploadFile {
 export interface MatchingJob {
   id: number;
   title: string;
-  is_remote?: string;
+  is_remote?: boolean;
   workplace_type?: string;
   posted_date?: string;
   job_state?: string;
@@ -174,6 +174,19 @@ export interface MatchingJob {
   company?: string;
   location?: string;
   portal?: string;
+}
+
+export interface AppliedJob {
+  job_id: number;
+  title: string;
+  is_remote?: boolean;
+  workplace_type?: string;
+  posted_date?: string;
+  job_state?: string;
+  description?: string;
+  apply_link?: string;
+  company_id: number;
+  location_id: number;
 }
 
 export interface JobSearchParams {

@@ -16,12 +16,9 @@ export default function Layout({ children }: { children: ReactNode }) {
     const accessToken = await getServerCookie('accessToken');
     if (!accessToken) {
       setIsAuthenticated(false);
-      console.log('No token');
       router.replace(config.auth.loginUrl);
     } else {
       setIsAuthenticated(true);
-      console.log('yes');
-
     }
   }, [router]);
 
@@ -43,7 +40,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </div>
       <div className="grow bg-base-100">
         <Navbar />
-        <div className="overflow-y-auto h-[calc(100%-65px)] p-6 md:p-5 bg-base-200">
+        <div className="overflow-y-auto h-[calc(100%-65px)] p-5 bg-base-200">
           {children}
         </div>
         {/* Fondo del contenido */}

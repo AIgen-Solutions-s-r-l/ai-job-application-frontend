@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { AutoJob } from "@/libs/definitions"; // Aquí importas tu interfaz para tipar los datos
+import { AppliedJob, AutoJob } from "@/libs/definitions"; // Aquí importas tu interfaz para tipar los datos
 import DetailModal from "./detail-modal"; // Importamos el modal de detalles
 import {
   Table,
@@ -30,23 +30,23 @@ import { DataTablePagination } from "../datatable/data-table-pagination";
 import { DataTableToolbar } from "../datatable/data-table-toolbar";
 
 interface AutoJobsTableProps {
-  jobs: AutoJob[]; // Propiedad 'jobs' tipada con la interfaz 'AutoJob'
+  jobs: AppliedJob[]; // Propiedad 'jobs' tipada con la interfaz 'AutoJob'
   initialPageSize?: number;
 }
 
 const AutoJobsTable = ({ jobs, initialPageSize = 10 }: AutoJobsTableProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentJob, setCurrentJob] = useState<AutoJob | null>(null);
+  const [currentJob, setCurrentJob] = useState<AppliedJob | null>(null);
 
   // Función para abrir el modal con los detalles del trabajo
-  const handleViewDetails = (job: AutoJob) => {
+  const handleViewDetails = (job: AppliedJob) => {
     setCurrentJob(job);
     setIsModalOpen(true);
   };
 
-  const columns: ColumnDef<AutoJob>[] = [
+  const columns: ColumnDef<AppliedJob>[] = [
     {
-      accessorKey: "company",
+      accessorKey: "company_id",
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -57,7 +57,7 @@ const AutoJobsTable = ({ jobs, initialPageSize = 10 }: AutoJobsTableProps) => {
       enableSorting: false,
     },
     {
-      accessorKey: "job_title",
+      accessorKey: "title",
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -68,19 +68,19 @@ const AutoJobsTable = ({ jobs, initialPageSize = 10 }: AutoJobsTableProps) => {
       enableSorting: false,
     },
     {
-      accessorKey: "job_location",
+      accessorKey: "location_id",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Location" />
       ),
     },
     {
-      accessorKey: "link",
+      accessorKey: "apply_link",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Job Link" />
       ),
       cell: ({ row }) => (
         <a
-          href={row.getValue("link")}
+          href={row.getValue("apply_link")}
           target="_blank"
           rel="noopener noreferrer"
           className="link link-primary"
@@ -91,12 +91,12 @@ const AutoJobsTable = ({ jobs, initialPageSize = 10 }: AutoJobsTableProps) => {
       enableSorting: false,
     },
     {
-      accessorKey: "status",
+      accessorKey: "job_state",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Status" />
       ),
       cell: ({ row }) => {
-        const status = row.getValue("status");
+        const status = row.getValue("job_state");
         return (
           <div
             className={clsx(
@@ -113,12 +113,12 @@ const AutoJobsTable = ({ jobs, initialPageSize = 10 }: AutoJobsTableProps) => {
       enableSorting: false,
     },
     {
-      accessorKey: "created_at",
+      accessorKey: "posted_date",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Date Applied" />
       ),
       cell: ({ row }) => {
-        const createdAt = row.getValue("created_at");
+        const createdAt = row.getValue("posted_date");
         return (
           <>
             {createdAt

@@ -7,7 +7,8 @@ import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
-import { createResume } from "./api/resume";
+import { createResume, updateResume } from "./api/resume";
+import { fromJobProfile } from "./job-profile-util";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -72,13 +73,12 @@ export async function deleteJobRole(jobId: string) {
   revalidatePath("/dashboard");
 }
 
-//JOB PROFILE Arys (create_resume)
-export const createJobProfile = async (profileData: FormData): Promise<{
+export const createJobProfile = async (profileData: JobProfile): Promise<{
   success: boolean;
   error?: string;
 }> => {
   try {
-    const entries: JobProfile = formDataToObject(profileData);
+    const entries: any = fromJobProfile(profileData);
 
     const response = await createResume(entries);
 
@@ -94,6 +94,31 @@ export const createJobProfile = async (profileData: FormData): Promise<{
     return { success: true };
   } catch (error) {    
     console.error("Error saving job profile:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const updateJobProfile = async (profileData: JobProfile): Promise<{
+  success: boolean;
+  error?: string;
+}> => {
+  try {
+    const entries: any = fromJobProfile(profileData);
+
+    const response = await updateResume(entries);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+
+    revalidatePath("/dashboard/profiles");
+
+    return { success: true };
+  } catch (error) {    
+    console.error("Error updating job profile:", error);
     return { success: false, error: error.message };
   }
 }
@@ -453,7 +478,7 @@ export const upsertJobProfile = async (
       const { error: updateSalaryExpectationsError } = await supabase
         .from("salary_expectations")
         .update({
-          salary_range_usd: additionalInfo.salaryExpectations,
+          salary_range_usd: additionalInfo.salary_expectations,
         })
         .eq("personal_information_id", personalInformationId);
 
@@ -464,24 +489,24 @@ export const upsertJobProfile = async (
         .from("salary_expectations")
         .insert({
           personal_information_id: personalInformationId,
-          salary_range_usd: additionalInfo.salaryExpectations,
+          salary_range_usd: additionalInfo.salary_expectations,
         });
 
       if (insertSalaryExpectationsError) throw insertSalaryExpectationsError;
     }
 
     // 10. Actualizar o insertar auto-identificación (self_identification)
-    if (additionalInfo.selfIdentification.id) {
+    if (additionalInfo.self_identification.id) {
       const { error: selfIdentificationError } = await supabase
         .from("self_identification")
         .update({
-          gender: additionalInfo.selfIdentification.gender,
-          pronouns: additionalInfo.selfIdentification.pronouns,
-          veteran: additionalInfo.selfIdentification.veteran,
-          disability: additionalInfo.selfIdentification.disability,
-          ethnicity: additionalInfo.selfIdentification.ethnicity,
+          gender: additionalInfo.self_identification.gender,
+          pronouns: additionalInfo.self_identification.pronouns,
+          veteran: additionalInfo.self_identification.veteran,
+          disability: additionalInfo.self_identification.disability,
+          ethnicity: additionalInfo.self_identification.ethnicity,
         })
-        .eq("id", additionalInfo.selfIdentification.id);
+        .eq("id", additionalInfo.self_identification.id);
 
       if (selfIdentificationError) throw selfIdentificationError;
     } else {
@@ -490,11 +515,11 @@ export const upsertJobProfile = async (
         .insert([
           {
             personal_information_id: personalInformationId,
-            gender: additionalInfo.selfIdentification.gender,
-            pronouns: additionalInfo.selfIdentification.pronouns,
-            veteran: additionalInfo.selfIdentification.veteran,
-            disability: additionalInfo.selfIdentification.disability,
-            ethnicity: additionalInfo.selfIdentification.ethnicity,
+            gender: additionalInfo.self_identification.gender,
+            pronouns: additionalInfo.self_identification.pronouns,
+            veteran: additionalInfo.self_identification.veteran,
+            disability: additionalInfo.self_identification.disability,
+            ethnicity: additionalInfo.self_identification.ethnicity,
           },
         ]);
 
@@ -502,13 +527,13 @@ export const upsertJobProfile = async (
     }
 
     // 11. Actualizar o insertar autorización legal (legal_authorization)
-    if (additionalInfo.legalAuthorization.id) {
+    if (additionalInfo.legal_authorization.id) {
       const { error: legalAuthorizationError } = await supabase
         .from("legal_authorization")
         .update({
-          ...additionalInfo.legalAuthorization,
+          ...additionalInfo.legal_authorization,
         })
-        .eq("id", additionalInfo.legalAuthorization.id);
+        .eq("id", additionalInfo.legal_authorization.id);
 
       if (legalAuthorizationError) throw legalAuthorizationError;
     } else {
@@ -517,7 +542,7 @@ export const upsertJobProfile = async (
         .insert([
           {
             personal_information_id: personalInformationId,
-            ...additionalInfo.legalAuthorization,
+            ...additionalInfo.legal_authorization,
           },
         ]);
 
@@ -525,13 +550,13 @@ export const upsertJobProfile = async (
     }
 
     // 12. Actualizar o insertar preferencias laborales (work_preferences)
-    if (additionalInfo.workPreferences.id) {
+    if (additionalInfo.work_preferences.id) {
       const { error: workPreferencesError } = await supabase
         .from("work_preferences")
         .update({
-          ...additionalInfo.workPreferences,
+          ...additionalInfo.work_preferences,
         })
-        .eq("id", additionalInfo.workPreferences.id);
+        .eq("id", additionalInfo.work_preferences.id);
 
       if (workPreferencesError) throw workPreferencesError;
     } else {
@@ -540,7 +565,7 @@ export const upsertJobProfile = async (
         .insert([
           {
             personal_information_id: personalInformationId,
-            ...additionalInfo.workPreferences,
+            ...additionalInfo.work_preferences,
           },
         ]);
 

@@ -10,7 +10,10 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   index: number;
 }): ReactElement => {
   const { register, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ name: `experienceDetails.${index}.key_responsibilities`, rules: { required: 'At least one key responsibility is required' } })
+  const { fields, append, remove } = useFieldArray({ 
+    name: `experienceDetails.${index}.key_responsibilities`, 
+    // rules: { required: 'At least one responsibility is required' }
+  })
 
   return (
     <>
@@ -48,7 +51,10 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   index: number;
 }): ReactElement => {
   const { register, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ name: `experienceDetails.${index}.skills_acquired`, rules: { required: 'At least one skill is required' } })
+  const { fields, append, remove } = useFieldArray({ 
+    name: `experienceDetails.${index}.skills_acquired`, 
+    // rules: { required: 'At least one skill is required' } 
+  })
 
   return (
     <>
@@ -179,7 +185,6 @@ const ExperienceDetailsStep: FC = (): ReactElement => {
               )}
             </div>
 
-            {/* Key Responsibilities - Required */}
             <div className="md:col-span-2">
               <label className="label flex justify-start">
                 Key Responsibilities <span className="text-error ml-1">*</span>
@@ -187,7 +192,6 @@ const ExperienceDetailsStep: FC = (): ReactElement => {
               <ResponsibilityNestedFieldArray index={index} />
             </div>
 
-            {/* Skills Acquired - Required */}
             <div className="md:col-span-2">
               <label className="label flex justify-start">
                 Skills Acquired <span className="text-error ml-1">*</span>

@@ -10,6 +10,7 @@ export async function fetchUserResume(): Promise<any> {
       headers: {
         Accept: "application/json",
       },
+      timeout: 30000,
     });
 
     return response.data;
@@ -21,14 +22,7 @@ export async function fetchUserResume(): Promise<any> {
 
 export async function createResume(entries: JobProfile): Promise<{ success: boolean; error?: string }> {
   try {
-		const transformedData = {
-			"personal_information": entries.personalInfo,
-			"education_details": entries.educationDetails,
-			"experience_details": entries.experienceDetails,
-			...entries.additionalInfo,
-		};
-
-    const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, transformedData, {
+    const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, entries, {
       headers: {
         Accept: "application/json",
       },
@@ -52,13 +46,38 @@ export async function createResume(entries: JobProfile): Promise<{ success: bool
   }
 }
 
+export async function updateResume(data: any): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.resumes}/resumes/update`, data, {
+      headers: {
+      Accept: "application/json",
+      }
+    })
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    if (!response.data) {
+      return { success: false, error: "Resume creation failed" };
+    }
+
+    return { success: true};
+  } catch (error) {
+    console.error(`Error updating job profile: ${data}`, error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function pdfToJson(formData: FormData): Promise<{ data: JobProfile; error?: string }> {
   try {
     const { data }: { data: any } = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/pdf_to_json`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      timeout: 20000,
     })
 
     const jobProfile: JobProfile = {
@@ -72,10 +91,10 @@ export async function pdfToJson(formData: FormData): Promise<{ data: JobProfile;
         languages: data.languages,
         interests: data.interests,
         availability: data.availability?.notice_period,
-        salaryExpectations: data.salary_expectations?.salary_range_usd, //?,
-        selfIdentification: {} as SelfIdentification,
-        legalAuthorization: data.legal_authorization,
-        workPreferences: data.work_preferences
+        salary_expectations: data.salary_expectations?.salary_range_usd, //?,
+        self_identification: {} as SelfIdentification,
+        legal_authorization: data.legal_authorization,
+        work_preferences: data.work_preferences
       }
     }
 

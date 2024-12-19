@@ -1,25 +1,25 @@
 'use client';
 
 import {
-  HomeIcon,
-  UserGroupIcon,
-  BriefcaseIcon,
-  CheckCircleIcon,
-  CreditCardIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/24/outline';
+  House,
+  Search,
+  Users,
+  BriefcaseBusiness,
+  CircleCheck,
+  CreditCard,
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
 // Mapa de enlaces con los íconos solicitados
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  { name: 'Job Search', href: '/dashboard/job-search', icon: MagnifyingGlassIcon },
-  { name: 'Job Profiles', href: '/dashboard/profiles', icon: UserGroupIcon },
-  { name: 'Job Roles', href: '/dashboard/roles', icon: BriefcaseIcon },
-  { name: 'Jobs Applied', href: '/dashboard/jobs', icon: CheckCircleIcon },
-  { name: 'Subscription', href: '/dashboard/subscription', icon: CreditCardIcon },
+  { name: 'Home', href: '/dashboard', icon: House },
+  { name: 'Job Search', href: '/dashboard/job-search', icon: Search },
+  { name: 'Job Profiles', href: '/dashboard/profiles', icon: Users },
+  { name: 'Job Roles', href: '/dashboard/roles', icon: BriefcaseBusiness },
+  { name: 'Jobs Applied', href: '/dashboard/jobs', icon: CircleCheck },
+  { name: 'Subscription', href: '/dashboard/subscription', icon: CreditCard },
 ];
 
 export default function NavLinks() {
@@ -34,10 +34,12 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={`flex items-center gap-2 p-2 mx-2 rounded-md ${
-              pathname === link.href ? 'bg-neutral text-white' : 'hover:bg-base-300'
+              pathname === link.href
+                ? 'bg-neutral text-white'
+                : 'hover:bg-base-300'
             }`}
           >
-            <LinkIcon className="w-6 h-6" />
+            <LinkIcon className='w-6 h-6' />
             <span>{link.name}</span>
           </Link>
         );

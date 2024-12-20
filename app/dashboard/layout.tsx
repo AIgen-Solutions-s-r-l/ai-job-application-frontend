@@ -32,8 +32,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="w-full flex-none md:w-64 bg-base-200">
+    <div className="block md:flex w-screen h-screen flex-col md:flex-row"> {/* // may be add md:overflow-hidden */}
+      {/* <div className="w-full flex-none md:w-64 bg-base-200"> */}
+      <div className="nav fixed z-10 md:static h-screen flex-none">
         {/* Fondo de la barra lateral */}
         <SideNav />
       </div>

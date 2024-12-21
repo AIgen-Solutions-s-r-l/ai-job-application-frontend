@@ -49,11 +49,9 @@ export async function createJobApplication(jobs: MatchingJob[]): Promise<{ succe
   }
 }
 
-export async function getJobApplications(): Promise<{ success: boolean, data?: any, error?: string, statuscode?: number }> {
+export async function getJobApplications(): Promise<{ success: boolean, data?: any, error?: string, statuCode?: number }> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
-    console.log({ response });
-
 
     if (response.status !== 200) {
       return {
@@ -65,6 +63,6 @@ export async function getJobApplications(): Promise<{ success: boolean, data?: a
     return { success: true, data: response.data };
   } catch (error) {
     console.error('Error getting job applications', error);
-    return { success: false, error: error.message, statuscode: error.response?.status };
+    return { success: false, error: error.message, statuCode: error.response?.status };
   }
 }

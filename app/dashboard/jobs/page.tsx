@@ -1,18 +1,19 @@
-import { JobFeedList } from '@/components/jobs/job-feed-list';
-import LogoutAndRedirect from '@/components/LogoutAndRedirect';
-import { getJobApplications } from '@/libs/api/application';
-import { AppliedJob } from '@/libs/definitions';
+import { Suspense } from "react";
+import { JobFeedList } from "@/components/jobs/job-feed-list";
+import LogoutAndRedirect from "@/components/LogoutAndRedirect";
+import { getJobApplications } from "@/libs/api/application";
+import { AppliedJob } from "@/libs/definitions";
 
 export default async function AutoJobs() {
   const result = await getJobApplications();
 
-  if (!result.success && result.statuscode === 401) {
+  if (!result.success && result.statuCode === 401) {
     return <LogoutAndRedirect />;
   }
 
   let autoJobs: AppliedJob[] = result.data ?? [];
   return (
-    <div className='font-mono font-light flex flex-col gap-5 bg-white'>
+    <div className='font-mono font-light flex flex-col gap-5 bg-white rounded-2xl'>
       <div className='flex flex-col gap-5'>
         <h5 className='text-2xl'>
           <b>Congratulations!</b>
@@ -24,7 +25,9 @@ export default async function AutoJobs() {
           Refresh this page to get see pending applications turn into finalized.
         </p>
       </div>
-      <JobFeedList jobs={autoJobs} />
+      <Suspense fallback={<div>Loading jobs...</div>}>
+        <JobFeedList jobs={autoJobs} />
+      </Suspense>
     </div>
   );
 }

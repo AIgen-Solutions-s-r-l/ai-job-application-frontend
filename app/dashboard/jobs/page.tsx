@@ -1,8 +1,30 @@
-import { getAppliedJobsAction } from "@/libs/data"; // Función para obtener los trabajos del bot
-import AutoJobsTable from "@/components/jobs/table"; // Tabla que muestra los trabajos gestionados por el bot
+import { JobFeedList } from '@/components/jobs/job-feed-list';
+import LogoutAndRedirect from '@/components/LogoutAndRedirect';
+import { getJobApplications } from '@/libs/api/application';
+import { AppliedJob } from '@/libs/definitions';
 
 export default async function AutoJobs() {
-  const autoJobs = await getAppliedJobsAction();
+  const result = await getJobApplications();
 
-  return <AutoJobsTable jobs={autoJobs} />;
+  if (!result.success && result.statuscode === 401) {
+    return <LogoutAndRedirect />;
+  }
+
+  let autoJobs: AppliedJob[] = result.data ?? [];
+  return (
+    <div className='font-mono font-light flex flex-col gap-5 bg-white'>
+      <div className='flex flex-col gap-5'>
+        <h5 className='text-2xl'>
+          <b>Congratulations!</b>
+          <span>
+            We sent your application to <b>{autoJobs.length} jobs.</b>
+          </span>
+        </h5>
+        <p>
+          Refresh this page to get see pending applications turn into finalized.
+        </p>
+      </div>
+      <JobFeedList jobs={autoJobs} />
+    </div>
+  );
 }

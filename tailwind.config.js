@@ -55,6 +55,16 @@ module.exports = {
           "100%": { backgroundPosition: "0% 50%" },
         },
       },
+      fontFamily: {
+        mono: ["JetBrains Mono", "monospace"],
+      },
+      colors: {
+        hawk: {
+          200: "#efefef",
+          300: "#d9d9d9",
+          400: "#c6c6c6",
+        },
+      },
     },
   },
   plugins: [require("daisyui")],
@@ -65,5 +75,5 @@ module.exports = {
     // https://daisyui.com/
     themes: ["cupcake", "dark"],
   },
-  darkMode: ['selector', '[data-theme="dark"]'],
+  darkMode: ["selector", '[data-theme="dark"]'],
 };

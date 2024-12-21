@@ -42,9 +42,29 @@ export async function createJobApplication(jobs: MatchingJob[]): Promise<{ succe
       return { success: false, error: "Application failed" };
     }
 
-    return { success: true};
+    return { success: true };
   } catch (error) {
     console.error(`Error creating job application: ${jobs}`, error);
     return { success: false, error: error.message };
+  }
+}
+
+export async function getJobApplications(): Promise<{ success: boolean, data?: any, error?: string, statuscode?: number }> {
+  try {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
+    console.log({ response });
+
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error('Error getting job applications', error);
+    return { success: false, error: error.message, statuscode: error.response?.status };
   }
 }

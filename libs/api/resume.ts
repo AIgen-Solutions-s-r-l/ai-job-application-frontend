@@ -16,7 +16,7 @@ export async function fetchUserResume(): Promise<any> {
     return response.data;
   } catch (error) {
     console.error("Error fetching user resumes:", error);
-    throw new Error("Unable to fetch user resumes. Please try again later.");
+    throw error;
   }
 }
 
@@ -99,6 +99,29 @@ export async function pdfToJson(formData: FormData): Promise<{ data: JobProfile;
     }
 
     return { data: jobProfile };
+  } catch (error) {
+    console.error('Error parsing PDF', error);
+    return { data: null, error: error.message };
+  }
+}
+
+export async function pdfToJson2(formData: FormData): Promise<{ data: any; error?: string }> {
+  try {
+    const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/pdf_to_json`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      timeout: 60000,
+    })
+
+    if (response.status !== 200 || !response.data) {
+      return { data: null, error: `Server returned ${response.status}: ${response.data?.error || response.statusText}` };
+    }
+
+    console.log("pdfToJson2", response.data);
+
+
+    return { data: response.data };
   } catch (error) {
     console.error('Error parsing PDF', error);
     return { data: null, error: error.message };

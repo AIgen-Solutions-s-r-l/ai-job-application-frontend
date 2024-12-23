@@ -8,6 +8,10 @@ import {
 
 
 export function toJobProfile(resumeData: any): JobProfile {
+  if (!resumeData) {
+    return defaultJobProfile;
+  }
+  
   const { 
     personal_information, 
     education_details, 
@@ -26,10 +30,31 @@ export function toJobProfile(resumeData: any): JobProfile {
 
 
   const additionalInfo: AdditionalInfo = {
-    projects: projects || [],
-    achievements: achievements || [],
-    certifications: certifications || [],
-    languages: languages || [],
+    projects: projects || [
+      {
+        link: "",
+        name: "",
+        description: "",
+      }
+    ],
+    achievements: achievements || [
+      {
+        name: "",
+        description: "",
+      }
+    ],
+    certifications: certifications || [
+      {
+        name: "",
+        description: "",
+      }
+    ],
+    languages: languages || [
+      {
+        language: "",
+        proficiency: "",
+      }
+    ],
     interests: interests || [],
     self_identification: toSelfIdentification(self_identification),
     legal_authorization: toLegalAuthorization(legal_authorization),
@@ -40,8 +65,27 @@ export function toJobProfile(resumeData: any): JobProfile {
 
   return {
     personalInfo: personal_information,
-    educationDetails: education_details || [],
-    experienceDetails: experience_details || [],
+    educationDetails: education_details || [
+    {
+      start_date: "",
+      institution: "",
+      field_of_study: "",
+      education_level: "",
+      year_of_completion: "",
+      final_evaluation_grade: "",
+    }
+  ],
+    experienceDetails: experience_details || [
+    {
+      company: "",
+      industry: "",
+      location: "",
+      position: "",
+      skills_acquired: [],
+      employment_period: "",
+      key_responsibilities: [],
+    }
+  ],
     additionalInfo,
   };
 }
@@ -141,3 +185,105 @@ const fromWorkPreferences = (data: WorkPreferences): any => ({
     willing_to_undergo_drug_tests: data.willing_to_undergo_drug_tests ? "true" : "false",
     willing_to_undergo_background_checks: data.willing_to_undergo_background_checks ? "true" : "false",
 });
+
+export const defaultJobProfile: JobProfile = {
+  personalInfo: {
+    name: "",
+    surname: "",
+    date_of_birth: Date.now().toString(),
+    country: "",
+    city: "",
+    address: "",
+    phone_prefix: "",
+    phone: "",
+    email: "",
+  },
+  educationDetails: [
+    {
+      start_date: "",
+      institution: "",
+      field_of_study: "",
+      education_level: "",
+      year_of_completion: "",
+      final_evaluation_grade: "",
+    }
+  ],
+  experienceDetails: [
+    {
+      company: "",
+      industry: "",
+      location: "",
+      position: "",
+      skills_acquired: [],
+      employment_period: "",
+      key_responsibilities: [],
+    }
+  ],
+  additionalInfo: {
+    projects: [
+      {
+        link: "",
+        name: "",
+        description: "",
+      }
+    ],
+    achievements: [
+      {
+        name: "",
+        description: "",
+      }
+    ],
+    certifications: [
+      {
+        name: "",
+        description: "",
+      }
+    ],
+    languages: [
+      {
+        language: "",
+        proficiency: "",
+      }
+    ],
+    interests: [],
+    availability: {
+      notice_period: "",
+    },
+    salary_expectations: {
+      salary_range_usd: "",
+    },
+    self_identification: {
+      gender: "",
+      veteran: false,
+      pronouns: "",
+      ethnicity: "",
+      disability: false,
+    },
+    legal_authorization: {
+      requires_eu_visa: false,
+      requires_uk_visa: false,
+      requires_us_visa: false,
+      requires_canada_visa: false,
+      eu_work_authorization: false,
+      uk_work_authorization: false,
+      us_work_authorization: false,
+      requires_eu_sponsorship: false,
+      requires_uk_sponsorship: false,
+      requires_us_sponsorship: false,
+      canada_work_authorization: false,
+      requires_canada_sponsorship: false,
+      legally_allowed_to_work_in_eu: false,
+      legally_allowed_to_work_in_uk: false,
+      legally_allowed_to_work_in_us: false,
+      legally_allowed_to_work_in_canada: false
+    },
+    work_preferences: {
+      remote_work: false,
+      in_person_work: false,
+      open_to_relocation: false,
+      willing_to_undergo_drug_tests: false,
+      willing_to_complete_assessments: false,
+      willing_to_undergo_background_checks: false
+    }
+  }
+}

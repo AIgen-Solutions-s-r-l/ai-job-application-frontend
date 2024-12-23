@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import config from "@/config";
 import { useRouter } from "next/navigation";
 import { login } from "@/libs/api/auth"; // Importa la función de login
+import { fetchUserResume } from "@/libs/api/resume";
 
 export default function Login() {
   const [username, setUsername] = useState<string>(""); // Cambiado de email a username
@@ -25,7 +26,12 @@ export default function Login() {
       if (response?.access_token) {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
-        router.replace("/dashboard");
+        try {
+          await fetchUserResume();
+          router.replace("/dashboard");
+        } catch (error) {
+          router.replace("/onboarding");
+        }
       } else {
         throw new Error("Access token not received.");
       }

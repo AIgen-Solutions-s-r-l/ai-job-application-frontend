@@ -1,6 +1,6 @@
 import { createClient } from "@/libs/supabase/server";
 import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob } from "./definitions";
-import { fetchUserResume } from "@/libs/api/resume";
+import { fetchUserResume, pdfToJson2 } from "@/libs/api/resume";
 import { toJobProfile } from "./job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
@@ -35,7 +35,7 @@ export async function getUserProfile(): Promise<JobProfile> {
     return profile;
   } catch (error) {
     console.error("Error fetching user profiles from API:", error);
-    return null;
+    throw error;
   }
 }
 

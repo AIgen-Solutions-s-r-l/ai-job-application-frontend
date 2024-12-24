@@ -25,9 +25,9 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch 
 
     <div className="w-full bg-base-100 pt-5">
       <form onSubmit={handleSubmit(onSubmit)} className="w-[1440px] mx-auto flex items-end gap-[30px]">
-        <div className="">
+        <div className="w-[516px] flex-1">
           <label htmlFor="keywords" className='text-md leading-none'>Role</label>
-          <div className="w-[516px] mt-3 h-14 flex-1 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5">
+          <div className="mt-3 h-14 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5">
             <input
               type="text"
               id="keywords"
@@ -37,9 +37,9 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch 
             />
           </div>
         </div>
-        <div className="">
+        <div className="w-[498px] flex-1">
           <label htmlFor="location" className='text-md leading-none'>Location</label>
-          <div className="w-[498px] mt-3 h-14 flex-1 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5">
+          <div className="mt-3 h-14 flex-1 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5">
             <input
               type="text"
               id="location"
@@ -49,7 +49,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch 
             />
           </div>
         </div>
-        <div className="w-[222px] h-14 flex-none flex items-center outline outline-2 outline-base-content text-base-content hover:text-white hover:outline-primary hover:bg-primary rounded-3xl">
+        <div className="w-[222px] h-14 flex-0 flex items-center outline outline-2 outline-base-content text-base-content hover:text-white hover:outline-primary hover:bg-primary rounded-3xl">
           <button type="submit" className="w-full h-full flex items-center justify-between pl-5">
             <p className='text-md'>Search</p>
             <Search className="mx-4" size={27} />

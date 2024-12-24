@@ -2,13 +2,15 @@
 
 import { createClient } from "@/libs/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Bot, JobProfile, UploadFile } from "./definitions";
+import { Bot, JobProfile, MatchingJob, UploadFile } from "./definitions";
 import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
 import { createResume, updateResume } from "./api/resume";
 import { fromJobProfile } from "./job-profile-util";
+import { createJobApplication } from "./api/application";
+import { redirect } from "next/navigation";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -119,6 +121,34 @@ export const updateJobProfile = async (profileData: JobProfile): Promise<{
     return { success: true };
   } catch (error) {    
     console.error("Error updating job profile:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const addJobsToManager = async (jobs: MatchingJob[]): Promise<{ 
+  success: boolean; 
+  error?: string 
+}> => {
+  try {
+    const jobItems = jobs.map((job) => ({
+      job_id: job.id,
+      title: job.title,
+      description: job.description,
+      portal: job.portal
+    }))
+
+    const response = await createJobApplication(jobItems);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+    
+    return { success: true };
+  } catch (error) {    
+    console.error("Error when adding jobs to jobs manager:", error);
     return { success: false, error: error.message };
   }
 }

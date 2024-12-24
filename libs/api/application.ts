@@ -1,6 +1,5 @@
 "use server";
 
-import { MatchingJob } from "../definitions";
 import { apiClientJwt } from "./client";
 import API_BASE_URLS from "./config";
 
@@ -19,12 +18,12 @@ export async function fetchAppliedJobs(): Promise<any> {
   }
 }
 
-export async function createJobApplication(jobs: MatchingJob[]): Promise<{ success: boolean; error?: string }> {
+export async function createJobApplication(jobs: any[]): Promise<{ success: boolean; error?: string }> {
   try {
     const data = {
       "jobs": jobs,
     }
-
+    
     const response = await apiClientJwt.post(`${API_BASE_URLS.application}/applications`, data, {
       headers: {
         Accept: "application/json",

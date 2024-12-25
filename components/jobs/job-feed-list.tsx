@@ -49,8 +49,8 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
   }
 
   return (
-    <div className='w-full flex flex-col'>
-      <div className='w-full- h-[67px] px-8 flex justify-end border-2 rounded-lg bg-hawk-200'>
+    <div className='flex flex-col'>
+      <div className='h-[67px] px-8 flex justify-end rounded-lg bg-zinc-300'>
         <div className='flex gap-10 items-center'>
           <button onClick={() => setSortBy("job_state")}>
             {underlineOrParagraph("Sort by: Phase", sortBy === "posted_date")}
@@ -63,21 +63,21 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
 
       <Tabs.Root className='mt-[-25px]' defaultValue='peding'>
         <Tabs.List
-          className='h-[50px] w-96 mt-[-25px] mb-5 flex text-xl'
+          className='h-[50px] w-96 mt-[-25px] mb-5 flex text-lg'
           aria-label='Pending jobs list'
         >
           <Tabs.Trigger
-            className='px-10 py-4 rounded-tr-md data-[state=active]:bg-white'
+            className='px-10 py-4 rounded-t-md data-[state=active]:bg-base-100'
             value='peding'
           >
             Pending...
           </Tabs.Trigger>
           <Tabs.Trigger
-            className='px-10 py-4 rounded-t-md data-[state=active]:bg-white flex gap-3'
+            className='px-10 py-4 rounded-t-md data-[state=active]:bg-base-100 flex gap-3'
             value='applied'
           >
             Applied
-            <div className='w-[28px] h-[28px] rounded-full flex justify-center items-center bg-hawk-300 shrink-0'>
+            <div className='w-[28px] h-[28px] rounded-full flex justify-center items-center bg-slate-200 shrink-0'>
               <Check height={18} width={18} />
             </div>
           </Tabs.Trigger>

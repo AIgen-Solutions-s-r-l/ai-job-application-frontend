@@ -13,10 +13,10 @@ export default async function AutoJobs() {
 
   let autoJobs: AppliedJob[] = result.data ?? [];
   return (
-    <div className='font-mono font-light flex flex-col gap-5 bg-white rounded-2xl'>
+    <div className='font-light flex flex-col gap-5 bg-white- rounded-2xl'>
       <div className='flex flex-col gap-5'>
         <h5 className='text-2xl'>
-          <b>Congratulations!</b>
+          <b>Congratulations!</b> &nbsp;
           <span>
             We sent your application to <b>{autoJobs.length} jobs.</b>
           </span>

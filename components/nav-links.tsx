@@ -15,7 +15,7 @@ import React from 'react';
 // Mapa de enlaces con los íconos solicitados
 const links = [
   { name: 'Home', href: '/dashboard', icon: House },
-  { name: 'Job Search', href: '/dashboard/job-search', icon: Search },
+  { name: 'Job Search', href: '/search', icon: Search },
   { name: 'Job Profiles', href: '/dashboard/profiles', icon: Users },
   { name: 'Job Roles', href: '/dashboard/roles', icon: BriefcaseBusiness },
   { name: 'Jobs Applied', href: '/dashboard/jobs', icon: CircleCheck },

@@ -65,5 +65,5 @@ module.exports = {
     // https://daisyui.com/
     themes: ["cupcake", "dark"],
   },
-  darkMode: ['selector', '[data-theme="dark"]'],
+  darkMode: ["selector", '[data-theme="dark"]'],
 };

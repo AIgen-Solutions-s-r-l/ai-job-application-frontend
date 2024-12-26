@@ -6,7 +6,7 @@ import logo from "@/app/icon.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import config from "@/config";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/libs/api/auth"; // Importa la función de login
 
 export default function Login() {
@@ -14,6 +14,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleLogin = async (e: any) => {
     e?.preventDefault();
@@ -25,7 +26,8 @@ export default function Login() {
       if (response?.access_token) {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
-        router.replace("/dashboard");
+        const relocationUrl = searchParams.get('r');
+        router.replace(relocationUrl ? relocationUrl: "/dashboard");
       } else {
         throw new Error("Access token not received.");
       }

@@ -14,19 +14,8 @@ interface Props {
 }
 
 export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
-  const [isAllSelected, setIsAllSelected] = useState(false);
   const [focusedJob, setFocusedJob] = useState<MatchingJob>(jobs[0]);  
-  const { setSelectedJobs } = useSelectedJobsContext();
-
-  const handleSelectAll = () => {
-    if (isAllSelected) {
-      setSelectedJobs([]);
-    } else {
-      setSelectedJobs(jobs);
-    }
-    setIsAllSelected(!isAllSelected);
-  };
-
+  const { isAllSelected, handleSelectAll } = useSelectedJobsContext();
   
   if (jobs.length === 0) {
     return (
@@ -35,6 +24,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
       </div>
     );
   }
+  
 
   return (
     <div className={cn('w-full gap-5 bg-base-200 mb-20 py-5', className)}>
@@ -42,7 +32,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
         <div className="w-[430px] flex flex-0 flex-col gap-5">
           <div className="h-16 flex items-center justify-end gap-5 pr-4 bg-base-100 rounded-xl">
             <p>Select All</p>
-            <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={handleSelectAll}>
+            <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={() => handleSelectAll(jobs)}>
               {isAllSelected && <Check size={24} />}
             </div>
           </div>

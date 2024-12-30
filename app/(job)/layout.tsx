@@ -6,6 +6,7 @@ import config from "@/config";
 import React from "react";
 import { getServerCookie } from "@/libs/cookies";
 import AppNavbar from "@/components/AppNavbar";
+import SelectedJobsProvider from "@/contexts/selected-jobs-context";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -32,8 +33,10 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="w-full flex flex-col items-center bg-base-100">
-      <AppNavbar />
-      {children}
+      <SelectedJobsProvider>
+        <AppNavbar />
+        {children}
+      </SelectedJobsProvider>
     </div>
   );
 }

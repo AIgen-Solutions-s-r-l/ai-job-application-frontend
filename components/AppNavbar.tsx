@@ -2,9 +2,9 @@
 
 import React, { ChangeEvent, useEffect } from "react";
 import { useTheme } from "next-themes";
-import AppNavLinks from "./AppNavLinks";
-import { Bell, Moon, Sun } from "lucide-react";
 import AppButtonAccount from "./AppButtonAccount";
+import Link from "next/link";
+import { Moon, Sun } from "lucide-react";
 
 const AppNavbar = () => {
   const { setTheme, theme } = useTheme();
@@ -31,7 +31,13 @@ const AppNavbar = () => {
       </div>
 
       <div className="flex items-center gap-[30px]">
-        <AppNavLinks />
+        <Link
+          key='Dashboard'
+          href='/dashboard'
+          className="flex items-center text-md leading-none border-2 border-black px-8 py-3 rounded-full font-semibold"
+        >
+          <span>Dashboard</span>
+        </Link>
 
         <label className="swap swap-rotate">
           <input

@@ -25,21 +25,7 @@ const mockJob: MatchingJob = {
 };
 
 export const JobSmallCard: React.FC<Props> = ({ className, job, onClick }) => {
-  const { selectedJobs, setSelectedJobs } = useSelectedJobsContext();
-
-  const handleJobSelect = (job: MatchingJob, e: React.MouseEvent) => {
-    e.stopPropagation();
-    
-    setSelectedJobs((prevSelected) => {
-      if (prevSelected.some((j) => j.id === job.id)) {
-        // Job is already selected, remove it
-        return prevSelected.filter((j) => j.id !== job.id);
-      } else {
-        // Job is not selected, add it
-        return [...prevSelected, job];
-      }
-    });
-  };
+  const { selectedJobs, handleJobSelect } = useSelectedJobsContext();
   
   return (
     <div 

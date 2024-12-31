@@ -7,16 +7,42 @@ type SelectedJobsProviderProps = {
 
 type SelectedJobsContextType = {
   selectedJobs: MatchingJob[];
-  setSelectedJobs: React.Dispatch<React.SetStateAction<MatchingJob[]>>;
+  handleJobSelect: (job: MatchingJob, e: React.MouseEvent) => void;
+  isAllSelected: boolean;
+  handleSelectAll: (jobs: MatchingJob[]) => void
 }
 
 const SelectedJobsContext = createContext<SelectedJobsContextType | null>(null);
 
 export default function SelectedJobsProvider({ children }: SelectedJobsProviderProps) {
   const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>([]);
+  const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
+
+  const handleSelectAll = (jobs: MatchingJob[]) => {
+    if (isAllSelected) {
+      setSelectedJobs([]);
+    } else {
+      setSelectedJobs(jobs);
+    }
+    setIsAllSelected(!isAllSelected);
+  };
+
+  const handleJobSelect = (job: MatchingJob, e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    setSelectedJobs((prevSelected) => {
+      if (prevSelected.some((j) => j.id === job.id)) {
+        // Job is already selected, remove it
+        return prevSelected.filter((j) => j.id !== job.id);
+      } else {
+        // Job is not selected, add it
+        return [...prevSelected, job];
+      }
+    });
+  };
 
   return (
-    <SelectedJobsContext.Provider value={{ selectedJobs, setSelectedJobs }}>
+    <SelectedJobsContext.Provider value={{ selectedJobs, handleJobSelect, isAllSelected, handleSelectAll }}>
       {children}
     </SelectedJobsContext.Provider>
   );

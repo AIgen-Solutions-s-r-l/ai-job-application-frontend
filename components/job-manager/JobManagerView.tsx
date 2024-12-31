@@ -6,7 +6,8 @@ import { JobManagerList } from './JobManagerList';
 import { JobManagerBottomSheet } from './JobManagerBottomSheet';
 
 export const JobManagerView: React.FC = () => {
-  const jobs = JSON.parse(sessionStorage.getItem("selectedJobs"));
+  const storedJobs = sessionStorage.getItem("selectedJobs");
+  const jobs = storedJobs ? JSON.parse(storedJobs) : [];
   
   return (
     <div className="w-full flex flex-col items-center">

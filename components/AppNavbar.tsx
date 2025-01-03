@@ -1,12 +1,15 @@
 "use client";
 
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, JSX, FC } from "react";
 import { useTheme } from "next-themes";
 import AppButtonAccount from "./AppButtonAccount";
-import Link from "next/link";
 import { Moon, Sun } from "lucide-react";
 
-const AppNavbar = () => {
+type Props = {
+  slot?: JSX.Element
+}
+
+const AppNavbar: FC<Props> = ({slot}) => {
   const { setTheme, theme } = useTheme();
 
   const onChangeTheme = (ev: ChangeEvent<HTMLInputElement>): void => {
@@ -23,22 +26,15 @@ const AppNavbar = () => {
     <div
       role="navigation"
       aria-label="Navbar"
-      className="flex items-center justify-between w-[1440px] bg-base-100 pt-8 pb-4"
+      className="flex items-center justify-between bg-base-100 pt-8 pb-4 px-4 md:px-0"
     >
 
-      <div className="">
-        <p className="text-[64px] italic leading-none">JOB HAWK</p>
+      <div className="hidden md:block">
+        <p className="text-[32px] lg:text-[64px] italic leading-none">JOB HAWK</p>
       </div>
-
+      <div className="block md:hidden w-[80px] shrink-0">&nbsp;</div>
       <div className="flex items-center gap-[30px]">
-        <Link
-          key='Dashboard'
-          href='/dashboard'
-          className="flex items-center text-md leading-none border-2 border-black px-8 py-3 rounded-full font-semibold"
-        >
-          <span>Dashboard</span>
-        </Link>
-
+        {slot}
         <label className="swap swap-rotate">
           <input
             type="checkbox"

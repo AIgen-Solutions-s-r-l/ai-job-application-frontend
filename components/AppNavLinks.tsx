@@ -8,7 +8,7 @@ import React from 'react';
 const links = [
   { name: 'Dashboard', href: '/dashboard'},
   { name: 'Job Search', href: '/search'},
-  { name: 'Job Manager', href: '/job-manager'},
+  { name: 'Job Manager', href: '/manager'},
 ];
 
 export default function AppNavLinks() {

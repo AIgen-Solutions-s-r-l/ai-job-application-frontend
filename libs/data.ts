@@ -1,9 +1,10 @@
 import { createClient } from "@/libs/supabase/server";
-import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob } from "./definitions";
+import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob, DetailedPendingApplication, PendingApplicationRecord } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
+import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -242,7 +243,7 @@ export async function fetchPassesData() {
   }
 }
 
-export async function getMatchingJobsAction(params?: JobSearchParams): Promise<MatchingJob[]> {
+export async function getMatchingJobsData(params?: JobSearchParams): Promise<MatchingJob[]> {
   try {
     const matchings = await fetchMatchingJobs(params);
     const matchingJobs: MatchingJob[] = matchings || [];
@@ -253,7 +254,27 @@ export async function getMatchingJobsAction(params?: JobSearchParams): Promise<M
   }
 }
 
-export async function getAppliedJobsAction(): Promise<AppliedJob[]> {
+export async function getPendingApplicationsData(): Promise<PendingApplicationRecord | null> {
+  try {
+    const pendingApplications: PendingApplicationRecord = await fetchPendingApplications();
+    return pendingApplications;
+  } catch (error) {
+    console.error("Error fetching pending applications from API:", error);
+    return null;
+  }
+}
+
+export async function getDetailedApplicationData(id: string): Promise<DetailedPendingApplication | null> {
+  try {
+    const applicationDetails: DetailedPendingApplication = await fetchDetailedApplicationData(id);
+    return applicationDetails;
+  } catch (error) {
+    console.error("Error fetching application details from API:", error);
+    return null;
+  }
+}
+
+export async function getAppliedJobsData(): Promise<AppliedJob[]> {
   try {
     const applies = await fetchAppliedJobs();
     const appliedJobs: AppliedJob[] = applies || [];

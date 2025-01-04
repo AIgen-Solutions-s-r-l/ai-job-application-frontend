@@ -1,16 +1,11 @@
 'use client';
 
-import { useSelectedJobsContext } from '@/contexts/selected-jobs-context';
-import { MatchingJob } from '@/libs/definitions';
+import { useJobManager } from '@/contexts/job-manager-context';
 import { Check } from 'lucide-react';
 import React from 'react';
 
-interface Props {
-  jobs: MatchingJob[];
-}
-
-export const JobManagerHeader: React.FC<Props> = ({ jobs }) => {
-  const { isAllSelected, handleSelectAll } = useSelectedJobsContext();
+export const JobManagerHeader: React.FC = () => {
+  const { isAllSelected, handleSelectAll } = useJobManager();
 
   return (
     <div className="w-full bg-base-100">
@@ -20,8 +15,8 @@ export const JobManagerHeader: React.FC<Props> = ({ jobs }) => {
         <div className="flex gap-5 -mb-8">
           <div className="w-[430px] h-16 flex items-center justify-end gap-5 pr-4 bg-base-100 rounded-xl outline outline-1 outline-neutral-content z-50">
             <p>Select All</p>
-            <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={() => handleSelectAll(jobs)}>
-              {isAllSelected && <Check size={24} />}
+            <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={() => handleSelectAll()}>
+              {isAllSelected() && <Check size={24} />}
             </div>
           </div>
 

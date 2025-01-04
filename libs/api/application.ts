@@ -43,7 +43,7 @@ export async function createJobApplication(jobs: any[]): Promise<{ success: bool
 
     return { success: true };
   } catch (error) {
-    console.error(`Error creating job application: ${jobs}`, error);
+    console.error("Error creating job application:", error);
     return { success: false, error: error.message };
   }
 }

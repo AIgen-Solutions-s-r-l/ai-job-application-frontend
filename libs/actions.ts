@@ -11,6 +11,7 @@ import { createResume, updateResume } from "./api/resume";
 import { fromJobProfile } from "./job-profile-util";
 import { createJobApplication } from "./api/application";
 import { redirect } from "next/navigation";
+import { applySelectedApplications } from "./api/apply_pending";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -149,6 +150,27 @@ export const addJobsToManager = async (jobs: MatchingJob[]): Promise<{
     return { success: true };
   } catch (error) {    
     console.error("Error when adding jobs to jobs manager:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const applySelectedApplicationsAction = async (applications: string[]): Promise<{ 
+  success: boolean; 
+  error?: string 
+}> => {
+  try {
+    const response = await applySelectedApplications(applications);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+    
+    return { success: true };
+  } catch (error) {    
+    console.error("Error when applying to selected jobs:", error);
     return { success: false, error: error.message };
   }
 }

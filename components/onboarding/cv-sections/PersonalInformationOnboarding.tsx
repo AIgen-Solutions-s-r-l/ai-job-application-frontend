@@ -10,27 +10,24 @@ export const PersonalInformationOnboarding: React.FC = () => {
 
   return (
     <div className="">
-      {/* Title */}
-      <h5 className='font-semibold text-xl mb-5'>Personal Information</h5>
-
       <div className="flex flex-col gap-5">
-        {/* Name, Surname, Date */}
-        <div className="flex gap-form">
+        {/* Name */}
+        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
           <FormInput
-            title={'Name'}
-            {...register('personalInfo.name', { required: 'Name is required' })}
+            title={'First Name'}
+            {...register('personalInfo.name', { required: 'First Name is required' })}
             placeholder="e.g., John"
             error={!!errors.personalInfo?.name}
             errorMessage={errors.personalInfo?.name?.message}
-            className='w-[194px]'
+            className='grow'
           />
           <FormInput
             title={'Last Name'}
-            {...register('personalInfo.surname', { required: 'Surname is required' })}
+            {...register('personalInfo.surname', { required: 'Last Name is required' })}
             placeholder="e.g., Doe"
             error={!!errors.personalInfo?.surname}
             errorMessage={errors.personalInfo?.surname?.message}
-            className='w-[267px]'
+            className='grow'
           />
           <FormInput
             title={'Date of Birth'}
@@ -38,12 +35,12 @@ export const PersonalInformationOnboarding: React.FC = () => {
             type="date"
             error={!!errors.personalInfo?.date_of_birth}
             errorMessage={errors.personalInfo?.date_of_birth?.message}
-            className='w-[167px]'
+            className='w-[298px]'
           />
         </div>
 
         {/* Address */}
-        <div className="flex gap-form">
+        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
           <FormInput
             title={'City'}
             {...register('personalInfo.city', { required: 'City is required' })}
@@ -58,7 +55,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             placeholder="e.g., 1234 Broadway St."
             error={!!errors.personalInfo?.address}
             errorMessage={errors.personalInfo?.address?.message}
-            className='w-[447px]'
+            className='grow'
           />
           <FormInput
             title={'State / Province'}
@@ -90,7 +87,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
         </div>
 
         {/* Contacts */}
-        <div className="flex gap-form">
+        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
           <FormInput
             title={'Phone prefix'}
             {...register('personalInfo.phone_prefix', { required: 'Phone prefix is required' })}
@@ -125,7 +122,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
         </div>
 
         {/* Socials */}
-        <div className="flex gap-form">
+        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
           <FormInput
             title={'Github'}
             {...register('personalInfo.github', {

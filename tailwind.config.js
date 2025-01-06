@@ -19,7 +19,7 @@ module.exports = {
         shimmer: "shimmer 3s ease-out infinite alternate",
       },
       gap: {
-        'form': '1.25rem',
+        'form': '30px',
       },
       keyframes: {
         opacity: {

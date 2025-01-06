@@ -7,6 +7,7 @@ import config from "@/config";
 import React from "react";
 import { getServerCookie } from "@/libs/cookies";
 import CVDataContextProvider from "@/contexts/cv-data-context";
+import { OngoingNabvar } from "@/components/onboarding/OngoingNabvar";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -32,15 +33,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="grow bg-base-100">
-        <Navbar />
-        <div className="overflow-y-auto h-[calc(100%-65px)] bg-base-100">
-          <CVDataContextProvider>
-            {children}
-          </CVDataContextProvider>
-        </div>
-      </div>
+    <div className="w-full h-screen overflow-y-auto flex flex-col items-center bg-base-200">
+      <OngoingNabvar />
+      <CVDataContextProvider>
+        {children}
+      </CVDataContextProvider>
     </div>
   );
 }

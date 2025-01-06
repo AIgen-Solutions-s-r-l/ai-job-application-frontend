@@ -35,7 +35,7 @@ export const EducationDetailsOnboarding: React.FC = () => {
               <p className='text-2xl font-bold leading-none'>{index + 1}</p>
             </div>
             <button className='upderline' onClick={() => remove(index)}>
-              <p className='underline text-md leading-none'>Remove</p>
+              <p className='underline text-base leading-none'>Remove</p>
             </button>
           </div>
           
@@ -101,7 +101,7 @@ export const EducationDetailsOnboarding: React.FC = () => {
         <ArrowRight size={24} />
         <button
           type="button"
-          className="bg-white px-[30px] py-3 text-md leading-none text-black rounded-2xl border-2 border-black hover:bg-black hover:text-white"
+          className="bg-white px-[30px] py-3 text-base leading-none text-black rounded-2xl border-2 border-black hover:bg-black hover:text-white"
           onClick={addEducation}
         >
           Add Education

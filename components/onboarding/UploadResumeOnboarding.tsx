@@ -66,8 +66,7 @@ export const UploadResumeOnboarding: React.FC = () => {
   
   return (
     <div className="w-[896px] mx-auto flex flex-col">
-      <h1 className="text-6xl italic uppercase mt-20 mb-6">Job Hawk</h1>
-      <p className="text-xl">Please upload your resume or drag & drop here to continue</p>
+      <p className="text-xl mt-[100px]">Please upload your resume or drag & drop here to continue</p>
       {/* <label className="w-max self-end btn btn-primary rounded-full pl-4 pr-0 text-white mb-20">
         <div className="flex items-center">
           <p className="text-xl">Upload Resume</p>
@@ -87,7 +86,7 @@ export const UploadResumeOnboarding: React.FC = () => {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            className={`flex flex-col items-center justify-center flex-grow rounded-xl border-2 mt-20  ${
+            className={`flex flex-col items-center justify-center flex-grow rounded-xl border-2 mt-16  ${
               isDragging ? 'border-dashed border-primary bg-primary/10' : 'border-dashed border-gray-300 bg-base-200'
             } transition-all duration-200 p-6`}
           >

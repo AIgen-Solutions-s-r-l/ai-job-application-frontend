@@ -7,7 +7,7 @@ import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
-import { createResume, pdfToJson2, updateResume } from "./api/resume";
+import { createResume, pdfToJson, updateResume } from "./api/resume";
 import { fromJobProfile, toJobProfile } from "./job-profile-util";
 
 const supabase = createClient();
@@ -75,7 +75,7 @@ export async function deleteJobRole(jobId: string) {
 
 export async function extractResume(formData: FormData): Promise<JobProfile> {
   try {
-    const { data } = await pdfToJson2(formData);
+    const { data } = await pdfToJson(formData);
 
     const cvData: JobProfile = toJobProfile(data);
 

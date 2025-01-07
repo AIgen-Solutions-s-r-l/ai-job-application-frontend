@@ -33,6 +33,8 @@ export const PersonalInformationOnboarding: React.FC = () => {
             title={'Date of Birth'}
             {...register('personalInfo.date_of_birth', { required: 'Date of Birth is required' })}
             type="date"
+            min="1980-01-01" 
+            max={new Date().toLocaleDateString('en-ca')}
             error={!!errors.personalInfo?.date_of_birth}
             errorMessage={errors.personalInfo?.date_of_birth?.message}
             className='w-[298px]'
@@ -71,8 +73,6 @@ export const PersonalInformationOnboarding: React.FC = () => {
             {...register('personalInfo.zip_code')}
             required={false}
             placeholder="N/A"
-            error={!!errors.personalInfo?.zip_code}
-            errorMessage={errors.personalInfo?.zip_code?.message}
             className='w-[149px]'
           />
           <FormInput

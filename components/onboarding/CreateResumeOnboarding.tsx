@@ -14,7 +14,6 @@ import { ExperienceDetailsOnboarding } from './cv-sections/ExperienceDetailsOnbo
 import { AdditionalInfoOnboarding } from './cv-sections/AdditionalInfoOnboarding';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { StepTracking } from './cv-sections/StepTracking';
-import { fromJobProfile } from '@/libs/job-profile-util';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const router = useRouter()
@@ -49,17 +48,15 @@ export const CreateResumeOnboarding: React.FC = () => {
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
     try {      
-      const entries: any = fromJobProfile(jobProfile);
-      console.log("entries", JSON.stringify(entries));
-      // const response = await createJobProfile(jobProfile);
+      const response = await createJobProfile(jobProfile);
 
-      // if (response.success) {
-      //   toast.success("Profile saved successfully!");
-      //   router.push('/dashboard')
-      // } else {
-      //   toast.error("Error saving profile.");
-      //   console.error("Error saving profile:", response.error);
-      // }
+      if (response.success) {
+        toast.success("Profile saved successfully!");
+        router.push('/dashboard')
+      } else {
+        toast.error("Error saving profile.");
+        console.error("Error saving profile:", response.error);
+      }
     } catch (error) {
       console.error("Error submitting profile:", error);
     }
@@ -108,7 +105,7 @@ export const CreateResumeOnboarding: React.FC = () => {
             </button>
           : <div></div>}
           <div className="flex gap-5">
-            <button
+            {/* <button
               className="bg-black py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-center items-center hover:bg-base-content"
               type="button"
               onClick={() => console.log(methods.formState.errors)}
@@ -121,7 +118,7 @@ export const CreateResumeOnboarding: React.FC = () => {
               onClick={() => console.log(methods.clearErrors())}
             >
               <p>Clear Errors</p>
-            </button>
+            </button> */}
             <button className="bg-black pl-[16px] pr-[30px] py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-between items-center hover:bg-base-content disabled:bg-neutral-content" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
               <ChevronLeft size={30} />
               <p>Previous Step</p>

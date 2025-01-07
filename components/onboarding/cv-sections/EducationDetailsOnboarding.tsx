@@ -1,8 +1,9 @@
-import { FormInput } from '@/components/ui/form-input';
+import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plus } from 'lucide-react';
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { CertificationsNestedFieldArray } from './AdditionalInfoOnboarding';
 
 type FormData = Pick<JobProfile, "educationDetails">
 
@@ -22,25 +23,25 @@ export const EducationDetailsOnboarding: React.FC = () => {
 
   return (
     <div className="">
-      {/* Title */}
-      <h5 className='font-semibold text-xl'>Education</h5>
-
       {errors.educationDetails?.root && <p className="text-error text-xs">{errors.educationDetails.root.message}</p>}
       
       {fields.map((education, index) => (
-        <div key={education.id} className="flex flex-col gap-5 my-5">
+        <div key={education.id} className="flex flex-col gap-5 mt-5">
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-2">
               <ArrowRight size={24} />
               <p className='text-2xl font-bold leading-none'>{index + 1}</p>
             </div>
-            <button className='upderline' onClick={() => remove(index)}>
+            {<button 
+              className={`upderline ${fields.length === 1 && 'hidden'}`}
+              onClick={() => remove(index)}
+            >
               <p className='underline text-base leading-none'>Remove</p>
-            </button>
+            </button>}
           </div>
           
           {/* Institution */}
-          <div className="flex gap-form">
+          <InputWrapper>
             <FormInput
               title={'Education Level'}
               {...register(`educationDetails.${index}.education_level`, { required: 'Education level is required' })}
@@ -55,7 +56,7 @@ export const EducationDetailsOnboarding: React.FC = () => {
               placeholder="e.g., Harvard University"
               error={!!errors.educationDetails?.[index]?.institution}
               errorMessage={errors.educationDetails?.[index]?.institution?.message}
-              className='w-[429px]'
+              className='grow'
             />
             <FormInput
               title={'Field of Study'}
@@ -65,18 +66,10 @@ export const EducationDetailsOnboarding: React.FC = () => {
               errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
               className='w-[429px]'
             />
-          </div>
+          </InputWrapper>
 
           {/* Dates */}
-          <div className="flex gap-form">
-            <FormInput
-              title={'Graduation Grade'}
-              {...register(`educationDetails.${index}.final_evaluation_grade`, { required: 'Graduation Grade is required' })}
-              placeholder="e.g., 3.8/4.0"
-              error={!!errors.educationDetails?.[index]?.final_evaluation_grade}
-              errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
-              className='w-[149px]'
-            />
+          <InputWrapper>
             <FormInput
               title={'Start Date'}
               {...register(`educationDetails.${index}.start_date`, { required: 'Start Date is required' })}
@@ -93,20 +86,29 @@ export const EducationDetailsOnboarding: React.FC = () => {
               errorMessage={errors.educationDetails?.[index]?.year_of_completion?.message}
               className='w-[160px]'
             />
-          </div>
+            <FormInput
+              title={'Grade'}
+              {...register(`educationDetails.${index}.final_evaluation_grade`, { required: 'Graduation Grade is required' })}
+              placeholder="e.g., 3.8/4.0"
+              error={!!errors.educationDetails?.[index]?.final_evaluation_grade}
+              errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
+              className='w-[149px]'
+            />
+          </InputWrapper>
         </div>
       ))}
 
-      <div className="flex items-center gap-4 mt-3">
-        <ArrowRight size={24} />
-        <button
-          type="button"
-          className="bg-white px-[30px] py-3 text-base leading-none text-black rounded-2xl border-2 border-black hover:bg-black hover:text-white"
+      <div className="flex items-center gap-4 my-5">
+        <div 
+          className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
           onClick={addEducation}
         >
-          Add Education
-        </button>
+          <p className='text-lg text-base-100'>Add Education</p>
+          <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
+        </div>
       </div>
+
+      <CertificationsNestedFieldArray />
     </div>
   );
 };

@@ -33,11 +33,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="w-full h-screen overflow-y-auto flex flex-col items-center bg-base-200">
-      <OngoingNabvar />
-      <CVDataContextProvider>
+    <CVDataContextProvider>
+      <div className="w-full h-screen flex flex-col items-center bg-base-200">
+        <OngoingNabvar />
         {children}
-      </CVDataContextProvider>
-    </div>
+      </div>
+    </CVDataContextProvider>
   );
 }

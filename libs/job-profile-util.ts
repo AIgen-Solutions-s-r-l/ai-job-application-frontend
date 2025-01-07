@@ -30,31 +30,10 @@ export function toJobProfile(resumeData: any): JobProfile {
 
 
   const additionalInfo: AdditionalInfo = {
-    projects: projects || [
-      {
-        link: "",
-        name: "",
-        description: "",
-      }
-    ],
-    achievements: achievements || [
-      {
-        name: "",
-        description: "",
-      }
-    ],
-    certifications: certifications || [
-      {
-        name: "",
-        description: "",
-      }
-    ],
-    languages: languages || [
-      {
-        language: "",
-        proficiency: "",
-      }
-    ],
+    projects: projects?.length ? projects : defaultJobProfile.additionalInfo.projects,
+    achievements: achievements?.length ? achievements : defaultJobProfile.additionalInfo.achievements,
+    certifications: certifications?.length ? certifications : defaultJobProfile.additionalInfo.certifications,
+    languages: languages?.length ? languages : defaultJobProfile.additionalInfo.languages,
     interests: interests || [],
     self_identification: toSelfIdentification(self_identification),
     legal_authorization: toLegalAuthorization(legal_authorization),
@@ -141,7 +120,6 @@ const toLegalAuthorization = (data: any): LegalAuthorization => {
 
   return convertedData as LegalAuthorization;
 };
-
 
 const toWorkPreferences = (data: any): WorkPreferences => ({
   remote_work: data.remote_work === "true",

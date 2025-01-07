@@ -79,8 +79,6 @@ export async function extractResume(formData: FormData): Promise<JobProfile> {
 
     const cvData: JobProfile = toJobProfile(data);
 
-    console.log("extractedResume", cvData);
-
     return cvData;
   } catch (error) {
     console.error("Error fetching user profiles from API:", error);

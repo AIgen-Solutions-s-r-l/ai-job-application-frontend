@@ -4,9 +4,19 @@ interface Props {
   currentStep: number;
 }
 
-const StepBox = ({ step, title, active = false }: { step: number, title: string, active: boolean }) => {
+interface StepBoxProps {
+  step: number;
+  currentStep: number;
+  title: string;
+}
+
+const StepBox = ({ step, currentStep, title }: StepBoxProps) => {
+  const active: boolean = currentStep === step;
+
   return (
-    <li className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-6 items-center px-5 ${active ? 'bg-secondary' : 'bg-neutral'}`}>
+    <li 
+      className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-6 items-center px-5 cursor-pointer ${active ? 'bg-secondary' : 'bg-neutral'}`}
+    >
       <span className={`text-[48px] ${active ? 'text-white' : 'text-secondary'}`}>{step}</span>
       <p className='text-[28px] text-base-100 font-light'>{title}</p>
     </li>
@@ -25,13 +35,13 @@ const StepArrow = () => {
 export const StepTracking: React.FC<Props> = ({ currentStep }) => {
   return (
     <ul className="w-full flex items-center justify-between">
-      <StepBox step={1} title="Personal Information" active={currentStep === 1} />
+      <StepBox step={1} title="Personal Information" currentStep={currentStep} />
       <StepArrow />
-      <StepBox step={2} title="Education" active={currentStep === 2} />
+      <StepBox step={2} title="Education" currentStep={currentStep} />
       <StepArrow />
-      <StepBox step={3} title="Experience" active={currentStep === 3} />
+      <StepBox step={3} title="Experience" currentStep={currentStep} />
       <StepArrow />
-      <StepBox step={4} title="Additional Information" active={currentStep === 4} />
+      <StepBox step={4} title="Additional Information" currentStep={currentStep} />
     </ul>
   );
 };

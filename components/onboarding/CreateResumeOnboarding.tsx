@@ -8,19 +8,18 @@ import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaSpinner } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { ViewResumeOnboarding } from './ViewResumeOnboarding';
 import { PersonalInformationOnboarding } from './cv-sections/PersonalInformationOnboarding';
 import { EducationDetailsOnboarding } from './cv-sections/EducationDetailsOnboarding';
 import { ExperienceDetailsOnboarding } from './cv-sections/ExperienceDetailsOnboarding';
 import { AdditionalInfoOnboarding } from './cv-sections/AdditionalInfoOnboarding';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { StepTracking } from './cv-sections/StepTracking';
+import { fromJobProfile } from '@/libs/job-profile-util';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const router = useRouter()
   const { CVData, setCVData } = useCVDataContext();
   const [currentStep, setCurrentStep] = useState(1);
-  const [submittedProfile, setSubmittedProfile] = useState<JobProfile | null>(null);
   const methods = useForm({
     defaultValues: CVData,
   });
@@ -30,7 +29,7 @@ export const CreateResumeOnboarding: React.FC = () => {
     switch (currentStep) {
       case 1: validateFields = ['personalInfo']; break;
       case 2: validateFields = ['educationDetails']; break;
-      case 3: validateFields = ['experienceDetails']; break;
+      case 3: validateFields = ['experienceDetails', 'additionalInfo.projects']; break;
       case 4: validateFields = ['additionalInfo']; break;
     }
 
@@ -49,31 +48,27 @@ export const CreateResumeOnboarding: React.FC = () => {
   }
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
-    console.log('test', jobProfile);
-    setSubmittedProfile(jobProfile);
-    // try {      
-    //   const response = await createJobProfile(jobProfile);
+    try {      
+      const entries: any = fromJobProfile(jobProfile);
+      console.log("entries", JSON.stringify(entries));
+      // const response = await createJobProfile(jobProfile);
 
-    //   if (response.success) {
-    //     toast.success("Profile saved successfully!");
-    //     setSubmittedProfile(jobProfile);
-    //     // router.push('/dashboard')
-    //   } else {
-    //     toast.error("Error saving profile.");
-    //     console.error("Error saving profile:", response.error);
-    //   }
-    // } catch (error) {
-    //   console.error("Error submitting profile:", error);
-    // }
+      // if (response.success) {
+      //   toast.success("Profile saved successfully!");
+      //   router.push('/dashboard')
+      // } else {
+      //   toast.error("Error saving profile.");
+      //   console.error("Error saving profile:", response.error);
+      // }
+    } catch (error) {
+      console.error("Error submitting profile:", error);
+    }
   };
 
-  if (submittedProfile) {
-    return <ViewResumeOnboarding profile={submittedProfile} />;
-  }
   
   return (
-    <div className='w-full pt-5 flex flex-col justify-between'>
-      <div className="w-full">
+    <div className='w-full h-full flex flex-col items-center'>
+      <div className="w-full pt-5 pb-[120px] bg bg-base-200">
         <div className="w-[1440px] mx-auto flex-1">
           <h3 className="text-[28px] mb-10 leading-none">View & edit your information</h3>
           <div className="mb-10">
@@ -83,23 +78,25 @@ export const CreateResumeOnboarding: React.FC = () => {
             <form
               id='my-form'
               className="w-full flex flex-col"
-              onSubmit={methods.handleSubmit(handleProfileSubmit)}>
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
+              onSubmit={methods.handleSubmit(handleProfileSubmit)}
+            >
               <div className="">
-                {/* {currentStep === 1 && <PersonalInformationOnboarding />}
+                {currentStep === 1 && <PersonalInformationOnboarding />}
                 {currentStep === 2 && <EducationDetailsOnboarding />}
                 {currentStep === 3 && <ExperienceDetailsOnboarding />}
-                {currentStep === 4 && <AdditionalInfoOnboarding />} */}
-                {/* <PersonalInformationOnboarding /> */}
-                <EducationDetailsOnboarding />
-                {/* <ExperienceDetailsOnboarding /> */}
-                {/* <AdditionalInfoOnboarding /> */}
+                {currentStep === 4 && <AdditionalInfoOnboarding />}
               </div>
             </form>
           </FormProvider>
         </div>
       </div>
 
-      <div className="w-full h-[100px] mt-10 flex items-center bg-secondary">
+      <div className="fixed bottom-0 z-10 w-full h-[100px] flex items-center bg-secondary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           {currentStep === 1
           ? <button
@@ -111,6 +108,20 @@ export const CreateResumeOnboarding: React.FC = () => {
             </button>
           : <div></div>}
           <div className="flex gap-5">
+            <button
+              className="bg-black py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-center items-center hover:bg-base-content"
+              type="button"
+              onClick={() => console.log(methods.formState.errors)}
+            >
+              <p>Show Errors</p>
+            </button>
+            <button
+              className="bg-black py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-center items-center hover:bg-base-content"
+              type="button"
+              onClick={() => console.log(methods.clearErrors())}
+            >
+              <p>Clear Errors</p>
+            </button>
             <button className="bg-black pl-[16px] pr-[30px] py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-between items-center hover:bg-base-content disabled:bg-neutral-content" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
               <ChevronLeft size={30} />
               <p>Previous Step</p>

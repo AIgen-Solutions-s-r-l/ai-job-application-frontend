@@ -6,7 +6,7 @@ import logo from "@/app/icon.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import config from "@/config";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/libs/api/auth"; // Importa la función de login
 import { fetchUserResume } from "@/libs/api/resume";
 
@@ -15,6 +15,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleLogin = async (e: any) => {
     e?.preventDefault();
@@ -26,9 +27,10 @@ export default function Login() {
       if (response?.access_token) {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
+        const relocationUrl = searchParams.get('r');
         try {
           await fetchUserResume();
-          router.replace("/dashboard");
+          router.replace(relocationUrl ? relocationUrl: "/dashboard");
         } catch (error) {
           router.replace("/onboarding");
         }

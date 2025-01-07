@@ -7,6 +7,8 @@ export const metadata = getSEOTags({
   canonicalUrlRelative: "/auth/signin",
 });
 
+export const dynamic = "force-dynamic";
+
 export default function Layout({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }

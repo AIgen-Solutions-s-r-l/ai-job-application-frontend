@@ -1,4 +1,4 @@
-import { JobTable } from "@/components/job-search/table";
+import { JobTable } from "@/components/old-job-search/table";
 import { getMatchingJobsAction } from "@/libs/data";
 import { JobSearchParams } from "@/libs/definitions";
 

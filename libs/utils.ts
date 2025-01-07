@@ -63,3 +63,14 @@ export function formDataToObject<T>(formData: FormData): T {
 
   return result as T;
 }
+
+export const sortArrayByDate = <T, K extends keyof T>(arr: T[], dateFiledName: K, order: 'asc' | 'desc'): T[] => {
+  return arr.sort((left, right) => {
+    const d1 = new Date(left[dateFiledName] as string);
+    const d2 = new Date(right[dateFiledName] as string);
+
+    return order === 'asc'
+      ? d1.getTime() - d2.getTime()
+      : d2.getTime() - d1.getTime()
+  })
+}

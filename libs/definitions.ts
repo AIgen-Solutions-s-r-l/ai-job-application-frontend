@@ -61,16 +61,16 @@ export interface ExperienceDetails {
 }
 
 export interface AdditionalInfo {
-  projects:             ProjectDetails[];
-  achievements:         Achievement[];
-  certifications:       Certification[];
-  languages:            Language[];
-  interests:            string[];
-  self_identification:  SelfIdentification;
-  legal_authorization:  LegalAuthorization;
-  work_preferences:     WorkPreferences;
-  availability:         Availability;
-  salary_expectations:  SalaryExpectations;
+  projects: ProjectDetails[];
+  achievements: Achievement[];
+  certifications: Certification[];
+  languages: Language[];
+  interests: string[];
+  self_identification: SelfIdentification;
+  legal_authorization: LegalAuthorization;
+  work_preferences: WorkPreferences;
+  availability: Availability;
+  salary_expectations: SalaryExpectations;
 }
 
 export interface Availability {
@@ -185,8 +185,11 @@ export interface AppliedJob {
   job_state?: string;
   description?: string;
   apply_link?: string;
-  company_id: number;
-  location_id: number;
+  // company_id: number;
+  company: string;
+  // location_id: number;
+  location: string;
+  portal: string;
 }
 
 export interface JobSearchParams {

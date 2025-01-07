@@ -61,14 +61,14 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
         </div>
       </div>
 
-      <Tabs.Root className='mt-[-25px]' defaultValue='peding'>
+      <Tabs.Root className='mt-[-25px] h-full' defaultValue='pending'>
         <Tabs.List
-          className='h-[50px] w-96 mt-[-25px] mb-5 flex text-lg'
+          className='h-[50px] w-96 mt-[-25px] flex text-lg'
           aria-label='Pending jobs list'
         >
           <Tabs.Trigger
             className='px-10 py-4 rounded-t-md data-[state=active]:bg-base-100'
-            value='peding'
+            value='pending'
           >
             Pending...
           </Tabs.Trigger>
@@ -83,12 +83,18 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content className='flex flex-col gap-4' value='peding'>
+        <Tabs.Content
+          className='pt-5 flex flex-col gap-4 bg-base-100-'
+          value='pending'
+        >
           {pendingJobs.map((job, key) => (
             <JobCard job={job} key={key} />
           ))}
         </Tabs.Content>
-        <Tabs.Content className='flex flex-col gap-4' value='applied'>
+        <Tabs.Content
+          className='pt-5 flex flex-col gap-4 bg-base-100-'
+          value='applied'
+        >
           {Object.keys(appliedJobs).map((year) => (
             <React.Fragment key={year}>
               {year}

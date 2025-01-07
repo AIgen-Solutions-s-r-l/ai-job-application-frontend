@@ -1,4 +1,4 @@
-import { FormInput } from '@/components/ui/form-input';
+import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -12,7 +12,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
     <div className="">
       <div className="flex flex-col gap-5">
         {/* Name */}
-        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
+        <InputWrapper>
           <FormInput
             title={'First Name'}
             {...register('personalInfo.name', { required: 'First Name is required' })}
@@ -37,10 +37,10 @@ export const PersonalInformationOnboarding: React.FC = () => {
             errorMessage={errors.personalInfo?.date_of_birth?.message}
             className='w-[298px]'
           />
-        </div>
+        </InputWrapper>
 
         {/* Address */}
-        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
+        <InputWrapper>
           <FormInput
             title={'City'}
             {...register('personalInfo.city', { required: 'City is required' })}
@@ -64,7 +64,6 @@ export const PersonalInformationOnboarding: React.FC = () => {
             required={false}
             // error={!!errors.personalInfo?.state}
             // errorMessage={errors.personalInfo?.state?.message}
-            disabled
             className='w-[149px]'
           />
           <FormInput
@@ -84,10 +83,10 @@ export const PersonalInformationOnboarding: React.FC = () => {
             errorMessage={errors.personalInfo?.country?.message}
             className='w-[268px]'
           />
-        </div>
+        </InputWrapper>
 
         {/* Contacts */}
-        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
+        <InputWrapper>
           <FormInput
             title={'Phone prefix'}
             {...register('personalInfo.phone_prefix', { required: 'Phone prefix is required' })}
@@ -119,10 +118,10 @@ export const PersonalInformationOnboarding: React.FC = () => {
             errorMessage={errors.personalInfo?.email?.message}
             className='w-[579px]'
           />
-        </div>
+        </InputWrapper>
 
         {/* Socials */}
-        <div className="flex gap-form p-10 rounded-[22px] bg-base-100">
+        <InputWrapper>
           <FormInput
             title={'Github'}
             {...register('personalInfo.github', {
@@ -155,7 +154,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             errorMessage={errors.personalInfo?.linkedin?.message}
             className='w-[579px]'
           />
-        </div>
+        </InputWrapper>
       </div>
     </div>
   );

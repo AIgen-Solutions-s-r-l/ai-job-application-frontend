@@ -118,9 +118,6 @@ export async function pdfToJson2(formData: FormData): Promise<{ data: any; error
       return { data: null, error: `Server returned ${response.status}: ${response.data?.error || response.statusText}` };
     }
 
-    console.log("pdfToJson2", response.data);
-
-
     return { data: response.data };
   } catch (error) {
     console.error('Error parsing PDF', error);

@@ -7,8 +7,8 @@ import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
 import moment from "moment";
-import { createResume, updateResume } from "./api/resume";
-import { fromJobProfile } from "./job-profile-util";
+import { createResume, pdfToJson, updateResume } from "./api/resume";
+import { fromJobProfile, toJobProfile } from "./job-profile-util";
 import { createJobApplication } from "./api/application";
 import { redirect } from "next/navigation";
 
@@ -73,6 +73,19 @@ export async function deleteJobRole(jobId: string) {
   }
 
   revalidatePath("/dashboard");
+}
+
+export async function extractResume(formData: FormData): Promise<JobProfile> {
+  try {
+    const { data } = await pdfToJson(formData);
+
+    const cvData: JobProfile = toJobProfile(data);
+
+    return cvData;
+  } catch (error) {
+    console.error("Error fetching user profiles from API:", error);
+    throw error;
+  }
 }
 
 export const createJobProfile = async (profileData: JobProfile): Promise<{

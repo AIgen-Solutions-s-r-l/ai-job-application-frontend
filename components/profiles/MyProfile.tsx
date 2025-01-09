@@ -126,8 +126,6 @@ export const MyProfile: React.FC<Props> = ({ profile }) => {
     defaultValues: profile,
   });
 
-  console.log('profile', profile);
-
   const handleEditClick = (section: keyof JobProfile) => {
     setEditingSection(section);
     setModalIsOpen(true);

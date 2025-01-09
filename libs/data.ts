@@ -1,10 +1,11 @@
 import { createClient } from "@/libs/supabase/server";
-import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob, DetailedPendingApplication, PendingApplicationRecord } from "./definitions";
+import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob, PendingApplicationRecord } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
 import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
+import { DetailedPendingApplication } from "./types/application.types";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();

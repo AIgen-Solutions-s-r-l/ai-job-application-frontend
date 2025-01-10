@@ -1,8 +1,10 @@
 'use client';
 
-import { DetailedPendingApplication } from '@/libs/types/application.types';
+import { DetailedPendingApplication, Resume } from '@/libs/types/application.types';
 import React, { useState } from 'react';
 import { TemplateProfessional } from './TemplateProfessional';
+import { PersonalInformationOnboarding } from '../onboarding/cv-sections/PersonalInformationOnboarding';
+import { ApplicationForm } from './ApplicationForm';
 
 interface Props {
   applicationDetails: DetailedPendingApplication;
@@ -79,12 +81,21 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
                 "name": "Portfolio",
                 "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing.",
                 "link": "https://www.perplexity.ai/"
+              },
+              {
+                "name": "Web Scaper",
+                "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing.",
+                "link": "https://www.perplexity.ai/"
               }
             ],
             "achievements": {
               "achievements": [
                 {
                   "name": "Top Performer",
+                  "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing. Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing."
+                },
+                {
+                  "name": "Top Frontender",
                   "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing. Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing."
                 }
               ]
@@ -168,6 +179,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
     }
   }
   const [ activeTab, setActiveTab ] = useState<Tab>("resume");
+  const [resumeData, setResumeData] = useState<Resume>(applicationDetails.resume_optimized.resume);
   
   return (
     <div className="w-full flex flex-col bg-base-200">
@@ -178,11 +190,15 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
       </div>
       <div className="w-[1440px] mx-auto py-5">
         {activeTab === "resume" && (
-          <div className="w-1/2 bg-white text-black">
-            <TemplateProfessional
-              header={applicationDetails.resume_optimized.resume.header}
-              body={applicationDetails.resume_optimized.resume.body}
-            />
+          <div className="flex justify-between">
+            {/* <div className='w-1/2'>
+              <ApplicationForm resumeData={resumeData} setResumeData={setResumeData} />
+            </div> */}
+            <div className="aspect-[210/297] h-fit w-1/2 mx-auto overflow-y-auto bg-white text-black shadow-xl">
+              <TemplateProfessional
+                {...resumeData}
+              />
+            </div>
           </div>
         )}
         {activeTab === "jobInfo" && (<h1 className='text-[32px] leading-10 mb-8'>

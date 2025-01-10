@@ -1,0 +1,54 @@
+'use client';
+
+import { Resume } from '@/libs/types/application.types';
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { PersonalInfo } from './PersonalInfo';
+
+interface Props {
+  resumeData: Resume;
+  setResumeData: React.Dispatch<React.SetStateAction<Resume>>;
+}
+
+export const ApplicationForm: React.FC<Props> = ({ resumeData, setResumeData }) => {
+  const methods = useForm({
+    defaultValues: resumeData,
+  });
+
+  // Watch for changes and update resumeData state
+  React.useEffect(() => {
+    const subscription = methods.watch((data) => {
+      setResumeData(data);
+    });
+    return () => subscription.unsubscribe();
+  }, [methods.watch, setResumeData]);
+
+  const handleProfileSubmit = async (cvData: Resume) => {
+    console.log('cvData', cvData);
+    // try {      
+      
+    // } catch (error) {
+    //   console.error("Error submitting profile:", error);
+    // }
+  };
+    
+  return (
+    <FormProvider {...methods}>
+      <form
+        id='my-form'
+        className="w-full flex flex-col"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+          }
+        }}
+        onSubmit={methods.handleSubmit(handleProfileSubmit)}
+      >
+        <div className="">
+          <PersonalInfo />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </FormProvider>
+  );
+};

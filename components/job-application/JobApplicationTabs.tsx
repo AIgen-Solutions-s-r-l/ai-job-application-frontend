@@ -1,10 +1,15 @@
 'use client';
 
-import { DetailedPendingApplication, Resume } from '@/libs/types/application.types';
+import { Resume } from '@/components/job-application/trash/application.types';
 import React, { useState } from 'react';
 import { TemplateProfessional } from './TemplateProfessional';
 import { PersonalInformationOnboarding } from '../onboarding/cv-sections/PersonalInformationOnboarding';
-import { ApplicationForm } from './ApplicationForm';
+import { ApplicationForm } from './trash/ApplicationForm';
+import { ResumePreview } from './ResumePreview';
+import { FormProvider, useForm } from 'react-hook-form';
+import { FaSpinner } from 'react-icons/fa';
+import { toResumeType } from './application.util';
+import { DetailedPendingApplication } from './trash/old-application.types';
 
 interface Props {
   applicationDetails: DetailedPendingApplication;
@@ -178,9 +183,42 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
       "sent": "false"
     }
   }
-  const [ activeTab, setActiveTab ] = useState<Tab>("resume");
-  const [resumeData, setResumeData] = useState<Resume>(applicationDetails.resume_optimized.resume);
+
+  const converted = toResumeType(applicationDetails);
   
+  const [ activeTab, setActiveTab ] = useState<Tab>("resume");
+  const methods = useForm({
+    defaultValues: converted,
+  });
+  
+  const handleResumeSubmit = (data: Resume) => {
+    const updates = {};
+    // for (const key in methods.formState.dirtyFields) {
+    //   // Convert dot notation to MongoDB update format
+    //   const parts = key.split('.');
+    //   let current = updates;
+    //   for (let i = 0; i < parts.length - 1; i++) {
+    //     if (!current[parts[i]]) {
+    //       current[parts[i]] = {};
+    //     }
+    //     current = current[parts[i]];
+    //   }
+    //   current[parts[parts.length - 1]] = data[key as keyof Resume]; // Type-safe access
+    // }
+
+    const redef = {
+      "resume_optimized": {
+        "resume": data
+      }
+    }
+
+    console.log("Updates for data:", JSON.stringify(redef));
+    console.log("Updates for dirtyFields:", JSON.stringify(methods.formState.dirtyFields));
+
+    // console.log("Updates for MongoDB:", JSON.stringify(updates, null, 2));
+    // onSave(data); // Or send the 'updates' object to your backend for the PUT request
+  };
+
   return (
     <div className="w-full flex flex-col bg-base-200">
       <div className="w-[1440px] mx-auto flex gap-10 pt-5">
@@ -190,16 +228,22 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
       </div>
       <div className="w-[1440px] mx-auto py-5">
         {activeTab === "resume" && (
-          <div className="flex justify-between">
-            {/* <div className='w-1/2'>
-              <ApplicationForm resumeData={resumeData} setResumeData={setResumeData} />
-            </div> */}
+          <FormProvider {...methods}>
             <div className="aspect-[210/297] h-fit w-1/2 mx-auto overflow-y-auto bg-white text-black shadow-xl">
-              <TemplateProfessional
-                {...resumeData}
-              />
+              <form 
+                id='my-form' 
+                className="w-full" 
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }}
+                onSubmit={methods.handleSubmit(handleResumeSubmit)}
+              >
+                <TemplateProfessional />
+              </form>
             </div>
-          </div>
+          </FormProvider>
         )}
         {activeTab === "jobInfo" && (<h1 className='text-[32px] leading-10 mb-8'>
           {applicationDetails.title}
@@ -209,6 +253,15 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
             applicationDetails.cover_letter.cover_letter.header.applicant_details.name
           }
         </h1>)}
+        <button 
+          className="bg-black pl-[30px] pr-[16px] py-3 text-lg leading-none text-white w-[300px] rounded-full flex justify-between items-center hover:bg-base-content" 
+          form='my-form' 
+          type="submit" 
+          disabled={methods.formState.isSubmitting}
+        >
+          {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
+          <p>Save & Continue</p>
+        </button>
       </div>
     </div>
   );

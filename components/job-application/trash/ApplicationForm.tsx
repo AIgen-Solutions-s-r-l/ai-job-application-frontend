@@ -1,6 +1,6 @@
 'use client';
 
-import { Resume } from '@/libs/types/application.types';
+import { Resume } from '@/components/job-application/trash/old-application.types';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { PersonalInfo } from './PersonalInfo';

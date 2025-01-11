@@ -14,11 +14,11 @@ export interface ResumeOptimized {
 
 export interface Resume {
     header?: ResumeHeader;
-    body?:   ResumeBody;
+    body:   ResumeBody;
 }
 
 export interface ResumeBody {
-    education_details?:  EducationDetails;
+    education_details:  EducationDetails;
     experience_details?: ExperienceDetails;
     side_projects?:      ProjectDetails[];
     achievements?:       Achievements;
@@ -61,16 +61,16 @@ export interface Language {
 }
 
 export interface EducationDetails {
-    education_details?: EducationDetail[]; // Array is optional
+    education_details: EducationDetail[]; // Array is optional
 }
 
 export interface EducationDetail {
-    education_level?:        string; // All fields are optional now
-    institution?:            string;
-    field_of_study?:         string;
-    final_evaluation_grade?: string;
-    start_date?:             string;
-    year_of_completion?:     string;
+    education_level:        string; // All fields are optional now
+    institution:            string;
+    field_of_study:         string;
+    final_evaluation_grade: string;
+    start_date:             string;
+    year_of_completion:     string;
 }
 
 export interface ExperienceDetails {

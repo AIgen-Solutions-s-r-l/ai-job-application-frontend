@@ -5,7 +5,7 @@ import { toJobProfile } from "./job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
 import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
-import { DetailedPendingApplication } from "./types/application.types";
+import { DetailedPendingApplication } from "../components/job-application/trash/old-application.types";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();

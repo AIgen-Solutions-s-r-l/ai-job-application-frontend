@@ -1,7 +1,7 @@
-import { PersonalInformation, Resume } from '@/libs/types/application.types';
+import { PersonalInformation, Resume } from '@/components/job-application/trash/old-application.types';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormInput, InputWrapper } from '../ui/form-input';
+import { FormInput, InputWrapper } from '../../ui/form-input';
 
 type FormData = Pick<Resume, "header">
 

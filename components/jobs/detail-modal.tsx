@@ -33,7 +33,7 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
               {/* Company */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Company</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.company_id}</dd>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.company}</dd>
               </div>
               {/* Job Title */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -43,7 +43,7 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
               {/* Job Location */}
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Location</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.location_id}</dd>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.location}</dd>
               </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Workplace Type</dt>
@@ -51,7 +51,7 @@ export default function DetailModal({ isModalOpen, setIsModalOpen, job }: Detail
               </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Location</dt>
-                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.location_id}</dd>
+                <dd className="mt-1 text-sm leading-6 text-base-content sm:col-span-2 sm:mt-0">{job.location}</dd>
               </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6">Posted Date</dt>

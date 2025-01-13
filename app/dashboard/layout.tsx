@@ -36,11 +36,11 @@ export default function Layout({ children }: { children: ReactNode }) {
       {/* <div className='block md:flex- w-screen h-screen flex flex-col md:flex-row-'> */}
       <AppNavbar />
       <div className='flex'>
-        <div className='nav fixed fixed top-0 z-10 md:static h-screen flex-none-'>
+        <div className='nav fixed md:static top-0 z-10 h-full max-h-screen'>
           <AppSidenav />
         </div>
         <div className='grow bg-base-100'>
-          <div className='overflow-y-auto h-[calc(100%-65px)] p-5 bg-base-200'>
+          <div className='overflow-y-auto h-[calc(100vh-112px)] p-5 bg-base-200'>
             {children}
           </div>
         </div>

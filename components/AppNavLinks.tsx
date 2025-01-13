@@ -87,7 +87,7 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
       {navLinks.map(({ title, links }) => (
         <div
           key={title}
-          className='flex flex-col gap-2 md:gap-5 py-1 pl-5 md:py-10 [&:not(:last-child)]:border-b-2 border-neutral-content'
+          className='flex flex-col gap-2 md:gap-5 pl-5 lg:pl-0 py-1 md:py-8 [&:not(:last-child)]:border-b-2 border-neutral-content'
         >
           <h2 className='font-semibold text-xl'>{title}</h2>
           <ul className='flex flex-col md:gap-3'>

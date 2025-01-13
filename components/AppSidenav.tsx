@@ -56,7 +56,7 @@ export default function AppSidenav() {
 
         {!isCollapse && (
           <Link
-            className={`text-3xl mt-5 mb-[25px] ${isOpen && "pl-5"}`}
+            className={`text-3xl mt-5 mb-[25px] pr-[3rem] ${isOpen && "pl-5 lg:pl-0"}`}
             href='/dashboard'
           >
             Dashboard

@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className='md:px-[80px] min-w-80'>
+    <div className='lg:px-[80px] min-w-80'>
       {/* <div className='block md:flex- w-screen h-screen flex flex-col md:flex-row-'> */}
       <AppNavbar />
       <div className='flex'>

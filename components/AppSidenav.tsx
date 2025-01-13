@@ -36,11 +36,11 @@ export default function AppSidenav() {
 
       {/* Drawer */}
       <div
-        className={`drawer-menu absolute md:relative h-screen flex flex-col bg-base-100 border-r border-neutral-content= z-40 transform ${
+        className={`drawer-menu absolute md:relative flex flex-col bg-base-100 border-r border-neutral-content= z-40 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:translate-x-0 ${
-          !isCollapse && `w-[${minWidth}px]`
-        }`}
+          isOpen && "min-h-screen"
+        } ${!isCollapse && `w-[${minWidth}px]`}`}
       >
         {/* Collapse button */}
         <button
@@ -56,7 +56,7 @@ export default function AppSidenav() {
 
         {!isCollapse && (
           <Link
-            className={`text-3xl mt-5 mb-[25px] pr-[3rem] ${isOpen && "pl-5 lg:pl-0"}`}
+            className={`text-3xl mt-5 mb-[25px] pr-[3rem] pl-5 lg:pl-0`}
             href='/dashboard'
           >
             Dashboard

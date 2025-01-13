@@ -6,11 +6,12 @@ import { usePathname } from "next/navigation";
 import {
   Search,
   Users,
-  BriefcaseBusiness,
+  // BriefcaseBusiness,
   CircleCheck,
   CreditCard,
   LogOut,
   WalletCards,
+  Settings,
 } from "lucide-react";
 import { useWindowSize } from "@/lib/hooks";
 
@@ -18,7 +19,7 @@ const navLinks = [
   {
     title: "Job Applications",
     links: [
-      { name: "History", href: "/dashboard/jobs", icon: CircleCheck },
+      { name: "History", href: "/dashboard", icon: CircleCheck },
       { name: "Job Search", href: "/search", icon: Search },
     ],
   },
@@ -35,10 +36,15 @@ const navLinks = [
         href: "/dashboard/subscription",
         icon: CreditCard,
       },
+      // {
+      //   name: "Account Information",
+      //   href: "/dashboard/roles",
+      //   icon: BriefcaseBusiness,
+      // },
       {
         name: "Account Information",
-        href: "/dashboard/roles",
-        icon: BriefcaseBusiness,
+        href: "/dashboard/settings",
+        icon: Settings,
       },
       {
         name: "Sign Out",
@@ -87,7 +93,7 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
       {navLinks.map(({ title, links }) => (
         <div
           key={title}
-          className='flex flex-col gap-2 md:gap-5 pl-5 lg:pl-0 py-1 md:py-8 [&:not(:last-child)]:border-b-2 border-neutral-content'
+          className='flex flex-col gap-2 md:gap-5 pl-5 lg:pl-0 py-1 md:py-8 last:pb-0 [&:not(:last-child)]:border-b-2 border-neutral-content'
         >
           <h2 className='font-semibold text-xl'>{title}</h2>
           <ul className='flex flex-col md:gap-3'>

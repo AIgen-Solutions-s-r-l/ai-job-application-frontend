@@ -1,19 +1,19 @@
 "use client";
 
-import SideNav from "@/components/sidenav";
-import Navbar from "@/components/navbar"; // Importar el componente de Navbar
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 import React from "react";
 import { getServerCookie } from "@/libs/cookies";
+import AppNavbar from "@/components/AppNavbar";
+import AppSidenav from "@/components/AppSidenav";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const checkAuthentication = useCallback(async () => {
-    const accessToken = await getServerCookie('accessToken');
+    const accessToken = await getServerCookie("accessToken");
     if (!accessToken) {
       setIsAuthenticated(false);
       router.replace(config.auth.loginUrl);
@@ -32,18 +32,18 @@ export default function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="block md:flex w-screen h-screen flex-col md:flex-row"> {/* // may be add md:overflow-hidden */}
-      {/* <div className="w-full flex-none md:w-64 bg-base-200"> */}
-      <div className="nav fixed z-10 md:static h-screen flex-none">
-        {/* Fondo de la barra lateral */}
-        <SideNav />
-      </div>
-      <div className="grow bg-base-100">
-        <Navbar />
-        <div className="overflow-y-auto h-[calc(100%-65px)] p-5 bg-base-200">
-          {children}
+    <div className='lg:px-[80px] min-w-80'>
+      {/* <div className='block md:flex- w-screen h-screen flex flex-col md:flex-row-'> */}
+      <AppNavbar />
+      <div className='flex'>
+        <div className='nav fixed md:static top-0 z-10 h-full max-h-screen'>
+          <AppSidenav />
         </div>
-        {/* Fondo del contenido */}
+        <div className='grow bg-base-100'>
+          <div className='overflow-y-auto h-[calc(100vh-112px)] p-5 bg-base-200'>
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );

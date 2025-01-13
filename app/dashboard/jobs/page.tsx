@@ -83,7 +83,7 @@ export default async function AutoJobs() {
   const autoJobs: AppliedJob[] = Math.random() > 0.5 ? jobs : [];
 
   return autoJobs.length ? (
-    <div className='font-light flex flex-col gap-5 bg-white- rounded-2xl'>
+    <div className='font-light flex flex-col gap-5 rounded-2xl'>
       <div className='flex flex-col gap-5'>
         <h5 className='text-2xl'>
           <b>Congratulations!</b> &nbsp;
@@ -100,12 +100,12 @@ export default async function AutoJobs() {
       </Suspense>
     </div>
   ) : (
-    <div className='font-light flex flex-col gap-5 bg-white- rounded-2xl'>
+    <div className='font-light flex flex-col gap-5 rounded-2xl'>
       <h5 className='text-2xl'>
         You can search for jobs now. Let’s get rolling. This will only take a
         few minutes.
       </h5>
-      <div className='px-8 py-[50px] flex flex-col justify-center items-center rounded-2xl bg-zinc-300'>
+      <div className='px-8 py-[50px] flex flex-col justify-center items-center rounded-2xl bg-base-300'>
         <div className='flex flex-col items-center gap-6'>
           <h2 className='text-lg font-light'>You don’t have any applied jobs yet.</h2>
           <Link

@@ -50,7 +50,7 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
 
   return (
     <div className='flex flex-col'>
-      <div className='h-[67px] px-8 flex justify-end rounded-lg bg-zinc-300'>
+      <div className='h-[67px] px-8 flex justify-end rounded-lg bg-base-300'>
         <div className='flex gap-10 items-center'>
           <button onClick={() => setSortBy("job_state")}>
             {underlineOrParagraph("Sort by: Phase", sortBy === "posted_date")}
@@ -77,7 +77,7 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
             value='applied'
           >
             Applied
-            <div className='w-[28px] h-[28px] rounded-full flex justify-center items-center bg-slate-200 shrink-0'>
+            <div className='w-[28px] h-[28px] rounded-full flex justify-center items-center bg-base-100 shrink-0'>
               <Check height={18} width={18} />
             </div>
           </Tabs.Trigger>

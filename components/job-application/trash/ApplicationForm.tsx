@@ -18,7 +18,24 @@ export const ApplicationForm: React.FC<Props> = ({ resumeData, setResumeData }) 
   // Watch for changes and update resumeData state
   React.useEffect(() => {
     const subscription = methods.watch((data) => {
-      setResumeData(data);
+      const updatedData: Resume = {
+        ...data,
+        body: {
+          ...data.body,
+          education_details: {
+            ...data.body?.education_details,
+            education_details: data.body?.education_details?.education_details.map((detail) => ({
+              education_level: detail.education_level || '',
+              institution: detail.institution || '',
+              field_of_study: detail.field_of_study || '',
+              final_evaluation_grade: detail.final_evaluation_grade || '',
+              start_date: detail.start_date || '',
+              year_of_completion: detail.year_of_completion || '',
+            })) || [],
+          },
+        },
+      };
+      return setResumeData(updatedData);
     });
     return () => subscription.unsubscribe();
   }, [methods.watch, setResumeData]);

@@ -3,28 +3,34 @@
 import React, { useMemo, useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { AppliedJob } from "@/libs/definitions";
-import { JobCard } from "./job-card";
 import { Check } from "lucide-react";
+import { JobCard } from "./job-card";
 import { sortArrayByDate } from "@/libs/utils";
+import { JobCardSkeleton } from "./job-card-skeleton";
 
 interface Props {
   jobs: AppliedJob[];
+  isLoading?: boolean;
 }
 
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
   isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
-export const JobFeedList: React.FC<Props> = ({ jobs }) => {
+export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
   const [sortBy, setSortBy] = useState<"posted_date" | "job_state">(
     "posted_date"
   );
 
   const pendingJobs = useMemo(() => {
+    if (!Array.isArray(jobs)) return jobs;
+
     //todo: need add filtering by job_state
     return sortArrayByDate(jobs, sortBy, "desc");
   }, [jobs, sortBy]);
 
   const appliedJobs = useMemo(() => {
+    if (!Array.isArray(jobs)) return jobs;
+
     const sortedJobs: Record<string, AppliedJob[]> = {};
     //todo: need add filtering by job_state
     jobs.forEach((e) => {
@@ -39,14 +45,6 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
     }
     return sortedJobs;
   }, [jobs, sortBy]);
-
-  if (jobs.length === 0) {
-    return (
-      <div className={"w-full h-full items-center justify-center text-4xl"}>
-        No jobs found
-      </div>
-    );
-  }
 
   return (
     <div className='flex flex-col'>
@@ -87,22 +85,36 @@ export const JobFeedList: React.FC<Props> = ({ jobs }) => {
           className='pt-5 flex flex-col gap-4 bg-base-100-'
           value='pending'
         >
-          {pendingJobs.map((job, key) => (
-            <JobCard job={job} key={key} />
-          ))}
+          {isLoading ? (
+            <>
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+            </>
+          ) : (
+            pendingJobs.map((job, key) => <JobCard job={job} key={key} />)
+          )}
         </Tabs.Content>
         <Tabs.Content
           className='pt-5 flex flex-col gap-4 bg-base-100-'
           value='applied'
         >
-          {Object.keys(appliedJobs).map((year) => (
-            <React.Fragment key={year}>
-              {year}
-              {appliedJobs[year].map((job, key) => (
-                <JobCard job={job} key={key} />
-              ))}
-            </React.Fragment>
-          ))}
+          {isLoading ? (
+            <>
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+            </>
+          ) : (
+            Object.keys(appliedJobs).map((year) => (
+              <React.Fragment key={year}>
+                {year}
+                {appliedJobs[year].map((job, key) => (
+                  <JobCard job={job} key={key} />
+                ))}
+              </React.Fragment>
+            ))
+          )}
         </Tabs.Content>
       </Tabs.Root>
     </div>

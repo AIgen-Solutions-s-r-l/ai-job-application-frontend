@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { ReactNode, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import config from "@/config";
 import React from "react";
 import { getServerCookie } from "@/libs/cookies";
@@ -10,30 +10,18 @@ import AppSidenav from "@/components/AppSidenav";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  const checkAuthentication = useCallback(async () => {
-    const accessToken = await getServerCookie("accessToken");
-    if (!accessToken) {
-      setIsAuthenticated(false);
-      router.replace(config.auth.loginUrl);
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
+  const pathname = usePathname();
 
   useEffect(() => {
-    checkAuthentication();
-  }, [checkAuthentication]);
-
-  if (!isAuthenticated) {
-    // Evita renderizar el contenido hasta que se verifique la autenticación
-    return null;
-  }
+    getServerCookie("accessToken").then((accessToken) => {
+      if (!accessToken) {
+        router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
+      }
+    });
+  }, []);
 
   return (
     <div className='lg:px-[80px] min-w-80'>
-      {/* <div className='block md:flex- w-screen h-screen flex flex-col md:flex-row-'> */}
       <AppNavbar />
       <div className='flex'>
         <div className='nav fixed md:static top-0 z-10 h-full max-h-screen'>

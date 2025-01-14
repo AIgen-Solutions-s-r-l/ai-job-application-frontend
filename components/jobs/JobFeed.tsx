@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getJobApplications } from "@/libs/api/application";
 import { AppliedJob } from "@/libs/definitions";
 import { fetchServerFunction } from "@/libs/fetch";
-import { JobFeedList } from "@/components/jobs/job-feed-list";
+import { JobFeedList } from "@/components/jobs/JobFeedList";
 
 export default function JobFeed() {
   const {

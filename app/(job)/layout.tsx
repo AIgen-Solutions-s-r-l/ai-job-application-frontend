@@ -7,7 +7,6 @@ import config from "@/config";
 import React from "react";
 import { getServerCookie } from "@/libs/cookies";
 import AppNavbar from "@/components/AppNavbar";
-import SelectedJobsProvider from "@/contexts/selected-jobs-context";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -42,13 +41,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="w-full flex flex-col items-center bg-base-100">
-      <SelectedJobsProvider>
+    <div className="w-full h-screen flex flex-col items-center bg-base-100">
         <div className='w-[1440px]'>
-          <AppNavbar slot={navbarMenu} />
+        <AppNavbar slot={navbarMenu} />
         </div>
-        {children}
-      </SelectedJobsProvider>
+      {children}
     </div>
   );
 }

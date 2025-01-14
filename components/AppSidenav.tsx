@@ -1,26 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { SquareChevronRight, SquareChevronLeft, Menu } from "lucide-react";
 import AppNavLinks from "./AppNavLinks";
+import { useSidenavCollapse } from "@/libs/hooks";
 
 const minWidth = 230;
 
 export default function AppSidenav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCollapse, setIsCollapse] = useState(
-    localStorage.getItem("collapsed-menu") === "true"
-  );
+  const [isCollapse, setIsCollapse] = useSidenavCollapse();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
 
-  const toggleCollapse = () => {
+  const toggleCollapse = useCallback(() => {
+    //@ts-ignore
     setIsCollapse(!isCollapse);
-    localStorage.setItem("collapsed-menu", isCollapse ? "false" : "true");
-  };
+  }, [isCollapse]);
 
   return (
     <>
@@ -65,7 +64,7 @@ export default function AppSidenav() {
 
         {/* Nav Links */}
         <div className={"flex grow flex-col space-y-2"}>
-          <AppNavLinks collapsed={isCollapse} />
+          <AppNavLinks collapsed={isCollapse as boolean} />
         </div>
       </div>
 

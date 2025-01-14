@@ -3,7 +3,7 @@
 import { delay } from "../time";
 import { apiClientJwt } from "./client";
 import API_BASE_URLS from "./config";
-import jobsMockData from "@/components/jobs/job-feed-mock";
+import jobsMockData from "@/components/jobs/jobsMockData";
 
 export async function fetchAppliedJobs(): Promise<any> {
   try {

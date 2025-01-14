@@ -4,9 +4,9 @@ import React, { useMemo, useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { AppliedJob } from "@/libs/definitions";
 import { Check } from "lucide-react";
-import { JobCard } from "./job-card";
+import { JobCard } from "./JobCard";
 import { sortArrayByDate } from "@/libs/utils";
-import { JobCardSkeleton } from "./job-card-skeleton";
+import { JobCardSkeleton } from "./JobCardSkeleton";
 
 interface Props {
   jobs: AppliedJob[];

@@ -1,6 +1,6 @@
 import { createClient } from "@/libs/supabase/server";
 import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob } from "./definitions";
-import { fetchUserResume, pdfToJson } from "@/libs/api/resume";
+import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";

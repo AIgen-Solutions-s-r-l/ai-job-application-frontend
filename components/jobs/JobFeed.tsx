@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { getJobApplications } from "@/libs/api/application";
-import { AppliedJob } from "@/libs/definitions";
-import { fetchServerFunction } from "@/libs/fetch";
-import { JobFeedList } from "@/components/jobs/JobFeedList";
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { getJobApplications } from '@/libs/api/application';
+import { AppliedJob } from '@/libs/definitions';
+import { fetchServerFunction } from '@/libs/fetch';
+import { JobFeedList } from '@/components/jobs/JobFeedList';
 
 export default function JobFeed() {
   const {
@@ -15,7 +15,7 @@ export default function JobFeed() {
     error,
   } = useQuery<AppliedJob[]>({
     queryFn: () => fetchServerFunction(getJobApplications, {}),
-    queryKey: ["data"],
+    queryKey: ['data'],
   });
 
   if (isError) return <h1>Error: {JSON.stringify(error)}</h1>;
@@ -34,7 +34,7 @@ export default function JobFeed() {
             </h2>
             <Link
               className={
-                "font-medium text-xl px-[60px] py-3 border border-input bg-white hover:bg-primary rounded-full"
+                'font-medium text-xl px-[60px] py-3 border border-input bg-white hover:bg-primary rounded-full'
               }
               href='/search'
             >

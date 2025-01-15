@@ -1,9 +1,5 @@
-import { JobSearchView } from "@/components/job-search/JobSearchView";
-import { getMatchingJobsAction } from "@/libs/data";
-import { JobSearchParams } from "@/libs/definitions";
+import { JobSearchView } from '@/components/job-search/JobSearchView';
 
-export default async function JobSearchPage({ searchParams }: { searchParams: JobSearchParams }) {
-  const matchingJobs = await getMatchingJobsAction(searchParams);
-
-  return <JobSearchView jobs={matchingJobs} />;
+export default async function JobSearchPage() {
+  return <JobSearchView />;
 }

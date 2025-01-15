@@ -3,14 +3,22 @@
 import React from 'react';
 import { ChevronDown, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 
 interface JobSearchBarProps {
   jobsLenth: number;
   onSearch: (keywords: string, location: string) => void;
+  searchParams: ReadonlyURLSearchParams;
+  isLoading: boolean;
 }
 
-export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch }) => {
-  const { register, handleSubmit } = useForm<{ keywords: string; location: string }>();
+export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch, searchParams, isLoading }) => {
+  const { register, handleSubmit } = useForm<{ keywords: string; location: string }>({
+    defaultValues: {
+      keywords: searchParams.get("q"), 
+      location: searchParams.get("l")
+    }
+  });
 
   const onSubmit = (data: { keywords: string; location: string }) => {
     onSearch(data.keywords, data.location);
@@ -75,10 +83,12 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch 
       </div>
     </div>
 
-    <div className="w-full bg-base-100">
-      <div className="w-[1440px] mx-auto pb-5">
-        <p className="text-lg">Your suggested jobs based on your resume: <span className="font-semibold">{jobsLenth} jobs</span> are found.</p>
+    {!isLoading && (
+      <div className="w-full bg-base-100">
+        <div className="w-[1440px] mx-auto pb-5">
+          <p className="text-lg">Your suggested jobs based on your resume: <span className="font-semibold">{jobsLenth} jobs</span> are found.</p>
+        </div>
       </div>
-    </div>
+    )}
   </>;
 };

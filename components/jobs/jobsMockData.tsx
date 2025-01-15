@@ -1,27 +1,27 @@
-import { AppliedJob } from "@/libs/definitions";
+import { AppliedJob } from '@/libs/definitions';
 
 const jobsMockData: AppliedJob[] = [
   {
     job_id: 1,
-    title: "Backend Developer",
+    title: 'Backend Developer',
     is_remote: false,
-    workplace_type: "On-site",
-    posted_date: "2024-12-03T10:00:00",
-    job_state: "Active",
+    workplace_type: 'On-site',
+    posted_date: '2024-12-03T10:00:00',
+    job_state: 'Active',
     description:
-      "This is mock data. Randomly 50/50 show this data or null result.",
-    apply_link: "https://backend.jobs/apply/789",
-    company: "Backend Gurus",
-    location: "Turin, Italy",
-    portal: "Indeed",
+      'This is mock data. Randomly 50/50 show this data or null result.',
+    apply_link: 'https://backend.jobs/apply/789',
+    company: 'Backend Gurus',
+    location: 'Turin, Italy',
+    portal: 'Indeed',
   },
   {
     job_id: 2,
-    title: "Backend Developer",
+    title: 'Backend Developer',
     is_remote: false,
-    workplace_type: "On-site",
-    posted_date: "2024-12-03T10:00:00",
-    job_state: "Active",
+    workplace_type: 'On-site',
+    posted_date: '2024-12-03T10:00:00',
+    job_state: 'Active',
     description: `
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente cumque temporibus porro suscipit ipsam. Dolore maiores consequuntur laboriosam ad explicabo, quod harum culpa sit soluta. Eveniet laboriosam explicabo repudiandae fuga.
       A vitae libero alias ratione autem quam unde esse aliquam fugit, non cum voluptatibus velit impedit molestiae fuga? Hic, laboriosam? Natus distinctio ut, expedita culpa nemo ducimus nostrum a accusantium.
@@ -30,38 +30,38 @@ const jobsMockData: AppliedJob[] = [
       Minima nam dignissimos facere ullam rem sit incidunt. Consequuntur expedita blanditiis quos minus corporis aspernatur, sequi qui, dolorum, eos nobis dignissimos iste veritatis doloremque officia magnam exercitationem possimus incidunt atque!
       Quibusdam illo, animi non quasi qui fuga corporis reprehenderit, assumenda possimus libero atque, ea beatae temporibus impedit ipsam molestiae vitae eaque. Porro error officiis dolores voluptatibus facere ipsa deleniti. Incidunt!
     `,
-    apply_link: "https://backend.jobs/apply/789",
-    company: "Backend Gurus",
-    location: "Turin, Italy",
-    portal: "Indeed",
+    apply_link: 'https://backend.jobs/apply/789',
+    company: 'Backend Gurus',
+    location: 'Turin, Italy',
+    portal: 'Indeed',
   },
   {
     job_id: 3,
-    title: "Backend Developer",
+    title: 'Backend Developer',
     is_remote: false,
-    workplace_type: "On-site",
-    posted_date: "2024-12-03T10:00:00",
-    job_state: "Active",
+    workplace_type: 'On-site',
+    posted_date: '2024-12-03T10:00:00',
+    job_state: 'Active',
     description:
-      "Develop and optimize backend APIs, ensure robust database management.",
-    apply_link: "https://backend.jobs/apply/789",
-    company: "Backend Gurus",
-    location: "Turin, Italy",
-    portal: "Indeed",
+      'Develop and optimize backend APIs, ensure robust database management.',
+    apply_link: 'https://backend.jobs/apply/789',
+    company: 'Backend Gurus',
+    location: 'Turin, Italy',
+    portal: 'Indeed',
   },
   {
     job_id: 4,
-    title: "Backend Developer",
+    title: 'Backend Developer',
     is_remote: false,
-    workplace_type: "On-site",
-    posted_date: "2024-12-03T10:00:00",
-    job_state: "Active",
+    workplace_type: 'On-site',
+    posted_date: '2024-12-03T10:00:00',
+    job_state: 'Active',
     description:
-      "Develop and optimize backend APIs, ensure robust database management.",
-    apply_link: "https://backend.jobs/apply/789",
-    company: "Backend Gurus",
-    location: "Turin, Italy",
-    portal: "Indeed",
+      'Develop and optimize backend APIs, ensure robust database management.',
+    apply_link: 'https://backend.jobs/apply/789',
+    company: 'Backend Gurus',
+    location: 'Turin, Italy',
+    portal: 'Indeed',
   },
 ];
 

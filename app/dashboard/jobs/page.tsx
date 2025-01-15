@@ -1,4 +1,4 @@
-import JobFeed from "@/components/jobs/JobFeed";
+import JobFeed from '@/components/jobs/JobFeed';
 
 export default function AutoJobsPage() {
   return <JobFeed />;

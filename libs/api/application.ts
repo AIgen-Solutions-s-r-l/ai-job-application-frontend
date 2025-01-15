@@ -57,7 +57,9 @@ export async function getJobApplications() {
     return response.data;
   } catch (error) {
     // console.error('Error getting job applications', error);
-    await delay(2000)
+
+    //todo: mock
+    await delay(3000)
     return Math.random() < 0.5 ? jobsMockData : [];
   }
 }

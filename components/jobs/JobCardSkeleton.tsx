@@ -1,6 +1,6 @@
-import { Skeleton } from "../Skeleton";
+import { Skeleton } from '../Skeleton';
 
-export const JobCardSkeleton: React.FC = () => {
+export const JobCardSkeleton = () => {
   return (
     <article className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-base-100'>
       <div className='text-xl flex flex-col gap-1'>

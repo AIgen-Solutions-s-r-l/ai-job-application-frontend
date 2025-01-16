@@ -3,14 +3,15 @@
 import React from 'react';
 import { ChevronDown, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useJobSearch } from '@/contexts/job-search-context';
 
 interface JobSearchBarProps {
-  jobsLenth: number;
   onSearch: (keywords: string, location: string) => void;
 }
 
-export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch }) => {
+export const JobSearchBar: React.FC<JobSearchBarProps> = ({ onSearch }) => {
   const { register, handleSubmit } = useForm<{ keywords: string; location: string }>();
+  const { jobs } = useJobSearch();
 
   const onSubmit = (data: { keywords: string; location: string }) => {
     onSearch(data.keywords, data.location);
@@ -77,7 +78,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch 
 
     <div className="w-full bg-base-100">
       <div className="w-[1440px] mx-auto pb-5">
-        <p className="text-lg">Your suggested jobs based on your resume: <span className="font-semibold">{jobsLenth} jobs</span> are found.</p>
+        <p className="text-lg">Your suggested jobs based on your resume: <span className="font-semibold">{jobs.length} jobs</span> are found.</p>
       </div>
     </div>
   </>;

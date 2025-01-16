@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Resume } from '../trash/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';

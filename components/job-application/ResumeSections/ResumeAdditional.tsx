@@ -4,12 +4,17 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import Link from 'next/link';
 import { NullifiedInput } from '@/components/ui/nullified-input';
 import { Minus, Plus } from 'lucide-react';
+import TextareaAutosize from 'react-textarea-autosize';
+import { useClickOutside, useNestedClickOutside } from '@/libs/hooks/useClickOutside';
+import { cn } from '@/lib/utils';
+import { EntryOperator } from './EntryOperator';
 
 type FormData = Pick<Resume, "additionalInfo">
 
 const SkillsNestedFieldArray: React.FC = () => {
   const { getValues, setValue } = useFormContext<FormData>();
   const additional_skills = getValues('additionalInfo.additional_skills');
+  const { ref, isActive, setIsActive } = useClickOutside();
 
   const debounce = (func: (...args: any[]) => void, delay: number) => {
     let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
@@ -33,60 +38,87 @@ const SkillsNestedFieldArray: React.FC = () => {
   );
 
   return additional_skills.length ? (
-    <div className="flex flex-wrap text-xs leading-none mt-2 gap-1">
-      <span className="font-semibold">Technincal Skills: </span>
-      <textarea
-        onChange={(e) => debouncedHandleSkillsChange(e.target.value)} // Use the debounced function
-        defaultValue={additional_skills ? additional_skills.join(', ') : ''}
-        placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
-        className="grow resize-none overflow-y-hidden border-b-2 border-transparent outline-none bg-transparent focus:outline-secondary placeholder-shown:border-black"
-      />
-    </div>
+    <>
+      {isActive && <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30" />}
+      <div 
+        className={cn(
+          'flex flex-wrap text-xs leading-none mt-2 gap-1 bg-white relative border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary', 
+          isActive && 'border-secondary z-30'
+        )}
+        ref={ref}
+        onClick={() => setIsActive(true)}
+      >
+        <span className="font-semibold">Technincal Skills: </span>
+        <TextareaAutosize
+          minRows={1}
+          onChange={(e) => debouncedHandleSkillsChange(e.target.value)}
+          defaultValue={additional_skills ? additional_skills.join(', ') : ''}
+          placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
+          className="grow resize-none overflow-y-hidden outline-none bg-transparent"
+        />
+      </div>
+    </>
   ) : null;
 }
 
 const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
-  const { getValues, setValue } = useFormContext<FormData>();
-  const languages = getValues('additionalInfo.languages');
-  const refinedArray = languages.map((lang) => lang.language);
+  const { register } = useFormContext<FormData>();
+  const { fields, append, remove } = useFieldArray({ 
+    name: `additionalInfo.languages`
+  })
 
-  const debounce = (func: (...args: any[]) => void, delay: number) => {
-    let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  };
+  const { setRef, activeIndex, setActiveIndex } = useNestedClickOutside<number>();
+  
+  const handleAddAchievement = () => {
+    const newIndex = fields.length;
+    append({
+      language: "",
+      description: "",
+    });
+    setActiveIndex(newIndex);
+  }
 
-  const handleLanguagesChange = useCallback(
-    (value: string) => {
-      const languagesArray = value.split(',').map(language => language.trim()).filter(Boolean);
-      const refined = languagesArray.map((lang) => (
-        {
-         "language": lang,
-         "proficiency": 'native',
-        }
-      ));
-      setValue(`additionalInfo.languages`, refined);
-    },
-    [setValue]
-  );
-
-  const debouncedHandleLanguagesChange = useCallback(
-    debounce(handleLanguagesChange, 500), 
-    [handleLanguagesChange] 
-  );
-
-  return refinedArray.length ? (
+  return fields.length ? (
     <div className="flex flex-wrap text-xs leading-none mt-2 gap-1">
-      <span className="font-semibold">Languages: </span>
-      <textarea
-        onChange={(e) => debouncedHandleLanguagesChange(e.target.value)} // Use the debounced function
-        defaultValue={refinedArray ? refinedArray.join(', ') : ''}
-        placeholder="Language"
-        rows={1}
-        className="grow resize-none overflow-y-hidden border-b-2 border-transparent outline-none bg-transparent focus:outline-secondary placeholder-shown:border-black"
-      />
+      <span className="font-semibold mt-[3px]">Languages: </span>
+      {activeIndex !== null && <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30" />}
+      {fields.map((item, index) => (
+        <div 
+          key={item.id} 
+          ref={(element) => setRef(index, element)}
+          className={cn(
+            'flex items-center align-top relative border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary bg-white', 
+            activeIndex === index  && 'border-secondary z-30'
+          )}
+          onClick={(e) => {
+            e.stopPropagation();
+            setActiveIndex(index);
+          }}
+        >
+          {activeIndex === index && (
+            <EntryOperator
+              itemsLength={fields.length}
+              onAdd={handleAddAchievement}
+              onRemove={() => {
+                remove(index);
+                setActiveIndex(null);
+              }}
+              small
+            />
+          )}
+          <NullifiedInput
+            {...register(`additionalInfo.languages.${index}.language`)}
+            placeholder="Language"
+            className='mr-1 leading-none'
+          />
+          (<NullifiedInput
+            {...register(`additionalInfo.languages.${index}.proficiency`)}
+            placeholder="Proficiency"
+            className='leading-none'
+          />)
+          {index === fields.length - 1 ? '.' : ', '}
+        </div>
+      ))}
     </div>
   ) : null;
 }
@@ -97,53 +129,83 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
     name: `additionalInfo.side_projects`
   })
   const side_projects = getValues('additionalInfo.side_projects');
+  const { setRef, activeIndex, setActiveIndex } = useNestedClickOutside<number>();
 
-  const handleAddProject = () =>
+  const handleAddProject = () => {
+    const newIndex = fields.length;
     append({
       name: "",
       description: "",
       link: "",
-    }
-  );
+    });
+    setActiveIndex(newIndex);
+  }
 
   return fields.length ? (
     <div className="flex flex-wrap text-xs mt-2 gap-1 leading-none">
-      <span className="font-semibold">Projects: </span>
-      <ul className="list-disc list-inside ml-4 w-full relative">
+      <h1 className="text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+        Side Projects
+      </h1>
+      {activeIndex  !== null && <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30" />}
+      <div className="flex flex-col w-full"> 
         {fields.map((exp, index) => (
-          <li className="pb-1 flex items-start relative" key={exp.id}>
-            <div className="absolute top-0 -left-6 w-8 h-8 items-center gap-10 group">
-              {<button 
-                className={fields.length === 1 ? 'hidden' : 'hidden group-hover:flex'}
-                onClick={() => remove(index)}
-              >
-                <Minus className='font-bold text-base-content' size={16} strokeWidth={4}  />
-              </button>}
-            </div>
-            <Link href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal text-blue-500 relative">
-              <NullifiedInput
-                {...register(`additionalInfo.side_projects.${index}.name`)}
-                placeholder="Project Name"
-              />
-            </Link>
+          <div 
+            key={exp.id}
+            ref={(element) => setRef(index, element)}
+            className={cn(
+              'flex flex-row items-start pb-1 relative border-2 border-transparent pt-2 hover:border-secondary has-[:focus]:border-secondary bg-white', 
+              activeIndex  === index  && 'border-secondary z-30'
+            )}
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveIndex(index);
+            }}
+          >
+            {activeIndex  === index ? (
+              <>
+                <EntryOperator
+                  itemsLength={fields.length}
+                  onAdd={handleAddProject}
+                  onRemove={() => {
+                    remove(index);
+                    setActiveIndex(null);
+                  }}
+                />
+                <div className="relative">
+                  <NullifiedInput
+                    {...register(`additionalInfo.side_projects.${index}.name`)}
+                    placeholder="Project Name"
+                    className='leading-none h-[12px] text-blue-500'
+                  />
+                  <NullifiedInput
+                    {...register(`additionalInfo.side_projects.${index}.link`)}
+                    placeholder="Project Link"
+                    className='absolute -top-[30px] left-0 leading-none h-[20px] p-2 bg-white z-30'
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline text-blue-500 relative">
+                  <NullifiedInput
+                    {...register(`additionalInfo.side_projects.${index}.name`)}
+                    placeholder="Project Name"
+                    className='inline leading-none h-[12px] text-blue-500'
+                  />
+                </Link>
+              </>
+            )}
             &nbsp;&#8209;&nbsp;
-            <textarea
+            <TextareaAutosize
               {...register(`additionalInfo.side_projects.${index}.description`)}
+              minRows={1}
               placeholder="Project Description"
-              className="grow resize-none overflow-y-hidden border-b-2 border-transparent outline-none bg-transparent focus:outline-secondary placeholder-shown:border-black"
+              className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
             />
-          </li>
+          </div>
           )
         )}
-        <div className="absolute -bottom-6 -left-6 w-8 h-8 items-center gap-10 group">
-          {<button 
-            className='hidden group-hover:flex'
-            onClick={handleAddProject}
-          >
-            <Plus className='font-bold text-base-content' size={16} strokeWidth={3}  />
-          </button>}
-        </div>
-      </ul>
+      </div>
     </div>
   ) : null;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Resume } from '../trash/application.types';
 import { useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
@@ -32,7 +32,7 @@ export const ResumePersonal: React.FC = () => {
           placeholder="Surname"
         />
       </h1>
-      <ul className="mt-3 text-gray-700 text-xs flex flex-row gap-2 list-none">
+      <ul className="mt-3 text-gray-700 text-xs flex flex-row flex-wrap mx-auto gap-2 list-none">
         <li className="flex gap-[2px]">
           <MapPin size={16} />
           <NullifiedInput
@@ -66,11 +66,25 @@ export const ResumePersonal: React.FC = () => {
         </li>
         <li className="flex gap-[2px]">
           <FaLinkedin size={16} />
-          <a href={linkedin} className="text-blue-500" target="_blank">Linkedin</a>
+          {isActive ? (
+            <NullifiedInput
+              {...register('personalInfo.linkedin')}
+              placeholder="Linkedin"
+            />
+          ) : (
+            <a href={linkedin} className="text-blue-500" target="_blank">Linkedin</a>
+          )}
         </li>
         <li className="flex gap-[2px]">
           <FaGithub size={16} />
-          <a href={github} className="text-blue-500" target="_blank">Github</a>
+          {isActive ? (
+            <NullifiedInput
+              {...register('personalInfo.github')}
+              placeholder="GitHub"
+            />
+          ) : (
+            <a href={github} className="text-blue-500" target="_blank">GitHub</a>
+          )}
         </li>
       </ul>
     </div>

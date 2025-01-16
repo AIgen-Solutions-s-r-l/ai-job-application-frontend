@@ -24,7 +24,6 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
       append("");
     }
   }, []);
-  
 
   return (
     <>
@@ -72,7 +71,6 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   const skills: string[] = getValues(`experienceDetails.${index}.skills_acquired`);
 
   const debounce = (func: (...args: any[]) => void, delay: number) => {
-    console.log('bouncing');
     let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
     return (...args: any[]) => {
       clearTimeout(timeout);
@@ -83,7 +81,6 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   const handleSkillsChange = useCallback(
     (index: number, value: string) => {
       const skillsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
-      console.log(`skillsArray ${index}:`, skillsArray);
       setValue(`experienceDetails.${index}.skills_acquired`, skillsArray);
     },
     [setValue]

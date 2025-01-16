@@ -1,21 +1,26 @@
 'use client';
 
-import { MatchingJob } from '@/libs/definitions';
 import React, { useState } from 'react';
 import { JobManagerCard } from './JobManagerCard';
+import { useJobManager } from '@/contexts/job-manager-context';
 
-interface Props {
-  jobs: MatchingJob[];
-}
+export const JobManagerList: React.FC = () => {
+  const { applications } = useJobManager();
+  const [focusedJobId, setFocusedJobId] = useState<string>('');
 
-export const JobManagerList: React.FC<Props> = ({ jobs }) => {
-  const [focusedJob, setFocusedJob] = useState<MatchingJob | null>(null);  
+  if (!applications) {
+    return (
+      <div className={'w-[1440px] h-full mx-auto text-4xl pt-16'}>
+        No applications found
+      </div>
+    );
+  }
   
   return (
-    <div className='w-full gap-5 bg-base-200 mb-20 pt-16 pb-5'>
+    <div className='w-full h-full gap-5 bg-base-200 mb-20 pt-16 pb-5'>
       <div className="w-[1440px] mx-auto grid grid-cols-3 gap-5">
-        {jobs.map((job) => (
-          <JobManagerCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob && focusedJob.id === job.id ? "outline outline-1 outline-primary" : ""} />
+        {Object.entries(applications).map(([key, value]) => (
+          <JobManagerCard key={key} id={key} job={value} onClick={() => setFocusedJobId(key)} className={focusedJobId === key ? "outline outline-1 outline-primary" : ""} />
         ))}
       </div>
     </div>

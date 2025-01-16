@@ -9,7 +9,7 @@ import config from "@/config";
 import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/libs/api/auth"; // Importa la función de login
 import { fetchUserResume } from "@/libs/api/resume";
-import RequireLogout from "@/permssions/requireLogout";
+import RequireLogout from "@/permissions/requireLogout";
 
 const Login = () => {
   const [username, setUsername] = useState<string>(""); // Cambiado de email a username

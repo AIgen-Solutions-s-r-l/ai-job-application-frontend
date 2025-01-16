@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import React from "react";
 import AppNavbar from "@/components/AppNavbar";
 import AppSidenav from "@/components/AppSidenav";
-import RequireLogin from "@/permssions/requireLogin";
+import RequireLogin from "@/permissions/requireLogin";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import React from "react";
 import CVDataContextProvider from "@/contexts/cv-data-context";
 import { OngoingNabvar } from "@/components/onboarding/OngoingNabvar";
-import RequireLogin from "@/permssions/requireLogin";
+import RequireLogin from "@/permissions/requireLogin";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

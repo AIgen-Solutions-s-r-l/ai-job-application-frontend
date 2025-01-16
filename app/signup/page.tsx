@@ -8,7 +8,7 @@ import config from "@/config";
 import Image from "next/image";
 import logo from "@/app/icon.png";
 import { register } from "@/libs/api/auth"; // Importa la función register
-import RequireLogout from "@/permssions/requireLogout";
+import RequireLogout from "@/permissions/requireLogout";
 
 const Signup = () => {
   const [username, setUsername] = useState(""); // Nuevo campo para username

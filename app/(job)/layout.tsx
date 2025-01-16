@@ -1,36 +1,14 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
 import Link from "next/link";
-import config from "@/config";
 import React from "react";
-import { getServerCookie } from "@/libs/cookies";
 import AppNavbar from "@/components/AppNavbar";
 import SelectedJobsProvider from "@/contexts/selected-jobs-context";
+import RequireLogin from "@/permssions/requireLogin";
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+const Layout = ({ children }: { children: ReactNode }) => {
 
-  const checkAuthentication = useCallback(async () => {
-    const accessToken = await getServerCookie('accessToken');
-    if (!accessToken) {
-      setIsAuthenticated(false);
-      router.replace(config.auth.loginUrl);
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
-
-  useEffect(() => {
-    checkAuthentication();
-  }, [checkAuthentication]);
-
-  if (!isAuthenticated) {
-    // Evita renderizar el contenido hasta que se verifique la autenticación
-    return null;
-  }
   const navbarMenu = (
     <Link
       key='Dashboard'
@@ -52,3 +30,5 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+export default RequireLogin(Layout);

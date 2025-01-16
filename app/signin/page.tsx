@@ -9,8 +9,9 @@ import config from "@/config";
 import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/libs/api/auth"; // Importa la función de login
 import { fetchUserResume } from "@/libs/api/resume";
+import RequireLogout from "@/permssions/requireLogout";
 
-export default function Login() {
+const Login = () => {
   const [username, setUsername] = useState<string>(""); // Cambiado de email a username
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -30,7 +31,7 @@ export default function Login() {
         const relocationUrl = searchParams.get('r');
         try {
           await fetchUserResume();
-          router.replace(relocationUrl ? relocationUrl: "/dashboard");
+          router.replace(relocationUrl ? relocationUrl : "/dashboard");
         } catch (error) {
           router.replace("/onboarding");
         }
@@ -124,3 +125,5 @@ export default function Login() {
     </main>
   );
 }
+
+export default RequireLogout(Login);

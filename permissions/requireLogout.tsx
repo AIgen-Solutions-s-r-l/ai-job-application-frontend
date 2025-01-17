@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getServerCookie } from "@/libs/cookies";
 
 type ComponentType<Props = {}> = React.ComponentType<Props>;
@@ -7,7 +7,6 @@ type ComponentType<Props = {}> = React.ComponentType<Props>;
 const RequireLogout = <P extends object>(Component: ComponentType<P>): React.FC<P> => {
     const LogoutComponent: React.FC<P> = (props) => {
         const router = useRouter();
-        const searchParams = useSearchParams();
         const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
         const checkAuthentication = useCallback(async () => {

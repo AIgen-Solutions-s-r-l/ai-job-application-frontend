@@ -1,36 +1,12 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import config from "@/config";
+import { ReactNode } from "react";
 import React from "react";
-import { getServerCookie } from "@/libs/cookies";
 import AppNavbar from "@/components/AppNavbar";
 import AppSidenav from "@/components/AppSidenav";
+import RequireLogin from "@/permissions/requireLogin";
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  const checkAuthentication = useCallback(async () => {
-    const accessToken = await getServerCookie("accessToken");
-    if (!accessToken) {
-      setIsAuthenticated(false);
-      router.replace(config.auth.loginUrl);
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
-
-  useEffect(() => {
-    checkAuthentication();
-  }, [checkAuthentication]);
-
-  if (!isAuthenticated) {
-    // Evita renderizar el contenido hasta que se verifique la autenticación
-    return null;
-  }
-
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className='lg:px-[80px] min-w-80'>
       {/* <div className='block md:flex- w-screen h-screen flex flex-col md:flex-row-'> */}
@@ -48,3 +24,5 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+export default RequireLogin(Layout);

@@ -4,22 +4,24 @@ import { useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { useClickOutside } from '@/libs/hooks/useClickOutside';
 import { cn } from '@/lib/utils';
+import { useActiveSectionContext } from './active-section-context';
 
 export const ResumePersonal: React.FC = () => {
   const { register, getValues } = useFormContext<Resume>();
   const linkedin: string = getValues('personalInfo.linkedin');
   const github: string = getValues('personalInfo.github');
-  const { ref, isActive, setIsActive } = useClickOutside();
+  const { activeSection, setActiveSection } = useActiveSectionContext();
+  const isActive = activeSection === 'personal-section';
   
   return <>
-    {isActive && <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30" />}
     <div 
-      className={cn('flex flex-col items-center border-2 border-transparent has-[:focus]:border-secondary bg-white relative', isActive && 'border-secondary z-30')}
-      id="personal_section"
-      ref={ref}
-      onClick={() => setIsActive(true)}
+      data-section="personal-section"
+      className={cn(
+        'flex flex-col items-center border-2 hover:border-secondary', 
+        isActive ? 'bg-white border-secondary' : 'border-transparent'
+      )}
+      onClick={() => setActiveSection('personal-section')}
     >
       <h1 className="font-semibold tracking-widest text-xl">
         <NullifiedInput

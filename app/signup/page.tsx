@@ -37,7 +37,7 @@ export default function Signup() {
       // Llama a la API para registrar al usuario
       const response = await register(username, email, password);
       
-      if (response?.access_token) {
+      if (!response?.access_token) {
         throw new Error('Access token not received.');
       }
 

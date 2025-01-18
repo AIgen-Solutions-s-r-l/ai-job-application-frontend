@@ -1,16 +1,10 @@
 'use client';
 
-import { Resume } from '@/components/job-application/trash/application.types';
 import React, { useState } from 'react';
 import { TemplateProfessional } from './TemplateProfessional';
-import { PersonalInformationOnboarding } from '../onboarding/cv-sections/PersonalInformationOnboarding';
-import { ApplicationForm } from './trash/ApplicationForm';
-import { ResumePreview } from './ResumePreview';
-import { FormProvider, useForm } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
 import { toResumeType } from './application.util';
-import { DetailedPendingApplication } from './trash/old-application.types';
 import { ActiveSectionProvider } from './ResumeSections/active-section-context';
+import { DetailedPendingApplication } from './trash/old-application.types';
 
 interface Props {
   applicationDetails: DetailedPendingApplication;
@@ -48,7 +42,55 @@ export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
                   "final_evaluation_grade": "3.8",
                   "start_date": "September 2019",
                   "year_of_completion": "March 2024"
-                }
+                },
+                {
+                  "education_level": "B.S.",
+                  "institution": "Almaty University of Power Engineering and Telecommunications",
+                  "field_of_study": "Computer Science",
+                  "final_evaluation_grade": "3.8",
+                  "start_date": "September 2019",
+                  "year_of_completion": "March 2024"
+                },
+                {
+                  "education_level": "B.S.",
+                  "institution": "Almaty University of Power Engineering and Telecommunications",
+                  "field_of_study": "Computer Science",
+                  "final_evaluation_grade": "3.8",
+                  "start_date": "September 2019",
+                  "year_of_completion": "March 2024"
+                },
+                {
+                  "education_level": "B.S.",
+                  "institution": "Almaty University of Power Engineering and Telecommunications",
+                  "field_of_study": "Computer Science",
+                  "final_evaluation_grade": "3.8",
+                  "start_date": "September 2019",
+                  "year_of_completion": "March 2024"
+                },
+                {
+                  "education_level": "B.S.",
+                  "institution": "Almaty University of Power Engineering and Telecommunications",
+                  "field_of_study": "Computer Science",
+                  "final_evaluation_grade": "3.8",
+                  "start_date": "September 2019",
+                  "year_of_completion": "March 2024"
+                },
+                {
+                  "education_level": "B.S.",
+                  "institution": "Almaty University of Power Engineering and Telecommunications",
+                  "field_of_study": "Computer Science",
+                  "final_evaluation_grade": "3.8",
+                  "start_date": "September 2019",
+                  "year_of_completion": "March 2024"
+                },
+                {
+                  "education_level": "B.S.",
+                  "institution": "Almaty University of Power Engineering and Telecommunications",
+                  "field_of_study": "Computer Science",
+                  "final_evaluation_grade": "3.8",
+                  "start_date": "September 2019",
+                  "year_of_completion": "March 2024"
+                },
               ]
             },
             "experience_details": {

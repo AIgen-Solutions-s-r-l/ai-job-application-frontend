@@ -12,12 +12,12 @@ export interface ResumeOptimized {
     resume: Resume;
 }
 
-export interface Resume {
+interface Resume {
     header?: ResumeHeader;
     body:   ResumeBody;
 }
 
-export interface ResumeBody {
+interface ResumeBody {
     education_details:  EducationDetails;
     experience_details?: ExperienceDetails;
     side_projects?:      ProjectDetails[];
@@ -26,45 +26,45 @@ export interface ResumeBody {
     additional_skills?:  AdditionalSkills;
 }
 
-export interface ProjectDetails {
+interface ProjectDetails {
   name?: string;
   description?: string;
   link?: string; 
 }
 
-export interface Achievements {
+interface Achievements {
     achievements?: Achievement[]; // Array is optional
 }
 
-export interface Achievement {
+interface Achievement {
     name?:        string;
     description?: string;
 }
 
-export interface Certifications {
+interface Certifications {
     certifications?: Certification[]; // Array is optional
 }
 
-export interface Certification {
+interface Certification {
     name?:        string;
     description?: string;
 }
 
-export interface AdditionalSkills {
+interface AdditionalSkills {
     additional_skills?: string[]; // Array is optional
     languages?:         Language[]; // Array is optional
 }
 
-export interface Language {
+interface Language {
     language?:    string;
     proficiency?: string;
 }
 
-export interface EducationDetails {
+interface EducationDetails {
     education_details: EducationDetail[]; // Array is optional
 }
 
-export interface EducationDetail {
+interface EducationDetail {
     education_level:        string; // All fields are optional now
     institution:            string;
     field_of_study:         string;
@@ -73,11 +73,11 @@ export interface EducationDetail {
     year_of_completion:     string;
 }
 
-export interface ExperienceDetails {
+interface ExperienceDetails {
     experience_details?: ExperienceDetail[]; // Array is optional
 }
 
-export interface ExperienceDetail {
+interface ExperienceDetail {
     position?:             string; // All fields are optional now
     company?:              string;
     employment_period?:    string;
@@ -87,11 +87,11 @@ export interface ExperienceDetail {
     skills_acquired?:      string[]; // Array is optional
 }
 
-export interface ResumeHeader {
+interface ResumeHeader {
     personal_information?: PersonalInformation;
 }
 
-export interface PersonalInformation {
+interface PersonalInformation {
     name?:          string;
     surname?:       string;
     date_of_birth?: string;
@@ -115,25 +115,25 @@ export interface CoverLetterCoverLetter {
     footer: CoverLetterFooter;
 }
 
-export interface CoverLetterBody {
+interface CoverLetterBody {
     greeting:          string;
     opening_paragraph: string;
     body_paragraphs:   string;
     closing_paragraph: string;
 }
 
-export interface CoverLetterFooter {
+interface CoverLetterFooter {
     closing:   string;
     signature: string;
     date:      string;
 }
 
-export interface CoverLetterHeader {
+interface CoverLetterHeader {
     applicant_details: CoverLetterApplicantDetails;
     company_details:   CoverLetterCompanyDetails;
 }
 
-export interface CoverLetterApplicantDetails {
+interface CoverLetterApplicantDetails {
     name:           string;
     address:        string;
     city_state_zip?: string;
@@ -141,6 +141,6 @@ export interface CoverLetterApplicantDetails {
     phone_number:   string;
 }
 
-export interface CoverLetterCompanyDetails {
+interface CoverLetterCompanyDetails {
     name: string;
 }

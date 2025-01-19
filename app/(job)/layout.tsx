@@ -42,9 +42,9 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-base-100">
-        <div className='w-[1440px]'>
+      <div className='w-[1440px]'>
         <AppNavbar slot={navbarMenu} />
-        </div>
+      </div>
       {children}
     </div>
   );

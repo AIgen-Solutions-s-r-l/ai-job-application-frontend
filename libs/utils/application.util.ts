@@ -1,5 +1,5 @@
-import { ResumeAdditionalInfo } from "./trash/application.types";
-import { Resume } from "./trash/application.types";
+import { ResumeAdditionalInfo } from "../types/application.types";
+import { Resume } from "../types/application.types";
 
 export function toResumeType(resumeData: any): Resume {
   const { 
@@ -44,5 +44,42 @@ export function toResumeType(resumeData: any): Resume {
     educationDetails: education_details || null,
     experienceDetails: experience_details || null,
     additionalInfo,
+  };
+}
+
+export function fromResumeType(resumeData: Resume): any {
+  const {
+    personalInfo,
+    educationDetails,
+    experienceDetails,
+    additionalInfo,
+  } = resumeData;
+  
+  return {
+    resume: {
+      header: {
+        personal_information: personalInfo,
+      },
+      body: {
+        education_details: {
+          education_details: educationDetails,
+        },
+        experience_details: {
+          experience_details: experienceDetails,
+        },
+        side_projects: additionalInfo.side_projects,
+        achievements: {
+          achievements: additionalInfo.achievements,
+        },
+        certifications: {
+          certifications: additionalInfo.certifications,
+        },
+        additional_skills: {
+          additional_skills: additionalInfo.additional_skills,
+          languages: additionalInfo.languages,
+          // interests: additionalInfo.interests,
+        },
+      },
+    }
   };
 }

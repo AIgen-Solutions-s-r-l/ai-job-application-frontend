@@ -4,7 +4,7 @@ import {
   SelfIdentification,
   LegalAuthorization,
   WorkPreferences,
-} from './definitions';
+} from '../definitions';
 
 
 export function toJobProfile(resumeData: any): JobProfile {

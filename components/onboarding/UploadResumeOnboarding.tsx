@@ -5,7 +5,7 @@ import { AiFillFilePdf } from "react-icons/ai";
 import React, { ChangeEvent, DragEvent, FormEvent, useState } from 'react';
 import { useCVDataContext } from "@/contexts/cv-data-context";
 import { extractResume } from "@/libs/actions";
-import { defaultJobProfile, toJobProfile } from "@/libs/job-profile-util";
+import { defaultJobProfile, toJobProfile } from "@/libs/utils/job-profile-util";
 import { FaSpinner } from "react-icons/fa";
 import { JobProfile } from "@/libs/definitions";
 

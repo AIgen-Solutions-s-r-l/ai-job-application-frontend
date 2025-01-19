@@ -1,10 +1,10 @@
 import React from 'react';
-import { Resume } from '../trash/application.types';
+import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
 import { cn } from '@/lib/utils';
 import { EntryOperator } from './EntryOperator';
-import { useActiveSectionContext } from './active-section-context';
+import { useActiveSectionContext } from '../../../contexts/active-section-context';
 
 type FormData = Pick<Resume, "educationDetails">
 

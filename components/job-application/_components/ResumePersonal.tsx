@@ -1,11 +1,11 @@
 import React from 'react';
-import { Resume } from '../trash/application.types';
+import { Resume } from '../../../libs/types/application.types';
 import { useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
-import { useActiveSectionContext } from './active-section-context';
+import { useActiveSectionContext } from '../../../contexts/active-section-context';
 
 export const ResumePersonal: React.FC = () => {
   const { register, getValues } = useFormContext<Resume>();

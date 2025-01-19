@@ -4,5 +4,5 @@ import { getDetailedApplicationData } from "@/libs/data";
 export default async function JobManagerPage({ params: { id } }: { params: { id: string } }) {
   const applicationDetails = await getDetailedApplicationData(id);
 
-  return <JobApplicationTabs applicationDetails={applicationDetails} />;
+  return <JobApplicationTabs applicationDetails={applicationDetails} id={id} />;
 }

@@ -11,15 +11,12 @@ export const ActiveSectionProvider: React.FC<{ children: React.ReactNode }> = ({
   const [activeSection, setActiveSection] = useState<string | null>(null);
   
   useEffect(() => {
-    console.log('activeSectionuseEffect', activeSection);
     const handleGlobalClick = (event: MouseEvent) => {
       const clickedElement = event.target as Node;
       const resumeSections = document.querySelector('#resume-sections');
-      console.log('clickedElement', clickedElement);
 
       // If clicking outside the resume sections container
       if (resumeSections && !resumeSections.contains(clickedElement)) {
-        console.log('If clicking outside the resume sections container');
         setActiveSection(null);
         return;
       }
@@ -29,20 +26,15 @@ export const ActiveSectionProvider: React.FC<{ children: React.ReactNode }> = ({
       const clickedInsideAnySection = allSectionElements.some(section => 
         section.contains(clickedElement)
       );
-      console.log('allSectionElements', allSectionElements);
-      console.log('clickedInsideAnySection', clickedInsideAnySection);
 
       // If clicked outside all sections but inside resume-sections
       if (!clickedInsideAnySection) {
-        console.log('If clicked outside all sections but inside resume-sections');
         setActiveSection(null);
       }
     };
 
-    console.log('addEventListener');
     document.addEventListener('mousedown', handleGlobalClick);
     return () => {
-      console.log('removeEventListener');
       document.removeEventListener('mousedown', handleGlobalClick);
     };
   });

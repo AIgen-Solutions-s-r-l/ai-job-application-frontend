@@ -1,24 +1,23 @@
-"use client";
+'use client';
 
-import { ReactNode, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import config from "@/config";
-import React from "react";
-import { getServerCookie } from "@/libs/cookies";
-import AppNavbar from "@/components/AppNavbar";
-import AppSidenav from "@/components/AppSidenav";
+import { ReactNode, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import config from '@/config';
+import { getServerCookie } from '@/libs/cookies';
+import AppNavbar from '@/components/AppNavbar';
+import AppSidenav from '@/components/AppSidenav';
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    getServerCookie("accessToken").then((accessToken) => {
+    getServerCookie('accessToken').then((accessToken) => {
       if (!accessToken) {
         router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
       }
     });
-  }, []);
+  }, [pathname, router]);
 
   return (
     <div className='lg:px-[80px] min-w-80'>

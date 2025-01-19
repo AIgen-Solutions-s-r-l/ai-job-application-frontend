@@ -1,26 +1,13 @@
-'use client';
-
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 import { getJobApplications } from '@/libs/api/application';
-import { AppliedJob } from '@/libs/definitions';
-import { fetchServerFunction } from '@/libs/fetch';
 import { JobFeedList } from '@/components/jobs/JobFeedList';
 
-export default function JobFeed() {
-  const {
-    data: autoJobs,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<AppliedJob[]>({
-    queryFn: () => fetchServerFunction(getJobApplications, {}),
-    queryKey: ['data'],
-  });
+export default async function JobFeed() {
+  const autoJobs = await getJobApplications();
 
-  if (isError) return <h1>Error: {JSON.stringify(error)}</h1>;
+  if (!Array.isArray(autoJobs)) return <>wrong data</>;
 
-  if (!isLoading && Array.isArray(autoJobs) && autoJobs.length === 0)
+  if (autoJobs.length === 0)
     return (
       <div className='font-light flex flex-col gap-5 rounded-2xl'>
         <h3 className='text-2xl'>
@@ -48,19 +35,17 @@ export default function JobFeed() {
   return (
     <div className='font-light flex flex-col gap-5 rounded-2xl'>
       <div className='flex flex-col gap-5'>
-        {Array.isArray(autoJobs) && (
-          <div className='text-2xl'>
-            <b>Congratulations!</b> &nbsp;
-            <span>
-              We sent your application to <b>{autoJobs.length} jobs.</b>
-            </span>
-          </div>
-        )}
+        <div className='text-2xl'>
+          <b>Congratulations!</b> &nbsp;
+          <span>
+            We sent your application to <b>{autoJobs.length} jobs.</b>
+          </span>
+        </div>
         <p>
           Refresh this page to get see pending applications turn into finalized.
         </p>
       </div>
-      <JobFeedList jobs={autoJobs} isLoading={isLoading} />
+      <JobFeedList jobs={autoJobs} isLoading={false} />
     </div>
   );
 }

@@ -1,15 +1,17 @@
-"use client";
+'use client';
 
-import { useCallback, useState } from "react";
-import Link from "next/link";
-import { SquareChevronRight, SquareChevronLeft, Menu } from "lucide-react";
-import AppNavLinks from "./AppNavLinks";
-import { useSidenavCollapse } from "@/libs/hooks";
+import { useCallback, useState } from 'react';
+import Link from 'next/link';
+import { SquareChevronRight, SquareChevronLeft, Menu } from 'lucide-react';
+import AppNavLinks from './AppNavLinks';
+import { useSidenavCollapse } from '@/libs/hooks';
 
 const minWidth = 230;
 
 export default function AppSidenav() {
   const [isOpen, setIsOpen] = useState(false);
+
+  //todo: expiremental, reduce speed, may couse errors with access to local storage on server side
   const [isCollapse, setIsCollapse] = useSidenavCollapse();
 
   const toggleDrawer = () => {
@@ -18,8 +20,8 @@ export default function AppSidenav() {
 
   const toggleCollapse = useCallback(() => {
     //@ts-ignore
-    setIsCollapse(!isCollapse);
-  }, [isCollapse]);
+    setIsCollapse((prev) => !prev);
+  }, [setIsCollapse]);
 
   return (
     <>
@@ -36,17 +38,17 @@ export default function AppSidenav() {
       {/* Drawer */}
       <div
         className={`drawer-menu absolute md:relative flex flex-col bg-base-100 border-r border-neutral-content= z-40 transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out md:translate-x-0 ${
-          isOpen && "min-h-screen"
+          isOpen && 'min-h-screen'
         } ${!isCollapse && `w-[${minWidth}px]`}`}
       >
         {/* Collapse button */}
         <button
           className={`hidden p-1 rounded-md hover:bg-base-300 ${
             isCollapse
-              ? "md:flex flex-col items-center py-4"
-              : "md:block absolute right-0 top-4"
+              ? 'md:flex flex-col items-center py-4'
+              : 'md:block absolute right-0 top-4'
           }`}
           onClick={toggleCollapse}
         >
@@ -63,7 +65,7 @@ export default function AppSidenav() {
         )}
 
         {/* Nav Links */}
-        <div className={"flex grow flex-col space-y-2"}>
+        <div className={'flex grow flex-col space-y-2'}>
           <AppNavLinks collapsed={isCollapse as boolean} />
         </div>
       </div>

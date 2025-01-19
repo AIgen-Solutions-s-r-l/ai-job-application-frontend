@@ -3,25 +3,35 @@
 import React from 'react';
 import { ChevronDown, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { ReadonlyURLSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface JobSearchBarProps {
-  jobsLenth: number;
-  onSearch: (keywords: string, location: string) => void;
-  searchParams: ReadonlyURLSearchParams;
-  isLoading: boolean;
+  jobsLength?: number;
+  isLoading?: boolean;
 }
 
-export const JobSearchBar: React.FC<JobSearchBarProps> = ({ jobsLenth, onSearch, searchParams, isLoading }) => {
-  const { register, handleSubmit } = useForm<{ keywords: string; location: string }>({
+export const JobSearchBar: React.FC<JobSearchBarProps> = ({
+  jobsLength: jobsLenth,
+  isLoading,
+}) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const { register, handleSubmit, getValues } = useForm<{
+    keywords: string,
+    location: string;
+  }>({
     defaultValues: {
-      keywords: searchParams.get("q"), 
-      location: searchParams.get("l")
-    }
+      keywords: searchParams.get('q'),
+      location: searchParams.get('l'),
+    },
   });
 
-  const onSubmit = (data: { keywords: string; location: string }) => {
-    onSearch(data.keywords, data.location);
+  const onSubmit = () => {
+    const params = new URLSearchParams();
+    params.set('q', getValues().keywords);
+    params.set('l', getValues().location);
+    router.push(`?${params.toString()}`);
   };
 
   return <>

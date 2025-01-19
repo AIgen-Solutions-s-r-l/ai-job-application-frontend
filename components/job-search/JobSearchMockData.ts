@@ -8,7 +8,7 @@ const JobSearchMockData: MatchingJob[] = [
     "workplace_type": "On-site",
     "posted_date": "2024-12-03T10:00:00",
     "job_state": "Active",
-    "description": "Develop and optimize backend APIs, ensure robust database management.",
+    "description": "This is mock data.",
     "apply_link": "https://backend.jobs/apply/789",
     "company": "Backend Gurus",
     "location": "Turin, Italy",

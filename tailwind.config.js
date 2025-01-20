@@ -19,6 +19,7 @@ module.exports = {
         wiggle: "wiggle 1.5s ease-in-out infinite",
         popup: "popup 0.25s ease-in-out",
         shimmer: "shimmer 3s ease-out infinite alternate",
+        float: 'float 3s ease-in-out infinite, rotate 3s ease-in-out infinite',
       },
       gap: {
         'form': '30px',
@@ -58,6 +59,15 @@ module.exports = {
           "0%": { backgroundPosition: "0 50%" },
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
+        },
+        float: {
+          '0%': { top: '100%', opacity: 0 },
+          '50%': { top: '-20px', opacity: 1 },
+          '100%': { top: '100%', opacity: 0, left: '100%' },
+        },
+        rotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: ' rotate(180deg)' },
         },
       },
     },

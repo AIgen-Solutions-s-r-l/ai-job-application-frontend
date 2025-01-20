@@ -63,7 +63,6 @@ export const PersonalInformationOnboarding: React.FC = () => {
             title={'State / Province'}
             // {...register('personalInfo.state')}
             placeholder="N/A"
-            required={false}
             // error={!!errors.personalInfo?.state}
             // errorMessage={errors.personalInfo?.state?.message}
             className='w-[149px]'
@@ -71,7 +70,6 @@ export const PersonalInformationOnboarding: React.FC = () => {
           <FormInput
             title={'Zip / Postal'}
             {...register('personalInfo.zip_code')}
-            required={false}
             placeholder="N/A"
             className='w-[149px]'
           />
@@ -108,7 +106,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             {...register('personalInfo.email', {
               required: 'Email is required',
               pattern: {
-                value: /^[a-zA-Z0-9.]{8,}@[a-zA-Z0-9]{3,}\.[a-zA-Z0-9]+$/,
+                value: /^[a-zA-Z0-9.]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
                 message: 'Invalid email address',
               },
             })}

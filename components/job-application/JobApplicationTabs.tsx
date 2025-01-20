@@ -8,6 +8,7 @@ import { DetailedPendingApplication } from '../../libs/types/response-applicatio
 import { useRouter } from 'next/navigation';
 import { ApplicationCoverLetter } from './ApplicationCoverLetter';
 import { ApplicationJobInfo } from './ApplicationJobInfo';
+import { Container } from '../Container';
 
 interface Props {
   id: string;
@@ -194,31 +195,31 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
 
   return (
     <ActiveSectionProvider>
-      <div className="w-full flex flex-col bg-base-200">
-        <div className="w-[1440px] mx-auto flex gap-10 pt-5">
-          <button className={`btn btn-outline ${activeTab === "resume" ? "btn-primary" : ""}`} onClick={() => setActiveTab("resume")}>resume</button>
-          <button className={`btn btn-outline ${activeTab === "coverLetter" ? "btn-primary" : ""}`} onClick={() => setActiveTab("coverLetter")}>coverLetter</button>
-          <button className={`btn btn-outline ${activeTab === "jobInfo" ? "btn-primary" : ""}`} onClick={() => setActiveTab("jobInfo")}>jobInfo</button>
+      <div className="w-full grow flex flex-col bg-base-200">
+        <div className="w-[940px] mx-auto flex gap-2 pt-5">
+          <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "resume" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("resume")}>Resume</button>
+          <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "coverLetter" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("coverLetter")}>Cover Letter</button>
+          <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "jobInfo" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("jobInfo")}>Job Description</button>
         </div>
-        <div className="w-[1440px] mx-auto py-5">
+        <Container className="pb-5 grow">
           {activeTab === "resume" && (
             <TemplateProfessional id={id} resume={converted} />
           )}
-          {activeTab === "jobInfo" && (<h1 className='text-[32px] leading-10 mb-8'>
-            <ApplicationJobInfo job={mockApplicationDetails.job_info} />
-          </h1>)}
           {activeTab === "coverLetter" && (<h1 className='text-[32px] leading-10 mb-8'>
             <ApplicationCoverLetter id={id} letter={mockApplicationDetails.cover_letter} />
           </h1>)}
-        </div>
-        <div className="w-[1440px] mx-auto py-5">
+          {activeTab === "jobInfo" && (<h1 className='text-[32px] leading-10 mb-8'>
+            <ApplicationJobInfo job={mockApplicationDetails.job_info} />
+          </h1>)}
+        </Container>
+        <Container className="py-5">
           <button
             className="bg-black px-10 mx-auto mt-5 py-3 text-lg leading-none text-white rounded-full hover:bg-base-content"
             onClick={() => router.back()}
           >
             <p>Go Back</p>
           </button>
-        </div>
+        </Container>
       </div>
     </ActiveSectionProvider>
   );

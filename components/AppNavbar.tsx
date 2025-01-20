@@ -33,7 +33,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
     >
 
       <div className="hidden md:block">
-        <p className="text-[32px] lg:text-[64px] italic leading-none">JOB HAWK</p>
+        <h1 className='text-[48px] font-light leading-none text-secondary'>LABORO</h1>
       </div>
       <div className="block md:hidden w-[80px] shrink-0">&nbsp;</div>
       <div className="flex items-center gap-[30px]">

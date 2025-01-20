@@ -28,7 +28,7 @@ export const CreateResumeOnboarding: React.FC = () => {
     switch (currentStep) {
       case 1: validateFields = ['personalInfo']; break;
       case 2: validateFields = ['educationDetails']; break;
-      case 3: validateFields = ['experienceDetails', 'additionalInfo.projects']; break;
+      case 3: validateFields = ['experienceDetails']; break;
       case 4: validateFields = ['additionalInfo']; break;
     }
 
@@ -101,7 +101,7 @@ export const CreateResumeOnboarding: React.FC = () => {
               type="button"
               onClick={() => setCVData(null)}
             >
-              Continue with CV
+              Back to CV Uploader
             </button>
           : <div></div>}
           <div className="flex gap-5">

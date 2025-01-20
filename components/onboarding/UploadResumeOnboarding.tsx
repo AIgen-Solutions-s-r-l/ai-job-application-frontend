@@ -94,9 +94,6 @@ export const UploadResumeOnboarding: React.FC = () => {
           <span>{progress}%</span>
         </div>
         <Loading />
-        {/* <div className="overflow-hidden bg-gray-200 h-5 w-96 br-4 rounded-xl shadow">
-          <div className="rounded-xl bg-black h-full transition-all ease-in-out duration-100 rounded-sm" style={{ width: `${progress}%`, background: 'repeating-linear-gradient(45deg, white 1px, white 4px, black 5px, black 10px)' }} />
-        </div> */}
       </div>
     );
   }

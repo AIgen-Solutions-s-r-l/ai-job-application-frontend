@@ -87,23 +87,24 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
         </form>
 
-        <div className='w-[1440px] mx-auto pb-5'>
-          <div className='mt-5 flex gap-5'>
-            <div className='bg-neutral-content rounded-full flex gap-5 items-center pl-5 pr-3 py-1 cursor-pointer'>
-              <p>Full-time</p>
-              <ChevronDown size={24} />
-            </div>
-            <div className='bg-neutral-content rounded-full flex gap-5 items-center pl-5 pr-3 py-1 cursor-pointer'>
-              <p>Remote</p>
-              <ChevronDown size={24} />
-            </div>
-            <div className='bg-neutral-content rounded-full flex gap-5 items-center pl-5 pr-3 py-1 cursor-pointer'>
-              <p>English</p>
-              <ChevronDown size={24} />
-            </div>
-          </div>
+      <div className="w-[1440px] mx-auto pb-5">
+        <div className="mt-5 flex gap-5 text-base">
+          <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
+            <option disabled selected>Full-time</option>
+            <option>Part-time</option>
+            <option>Internship</option>
+          </select>
+          <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
+            <option disabled selected>Remote</option>
+            <option>On-site</option>
+          </select>
+          <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
+            <option disabled selected>English</option>
+            <option>Russian</option>
+          </select>
         </div>
       </div>
+    </div>
 
       <div className='w-full bg-base-100'>
         <div className='w-[1440px] mx-auto pb-5'>

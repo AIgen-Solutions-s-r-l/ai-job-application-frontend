@@ -9,7 +9,7 @@ interface Props {
 
 export const ApplicationJobInfo: React.FC<Props> = ({ className, job }) => {
   return (
-    <div className={cn("sticky top-5 flex flex-col grow max-h-[calc(100vh-120px)] bg-base-100 rounded-xl py-8 px-10", className)}>
+    <div className={cn("w-[940px] mx-auto flex flex-col max-h-[calc(100vh-120px)] bg-base-100 py-8 px-10 shadow-xl", className)}>
       <div className="flex justify-between flex-0">
         <div className="flex flex-col gap-3 leading-none">
           <h3 className="text-[22px] font-medium">{job.title}</h3>

@@ -9,6 +9,7 @@ import { JobSearchBottomSheet } from './JobSearchBottomSheet';
 import { fetchServerFunction } from '@/libs/fetch';
 import { fetchMatchingJobs } from '@/libs/api/matching';
 import { JobFeedListSkeleton } from './JobFeedListSkeleton';
+import JobSearchProvider from '@/contexts/job-search-context';
 
 export const JobSearchView: React.FC = () => {
   const searchParams = useSearchParams();
@@ -32,16 +33,18 @@ export const JobSearchView: React.FC = () => {
   }, [searchParams]);
 
   return (
-    <div className='w-full flex flex-col items-center'>
-      <JobSearchBar jobsLength={jobs.length} isLoading={isLoading} />
-      {isLoading ? (
-        <JobFeedListSkeleton />
-      ) : (
-        <>
-          <JobFeedList jobs={jobs} />
-          <JobSearchBottomSheet />
-        </>
-      )}
-    </div>
+    <JobSearchProvider initialJobs={jobs}>
+      <div className='w-full flex flex-col items-center'>
+        <JobSearchBar isLoading={isLoading} />
+        {isLoading ? (
+          <JobFeedListSkeleton />
+        ) : (
+          <>
+            <JobFeedList />
+            <JobSearchBottomSheet />
+          </>
+        )}
+      </div>
+    </JobSearchProvider>
   );
 };

@@ -1,18 +1,31 @@
 'use client';
 
-import { useSelectedJobsContext } from '@/contexts/selected-jobs-context';
+import { useJobSearch } from '@/contexts/job-search-context';
+import { addJobsToManager } from '@/libs/actions';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 export const JobSearchBottomSheet: React.FC = () => {
-  const { selectedJobs } = useSelectedJobsContext();
+  const { selectedJobs } = useJobSearch();
   const router = useRouter()
 
   const handleApply = async () => {
     if (selectedJobs.length > 0) {
-      sessionStorage.setItem("selectedJobs", JSON.stringify(selectedJobs))
       router.push('/manager')
+      // try {
+      //   const response = await addJobsToManager(selectedJobs);
+  
+      //   if (response.success) {
+      //     toast.success("Application submitted!");
+      //     router.push('/manager')
+      //   } else {
+      //     toast.error("Failed to sumbit application.");
+      //   }
+      // } catch (error) {
+      //   console.error("Error submitting profile:", error);
+      // } 
     }
   };
   

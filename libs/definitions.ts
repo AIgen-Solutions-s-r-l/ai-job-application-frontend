@@ -176,6 +176,26 @@ export interface MatchingJob {
   portal?: string;
 }
 
+export type PendingApplicationRecord = Record<string, PendingApplication>;
+
+export interface PendingApplication {
+  job_id:      number;
+  title:       string;
+  description: string;
+  portal:      string;
+  sent:        boolean;
+}
+
+export interface DetailedPendingApplication {
+  resume_optimized: string;
+  cover_letter:     string;
+  job_id:           number;
+  title:            string;
+  description:      string;
+  portal:           string;
+  sent:             boolean;
+}
+
 export interface AppliedJob {
   job_id: number;
   title: string;

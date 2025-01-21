@@ -1,24 +1,11 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import config from '@/config';
-import { getServerCookie } from '@/libs/cookies';
+import { ReactNode } from 'react';
 import AppNavbar from '@/components/AppNavbar';
 import AppSidenav from '@/components/AppSidenav';
+import RequireLogin from "@/permissions/requireLogin";
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    getServerCookie('accessToken').then((accessToken) => {
-      if (!accessToken) {
-        router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
-      }
-    });
-  }, [pathname, router]);
-
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className='lg:px-[80px] min-w-80'>
       <AppNavbar />
@@ -33,3 +20,5 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+export default RequireLogin(Layout);

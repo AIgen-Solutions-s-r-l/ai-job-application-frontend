@@ -8,8 +8,9 @@ import config from "@/config";
 import Image from "next/image";
 import logo from "@/app/icon.png";
 import { register } from "@/libs/api/auth"; // Importa la función register
+import RequireLogout from "@/permissions/requireLogout";
 
-export default function Signup() {
+const Signup = () => {
   const [username, setUsername] = useState(""); // Nuevo campo para username
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +38,7 @@ export default function Signup() {
       // Llama a la API para registrar al usuario
       const response = await register(username, email, password);
       
-      if (response?.access_token) {
+      if (!response?.access_token) {
         throw new Error('Access token not received.');
       }
 
@@ -133,3 +134,5 @@ export default function Signup() {
     </main>
   );
 }
+
+export default RequireLogout(Signup);

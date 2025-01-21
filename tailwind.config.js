@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -60,7 +62,16 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"), 
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        ".field-sizing-content": {
+          "field-sizing": "content",
+        },
+      });
+    }),
+  ],
   daisyui: {
     // Light & dark themes are added by default (it switches automatically based on OS settings)
     // You can add another theme among the list of 30+

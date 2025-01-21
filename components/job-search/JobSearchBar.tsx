@@ -3,25 +3,36 @@
 import React from 'react';
 import { ChevronDown, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useJobSearch } from '@/contexts/job-search-context';
 
 interface JobSearchBarProps {
-  onSearch: (keywords: string, location: string) => void;
+  // onSearch: (keywords: string, location: string) => void;
   isLoading?: boolean;
 }
 
 export const JobSearchBar: React.FC<JobSearchBarProps> = ({
-  onSearch,
+  // onSearch,
   isLoading,
 }) => {
-  const { register, handleSubmit } = useForm<{
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { register, handleSubmit, getValues } = useForm<{
     keywords: string;
     location: string;
-  }>();
+  }>({
+    defaultValues: {
+      keywords: searchParams.get('q'),
+      location: searchParams.get('l'),
+    },
+  });
   const { jobs } = useJobSearch();
 
-  const onSubmit = (data: { keywords: string; location: string }) => {
-    onSearch(data.keywords, data.location);
+  const onSubmit = () => {
+    const params = new URLSearchParams();
+    params.set('q', getValues().keywords);
+    params.set('l', getValues().location);
+    router.push(`?${params.toString()}`);
   };
 
   return (
@@ -99,7 +110,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           <div className='w-[1440px] mx-auto pb-5'>
             <p className='text-lg'>
               Your suggested jobs based on your resume:{' '}
-              <span className='font-semibold'>{jobs.jobsLenth} jobs</span> are
+              <span className='font-semibold'>{jobs.length} jobs</span> are
               found.
             </p>
           </div>

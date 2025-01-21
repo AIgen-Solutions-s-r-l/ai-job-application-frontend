@@ -39,7 +39,7 @@ export async function createResume(entries: JobProfile): Promise<{ success: bool
       return { success: false, error: "Resume creation failed" };
     }
 
-    return { success: true};
+    return { success: true };
   } catch (error) {
     console.error(`Error creating job profile: ${entries}`, error);
     return { success: false, error: error.message };
@@ -50,7 +50,7 @@ export async function updateResume(data: any): Promise<{ success: boolean; error
   try {
     const response = await apiClientJwt.put(`${API_BASE_URLS.resumes}/resumes/update`, data, {
       headers: {
-      Accept: "application/json",
+        Accept: "application/json",
       }
     })
 
@@ -65,7 +65,7 @@ export async function updateResume(data: any): Promise<{ success: boolean; error
       return { success: false, error: "Resume creation failed" };
     }
 
-    return { success: true};
+    return { success: true };
   } catch (error) {
     console.error(`Error updating job profile: ${data}`, error);
     return { success: false, error: error.message };

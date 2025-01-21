@@ -37,9 +37,9 @@ export default function AppSidenav() {
 
       {/* Drawer */}
       <div
-        className={`drawer-menu absolute md:relative flex flex-col bg-base-100 border-r border-neutral-content= z-40 transform ${
+        className={`drawer-menu shrink-0 fixed top-0 z-10 md:relative flex flex-col bg-base-100 z-40 transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out md:translate-x-0 ${
+        } transition-transform duration-300 ease-in-out md:translate-x-0 overflow-y-auto h-[calc(100vh-112px)] ${
           isOpen && 'min-h-screen'
         } ${!isCollapse && `w-[${minWidth}px]`}`}
       >

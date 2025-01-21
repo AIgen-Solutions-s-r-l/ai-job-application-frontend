@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { MatchingJob } from '@/libs/definitions';
+import { JobLargeCardSkeleton } from './JobLargeCardSkeleton';
 
 interface Props {
   className?: string;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export const JobLargeCard: React.FC<Props> = ({ className, job }) => {
+  if (!job) return <JobLargeCardSkeleton/>;
+
   return (
     <div className={cn("sticky top-5 flex flex-col grow max-h-[calc(100vh-120px)] bg-base-100 rounded-xl py-8 px-10", className)}>
       <div className="flex justify-between flex-0">

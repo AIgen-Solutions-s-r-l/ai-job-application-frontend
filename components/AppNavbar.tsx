@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useEffect, JSX, FC } from "react";
+import React, { ChangeEvent, useEffect, JSX, FC, useRef } from "react";
 import { useTheme } from "next-themes";
 import AppButtonAccount from "./AppButtonAccount";
 import { Moon, Sun } from "lucide-react";
@@ -9,8 +9,9 @@ type Props = {
   slot?: JSX.Element
 }
 
-const AppNavbar: FC<Props> = ({slot}) => {
+const AppNavbar: FC<Props> = ({ slot }) => {
   const { setTheme, theme } = useTheme();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeTheme = (ev: ChangeEvent<HTMLInputElement>): void => {
     const currentTheme = ev.target.checked ? "dark" : "cupcake";
@@ -19,7 +20,8 @@ const AppNavbar: FC<Props> = ({slot}) => {
   };
 
   useEffect(() => {
-    document.querySelector("html")?.setAttribute("data-theme", theme);
+    const currentTheme = inputRef.current.checked ? "dark" : "cupcake";
+    document.querySelector("html")?.setAttribute("data-theme", currentTheme);
   }, []);
 
   return (
@@ -37,6 +39,7 @@ const AppNavbar: FC<Props> = ({slot}) => {
         {slot}
         <label className="swap swap-rotate">
           <input
+            ref={inputRef}
             type="checkbox"
             onChange={onChangeTheme}
             checked={theme === "dark" ? true : false}

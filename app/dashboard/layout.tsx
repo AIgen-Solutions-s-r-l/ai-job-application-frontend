@@ -23,9 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className='lg:px-[80px] min-w-80'>
       <AppNavbar />
       <div className='flex'>
-        <div className='nav fixed md:static top-0 z-10 h-full max-h-screen'>
-          <AppSidenav />
-        </div>
+        <AppSidenav />
         <div className='grow bg-base-100'>
           <div className='overflow-y-auto h-[calc(100vh-112px)] p-5 bg-base-200'>
             {children}

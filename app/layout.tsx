@@ -7,6 +7,7 @@ import ClientLayout from "@/components/LayoutClient";
 import config from "@/config";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import UserContextProvider from "@/contexts/user-context";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -36,14 +37,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       )}
       <body>
         {/* ClientLayout contains all the client wrappers (Crisp chat support, toast messages, tooltips, etc.) */}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          enableColorScheme
-        >
-          <ClientLayout>{children}</ClientLayout>
-        </ThemeProvider>
+        <UserContextProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            enableColorScheme
+          >
+            <ClientLayout>{children}</ClientLayout>
+          </ThemeProvider>
+        </UserContextProvider>
       </body>
     </html>
   );

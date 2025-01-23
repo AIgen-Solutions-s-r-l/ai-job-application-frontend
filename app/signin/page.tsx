@@ -6,17 +6,18 @@ import logo from "@/app/icon.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import config from "@/config";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { login } from "@/libs/api/auth"; // Importa la función de login
-import { fetchUserResume } from "@/libs/api/resume";
+import { isResumeExits } from "@/libs/api/resume";
 import RequireLogout from "@/permissions/requireLogout";
+import { useUserContext } from "@/contexts/user-context";
 
 const Login = () => {
   const [username, setUsername] = useState<string>(""); // Cambiado de email a username
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setUser } = useUserContext();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const handleLogin = async (e: any) => {
     e?.preventDefault();
@@ -28,10 +29,10 @@ const Login = () => {
       if (response?.access_token) {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
-        const relocationUrl = searchParams.get('r');
         try {
-          await fetchUserResume();
-          router.replace(relocationUrl ? relocationUrl : "/dashboard");
+          const isExits = await isResumeExits();
+          setUser(isExits);
+          router.replace(isExits.exists ? "/dashboard" : "/onboarding");
         } catch (error) {
           router.replace("/onboarding");
         }

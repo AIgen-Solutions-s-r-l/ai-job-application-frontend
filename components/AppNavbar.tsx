@@ -21,6 +21,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
 
   useEffect(() => {
     const currentTheme = inputRef.current.checked ? "dark" : "cupcake";
+    setTheme(currentTheme);
     document.querySelector("html")?.setAttribute("data-theme", currentTheme);
   }, []);
 

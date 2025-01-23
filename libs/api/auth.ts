@@ -21,7 +21,6 @@ export async function login(username: string, password: string) {
     }
 
     const decoded = jwtDecode(response.data.access_token);
-
     const expirationDate = new Date(decoded.exp * 1000);
 
     setServerCookie("accessToken", response.data.access_token, {

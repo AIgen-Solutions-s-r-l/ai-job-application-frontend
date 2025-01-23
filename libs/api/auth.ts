@@ -3,6 +3,7 @@
 import { apiClient } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
 import { setServerCookie } from "../cookies";
+import { jwtDecode } from "jwt-decode";
 
 export async function login(username: string, password: string) {
   if (!username || !password) {
@@ -19,10 +20,15 @@ export async function login(username: string, password: string) {
       throw new Error("No data received from API.");
     }
 
+    const decoded = jwtDecode(response.data.access_token);
+
+    const expirationDate = new Date(decoded.exp * 1000);
+
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'lax', 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      expires: expirationDate
     });
 
     return response.data;
@@ -62,8 +68,8 @@ export async function register(username: string, email: string, password: string
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'lax', 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
     });
 
     return response.data;

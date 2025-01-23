@@ -28,16 +28,21 @@ export async function getCVAction(): Promise<CVType> {
   }
 }
 
-export async function getUserProfile(): Promise<JobProfile> {
+export async function getUserProfile(): Promise<JobProfile | null> {
   try {
     const userResume = await fetchUserResume();
+
+    if (!userResume) {
+      console.error("No resume data available");
+      return {} as JobProfile;
+    }
 
     const profile: JobProfile = toJobProfile(userResume);
 
     return profile;
   } catch (error) {
     console.error("Error fetching user profiles from API:", error);
-    throw error;
+    return {} as JobProfile;
   }
 }
 

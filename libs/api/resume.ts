@@ -2,7 +2,7 @@
 
 import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
-import { JobProfile, SelfIdentification } from '../definitions';
+import { JobProfile } from '../definitions';
 
 export async function fetchUserResume(): Promise<any> {
   try {
@@ -16,7 +16,7 @@ export async function fetchUserResume(): Promise<any> {
     return response.data;
   } catch (error) {
     console.error("Error fetching user resumes:", error);
-    throw error;
+    throw null;
   }
 }
 

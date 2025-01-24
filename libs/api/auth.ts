@@ -1,6 +1,6 @@
 "use server";
 
-import { apiClient } from "@/libs/api/client";
+import { apiClient, apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
 import { setServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
@@ -46,6 +46,58 @@ export async function login(username: string, password: string) {
       const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
       throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
     }
+  }
+}
+
+export async function refreshToken() {
+  const cookies = require('next/headers').cookies; // Import only on server
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
+  if (!accessToken) {
+    throw new Error("No accessToken were found");
+  }
+
+  try {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/refresh`, {
+      token: accessToken
+    });
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    const decoded = jwtDecode(response.data.access_token);
+    const expirationDate = new Date(decoded.exp * 1000);
+
+    setServerCookie("accessToken", response.data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      expires: expirationDate
+    });
+
+    return response.data;
+  } catch (error: any) {
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
+export async function fetchUserData(): Promise<any> {
+  try {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.auth}/auth/me`, {
+      headers: {
+        Accept: "application/json",
+      },
+      timeout: 30000,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
   }
 }
 

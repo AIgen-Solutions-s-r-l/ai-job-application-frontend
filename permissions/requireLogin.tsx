@@ -6,7 +6,7 @@ import { useUserContext } from '@/contexts/user-context';
 
 type ComponentType<Props = {}> = React.ComponentType<Props>;
 
-const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boolean = false): React.FC<P> => {
+const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boolean = true): React.FC<P> => {
     const LoginComponent: React.FC<P> = (props) => {
         const { user } = useUserContext();
         const router = useRouter();
@@ -32,7 +32,7 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
 
         useEffect(() => {
             checkAuthentication();
-        }, [checkAuthentication]);
+        }, [checkAuthentication, user]);
 
         if (!isAuthenticated) {
             return null;

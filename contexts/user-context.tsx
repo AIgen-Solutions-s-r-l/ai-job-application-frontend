@@ -2,8 +2,13 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { isResumeExits } from '@/libs/api/resume';
+import { fetchUserData } from '@/libs/api/auth';
+import { getServerCookie } from '@/libs/cookies';
+import { refreshToken } from '@/libs/api/auth';
 
 interface User {
+    username: string;
+    email: string;
     exists: boolean;
 }
 
@@ -18,12 +23,20 @@ export default function UserContextProvider({ children }: { children: ReactNode 
     const [user, setUser] = useState<User | null>(null);
 
     const getUserData = async () => {
-        try {
-            const exists = await isResumeExits();
-            setUser(exists);
-        } catch (error) {
-            console.error('Error fetching resume existence:', error);
-            setUser(null);
+        const accessToken = await getServerCookie('accessToken');
+        if (accessToken) {
+
+            try {
+                const [exists, me] = await Promise.all([
+                    isResumeExits(),
+                    fetchUserData(),
+                    refreshToken()
+                ]);
+
+                setUser({ ...exists, ...me });
+            } catch (error) {
+                console.error('Error fetching resume existence:', error);
+            }
         }
     };
 

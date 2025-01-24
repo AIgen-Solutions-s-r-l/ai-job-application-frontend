@@ -7,7 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import config from "@/config";
 import { useRouter } from "next/navigation";
-import { login } from "@/libs/api/auth"; // Importa la función de login
+import { fetchUserData, login } from "@/libs/api/auth"; // Importa la función de login
 import { isResumeExits } from "@/libs/api/resume";
 import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
@@ -30,9 +30,13 @@ const Login = () => {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
         try {
-          const isExits = await isResumeExits();
-          setUser(isExits);
-          router.replace(isExits.exists ? "/dashboard" : "/onboarding");
+          const [exists, me] = await Promise.all([
+            isResumeExits(),
+            fetchUserData()
+          ]);
+
+          setUser({ ...exists, ...me });
+          router.replace(exists.exists ? "/dashboard" : "/onboarding");
         } catch (error) {
           router.replace("/onboarding");
         }

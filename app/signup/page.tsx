@@ -9,6 +9,8 @@ import Image from "next/image";
 import logo from "@/app/icon.png";
 import { register } from "@/libs/api/auth"; // Importa la función register
 import RequireLogout from "@/permissions/requireLogout";
+import { useUserContext } from "@/contexts/user-context";
+import { isResumeExits } from "@/libs/api/resume";
 
 const Signup = () => {
   const [username, setUsername] = useState(""); // Nuevo campo para username
@@ -16,6 +18,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useUserContext();
   const router = useRouter(); // Usa el router
 
   const handleSignup = async (e: any) => {
@@ -34,20 +37,25 @@ const Signup = () => {
       return;
     }
 
-    try {
-      // Llama a la API para registrar al usuario
-      const response = await register(username, email, password);
+     try {
+      const result = await register(username, email, password);
       
-      if (!response?.access_token) {
-        throw new Error('Access token not received.');
+      if (result.success) {
+        localStorage.setItem('username', username);
+        toast.success('Logged in successfully!');
+        try {
+          const isExits = await isResumeExits();
+          setUser(isExits);
+          router.replace(isExits.exists ? "/dashboard" : "/onboarding");
+        } catch (error) {
+          router.replace("/onboarding");
+        }
+      } else if (result.success == false) {
+        toast.error(result.error || "Failed to create account.");
       }
-
-      localStorage.setItem('username', username);
-      toast.success('Logged in successfully!');
-      router.replace('/dashboard');
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message || "Failed to create account.");
+      toast.error("An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }

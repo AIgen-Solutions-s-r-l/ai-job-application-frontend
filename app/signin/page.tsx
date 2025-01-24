@@ -24,9 +24,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await login(username, password);
+      const result  = await login(username, password);
 
-      if (response?.access_token) {
+      if (result.success && result.value?.access_token) {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
         try {
@@ -40,12 +40,14 @@ const Login = () => {
         } catch (error) {
           router.replace("/onboarding");
         }
+      } else if (result.success == false) {
+        toast.error(result.error || "Failed to login.");
       } else {
         throw new Error("Access token not received.");
       }
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message || "Failed to login.");
+      toast.error("An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }

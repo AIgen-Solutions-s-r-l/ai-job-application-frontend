@@ -4,10 +4,11 @@ import { apiClient, apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
 import { setServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
+import { createServerAction, ServerActionError } from "../action-utils";
 
-export async function login(username: string, password: string) {
+export const login = createServerAction(async (username: string, password: string) => {
   if (!username || !password) {
-    throw new Error("Username and password are required");
+    throw new ServerActionError("Username and password are required");
   }
 
   try {
@@ -17,7 +18,7 @@ export async function login(username: string, password: string) {
     });
 
     if (!response || !response.data) {
-      throw new Error("No data received from API.");
+      throw new ServerActionError("No data received from API.");
     }
 
     const decoded = jwtDecode(response.data.access_token);
@@ -35,19 +36,19 @@ export async function login(username: string, password: string) {
     const status = error.response?.status;
 
     if (status === 401) {
-      throw new Error("Invalid credentials. Please check your username and password.");
+      throw new ServerActionError("Invalid credentials. Please check your username and password.");
     } else if (status === 422) {
       const validationErrors = error.response?.data?.detail || [];
       const errorMessages = validationErrors
         .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
         .join(", ");
-      throw new Error(`Validation Error: ${errorMessages}`);
+      throw new ServerActionError(`Validation Error: ${errorMessages}`);
     } else {
       const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
-      throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+      throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
     }
   }
-}
+});
 
 export async function refreshToken() {
   const cookies = require('next/headers').cookies; // Import only on server
@@ -101,9 +102,9 @@ export async function fetchUserData(): Promise<any> {
   }
 }
 
-export async function register(username: string, email: string, password: string) {
+export const register = createServerAction(async (username: string, email: string, password: string) => {
   if (!username || !email || !password) {
-    throw new Error("Username, email, and password are required");
+    throw new ServerActionError("Username, email, and password are required");
   }
 
   try {
@@ -114,7 +115,7 @@ export async function register(username: string, email: string, password: string
     });
 
     if (!response || !response.data) {
-      throw new Error("No data received from API.");
+      throw new ServerActionError("No data received from API.");
     }
 
     setServerCookie("accessToken", response.data.access_token, {
@@ -129,20 +130,20 @@ export async function register(username: string, email: string, password: string
 
     switch (status) {
       case 400:
-        throw new Error("Invalid data. Please check your inputs.");
-      case 422:
-        const validationErrors = error.response?.data?.detail || [];
+        throw new ServerActionError("Invalid data. Please check your inputs.");
+      case 422: {
+        const validationErrors = error.response?.data?.details || [];
         const errorMessages = validationErrors
           .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
           .join(", ");
-        throw new Error(`Validation Error: ${errorMessages}`);
-      case 400:
-        throw new Error("Invalid data. Please check your inputs.");
+        throw new ServerActionError(`Validation Error: ${errorMessages}`);
+      }
       case 409:
-        throw new Error('User with such data already exists');
-      default:
+        throw new ServerActionError('User with such data already exists');
+      default: {
         const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
-        throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+        throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+      }
     }
   }
-}
+});

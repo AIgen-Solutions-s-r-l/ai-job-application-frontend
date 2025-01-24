@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { TemplateProfessional } from './TemplateProfessional';
 import { toResumeType } from '../../libs/utils/application.util';
 import { ActiveSectionProvider } from '../../contexts/active-section-context';
@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import { ApplicationCoverLetter } from './ApplicationCoverLetter';
 import { ApplicationJobInfo } from './ApplicationJobInfo';
 import { Container } from '../Container';
+import { updateApplicationLetterAction, updateApplicationResumeAction } from '@/libs/actions';
+import toast from 'react-hot-toast';
 
 interface Props {
   id: string;
@@ -193,6 +195,94 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
   const converted = toResumeType(mockApplicationDetails);
   const [ activeTab, setActiveTab ] = useState<Tab>("resume");
 
+  // Create refs to access form methods
+  const resumeFormRef = useRef<any>(null);
+  const letterFormRef = useRef<any>(null);
+
+  const [isResumeDirty, setIsResumeDirty] = useState(false);
+  const [isLetterDirty, setIsLetterDirty] = useState(false);
+
+  const handleResumeDirtyChange = useCallback((dirty: boolean) => {
+    setIsResumeDirty(dirty);
+  }, []);
+
+  const handleLetterDirtyChange = useCallback((dirty: boolean) => {
+    setIsLetterDirty(dirty);
+  }, []);
+
+  // Use useMemo to store the initial data. This ensures it's only created once.
+  const initialResumeData = useMemo(() => converted, []);
+  const initialLetterData = useMemo(() => mockApplicationDetails.cover_letter, []);
+
+  // Store the current resume and letter data in state, initialized with the initial data
+  const [resumeData, setResumeData] = useState(initialResumeData);
+  const [letterData, setLetterData] = useState(initialLetterData);
+
+  const handleSave = async () => {
+    const resumeForm = resumeFormRef.current;
+    const letterForm = letterFormRef.current;
+
+    // Check dirty states
+    const resumeDirty = resumeForm?.formState?.isDirty;
+    const letterDirty = letterForm?.formState?.isDirty;
+
+    try {
+      // If both are dirty, save both
+      if (resumeDirty && letterDirty) {
+        const resumeData = resumeForm.getValues();
+        const letterData = letterForm.getValues();
+        console.log("both dirty");
+        console.log("resumeData", resumeData);
+        console.log("letterData", letterData);
+
+        // const [resumeResponse, letterResponse] = await Promise.all([
+        //   updateApplicationResumeAction(id, resumeData),
+        //   updateApplicationLetterAction(id, letterData)
+        // ]);
+
+        // if (resumeResponse.success && letterResponse.success) {
+        //   toast.success("Resume and Cover Letter updated successfully!");
+        //   // Reset forms
+        //   resumeForm.reset(resumeData, { keepDirty: false });
+        //   letterForm.reset(letterData, { keepDirty: false });
+        // } else {
+        //   toast.error("Error updating application details.");
+        // }
+      } 
+      // If only resume is dirty
+      else if (resumeDirty) {
+        const resumeData = resumeForm.getValues();
+        console.log("resumeData", resumeData);
+
+        // const response = await updateApplicationResumeAction(id, resumeData);
+        
+        // if (response.success) {
+        //   toast.success("Resume updated successfully!");
+        //   resumeForm.reset(resumeData, { keepDirty: false });
+        // } else {
+        //   toast.error("Error updating resume.");
+        // }
+      } 
+      // If only letter is dirty
+      else if (letterDirty) {
+        const letterData = letterForm.getValues();
+        console.log("letterData", letterData);
+
+        // const response = await updateApplicationLetterAction(id, letterData);
+        
+        // if (response.success) {
+        //   toast.success("Cover Letter updated successfully!");
+        //   letterForm.reset(letterData, { keepDirty: false });
+        // } else {
+        //   toast.error("Error updating cover letter.");
+        // }
+      }
+    } catch (error) {
+      console.error("Error saving application details:", error);
+      toast.error("An unexpected error occurred.");
+    }
+  };
+  
   return (
     <ActiveSectionProvider>
       <div className="w-full grow flex flex-col bg-base-200">
@@ -201,25 +291,43 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
           <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "coverLetter" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("coverLetter")}>Cover Letter</button>
           <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "jobInfo" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("jobInfo")}>Job Description</button>
         </div>
-        <Container className="pb-5 grow">
+        <Container className="mb-[80px] grow">
           {activeTab === "resume" && (
-            <TemplateProfessional id={id} resume={converted} />
+            <TemplateProfessional 
+              ref={resumeFormRef} 
+              id={id} 
+              resume={resumeData} 
+            />
           )}
-          {activeTab === "coverLetter" && (<h1 className='text-[32px] leading-10 mb-8'>
-            <ApplicationCoverLetter id={id} letter={mockApplicationDetails.cover_letter} />
-          </h1>)}
-          {activeTab === "jobInfo" && (<h1 className='text-[32px] leading-10 mb-8'>
+          {activeTab === "coverLetter" && (
+            <ApplicationCoverLetter 
+              ref={letterFormRef} 
+              id={id} 
+              letter={letterData} 
+            />
+          )}
+          {activeTab === "jobInfo" &&  (
             <ApplicationJobInfo job={mockApplicationDetails.job_info} />
-          </h1>)}
+          )}
         </Container>
-        <Container className="py-5">
-          <button
-            className="bg-black px-10 mx-auto mt-5 py-3 text-lg leading-none text-white rounded-full hover:bg-base-content"
-            onClick={() => router.back()}
-          >
-            <p>Go Back</p>
-          </button>
-        </Container>
+        <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-secondary">
+          <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
+            <button
+              className="w-[220px] h-[40px] rounded-full text-white text-lg"
+              type="button"
+              onClick={() => router.back()}
+            >
+              Go Back
+            </button>
+            <button 
+              className="bg-black text-lg leading-none text-white w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content" 
+              onClick={handleSave}
+              disabled={!isResumeDirty && !isLetterDirty}
+            >
+              <p>Save</p>
+            </button>
+          </div>
+        </div>
       </div>
     </ActiveSectionProvider>
   );

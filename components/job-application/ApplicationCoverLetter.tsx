@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useActiveSectionContext } from '../../contexts/active-section-context';
 import { CoverLetter, CoverLetterCoverLetter } from '../../libs/types/response-application.types';
 import { useForm } from 'react-hook-form';
@@ -13,12 +13,18 @@ interface Props {
   letter: CoverLetter;
 }
 
-export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
+export const ApplicationCoverLetter = React.forwardRef<any, Props>(({ id, letter }, ref) => {
   const { activeSection } = useActiveSectionContext();
 
-  const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>({
+  const { register, formState, handleSubmit, reset, control } = useForm<CoverLetterCoverLetter>({
     defaultValues: letter.cover_letter,
+    shouldUnregister: false,
   });
+  
+  React.useImperativeHandle(ref, () => ({
+    getValues: () => control._formValues,
+    formState: formState,
+  }));
   
   const handleLetterSubmit = async (data: CoverLetterCoverLetter) => {
     try {
@@ -26,11 +32,9 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
       
       if (response.success) {
         toast.success("Application cover letter updated successfully!");
-        console.log("Application cover letter updated successfully");
+        reset(data, { keepDirty: false });
       } else {
         toast.error("Error updating application cover letter.");
-        console.error("Error updating application cover letter:", response.error);
-
       }
     } catch (error) {
       console.error("Error submitting application cover letter:", error);
@@ -141,4 +145,6 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
       </button>
     </>
   );
-};
+});
+
+ApplicationCoverLetter.displayName = "ApplicationCoverLetter"

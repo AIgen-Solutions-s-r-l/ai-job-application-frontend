@@ -5,7 +5,6 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { updateJobProfile } from '@/libs/actions';
 import toast from 'react-hot-toast';
-import { toJobProfile } from '@/libs/job-profile-util';
 import { PersonalInformationOnboarding } from '../onboarding/cv-sections/PersonalInformationOnboarding';
 import { EducationDetailsOnboarding } from '../onboarding/cv-sections/EducationDetailsOnboarding';
 import { ExperienceDetailsOnboarding } from '../onboarding/cv-sections/ExperienceDetailsOnboarding';

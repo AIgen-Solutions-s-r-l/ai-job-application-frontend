@@ -34,7 +34,7 @@ export async function getUserProfile(): Promise<JobProfile | null> {
 
     if (!userResume) {
       console.error("No resume data available");
-      return {} as JobProfile;
+      return null;
     }
 
     const profile: JobProfile = toJobProfile(userResume);
@@ -42,7 +42,7 @@ export async function getUserProfile(): Promise<JobProfile | null> {
     return profile;
   } catch (error) {
     console.error("Error fetching user profiles from API:", error);
-    return {} as JobProfile;
+    return null;
   }
 }
 

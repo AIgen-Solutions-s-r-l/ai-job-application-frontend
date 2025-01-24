@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ResumePersonal } from './_components/ResumePersonal';
 import { ResumeEducation } from './_components/ResumeEducation';
 import { ResumeExperience } from './_components/ResumeExperience';
@@ -15,12 +15,18 @@ interface Props {
   resume: Resume;
 }
 
-export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
+export const TemplateProfessional = React.forwardRef<any, Props>(({ id, resume }, ref) => {
   const { activeSection } = useActiveSectionContext();
 
   const methods = useForm({
     defaultValues: resume,
+    shouldUnregister: false,
   });
+
+  React.useImperativeHandle(ref, () => ({
+    formState: methods.formState,
+    getValues: () => methods.control._formValues,
+  }));
   
   const handleResumeSubmit = async (data: Resume) => {
     try {
@@ -28,11 +34,9 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
       
       if (response.success) {
         toast.success("Application resume updated successfully!");
-        console.log("Application resume updated successfully");
+        methods.reset(data, { keepDirty: false });
       } else {
         toast.error("Error updating application resume.");
-        console.error("Error updating application resume:", response.error);
-
       }
     } catch (error) {
       console.error("Error submitting application resume:", error);
@@ -73,4 +77,6 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
       </button>
     </>
   );
-};
+});
+
+TemplateProfessional.displayName = "TemplateProfessional"

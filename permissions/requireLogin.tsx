@@ -2,11 +2,13 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from "next/navigation";
 import { getServerCookie } from "@/libs/cookies";
 import config from '@/config';
+import { useUserContext } from '@/contexts/user-context';
 
 type ComponentType<Props = {}> = React.ComponentType<Props>;
 
-const RequireLogin = <P extends object>(Component: ComponentType<P>): React.FC<P> => {
+const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boolean = false): React.FC<P> => {
     const LoginComponent: React.FC<P> = (props) => {
+        const { user } = useUserContext();
         const router = useRouter();
         const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
@@ -15,10 +17,18 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>): React.FC<P
             if (!accessToken) {
                 setIsAuthenticated(false);
                 router.replace(config.auth.loginUrl);
-            } else {
+            }
+            else {
                 setIsAuthenticated(true);
             }
-        }, [router]);
+            if (user) {
+                if (user.exists && !Resume) {
+                    router.replace("/dashboard");
+                } else if (!user.exists && Resume) {
+                    router.replace("/onboarding");
+                }
+            }
+        }, [router, user]);
 
         useEffect(() => {
             checkAuthentication();
@@ -27,8 +37,8 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>): React.FC<P
         if (!isAuthenticated) {
             return null;
         }
-
         return <Component {...props} />;
+
     };
 
     return LoginComponent;

@@ -20,6 +20,22 @@ export async function fetchUserResume(): Promise<any> {
   }
 }
 
+export async function isResumeExits(): Promise<{ exists: boolean }> {
+  try {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.resumes}/resumes/exists`, {
+      headers: {
+        Accept: "application/json",
+      },
+      timeout: 30000,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Existenss of Resume:", error);
+    throw error;
+  }
+}
+
 export async function createResume(entries: JobProfile): Promise<{ success: boolean; error?: string }> {
   try {
     const response = await apiClientJwt.post(`${API_BASE_URLS.resumes}/resumes/create_resume`, entries, {

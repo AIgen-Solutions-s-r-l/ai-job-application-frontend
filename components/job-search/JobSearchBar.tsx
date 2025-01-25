@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ChevronDown, Search } from 'lucide-react';
 import { useJobSearch } from '@/contexts/job-search-context';

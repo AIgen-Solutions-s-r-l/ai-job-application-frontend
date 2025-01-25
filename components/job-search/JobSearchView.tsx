@@ -1,49 +1,41 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MatchingJob } from '@/libs/definitions';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { JobSearchBar } from './JobSearchBar';
 import { JobFeedList } from './JobFeedList';
 import { JobSearchBottomSheet } from './JobSearchBottomSheet';
-import { fetchServerFunction } from '@/libs/fetch';
-import { fetchMatchingJobs } from '@/libs/api/matching';
-import { JobFeedListSkeleton } from './JobFeedListSkeleton';
 import JobSearchProvider from '@/contexts/job-search-context';
 
-export const JobSearchView: React.FC = () => {
-  const searchParams = useSearchParams();
-  const [jobs, setJobs] = useState<MatchingJob[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+type JobSearchViewProps = {
+  initialJobs: MatchingJob[];
+  searchParams: { q?: string; l?: string };
+};
 
-  useEffect(() => {
-    console.log('loading', {
-      keywords: searchParams.get('q'),
-      location: searchParams.get('l'),
-    });
+export const JobSearchView: React.FC<JobSearchViewProps> = ({
+  initialJobs,
+  searchParams,
+}) => {
+  const router = useRouter();
 
-    setIsLoading(true);
-    fetchServerFunction(fetchMatchingJobs, searchParams)
-      .then((data) => {
-        setJobs(data);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [searchParams]);
+  const onSearch = (keywords: string, location: string) => {
+    const params = new URLSearchParams();
+    params.set('q', keywords);
+    params.set('l', location);
+    router.push(`?${params.toString()}`);
+  };
 
   return (
-    <JobSearchProvider initialJobs={jobs}>
+    <JobSearchProvider initialJobs={initialJobs}>
       <div className='w-full flex flex-col items-center'>
-        <JobSearchBar isLoading={isLoading} />
-        {isLoading ? (
-          <JobFeedListSkeleton />
-        ) : (
-          <>
-            <JobFeedList />
-            <JobSearchBottomSheet />
-          </>
-        )}
+        <JobSearchBar
+          onSearch={onSearch}
+          keywords={searchParams.q}
+          location={searchParams.l}
+        />
+        <JobFeedList />
+        <JobSearchBottomSheet />
       </div>
     </JobSearchProvider>
   );

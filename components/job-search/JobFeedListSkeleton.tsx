@@ -1,8 +1,6 @@
-"use client";
-
-import { Skeleton } from "@/components/Skeleton";
-import { JobSmallCardSkeleton } from "./JobSmallCardSkeleton";
-import { JobLargeCardSkeleton } from "./JobLargeCardSkeleton";
+import { Skeleton } from '@/components/Skeleton';
+import { JobSmallCardSkeleton } from './JobSmallCardSkeleton';
+import { JobLargeCardSkeleton } from './JobLargeCardSkeleton';
 
 export const JobFeedListSkeleton = () => (
   <div className='w-full gap-5 bg-base-200 mb-20 py-5'>

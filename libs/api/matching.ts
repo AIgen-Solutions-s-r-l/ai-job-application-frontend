@@ -2,9 +2,9 @@
 
 import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
-import { JobSearchParams } from "../definitions";
+import { JobSearchParams } from "@/libs/definitions";
 import JobSearchMockData from "@/components/job-search/JobSearchMockData";
-import { delay } from "../time";
+import { delay } from "@/libs/time";
 
 export async function fetchMatchingJobs(params: JobSearchParams = {}): Promise<any> {
   try {

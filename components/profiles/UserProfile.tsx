@@ -5,10 +5,11 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { updateJobProfile } from '@/libs/actions';
 import toast from 'react-hot-toast';
-import { PersonalInformationOnboarding } from '../onboarding/cv-sections/PersonalInformationOnboarding';
-import { EducationDetailsOnboarding } from '../onboarding/cv-sections/EducationDetailsOnboarding';
-import { ExperienceDetailsOnboarding } from '../onboarding/cv-sections/ExperienceDetailsOnboarding';
-import { AdditionalInfoOnboarding } from '../onboarding/cv-sections/AdditionalInfoOnboarding';
+import { defaultJobProfile } from '@/libs/job-profile-util';
+import { ProfilePersonalInformation } from './resume-sections/ProfilePersonalInformation';
+import { ProfileEducationDetails } from './resume-sections/ProfileEducationDetails';
+import { ProfileExperienceDetails } from './resume-sections/ProfileExperienceDetails';
+import { ProfileAdditionalInfo } from './resume-sections/ProfileAdditionalInfo';
 
 interface Props {
   profile: JobProfile
@@ -172,11 +173,10 @@ export const UserProfile: React.FC<Props> = ({ profile }) => {
   // })
   
   const methods = useForm({
-    defaultValues: profile,
+    defaultValues: profile ?? defaultJobProfile,
   });
 
   const onSubmit = async (data: JobProfile) => {
-    console.log("sumbitting bro")
     try {
       const response = await updateJobProfile(data);
       
@@ -191,18 +191,10 @@ export const UserProfile: React.FC<Props> = ({ profile }) => {
     }
   };
   
-  if (!profile) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-gray-500">No profile found</p>
-      </div>
-    );
-  }
-
   return (
     <div className='w-full px-[100px]'>
       {/* Header Section */}
-      <div className="mb-8">
+      <div className="mb-5">
         <h1 className="text-3xl font-bold mb-2">My Profile</h1>
         <p className="text-gray-500">Manage your personal and professional information</p>
       </div>
@@ -217,36 +209,12 @@ export const UserProfile: React.FC<Props> = ({ profile }) => {
           }}
           onSubmit={methods.handleSubmit(onSubmit)}
         >
-          <div className="collapse collapse-arrow bg-base-200 group">
-            <input type="radio" name="my-accordion-2" defaultChecked />
-            <div className="collapse-title text-xl font-medium group-has-[input:checked]:bg-base-300">Personal Information</div>
-            <div className="collapse-content">
-              <PersonalInformationOnboarding />
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-base-200 group">
-            <input type="radio" name="my-accordion-2" />
-            <div className="collapse-title text-xl font-medium group-has-[input:checked]:bg-base-300">Education Details</div>
-            <div className="collapse-content">
-              <EducationDetailsOnboarding />
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-base-200 group">
-            <input type="radio" name="my-accordion-2" />
-            <div className="collapse-title text-xl font-medium group-has-[input:checked]:bg-base-300">Experience Details</div>
-            <div className="collapse-content">
-              <ExperienceDetailsOnboarding />
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-base-200 group">
-            <input type="radio" name="my-accordion-2" />
-            <div className="collapse-title text-xl font-medium group-has-[input:checked]:bg-base-300">Additional Information</div>
-            <div className="collapse-content">
-              <AdditionalInfoOnboarding />
-            </div>
-          </div>
+          <ProfilePersonalInformation />
+          <ProfileEducationDetails />
+          <ProfileExperienceDetails />
+          <ProfileAdditionalInfo />
 
-          <button type="submit" className="btn btn-primary w-[200px] self-end mt-2">Save Changes</button>
+          <button type="submit" className="btn btn-primary w-[200px] self-end mt-5">Save Changes</button>
         </form>
       </FormProvider>
     </div>

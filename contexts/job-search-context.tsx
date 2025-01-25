@@ -1,3 +1,5 @@
+'use client';
+
 import { MatchingJob } from "@/libs/definitions";
 import React, { createContext, useContext, useState } from "react";
 

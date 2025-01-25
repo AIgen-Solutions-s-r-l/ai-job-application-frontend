@@ -1,5 +1,5 @@
-import React from "react";
-import { AppliedJob } from "@/libs/definitions";
+import React from 'react';
+import { AppliedJob } from '@/libs/definitions';
 
 interface Props {
   job: AppliedJob;

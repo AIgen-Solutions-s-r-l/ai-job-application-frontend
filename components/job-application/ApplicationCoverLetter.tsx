@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useActiveSectionContext } from '../../contexts/active-section-context';
 import { CoverLetter, CoverLetterCoverLetter } from '../../libs/types/response-application.types';
 import { useForm } from 'react-hook-form';
@@ -13,18 +13,12 @@ interface Props {
   letter: CoverLetter;
 }
 
-export const ApplicationCoverLetter = React.forwardRef<any, Props>(({ id, letter }, ref) => {
+export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
   const { activeSection } = useActiveSectionContext();
 
-  const { register, formState, handleSubmit, reset, control } = useForm<CoverLetterCoverLetter>({
+  const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>({
     defaultValues: letter.cover_letter,
-    shouldUnregister: false,
   });
-  
-  React.useImperativeHandle(ref, () => ({
-    getValues: () => control._formValues,
-    formState: formState,
-  }));
   
   const handleLetterSubmit = async (data: CoverLetterCoverLetter) => {
     try {
@@ -32,9 +26,11 @@ export const ApplicationCoverLetter = React.forwardRef<any, Props>(({ id, letter
       
       if (response.success) {
         toast.success("Application cover letter updated successfully!");
-        reset(data, { keepDirty: false });
+        console.log("Application cover letter updated successfully");
       } else {
         toast.error("Error updating application cover letter.");
+        console.error("Error updating application cover letter:", response.error);
+
       }
     } catch (error) {
       console.error("Error submitting application cover letter:", error);
@@ -134,7 +130,7 @@ export const ApplicationCoverLetter = React.forwardRef<any, Props>(({ id, letter
             </div>
           </form>
         </div>
-      <button 
+      {/* <button 
         className="bg-black px-10 mx-auto mt-5 py-3 text-lg leading-none text-white rounded-full flex gap-5 items-center hover:bg-base-content" 
         form='my-form' 
         type="submit" 
@@ -142,9 +138,7 @@ export const ApplicationCoverLetter = React.forwardRef<any, Props>(({ id, letter
       >
         {formState.isSubmitting && <FaSpinner className="animate-spin" />}
         <p>Save Editing</p>
-      </button>
+      </button> */}
     </>
   );
-});
-
-ApplicationCoverLetter.displayName = "ApplicationCoverLetter"
+};

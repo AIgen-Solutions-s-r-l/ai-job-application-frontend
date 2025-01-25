@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { ResumePersonal } from './_components/ResumePersonal';
 import { ResumeEducation } from './_components/ResumeEducation';
 import { ResumeExperience } from './_components/ResumeExperience';
@@ -15,18 +15,12 @@ interface Props {
   resume: Resume;
 }
 
-export const TemplateProfessional = React.forwardRef<any, Props>(({ id, resume }, ref) => {
+export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
   const { activeSection } = useActiveSectionContext();
 
   const methods = useForm({
     defaultValues: resume,
-    shouldUnregister: false,
   });
-
-  React.useImperativeHandle(ref, () => ({
-    formState: methods.formState,
-    getValues: () => methods.control._formValues,
-  }));
   
   const handleResumeSubmit = async (data: Resume) => {
     try {
@@ -34,9 +28,11 @@ export const TemplateProfessional = React.forwardRef<any, Props>(({ id, resume }
       
       if (response.success) {
         toast.success("Application resume updated successfully!");
-        methods.reset(data, { keepDirty: false });
+        console.log("Application resume updated successfully");
       } else {
         toast.error("Error updating application resume.");
+        console.error("Error updating application resume:", response.error);
+
       }
     } catch (error) {
       console.error("Error submitting application resume:", error);
@@ -66,7 +62,7 @@ export const TemplateProfessional = React.forwardRef<any, Props>(({ id, resume }
           </form>
         </div>
       </FormProvider>
-      <button 
+      {/* <button 
         className="bg-black px-10 mx-auto mt-5 py-3 text-lg leading-none text-white rounded-full flex gap-5 items-center hover:bg-base-content" 
         form='my-form' 
         type="submit" 
@@ -74,9 +70,7 @@ export const TemplateProfessional = React.forwardRef<any, Props>(({ id, resume }
       >
         {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
         <p>Save Editing</p>
-      </button>
+      </button> */}
     </>
   );
-});
-
-TemplateProfessional.displayName = "TemplateProfessional"
+};

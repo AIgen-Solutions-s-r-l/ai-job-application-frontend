@@ -1,9 +1,26 @@
-import { JobSearchView } from "@/components/job-search/JobSearchView";
-import { getMatchingJobsData } from "@/libs/data";
-import { JobSearchParams } from "@/libs/definitions";
+import { JobFeedListSkeleton } from '@/components/job-search/JobFeedListSkeleton';
+import { JobSearchBarSkeleton } from '@/components/job-search/JobSearchBarSkeleton';
+import { JobSearchDispatcher } from '@/components/job-search/JobSearchDispatcher';
+import { Suspense } from 'react';
 
-export default async function JobSearchPage({ searchParams }: { searchParams: JobSearchParams }) {
-  const matchingJobs = await getMatchingJobsData(searchParams);
-
-  return <JobSearchView jobs={matchingJobs} />;
+export default async function JobSearchPage({
+  searchParams,
+}: {
+  searchParams: { q?: string; l?: string };
+}) {
+  return (
+    <Suspense
+      fallback={
+        <>
+          <JobSearchBarSkeleton
+            keywords={searchParams.q}
+            location={searchParams.l}
+          />
+          <JobFeedListSkeleton />
+        </>
+      }
+    >
+      <JobSearchDispatcher searchParams={searchParams} />
+    </Suspense>
+  );
 }

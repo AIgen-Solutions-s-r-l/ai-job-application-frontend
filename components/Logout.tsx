@@ -12,7 +12,6 @@ const Logout = () => {
   useEffect(() => {
     const handleSignOut = async () => {
       await deleteServerCookie("accessToken");
-      localStorage.removeItem("username");
       router.replace("/");
     };
     handleSignOut();

@@ -23,16 +23,17 @@ export const ResumeEducation: React.FC = () => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
+      location: "",
     });
     setActiveSection(`${section}-${newIndex}`);
   };
   
   return (
-    <div className="mt-8" id="education-section">
+    <div className="" id="education-section">
       {!!fields.length && (
-        <h1 className="text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+        <h2 className="text-2xl font-bold border-b border-solid border-black">
           Education
-        </h1>
+        </h2>
       )}
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
@@ -42,7 +43,7 @@ export const ResumeEducation: React.FC = () => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-row justify-between items-start relative border-2 pt-2 hover:border-secondary', 
+              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -60,7 +61,7 @@ export const ResumeEducation: React.FC = () => {
                 }}
               />
             )}
-            <div className="flex flex-col w-[70%]">
+            <div className="flex justify-between items-center">
               <span className="text-xs font-semibold">
                 <NullifiedInput
                   {...register(`educationDetails.${index}.institution`)}
@@ -68,6 +69,15 @@ export const ResumeEducation: React.FC = () => {
                   className="min-w-[200px]"
                 />
               </span>
+              <span className="text-xs">
+                <NullifiedInput
+                  {...register(`educationDetails.${index}.location`)}
+                  placeholder="Location"
+                  className="min-w-2"
+                />
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
               <span className="text-xs italic">
                 <NullifiedInput
                   {...register(`educationDetails.${index}.education_level`)}
@@ -87,22 +97,23 @@ export const ResumeEducation: React.FC = () => {
                 />
                 /4
               </span>
-            </div>
-            <div className="flex flex-col items-end w-[30%] text-gray-700 text-base">
-              <span className="text-xs">
-                <NullifiedInput
-                  {...register(`educationDetails.${index}.start_date`)}
-                  placeholder="Start Date"
-                  className="min-w-2"
-                />
-              </span>
-              <span className="text-xs">
-                <NullifiedInput
-                  {...register(`educationDetails.${index}.year_of_completion`)}
-                  placeholder="End Date"
-                  className="min-w-2"
-                />
-              </span>
+              <div className="">
+                <span className="text-xs">
+                  <NullifiedInput
+                    {...register(`educationDetails.${index}.start_date`)}
+                    placeholder="Start Date"
+                    className="min-w-2"
+                  />
+                </span>
+                &nbsp;&#8209;&nbsp;
+                <span className="text-xs">
+                  <NullifiedInput
+                    {...register(`educationDetails.${index}.year_of_completion`)}
+                    placeholder="End Date"
+                    className="min-w-2"
+                  />
+                </span>
+              </div>
             </div>
           </div>
         )

@@ -42,12 +42,12 @@ const SkillsNestedFieldArray: React.FC = () => {
       <div 
         data-section="skills-section"
         className={cn(
-          'flex flex-wrap text-xs leading-none mt-2 gap-1 border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary', 
+          'flex text-xs leading-none p-[10px] -mx-[10px] gap-1 border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary', 
           isActive && 'bg-white'
         )}
         onClick={() => setActiveSection('skills-section')}
       >
-        <span className="font-semibold">Technincal Skills: </span>
+        <span className="font-semibold">Skills: </span>
         <TextareaAutosize
           minRows={1}
           onChange={(e) => debouncedHandleSkillsChange(e.target.value)}
@@ -79,8 +79,8 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className="flex flex-wrap text-xs leading-none mt-2 gap-1">
-      <span className="font-semibold mt-[3px]">Languages: </span>
+    <div className="flex text-xs leading-none gap-1">
+      <span className="font-semibold mt-2">Languages: </span>
       {fields.map((item, index) => {
         const activeIndex = `${section}-${index}`
         
@@ -89,7 +89,7 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
             key={item.id} 
             data-section={activeIndex}
             className={cn(
-              'flex items-center align-top relative border-2 border-transparent hover:border-secondary', 
+              'flex items-center py-[5px] relative border-2 border-transparent hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -118,7 +118,7 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
               placeholder="Proficiency"
               className='leading-none'
             />)
-            {index === fields.length - 1 ? '.' : ', '}
+            {index === fields.length - 1 ? '.' : ','}
           </div>
         )
       })}
@@ -147,27 +147,27 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className="flex flex-wrap text-xs mt-6 gap-1 leading-none">
-      <h1 className="text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+    <div className="">
+      <h2 className="text-2xl font-bold border-b border-solid border-black">
         Side Projects
-      </h1>
-      <div className="flex flex-col w-full"> 
-        {fields.map((exp, index) => {
-          const activeIndex = `${section}-${index}`
-          
-          return (
-            <div 
-              key={exp.id}
-              data-section={activeIndex}
-              className={cn(
-                'flex flex-col gap-1 pb-1 relative border-2 border-transparent pt-2 hover:border-secondary', 
-                activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
-              )}
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveSection(activeIndex);
-              }}
-            >
+      </h2>
+      {fields.map((exp, index) => {
+        const activeIndex = `${section}-${index}`
+        
+        return (
+          <div 
+            key={exp.id}
+            data-section={activeIndex}
+            className={cn(
+              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 border-transparent hover:border-secondary', 
+              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+            )}
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveSection(activeIndex);
+            }}
+          >
+            <div className="flex items-center">
               {activeIndex === activeSection ? (
                 <>
                   <EntryOperator
@@ -178,18 +178,16 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
                       setActiveSection(null);
                     }}
                   />
-                  <div className="flex flex-row items-start">
-                    <NullifiedInput
-                      {...register(`additionalInfo.side_projects.${index}.name`)}
-                      placeholder="Project Name"
-                      className='font-semibold'
-                    />
-                    &nbsp;&#8209;&nbsp;
-                    <NullifiedInput
-                      {...register(`additionalInfo.side_projects.${index}.link`)}
-                      placeholder="Project Link"
-                    />
-                  </div>
+                  <NullifiedInput
+                    {...register(`additionalInfo.side_projects.${index}.name`)}
+                    placeholder="Project Name"
+                    className='font-semibold'
+                  />
+                  &nbsp;&#8209;&nbsp;
+                  <NullifiedInput
+                    {...register(`additionalInfo.side_projects.${index}.link`)}
+                    placeholder="Project Link"
+                  />
                 </>
               ) : (
                 <Link href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline text-blue-500 relative">
@@ -200,19 +198,19 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
                   />
                 </Link>
               )}
-              <div className="flex flex-row">
-                <span className='ml-3 mr-2'>•</span>
-                <TextareaAutosize
-                  {...register(`additionalInfo.side_projects.${index}.description`)}
-                  minRows={1}
-                  placeholder="Project Description"
-                  className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-                />
-              </div>
             </div>
-          )
-        })}
-      </div>
+
+            <div className="flex items-center text-xs">
+              <span className='ml-3 mr-2'>•</span>
+              <TextareaAutosize
+                {...register(`additionalInfo.side_projects.${index}.description`)}
+                minRows={1}
+                placeholder="Project Description"
+                className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+              />
+            </div>
+          </div>
+      )})}
     </div>
   ) : null;
 }
@@ -236,27 +234,27 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
  
   return fields.length ? (
-    <div className="flex flex-wrap text-xs mt-2 gap-1 leading-none">
-      <h1 className="text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+    <div className="">
+      <h2 className="text-2xl font-bold border-b border-solid border-black">
         Achievements
-      </h1>
-      <div className="flex flex-col w-full">
-        {fields.map((exp, index) => {
-          const activeIndex = `${section}-${index}`
-          
-          return (
-            <div 
-              key={exp.id}
-              data-section={activeIndex}
-              className={cn(
-                'flex flex-col gap-1 pb-1 relative border-2 border-transparent pt-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
-              )}
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveSection(activeIndex);
-              }}
-            >
+      </h2>
+      {fields.map((exp, index) => {
+        const activeIndex = `${section}-${index}`
+        
+        return (
+          <div 
+            key={exp.id}
+            data-section={activeIndex}
+            className={cn(
+              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 border-transparent hover:border-secondary', 
+            activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+            )}
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveSection(activeIndex);
+            }}
+          >
+            <div className="flex items-center">
               {activeIndex === activeSection && (
                   <EntryOperator
                     itemsLength={fields.length}
@@ -272,19 +270,19 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
                 placeholder="Achievement Name"
                 className='font-semibold'
               />
-              <div className="flex flex-row">
-                <span className='ml-3 mr-2'>•</span>
-                <TextareaAutosize
-                  {...register(`additionalInfo.achievements.${index}.description`)}
-                  minRows={1}
-                  placeholder="Achievement Description"
-                  className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-                />
-              </div>
             </div>
-          )
-        })}
-      </div>
+            <div className="flex items-center text-xs">
+              <span className='ml-3 mr-2'>•</span>
+              <TextareaAutosize
+                {...register(`additionalInfo.achievements.${index}.description`)}
+                minRows={1}
+                placeholder="Achievement Description"
+                className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+              />
+            </div>
+          </div>
+        )
+      })}
     </div>
   ) : null;
 }
@@ -308,27 +306,27 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className="flex flex-wrap text-xs mt-2 gap-1 leading-none">
-      <h1 className="text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+    <div className="">
+      <h2 className="text-2xl font-bold border-b border-solid border-black">
         Certifications
-      </h1>
-      <div className="flex flex-col w-full">
-        {fields.map((exp, index) => {
-          const activeIndex = `${section}-${index}`
-          
-          return (
-            <div 
-              key={exp.id}
-              data-section={activeIndex}
-              className={cn(
-                'flex flex-col gap-1 pb-1 relative border-2 border-transparent pt-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
-              )}
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveSection(activeIndex);
-              }}
-            >
+      </h2>
+      {fields.map((exp, index) => {
+        const activeIndex = `${section}-${index}`
+        
+        return (
+          <div 
+            key={exp.id}
+            data-section={activeIndex}
+            className={cn(
+              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 border-transparent hover:border-secondary', 
+            activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+            )}
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveSection(activeIndex);
+            }}
+          >
+            <div className="flex items-center">
               {activeIndex === activeSection && (
                   <EntryOperator
                     itemsLength={fields.length}
@@ -344,33 +342,33 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
                 placeholder="Certification Name"
                 className='font-semibold'
               />
-              <div className="flex flex-row">
-                <span className='ml-3 mr-2'>•</span>
-                <TextareaAutosize
-                  {...register(`additionalInfo.certifications.${index}.description`)}
-                  minRows={1}
-                  placeholder="Certification Description"
-                  className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-                />
-              </div>
             </div>
-          )
-        })}
-      </div>
+            <div className="flex items-center text-xs">
+              <span className='ml-3 mr-2'>•</span>
+              <TextareaAutosize
+                {...register(`additionalInfo.certifications.${index}.description`)}
+                minRows={1}
+                placeholder="Certification Description"
+                className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+              />
+            </div>
+          </div>
+        )
+      })}
     </div>
   ) : null;
 }
 
 export const ResumeAdditional: React.FC = () => {
-  return (
-    <div className="" id="skills-section text-xs">
-      <ProjectsNestedFieldArray />
-      
-      <AchievementsNestedFieldArray />
+  return <>
+    <ProjectsNestedFieldArray />
 
-      <CertificationsNestedFieldArray />      
-      
-      <h1 className="mt-4 text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+    <AchievementsNestedFieldArray />
+
+    <CertificationsNestedFieldArray />      
+    
+    <div className="" id="skills-section text-xs">
+      <h1 className="text-2xl font-bold border-b border-solid border-black">
         Additional Information
       </h1>
       
@@ -378,5 +376,5 @@ export const ResumeAdditional: React.FC = () => {
 
       <LanguageNestedFieldArray />
     </div>
-  );
+  </>
 };

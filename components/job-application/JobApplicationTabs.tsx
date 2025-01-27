@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { ApplicationCoverLetter } from './ApplicationCoverLetter';
 import { ApplicationJobInfo } from './ApplicationJobInfo';
 import { Container } from '../Container';
+import CVTemplateProvider from './_components/cv-template-context';
 
 interface Props {
   id: string;
@@ -46,6 +47,15 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
                 "final_evaluation_grade": "3.8/4",
                 "start_date": "2018",
                 "year_of_completion": "2024",
+                "location": "Italy",
+                // "exam": {
+                //   "Data Structures": "3.9",
+                //   "Web Technologies": "3.8",
+                //   "Mobile Development": "4.0",
+                //   "Database Management": "3.7",
+                //   "Machine Learning": "4.0",
+                //   "Cloud Computing": "3.8"
+                // }
               }
             ]
           },
@@ -203,7 +213,9 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
         </div>
         <Container className="mb-[80px] grow">
           {activeTab === "resume" && (
-            <TemplateProfessional id={id} resume={converted} />
+            <CVTemplateProvider>
+              <TemplateProfessional id={id} resume={converted} />
+            </CVTemplateProvider>
           )}
           {activeTab === "coverLetter" && (<h1 className='text-[32px] leading-10 mb-8'>
             <ApplicationCoverLetter id={id} letter={mockApplicationDetails.cover_letter} />

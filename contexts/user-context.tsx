@@ -30,7 +30,6 @@ export default function UserContextProvider({ children }: { children: ReactNode 
                 const [exists, me] = await Promise.all([
                     isResumeExits(),
                     fetchUserData(),
-                    refreshToken()
                 ]);
 
                 setUser({ ...exists, ...me });

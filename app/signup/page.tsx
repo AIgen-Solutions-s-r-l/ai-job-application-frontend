@@ -7,10 +7,11 @@ import { useRouter } from "next/navigation"; // Importa el router
 import config from "@/config";
 import Image from "next/image";
 import logo from "@/app/icon.png";
-import { register } from "@/libs/api/auth"; // Importa la función register
+import { fetchUserData, register } from "@/libs/api/auth"; // Importa la función register
 import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
 import { isResumeExits } from "@/libs/api/resume";
+import React from "react";
 
 const Signup = () => {
   const [username, setUsername] = useState(""); // Nuevo campo para username
@@ -37,16 +38,20 @@ const Signup = () => {
       return;
     }
 
-     try {
+    try {
       const result = await register(username, email, password);
-      
+
       if (result.success) {
         localStorage.setItem('username', username);
         toast.success('Logged in successfully!');
         try {
-          const isExits = await isResumeExits();
-          setUser(isExits);
-          router.replace(isExits.exists ? "/dashboard" : "/onboarding");
+          const [exists, me] = await Promise.all([
+            isResumeExits(),
+            fetchUserData(),
+          ]);
+
+          setUser({ ...exists, ...me });
+          router.replace(exists.exists ? "/dashboard" : "/onboarding");
         } catch (error) {
           router.replace("/onboarding");
         }

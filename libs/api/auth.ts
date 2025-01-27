@@ -23,6 +23,7 @@ export const login = createServerAction(async (username: string, password: strin
 
     const decoded = jwtDecode(response.data.access_token);
     const expirationDate = new Date(decoded.exp * 1000);
+    expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
@@ -51,7 +52,7 @@ export const login = createServerAction(async (username: string, password: strin
 });
 
 export async function refreshToken() {
-  const cookies = require('next/headers').cookies; // Import only on server
+  const cookies = require('next/headers').cookies;
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
@@ -70,6 +71,7 @@ export async function refreshToken() {
 
     const decoded = jwtDecode(response.data.access_token);
     const expirationDate = new Date(decoded.exp * 1000);
+    expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,

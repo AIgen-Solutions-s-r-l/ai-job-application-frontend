@@ -1,6 +1,7 @@
 import config from '@/config';
 import axios from 'axios';
 import { redirect } from 'next/navigation';
+import { refreshToken } from './auth';
 
 const apiClient = axios.create({
   headers: {
@@ -16,13 +17,14 @@ const apiClientJwt = axios.create({
   timeout: 5000,
 });
 
+let accessToken: string | null = null;
+
 apiClientJwt.interceptors.request.use(
   async (config) => {
     if (typeof window === 'undefined') { // Check if running on the server
-      const cookies = require('next/headers').cookies; // Import only on server
+      const cookies = require('next/headers').cookies;
       const cookieStore = cookies();
-      const accessToken = cookieStore.get('accessToken')?.value;
-
+      accessToken = cookieStore.get('accessToken')?.value;
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
@@ -38,10 +40,17 @@ apiClientJwt.interceptors.request.use(
 
 const responseInterceptor = (response: any) => response;
 
-const errorInterceptor = (error: any) => {
-  // console.error("API Error:", error.response || error.message);
-  
-  //todo: after adding refresh_token need split this
+const errorInterceptor = async (error: any) => {
+  if (error?.response?.status === 401 && accessToken) {
+    try {
+      await refreshToken();
+      const originalRequest = error.config;
+      return apiClientJwt(originalRequest);
+    } catch (refreshError) {
+      redirect(`${config.auth.loginUrl}/`);
+    }
+  }
+
   if ([401, 403].includes(error?.response?.status)) {
     redirect(`${config.auth.loginUrl}/`)
   }

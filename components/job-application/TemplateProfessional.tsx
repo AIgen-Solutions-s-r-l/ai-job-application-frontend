@@ -6,9 +6,10 @@ import { ResumeAdditional } from './_components/ResumeAdditional';
 import { useActiveSectionContext } from '../../contexts/active-section-context';
 import { Resume } from '../../libs/types/application.types';
 import { FormProvider, useForm } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
 import { updateApplicationResumeAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
+import { useCVTemplateContext } from './_components/cv-template-context';
+import { TemplateType } from './_components/resumeTemplates';
 
 interface Props {
   id: string;
@@ -17,6 +18,7 @@ interface Props {
 
 export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
   const { activeSection } = useActiveSectionContext();
+  const { template, setSelectedTemplate } = useCVTemplateContext();
 
   const methods = useForm({
     defaultValues: resume,
@@ -41,6 +43,10 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
 
   return (
     <>
+      <select onChange={(e) => setSelectedTemplate(e.target.value as TemplateType)}>
+        <option value="default">Default</option>
+        <option value="krishnavalliappan">Krishnavalliappan</option>
+      </select>
       <FormProvider {...methods}>
         <div className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl ${activeSection ? 'bg-black/20' : 'bg-white'}`}>
           <form
@@ -53,7 +59,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
             }}
             onSubmit={methods.handleSubmit(handleResumeSubmit)}
           >
-            <div id="resume-sections" className="w-full py-8 h-full px-10">
+            <div id="resume-sections" className={template.body}>
               <ResumePersonal />
               <ResumeEducation />
               <ResumeExperience />

@@ -51,7 +51,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   );
 
   return (
-    <ul className='list-disc list-inside text-xs ml-4 pt-1 relative'>
+    <ul className='list-disc relative text-xs flex flex-col gap-[5px] my-[5px] mx-[30px]'>
       {fields.map((responsibility, respIndex) => (
         <li key={responsibility.id}>
           <TextareaAutosize
@@ -89,11 +89,11 @@ export const ResumeExperience: React.FC = () => {
   }
   
   return (
-    <div className="mt-8" id="experience-section">
+    <div className="" id="experience-section">
       {!!fields.length && (
-        <h1 className="text-xs font-semibold tracking-wide w-full border-b-4 border-black pb-2 uppercase">
+        <h2 className="text-2xl font-bold border-b border-solid border-black">
           Experience
-        </h1>
+        </h2>
       )}
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
@@ -103,7 +103,7 @@ export const ResumeExperience: React.FC = () => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-col relative mb-2 border-2 border-transparent hover:border-secondary', 
+              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -121,36 +121,33 @@ export const ResumeExperience: React.FC = () => {
                 }}
               />
             )}
-            <div className="flex flex-row justify-between items-start pt-2">
-              <div className="flex flex-col w-[70%]">
-                <span className="text-xs font-semibold">
-                  <NullifiedInput
-                    {...register(`experienceDetails.${index}.company`)}
-                    placeholder="Company"
-                  />
-                </span>
-                <span className="text-xs italic">
-                  <NullifiedInput
-                    {...register(`experienceDetails.${index}.position`)}
-                    placeholder="Position"
-                  />
-                </span>
-              </div>
-              <div className="flex flex-col items-end w-[30%] text-gray-700 text-base">
-                <span className="text-xs">
-                  <NullifiedInput
-                    {...register(`experienceDetails.${index}.location`)}
-                    placeholder="Location"
-                  />
-                </span>
-                <span className="text-xs">
-                  <NullifiedInput
-                    {...register(`experienceDetails.${index}.employment_period`)}
-                    placeholder="Employment period"
-                  />
-                </span>
-                <span></span>
-              </div>
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-semibold">
+                <NullifiedInput
+                  {...register(`experienceDetails.${index}.company`)}
+                  placeholder="Company"
+                />
+              </span>
+              <span className="text-xs">
+                <NullifiedInput
+                  {...register(`experienceDetails.${index}.location`)}
+                  placeholder="Location"
+                />
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-xs italic">
+                <NullifiedInput
+                  {...register(`experienceDetails.${index}.position`)}
+                  placeholder="Position"
+                />
+              </span>
+              <span className="text-xs">
+                <NullifiedInput
+                  {...register(`experienceDetails.${index}.employment_period`)}
+                  placeholder="Employment period"
+                />
+              </span>
             </div>
 
             <ResponsibilityNestedFieldArray index={index} />

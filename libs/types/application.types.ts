@@ -27,6 +27,7 @@ export interface ResumeEducationDetails {
   final_evaluation_grade: string;
   year_of_completion: string;
   start_date: string;
+  location: string;
 }
 
 export interface ResumeExperienceDetails {

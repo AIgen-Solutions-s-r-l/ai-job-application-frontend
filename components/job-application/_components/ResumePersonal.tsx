@@ -6,6 +6,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
+import { useCVTemplateContext } from './cv-template-context';
 
 export const ResumePersonal: React.FC = () => {
   const { register, getValues } = useFormContext<Resume>();
@@ -13,17 +14,19 @@ export const ResumePersonal: React.FC = () => {
   const github: string = getValues('personalInfo.github');
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const isActive = activeSection === 'personal-section';
+  const { template } = useCVTemplateContext();
   
   return <>
     <div 
       data-section="personal-section"
       className={cn(
-        'flex flex-col items-center border-2 hover:border-secondary', 
-        isActive ? 'bg-white border-secondary' : 'border-transparent'
+        template.personal.header,
+        'border-2 hover:border-secondary', 
+        isActive ? 'bg-white border-secondary' : 'border-transparent',
       )}
       onClick={() => setActiveSection('personal-section')}
     >
-      <h1 className="font-semibold tracking-widest text-xl">
+      <h1 className={template.personal.h1}>
         <NullifiedInput
           {...register('personalInfo.name')}
           placeholder="Name"
@@ -34,9 +37,9 @@ export const ResumePersonal: React.FC = () => {
           placeholder="Surname"
         />
       </h1>
-      <ul className="mt-3 text-gray-700 text-xs flex flex-row flex-wrap mx-auto gap-2 list-none">
-        <li className="flex gap-[2px]">
-          <MapPin size={16} />
+      <div className={template.personal.contactSection}>
+        <p className={template.personal.contactItem}>
+          {/* <MapPin size={16} /> */}
           <NullifiedInput
             {...register('personalInfo.country')}
             placeholder="Country"
@@ -46,9 +49,9 @@ export const ResumePersonal: React.FC = () => {
             {...register('personalInfo.city')}
             placeholder="City"
           />
-        </li>
-        <li className="flex gap-[2px]">
-          <Phone size={16} />
+        </p>
+        <p className={template.personal.contactItem}>
+          {/* <Phone size={16} /> */}
           <NullifiedInput
             {...register('personalInfo.phone_prefix')}
             placeholder="+1"
@@ -58,16 +61,16 @@ export const ResumePersonal: React.FC = () => {
             {...register('personalInfo.phone')}
             placeholder="1234567890"
           />
-        </li>
-        <li className="flex gap-[2px]">
-          <Mail size={16} />
+        </p>
+        <p className={template.personal.contactItem}>
+          {/* <Mail size={16} /> */}
           <NullifiedInput
             {...register('personalInfo.email')}
             placeholder="Email"
           />
-        </li>
-        <li className="flex gap-[2px]">
-          <FaLinkedin size={16} />
+        </p>
+        <p className={template.personal.contactItem}>
+          {/* <FaLinkedin size={16} /> */}
           {isActive ? (
             <NullifiedInput
               {...register('personalInfo.linkedin')}
@@ -76,9 +79,9 @@ export const ResumePersonal: React.FC = () => {
           ) : (
             <a href={linkedin} className="text-blue-500" target="_blank">Linkedin</a>
           )}
-        </li>
-        <li className="flex gap-[2px]">
-          <FaGithub size={16} />
+        </p>
+        <p className={template.personal.contactItem}>
+          {/* <FaGithub size={16} /> */}
           {isActive ? (
             <NullifiedInput
               {...register('personalInfo.github')}
@@ -87,8 +90,8 @@ export const ResumePersonal: React.FC = () => {
           ) : (
             <a href={github} className="text-blue-500" target="_blank">GitHub</a>
           )}
-        </li>
-      </ul>
+        </p>
+      </div>
     </div>
   </>;
 };

@@ -1,4 +1,6 @@
+import config from '@/config';
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 
 const apiClient = axios.create({
   headers: {
@@ -29,7 +31,7 @@ apiClientJwt.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error("Request Error:", error.message);
+    // console.error("Request Error:", error.message);
     return Promise.reject(error);
   }
 );
@@ -37,7 +39,13 @@ apiClientJwt.interceptors.request.use(
 const responseInterceptor = (response: any) => response;
 
 const errorInterceptor = (error: any) => {
-  console.error("API Error:", error.response || error.message);
+  // console.error("API Error:", error.response || error.message);
+  
+  //todo: after adding refresh_token need split this
+  if ([401, 403].includes(error?.response?.status)) {
+    redirect(`${config.auth.loginUrl}/`)
+  }
+
   return Promise.reject(error);
 };
 

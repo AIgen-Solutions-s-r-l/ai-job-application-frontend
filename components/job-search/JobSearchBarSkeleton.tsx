@@ -1,40 +1,12 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { ChevronDown, Search } from 'lucide-react';
-import { useJobSearch } from '@/contexts/job-search-context';
+import { FC } from 'react';
 
-interface JobSearchBarProps {
+interface Props {
   keywords?: string;
   location?: string;
-  onSearch: (keywords: string, location: string) => void;
 }
 
-export const JobSearchBar: React.FC<JobSearchBarProps> = ({
-  keywords,
-  location,
-  onSearch,
-}) => {
-  const { register, handleSubmit, getValues, setValue } = useForm<{
-    keywords?: string;
-    location?: string;
-  }>({
-    defaultValues: {
-      keywords,
-      location,
-    },
-  });
-  const { jobs } = useJobSearch();
-
-  useEffect(() => {
-    setValue('keywords', keywords);
-    setValue('location', location);
-  }, [keywords, location]);
-
-  const onSubmit = () => {
-    const { keywords, location } = getValues();
-    onSearch(keywords, location);
-  };
-
+export const JobSearchBarSkeleton: FC<Props> = ({keywords, location}) => {
   return (
     <>
       <div className='w-full bg-base-100'>
@@ -44,10 +16,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       </div>
 
       <div className='w-full bg-base-100 pt-5'>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className='w-[1440px] mx-auto flex items-end gap-[30px]'
-        >
+        <form className='w-[1440px] mx-auto flex items-end gap-[30px]'>
           <div className='w-[516px] flex-1'>
             <label htmlFor='keywords' className='text-md leading-none'>
               Role
@@ -57,7 +26,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 type='text'
                 id='keywords'
                 placeholder='Job title, keywords, or company'
-                {...register('keywords')}
+                defaultValue={keywords}
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>
@@ -71,7 +40,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 type='text'
                 id='location'
                 placeholder='City, state, or remote'
-                {...register('location')}
+                defaultValue={location}
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>
@@ -102,15 +71,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               <ChevronDown size={24} />
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className='w-full bg-base-100'>
-        <div className='w-[1440px] mx-auto pb-5'>
-          <p className='text-lg'>
-            Your suggested jobs based on your resume:{' '}
-            <span className='font-semibold'>{jobs.length} jobs</span> are found.
-          </p>
         </div>
       </div>
     </>

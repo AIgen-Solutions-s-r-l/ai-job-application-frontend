@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import config from "@/config";
+import { useUserContext } from "@/contexts/user-context";
 
 const ButtonSignin = ({
   text = "Get started",
@@ -13,12 +14,14 @@ const ButtonSignin = ({
   extraStyle?: string;
 }) => {
   const [username, setUsername] = useState<string | null>(null);
+  const { user } = useUserContext();
 
   useEffect(() => {
     // Obtener el username desde localStorage
-    const storedUsername = localStorage.getItem("username");
-    setUsername(storedUsername);
-  }, []);
+    if (user) {
+      setUsername(user.username);
+    }
+  }, [user]);
 
   if (username) {
     return (

@@ -8,9 +8,10 @@ interface Props {
   itemsLength: number;
   className?: string;
   small?: boolean
+  children?: React.ReactNode
 }
 
-export const EntryOperator: React.FC<Props> = ({ onAdd, onRemove, itemsLength, className, small = false}) => {
+export const EntryOperator: React.FC<Props> = ({ onAdd, onRemove, itemsLength, className, children, small = false}) => {
   return (
     <div className={cn("absolute w-max h-[40px] rounded-full flex overflow-hidden -top-[40px] left-1/2 -translate-x-1/2 bottom-0 right-0 bg-white z-30 cursor-pointer", className)}>
       <div 
@@ -23,6 +24,7 @@ export const EntryOperator: React.FC<Props> = ({ onAdd, onRemove, itemsLength, c
         <Plus className='font-bold' size={21} strokeWidth={3} />
         <p className={cn('text-base', small && 'hidden')}>New Entry</p>
       </div>
+      {children}
       <button 
         className={cn("h-[40px] pl-3 pr-4 flex items-center justify-center group", itemsLength === 1 && 'cursor-not-allowed')}
         disabled={itemsLength === 1}

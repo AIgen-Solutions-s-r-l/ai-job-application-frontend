@@ -20,9 +20,9 @@ export const ResumePersonal: React.FC = () => {
     <div 
       data-section="personal-section"
       className={cn(
-        template.personal.header,
         'border-2 hover:border-secondary', 
         isActive ? 'bg-white border-secondary' : 'border-transparent',
+        template.personal.header,
       )}
       onClick={() => setActiveSection('personal-section')}
     >

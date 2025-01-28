@@ -1,5 +1,6 @@
-import { ResumeAdditionalInfo } from "../types/application.types";
+import { ResumeAdditionalInfo, ResumeEducationDetail } from "../types/application.types";
 import { Resume } from "../types/application.types";
+import { EducationDetail } from "../types/response-application.types";
 
 export function toResumeType(resumeData: any): Resume {
   const { 
@@ -30,6 +31,16 @@ export function toResumeType(resumeData: any): Resume {
     }
   } = resumeData;
 
+  const transformedEducationDetails = education_details.map((education: EducationDetail) => {
+    if (education.exam) {
+      return {
+        ...education,
+        exam: Object.entries(education.exam).map(([subject, grade]) => ({ subject, grade })),
+      };
+    }
+    return education;
+  });
+
   const additionalInfo: ResumeAdditionalInfo = {
     side_projects: side_projects?.length ? side_projects : null,
     achievements: achievements?.length ? achievements : null,
@@ -41,7 +52,7 @@ export function toResumeType(resumeData: any): Resume {
 
   return {
     personalInfo: personal_information,
-    educationDetails: education_details || null,
+    educationDetails: transformedEducationDetails || null,
     experienceDetails: experience_details || null,
     additionalInfo,
   };
@@ -54,6 +65,16 @@ export function fromResumeType(resumeData: Resume): any {
     experienceDetails,
     additionalInfo,
   } = resumeData;
+
+  const originalEducationDetails = educationDetails?.map(edu => ({
+    ...edu,
+    exam: edu.exam && edu.exam.length > 0 && !edu.exam.every(({ subject, grade }) => subject === "" && grade === "")
+      ? edu.exam.reduce((acc: { [key: string]: string }, { subject, grade }) => {
+          acc[subject] = grade;
+          return acc;
+        }, {})
+      : null
+  }));
   
   return {
     resume: {
@@ -62,7 +83,7 @@ export function fromResumeType(resumeData: Resume): any {
       },
       body: {
         education_details: {
-          education_details: educationDetails,
+          education_details: originalEducationDetails,
         },
         experience_details: {
           experience_details: experienceDetails,

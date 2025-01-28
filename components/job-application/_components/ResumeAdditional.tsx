@@ -7,6 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { cn } from '@/lib/utils';
 import { EntryOperator } from './EntryOperator';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
+import { useCVTemplateContext } from './cv-template-context';
 
 type FormData = Pick<Resume, "additionalInfo">
 
@@ -15,6 +16,7 @@ const SkillsNestedFieldArray: React.FC = () => {
   const additional_skills = getValues('additionalInfo.additional_skills');
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const isActive = activeSection === 'skills-section';
+  const { template } = useCVTemplateContext();
 
   const debounce = (func: (...args: any[]) => void, delay: number) => {
     let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
@@ -42,7 +44,8 @@ const SkillsNestedFieldArray: React.FC = () => {
       <div 
         data-section="skills-section"
         className={cn(
-          'flex text-xs leading-none p-[10px] -mx-[10px] gap-1 border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary', 
+          template.additional.skills,
+          'border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary', 
           isActive && 'bg-white'
         )}
         onClick={() => setActiveSection('skills-section')}
@@ -68,6 +71,7 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
 
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'languages-section';
+  const { template } = useCVTemplateContext();
   
   const handleAddAchievement = () => {
     const newIndex = fields.length;
@@ -79,8 +83,8 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className="flex text-xs leading-none gap-1">
-      <span className="font-semibold mt-2">Languages: </span>
+    <div className={template.additional.languages}>
+      <span className="font-semibold">Languages: </span>
       {fields.map((item, index) => {
         const activeIndex = `${section}-${index}`
         
@@ -89,7 +93,8 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
             key={item.id} 
             data-section={activeIndex}
             className={cn(
-              'flex items-center py-[5px] relative border-2 border-transparent hover:border-secondary', 
+              template.additional.languageItem,
+              'relative border-2 border-transparent hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -135,6 +140,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
 
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'projects-section';
+  const { template } = useCVTemplateContext();
 
   const handleAddProject = () => {
     const newIndex = fields.length;
@@ -147,8 +153,8 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className="">
-      <h2 className="text-2xl font-bold border-b border-solid border-black">
+    <div className={template.projects.container}>
+      <h2 className={template.projects.h2}>
         Side Projects
       </h2>
       {fields.map((exp, index) => {
@@ -159,7 +165,8 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 border-transparent hover:border-secondary', 
+              template.projects.entry,
+              'relative border-2 hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -167,7 +174,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
               setActiveSection(activeIndex);
             }}
           >
-            <div className="flex items-center">
+            <div className={template.projects.entryHeader}>
               {activeIndex === activeSection ? (
                 <>
                   <EntryOperator
@@ -181,7 +188,6 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
                   <NullifiedInput
                     {...register(`additionalInfo.side_projects.${index}.name`)}
                     placeholder="Project Name"
-                    className='font-semibold'
                   />
                   &nbsp;&#8209;&nbsp;
                   <NullifiedInput
@@ -194,21 +200,22 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
                   <NullifiedInput
                     {...register(`additionalInfo.side_projects.${index}.name`)}
                     placeholder="Project Name"
-                    className='text-blue-500 font-semibold'
+                    className='text-blue-500'
                   />
                 </Link>
               )}
             </div>
 
-            <div className="flex items-center text-xs">
-              <span className='ml-3 mr-2'>•</span>
-              <TextareaAutosize
-                {...register(`additionalInfo.side_projects.${index}.description`)}
-                minRows={1}
-                placeholder="Project Description"
-                className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-              />
-            </div>
+            <ul className={template.projects.compactList}>
+              <li>
+                <TextareaAutosize
+                  {...register(`additionalInfo.side_projects.${index}.description`)}
+                  minRows={1}
+                  placeholder="Project Description"
+                  className="w-full align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                />
+              </li>
+            </ul>
           </div>
       )})}
     </div>
@@ -223,6 +230,7 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
 
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'achievements-section';
+  const { template } = useCVTemplateContext();
 
   const handleAddAchievement = () => {
     const newIndex = fields.length;
@@ -234,8 +242,8 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
  
   return fields.length ? (
-    <div className="">
-      <h2 className="text-2xl font-bold border-b border-solid border-black">
+    <div className={template.achievements.container}>
+      <h2 className={template.achievements.h2}>
         Achievements
       </h2>
       {fields.map((exp, index) => {
@@ -246,15 +254,16 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 border-transparent hover:border-secondary', 
-            activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              template.achievements.entry,
+              'relative border-2 hover:border-secondary', 
+              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
               setActiveSection(activeIndex);
             }}
           >
-            <div className="flex items-center">
+            <div className={template.achievements.entryHeader}>
               {activeIndex === activeSection && (
                   <EntryOperator
                     itemsLength={fields.length}
@@ -268,18 +277,18 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
               <NullifiedInput
                 {...register(`additionalInfo.achievements.${index}.name`)}
                 placeholder="Achievement Name"
-                className='font-semibold'
               />
             </div>
-            <div className="flex items-center text-xs">
-              <span className='ml-3 mr-2'>•</span>
-              <TextareaAutosize
-                {...register(`additionalInfo.achievements.${index}.description`)}
-                minRows={1}
-                placeholder="Achievement Description"
-                className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-              />
-            </div>
+            <ul className={template.achievements.compactList}>
+              <li>
+                <TextareaAutosize
+                  {...register(`additionalInfo.achievements.${index}.description`)}
+                  minRows={1}
+                  placeholder="Achievement Description"
+                  className="w-full align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                />
+              </li>
+            </ul>
           </div>
         )
       })}
@@ -295,6 +304,7 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
   
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'certifications-section';
+  const { template } = useCVTemplateContext();
 
   const handleAddCertification = () => {
     const newIndex = fields.length;
@@ -306,8 +316,8 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className="">
-      <h2 className="text-2xl font-bold border-b border-solid border-black">
+    <div className={template.certifications.container}>
+      <h2 className={template.certifications.h2}>
         Certifications
       </h2>
       {fields.map((exp, index) => {
@@ -318,15 +328,16 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 border-transparent hover:border-secondary', 
-            activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              template.certifications.entry,
+              'relative border-2 hover:border-secondary', 
+              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
               setActiveSection(activeIndex);
             }}
           >
-            <div className="flex items-center">
+            <div className={template.certifications.entryHeader}>
               {activeIndex === activeSection && (
                   <EntryOperator
                     itemsLength={fields.length}
@@ -340,18 +351,18 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
               <NullifiedInput
                 {...register(`additionalInfo.certifications.${index}.name`)}
                 placeholder="Certification Name"
-                className='font-semibold'
               />
             </div>
-            <div className="flex items-center text-xs">
-              <span className='ml-3 mr-2'>•</span>
-              <TextareaAutosize
-                {...register(`additionalInfo.certifications.${index}.description`)}
-                minRows={1}
-                placeholder="Certification Description"
-                className="grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-              />
-            </div>
+            <ul className={template.certifications.compactList}>
+              <li>
+                <TextareaAutosize
+                  {...register(`additionalInfo.certifications.${index}.description`)}
+                  minRows={1}
+                  placeholder="Certification Description"
+                  className="w-full align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                />
+              </li>
+            </ul>
           </div>
         )
       })}
@@ -360,6 +371,8 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
 }
 
 export const ResumeAdditional: React.FC = () => {
+  const { template } = useCVTemplateContext();
+  
   return <>
     <ProjectsNestedFieldArray />
 
@@ -367,8 +380,8 @@ export const ResumeAdditional: React.FC = () => {
 
     <CertificationsNestedFieldArray />      
     
-    <div className="" id="skills-section text-xs">
-      <h1 className="text-2xl font-bold border-b border-solid border-black">
+    <div className={template.additional.container} id="skills-section">
+      <h1 className={template.additional.h2}>
         Additional Information
       </h1>
       

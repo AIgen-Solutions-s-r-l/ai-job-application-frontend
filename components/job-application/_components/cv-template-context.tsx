@@ -16,7 +16,7 @@ type CVTemplateContextType = {
 export const CVTemplateContext = createContext<CVTemplateContextType | null>(null);
 
 export default function CVTemplateProvider ({ children }: CVTemplateProviderProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>('default');
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>('cloyola');
 
   const template = templateStyles[selectedTemplate];
 

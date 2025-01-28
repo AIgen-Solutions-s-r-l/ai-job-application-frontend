@@ -6,6 +6,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { cn } from '@/lib/utils';
 import { EntryOperator } from './EntryOperator';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
+import { useCVTemplateContext } from './cv-template-context';
 
 type FormData = Pick<Resume, "experienceDetails">
 
@@ -18,6 +19,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   const { fields, append, insert, remove } = useFieldArray({ 
     name: `experienceDetails.${index}.key_responsibilities`
   })
+  const { template } = useCVTemplateContext();
 
   useEffect(() => {
     if (fields.length === 0) {
@@ -51,7 +53,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   );
 
   return (
-    <ul className='list-disc relative text-xs flex flex-col gap-[5px] my-[5px] mx-[30px]'>
+    <ul className={cn('relative', template.experience.compactList)}>
       {fields.map((responsibility, respIndex) => (
         <li key={responsibility.id}>
           <TextareaAutosize
@@ -73,6 +75,7 @@ export const ResumeExperience: React.FC = () => {
   const { fields, append, remove } = useFieldArray({ control, name: "experienceDetails" });
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'experience-section';
+  const { template } = useCVTemplateContext();
   
   const handleAddExperience = () => {
     const newIndex = fields.length;
@@ -89,9 +92,9 @@ export const ResumeExperience: React.FC = () => {
   }
   
   return (
-    <div className="" id="experience-section">
+    <div className={template.experience.container} id="experience-section">
       {!!fields.length && (
-        <h2 className="text-2xl font-bold border-b border-solid border-black">
+        <h2 className={template.experience.h2}>
           Experience
         </h2>
       )}
@@ -103,7 +106,8 @@ export const ResumeExperience: React.FC = () => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 hover:border-secondary', 
+              template.experience.entry,
+              'relative border-2 hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -121,28 +125,28 @@ export const ResumeExperience: React.FC = () => {
                 }}
               />
             )}
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-semibold">
+            <div className={template.experience.entryHeader}>
+              <span className={template.experience.entryName}>
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.company`)}
                   placeholder="Company"
                 />
               </span>
-              <span className="text-xs">
+              <span className={template.experience.entryLocation}>
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.location`)}
                   placeholder="Location"
                 />
               </span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs italic">
+            <div className={template.experience.entryDetails}>
+              <span className={template.experience.entryTitle}>
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.position`)}
                   placeholder="Position"
                 />
               </span>
-              <span className="text-xs">
+              <span className={template.experience.entryYear}>
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.employment_period`)}
                   placeholder="Employment period"

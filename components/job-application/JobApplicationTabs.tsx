@@ -48,14 +48,14 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
                 "start_date": "2018",
                 "year_of_completion": "2024",
                 "location": "Italy",
-                // "exam": {
-                //   "Data Structures": "3.9",
-                //   "Web Technologies": "3.8",
-                //   "Mobile Development": "4.0",
-                //   "Database Management": "3.7",
-                //   "Machine Learning": "4.0",
-                //   "Cloud Computing": "3.8"
-                // }
+                "exam": {
+                  "Data Structures": "3.9",
+                  "Web Technologies": "3.8",
+                  "Mobile Development": "4.0",
+                  "Database Management": "3.7",
+                  "Machine Learning": "4.0",
+                  "Cloud Computing": "3.8"
+                }
               }
             ]
           },

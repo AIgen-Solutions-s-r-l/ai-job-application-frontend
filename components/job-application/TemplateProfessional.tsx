@@ -10,6 +10,9 @@ import { updateApplicationResumeAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
 import { useCVTemplateContext } from './_components/cv-template-context';
 import { TemplateType } from './_components/resumeTemplates';
+import { FaSpinner } from 'react-icons/fa';
+import { fromResumeType } from '@/libs/utils/application.util';
+import { cn } from '@/lib/utils';
 
 interface Props {
   id: string;
@@ -25,30 +28,37 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
   });
   
   const handleResumeSubmit = async (data: Resume) => {
-    try {
-      const response = await updateApplicationResumeAction(id, data);
+    console.log(JSON.stringify(fromResumeType(data)));
+    // try {
+    //   const response = await updateApplicationResumeAction(id, data);
       
-      if (response.success) {
-        toast.success("Application resume updated successfully!");
-        console.log("Application resume updated successfully");
-      } else {
-        toast.error("Error updating application resume.");
-        console.error("Error updating application resume:", response.error);
+    //   if (response.success) {
+    //     toast.success("Application resume updated successfully!");
+    //     console.log("Application resume updated successfully");
+    //   } else {
+    //     toast.error("Error updating application resume.");
+    //     console.error("Error updating application resume:", response.error);
 
-      }
-    } catch (error) {
-      console.error("Error submitting application resume:", error);
-    }
+    //   }
+    // } catch (error) {
+    //   console.error("Error submitting application resume:", error);
+    // }
   };
 
   return (
     <>
       <select onChange={(e) => setSelectedTemplate(e.target.value as TemplateType)}>
+        <option value="cloyola">Cloyola</option>
+        <option value="josyladBlue">Josylad Blue</option>
+        <option value="josyladGrey">Josylad Grey</option>
+        <option value="samodumBold">Samodum Bold</option>
         <option value="default">Default</option>
         <option value="krishnavalliappan">Krishnavalliappan</option>
       </select>
       <FormProvider {...methods}>
-        <div className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl ${activeSection ? 'bg-black/20' : 'bg-white'}`}>
+        <div className={cn(
+          'w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl', 
+          activeSection ? 'bg-black/20' : (template.background ?? 'bg-white'))}>
           <form
             id='my-form'
             className="w-full"
@@ -68,7 +78,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
           </form>
         </div>
       </FormProvider>
-      {/* <button 
+      <button 
         className="bg-black px-10 mx-auto mt-5 py-3 text-lg leading-none text-white rounded-full flex gap-5 items-center hover:bg-base-content" 
         form='my-form' 
         type="submit" 
@@ -76,7 +86,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
       >
         {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
         <p>Save Editing</p>
-      </button> */}
+      </button>
     </>
   );
 };

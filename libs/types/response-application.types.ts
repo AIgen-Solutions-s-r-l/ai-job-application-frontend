@@ -33,7 +33,7 @@ interface ProjectDetails {
 }
 
 interface Achievements {
-    achievements?: Achievement[]; // Array is optional
+    achievements?: Achievement[]; 
 }
 
 interface Achievement {
@@ -42,7 +42,7 @@ interface Achievement {
 }
 
 interface Certifications {
-    certifications?: Certification[]; // Array is optional
+    certifications?: Certification[]; 
 }
 
 interface Certification {
@@ -51,8 +51,8 @@ interface Certification {
 }
 
 interface AdditionalSkills {
-    additional_skills?: string[]; // Array is optional
-    languages?:         Language[]; // Array is optional
+    additional_skills?: string[]; 
+    languages?:         Language[]; 
 }
 
 interface Language {
@@ -61,30 +61,36 @@ interface Language {
 }
 
 interface EducationDetails {
-    education_details: EducationDetail[]; // Array is optional
+    education_details: EducationDetail[]; 
 }
 
-interface EducationDetail {
-    education_level:        string; // All fields are optional now
+export interface EducationDetail {
+    education_level:        string; 
     institution:            string;
     field_of_study:         string;
     final_evaluation_grade: string;
     start_date:             string;
     year_of_completion:     string;
+    location:               string;
+    exam?:                    Exam;
+}
+
+interface Exam {
+    [key: string]: string;
 }
 
 interface ExperienceDetails {
-    experience_details?: ExperienceDetail[]; // Array is optional
+    experience_details?: ExperienceDetail[]; 
 }
 
 interface ExperienceDetail {
-    position?:             string; // All fields are optional now
+    position?:             string;
     company?:              string;
     employment_period?:    string;
     location?:             string;
     industry?:             string;
-    key_responsibilities?: string[]; // Array is optional
-    skills_acquired?:      string[]; // Array is optional
+    key_responsibilities?: string[]; 
+    skills_acquired?:      string[]; 
 }
 
 interface ResumeHeader {

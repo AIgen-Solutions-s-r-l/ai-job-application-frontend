@@ -1,18 +1,97 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
 import { cn } from '@/lib/utils';
 import { EntryOperator } from './EntryOperator';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
+import { useCVTemplateContext } from './cv-template-context';
 
 type FormData = Pick<Resume, "educationDetails">
 
+const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
+  index,
+}: {
+  index: number;
+}): React.ReactElement => {
+  const { register, getValues } = useFormContext<FormData>();
+  const { fields, append, insert, remove } = useFieldArray({ 
+    name: `educationDetails.${index}.exam`
+  })
+  const { template } = useCVTemplateContext();
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>, respIndex: number) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        insert(respIndex + 1, "");
+        setTimeout(() => {
+          const nextInputId = `subject-${index}-${respIndex + 1}`;
+          const nextInput = document.getElementById(nextInputId) as HTMLInputElement | null;
+          nextInput?.focus();
+        }, 0);
+      } else if (e.key === 'Backspace' && !e.currentTarget.value) {
+        e.preventDefault();
+        if (fields.length > 1) {
+          remove(respIndex);
+          setTimeout(() => {
+            const prevInputId = `subject-${index}-${respIndex - 1}`;
+            const prevInput = document.getElementById(prevInputId) as HTMLInputElement | null;
+            prevInput?.focus();
+          }, 0);
+        }
+        remove(respIndex);
+      }
+    },
+    [fields.length, insert, remove, index]
+  );
+
+  const handleInsertExam = (respIndex: number) => {
+    insert(respIndex + 1, "");
+  }
+
+  const handleRemoveExam = (respIndex: number) => {
+    remove(respIndex);
+  }
+
+  if (!fields.length) return null;
+
+  return (
+    <ul className={cn('relative', template.education.compactList)}>
+      {fields.map((responsibility, respIndex) => (
+        <li key={responsibility.id} className='group relative'>
+          <NullifiedInput
+            id={`subject-${index}-${respIndex}`}
+            {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
+            placeholder="Subject of Exam"
+            onKeyDown={(e) => handleKeyDown(e, respIndex)}
+          />
+          &nbsp;→&nbsp;
+          <NullifiedInput
+            {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
+            placeholder="Grade"
+            onKeyDown={(e) => handleKeyDown(e, respIndex)}
+          />
+          <div 
+            className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
+            onClick={() => handleRemoveExam(respIndex)}
+          >-</div>
+          <div 
+            className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-secondary items-center justify-center rounded-full text-white text-lg leading-none cursor-pointer"
+            onClick={() => handleInsertExam(respIndex)}
+          >+</div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export const ResumeEducation: React.FC = () => {
-  const { control, register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: "educationDetails" });
+  const { control, register, getValues } = useFormContext<FormData>();
+  const { fields, append, remove, update } = useFieldArray({ control, name: "educationDetails" });
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'education-section';
+  const { template } = useCVTemplateContext();
 
   const handleAddEducation = () => {
     const newIndex = fields.length;
@@ -24,14 +103,29 @@ export const ResumeEducation: React.FC = () => {
       year_of_completion: "",
       start_date: "",
       location: "",
+      exam: [],
     });
     setActiveSection(`${section}-${newIndex}`);
   };
   
+  const handleUpdateExam = (educationIndex: number) => {
+    const currentValue = getValues(`educationDetails.${educationIndex}`);
+    update(educationIndex, {
+        ...currentValue,
+        exam: [
+            ...currentValue.exam,
+            {
+                subject: "",
+                grade: ""
+            }
+        ]
+    });
+  };
+  
   return (
-    <div className="" id="education-section">
+    <div className={template.education.container} id="education-section">
       {!!fields.length && (
-        <h2 className="text-2xl font-bold border-b border-solid border-black">
+        <h2 className={template.education.h2}>
           Education
         </h2>
       )}
@@ -43,7 +137,8 @@ export const ResumeEducation: React.FC = () => {
             key={exp.id}
             data-section={activeIndex}
             className={cn(
-              'flex flex-col gap-[5px] p-[10px] -mx-[10px] relative border-2 hover:border-secondary', 
+              template.education.entry,
+              'relative border-2 hover:border-secondary', 
               activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -59,17 +154,26 @@ export const ResumeEducation: React.FC = () => {
                   remove(index);
                   setActiveSection(null);
                 }}
-              />
+              >
+                <div 
+                  className='h-[40px] flex items-center gap-2 bg-base-100 px-3 text-base-content'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUpdateExam(index);
+                  }}
+                >
+                  <p className={cn('text-base')}>Add Exams</p>
+                </div>
+              </EntryOperator>
             )}
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-semibold">
+            <div className={template.education.entryHeader}>
+              <span className={template.education.entryName}>
                 <NullifiedInput
                   {...register(`educationDetails.${index}.institution`)}
                   placeholder="Institution"
-                  className="min-w-[200px]"
                 />
               </span>
-              <span className="text-xs">
+              <span className={template.education.entryLocation}>
                 <NullifiedInput
                   {...register(`educationDetails.${index}.location`)}
                   placeholder="Location"
@@ -77,8 +181,8 @@ export const ResumeEducation: React.FC = () => {
                 />
               </span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs italic">
+            <div className={template.education.entryDetails}>
+              <span className={template.education.entryTitle}>
                 <NullifiedInput
                   {...register(`educationDetails.${index}.education_level`)}
                   placeholder="Education Level"
@@ -97,24 +201,22 @@ export const ResumeEducation: React.FC = () => {
                 />
                 /4
               </span>
-              <div className="">
-                <span className="text-xs">
-                  <NullifiedInput
-                    {...register(`educationDetails.${index}.start_date`)}
-                    placeholder="Start Date"
-                    className="min-w-2"
-                  />
-                </span>
+              <span className={template.education.entryYear}>
+                <NullifiedInput
+                  {...register(`educationDetails.${index}.start_date`)}
+                  placeholder="Start Date"
+                  className="min-w-2"
+                />
                 &nbsp;&#8209;&nbsp;
-                <span className="text-xs">
-                  <NullifiedInput
-                    {...register(`educationDetails.${index}.year_of_completion`)}
-                    placeholder="End Date"
-                    className="min-w-2"
-                  />
-                </span>
-              </div>
+                <NullifiedInput
+                  {...register(`educationDetails.${index}.year_of_completion`)}
+                  placeholder="End Date"
+                  className="min-w-2"
+                />
+              </span>
             </div>
+
+            <ExamNestedFieldArray index={index} />
           </div>
         )
       })}

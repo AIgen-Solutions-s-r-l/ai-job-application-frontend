@@ -18,7 +18,7 @@ interface Props {
 type Tab = "jobInfo" | "resume" | "coverLetter";
 
 export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) => {
-  const mockApplicationDetails = {
+  const mockApplicationDetails: DetailedPendingApplication = {
     "resume_optimized": {
         "resume": {
             "header": {
@@ -88,20 +88,18 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
                         }
                     ]
                 },
-                "projects": {
-                    "projects": [
-                        {
-                            "name": "Portfolio Website",
-                            "description": "Created a personal portfolio website to showcase my projects and skills",
-                            "link": "https://github.com/marco-rossi/portfolio-website"
-                        },
-                        {
-                            "name": "E-commerce Platform",
-                            "description": "Developed a full-stack e-commerce application with payment integration and user authentication",
-                            "link": "https://github.com/marco-rossi/ecommerce-platform"
-                        }
-                    ]
-                },
+                "projects": [
+                    {
+                        "name": "Portfolio Website",
+                        "description": "Created a personal portfolio website to showcase my projects and skills",
+                        "link": "https://github.com/marco-rossi/portfolio-website"
+                    },
+                    {
+                        "name": "E-commerce Platform",
+                        "description": "Developed a full-stack e-commerce application with payment integration and user authentication",
+                        "link": "https://github.com/marco-rossi/ecommerce-platform"
+                    }
+                ],
                 "achievements": {
                     "achievements": [
                         {

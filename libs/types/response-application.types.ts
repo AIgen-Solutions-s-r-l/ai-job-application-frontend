@@ -28,6 +28,7 @@ interface Resume {
 interface ResumeBody {
     education_details:  EducationDetails;
     experience_details?: ExperienceDetails;
+    projects?:      ProjectDetails[];
     side_projects?:      ProjectDetails[];
     achievements?:       Achievements;
     certifications?:     Certifications;
@@ -77,14 +78,14 @@ export interface EducationDetail {
     institution:            string;
     field_of_study:         string;
     final_evaluation_grade: string;
-    start_date:             string;
-    year_of_completion:     string;
+    start_date:             number;
+    year_of_completion:     number;
     location:               string;
     exam?:                    Exam;
 }
 
 interface Exam {
-    [key: string]: string;
+    [key: string]: number;
 }
 
 interface ExperienceDetails {
@@ -113,7 +114,7 @@ interface PersonalInformation {
     city?:          string;
     address?:       string;
     phone_prefix?:  string;
-    phone?:         string;
+    phone?:         number;
     email?:         string;
     github?:        string;
     linkedin?:      string;

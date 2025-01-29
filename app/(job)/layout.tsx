@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import AppNavbar from '@/components/AppNavbar';
 import RequireLogin from '@/permissions/requireLogin';
+import { Container } from '@/components/Container';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const navbarMenu = (
@@ -18,7 +19,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-base-100">
-      <AppNavbar />
+      <div className='w-[1440px] mx-auto'>
+        <AppNavbar slot={navbarMenu} />
+      </div>
       {children}
     </div>
   );

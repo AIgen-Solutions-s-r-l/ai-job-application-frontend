@@ -75,3 +75,19 @@ export interface ResumeLanguage {
   language: string;
   proficiency: string;
 }
+
+export interface JobInfo {
+  title: string
+  is_remote: string
+  workplace_type: string
+  posted_date: string
+  job_state: string
+  description: string
+  apply_link: string
+  company_name: string
+  location: string
+  id: string
+  job_id: number
+  portal: string
+  gen_cv: string
+}

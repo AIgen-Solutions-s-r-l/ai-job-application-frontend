@@ -5,7 +5,7 @@ import { NullifiedInput } from '@/components/ui/nullified-input';
 import { cn } from '@/lib/utils';
 import { EntryOperator } from './EntryOperator';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
-import { useCVTemplateContext } from './cv-template-context';
+import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "educationDetails">
 

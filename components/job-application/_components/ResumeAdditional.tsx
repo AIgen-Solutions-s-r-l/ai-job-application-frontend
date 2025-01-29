@@ -7,7 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { cn } from '@/lib/utils';
 import { EntryOperator } from './EntryOperator';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
-import { useCVTemplateContext } from './cv-template-context';
+import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "additionalInfo">
 

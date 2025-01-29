@@ -6,7 +6,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import { useActiveSectionContext } from '../../../contexts/active-section-context';
-import { useCVTemplateContext } from './cv-template-context';
+import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 export const ResumePersonal: React.FC = () => {
   const { register, getValues } = useFormContext<Resume>();

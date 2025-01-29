@@ -1,11 +1,19 @@
 export interface DetailedPendingApplication {
     resume_optimized: ResumeOptimized;
     cover_letter:     CoverLetter;
-    job_id:           null;
-    title:            string;
-    description:      string;
-    portal:           string;
-    sent:             string;
+    title?: string
+    is_remote?: string
+    workplace_type?: string
+    posted_date?: string
+    job_state?: string
+    description?: string
+    apply_link?: string
+    company_name?: string
+    location?: string
+    id?: string
+    job_id?: number
+    portal?: string
+    gen_cv?: string
 }
 
 export interface ResumeOptimized {
@@ -150,3 +158,4 @@ interface CoverLetterApplicantDetails {
 interface CoverLetterCompanyDetails {
     name: string;
 }
+

@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import AppNavbar from '@/components/AppNavbar';
-import SelectedJobsProvider from '@/contexts/selected-jobs-context';
 import RequireLogin from '@/permissions/requireLogin';
 
 const Layout = ({ children }: { children: ReactNode }) => {
@@ -18,13 +17,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
   );
 
   return (
-    <div className='w-full h-screen flex flex-col items-center bg-base-100'>
-      <SelectedJobsProvider>
-        <div className='w-[1440px]'>
-          <AppNavbar slot={navbarMenu} />
-        </div>
-        {children}
-      </SelectedJobsProvider>
+    <div className="w-full h-screen flex flex-col items-center bg-base-100">
+      <AppNavbar />
+      {children}
     </div>
   );
 };

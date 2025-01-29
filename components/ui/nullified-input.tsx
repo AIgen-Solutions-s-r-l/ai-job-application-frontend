@@ -13,7 +13,7 @@ const NullifiedInput = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          "field-sizing-content min-w-4 border-b-2 border-transparent outline-none bg-transparent focus:outline-secondary placeholder-shown:border-black",
+          "field-sizing-content min-w-4 border-b-2 border-transparent outline-none bg-transparent",
           error && "placeholder-shown:border-error",
           className
         )}

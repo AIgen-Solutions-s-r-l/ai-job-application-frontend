@@ -1,23 +1,31 @@
 export interface DetailedPendingApplication {
     resume_optimized: ResumeOptimized;
     cover_letter:     CoverLetter;
-    job_id:           null;
-    title:            string;
-    description:      string;
-    portal:           string;
-    sent:             string;
+    title?: string
+    is_remote?: string
+    workplace_type?: string
+    posted_date?: string
+    job_state?: string
+    description?: string
+    apply_link?: string
+    company_name?: string
+    location?: string
+    id?: string
+    job_id?: number
+    portal?: string
+    gen_cv?: string
 }
 
 export interface ResumeOptimized {
     resume: Resume;
 }
 
-export interface Resume {
+interface Resume {
     header?: ResumeHeader;
     body:   ResumeBody;
 }
 
-export interface ResumeBody {
+interface ResumeBody {
     education_details:  EducationDetails;
     experience_details?: ExperienceDetails;
     side_projects?:      ProjectDetails[];
@@ -26,72 +34,78 @@ export interface ResumeBody {
     additional_skills?:  AdditionalSkills;
 }
 
-export interface ProjectDetails {
+interface ProjectDetails {
   name?: string;
   description?: string;
   link?: string; 
 }
 
-export interface Achievements {
-    achievements?: Achievement[]; // Array is optional
+interface Achievements {
+    achievements?: Achievement[]; 
 }
 
-export interface Achievement {
+interface Achievement {
     name?:        string;
     description?: string;
 }
 
-export interface Certifications {
-    certifications?: Certification[]; // Array is optional
+interface Certifications {
+    certifications?: Certification[]; 
 }
 
-export interface Certification {
+interface Certification {
     name?:        string;
     description?: string;
 }
 
-export interface AdditionalSkills {
-    additional_skills?: string[]; // Array is optional
-    languages?:         Language[]; // Array is optional
+interface AdditionalSkills {
+    additional_skills?: string[]; 
+    languages?:         Language[]; 
 }
 
-export interface Language {
+interface Language {
     language?:    string;
     proficiency?: string;
 }
 
-export interface EducationDetails {
-    education_details: EducationDetail[]; // Array is optional
+interface EducationDetails {
+    education_details: EducationDetail[]; 
 }
 
 export interface EducationDetail {
-    education_level:        string; // All fields are optional now
+    education_level:        string; 
     institution:            string;
     field_of_study:         string;
     final_evaluation_grade: string;
     start_date:             string;
     year_of_completion:     string;
+    location:               string;
+    exam?:                    Exam;
 }
 
-export interface ExperienceDetails {
-    experience_details?: ExperienceDetail[]; // Array is optional
+interface Exam {
+    [key: string]: string;
 }
 
-export interface ExperienceDetail {
-    position?:             string; // All fields are optional now
+interface ExperienceDetails {
+    experience_details?: ExperienceDetail[]; 
+}
+
+interface ExperienceDetail {
+    position?:             string;
     company?:              string;
     employment_period?:    string;
     location?:             string;
     industry?:             string;
-    key_responsibilities?: string[]; // Array is optional
-    skills_acquired?:      string[]; // Array is optional
+    key_responsibilities?: string[]; 
+    skills_acquired?:      string[]; 
 }
 
-export interface ResumeHeader {
+interface ResumeHeader {
     personal_information?: PersonalInformation;
 }
 
-export interface PersonalInformation {
+interface PersonalInformation {
     name?:          string;
     surname?:       string;
     date_of_birth?: string;
@@ -115,25 +129,25 @@ export interface CoverLetterCoverLetter {
     footer: CoverLetterFooter;
 }
 
-export interface CoverLetterBody {
+interface CoverLetterBody {
     greeting:          string;
     opening_paragraph: string;
     body_paragraphs:   string;
     closing_paragraph: string;
 }
 
-export interface CoverLetterFooter {
+interface CoverLetterFooter {
     closing:   string;
     signature: string;
     date:      string;
 }
 
-export interface CoverLetterHeader {
+interface CoverLetterHeader {
     applicant_details: CoverLetterApplicantDetails;
     company_details:   CoverLetterCompanyDetails;
 }
 
-export interface CoverLetterApplicantDetails {
+interface CoverLetterApplicantDetails {
     name:           string;
     address:        string;
     city_state_zip?: string;
@@ -141,6 +155,7 @@ export interface CoverLetterApplicantDetails {
     phone_number:   string;
 }
 
-export interface CoverLetterCompanyDetails {
+interface CoverLetterCompanyDetails {
     name: string;
 }
+

@@ -212,8 +212,6 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
           <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
         </div>
       </div>
-
-      <ProjectsNestedFieldArray />
     </div>
   );
 };

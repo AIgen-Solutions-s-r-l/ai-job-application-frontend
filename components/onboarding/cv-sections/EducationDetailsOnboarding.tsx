@@ -107,8 +107,6 @@ export const EducationDetailsOnboarding: React.FC = () => {
           <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
         </div>
       </div>
-
-      <CertificationsNestedFieldArray />
     </div>
   );
 };

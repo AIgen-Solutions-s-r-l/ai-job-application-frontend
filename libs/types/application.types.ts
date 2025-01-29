@@ -1,7 +1,7 @@
 export interface Resume {
     personalInfo: ResumePersonalInformation;
-    educationDetails: ResumeEducationDetails[];
-    experienceDetails: ResumeExperienceDetails[];
+    educationDetails: ResumeEducationDetail[];
+    experienceDetails: ResumeExperienceDetail[];
     additionalInfo: ResumeAdditionalInfo;
 }
 
@@ -20,16 +20,23 @@ export interface ResumePersonalInformation {
   linkedin?: string;
 }
 
-export interface ResumeEducationDetails {
+export interface ResumeEducationDetail {
   education_level: string;
   institution: string;
   field_of_study: string;
   final_evaluation_grade: string;
   year_of_completion: string;
   start_date: string;
+  location: string;
+  exam?: Exam[]
 }
 
-export interface ResumeExperienceDetails {
+export interface Exam {
+  subject: string
+  grade: string
+}
+
+export interface ResumeExperienceDetail {
   position: string;
   company: string;
   employment_period: string; 
@@ -67,4 +74,20 @@ export interface ResumeCertification {
 export interface ResumeLanguage {
   language: string;
   proficiency: string;
+}
+
+export interface JobInfo {
+  title: string
+  is_remote: string
+  workplace_type: string
+  posted_date: string
+  job_state: string
+  description: string
+  apply_link: string
+  company_name: string
+  location: string
+  id: string
+  job_id: number
+  portal: string
+  gen_cv: string
 }

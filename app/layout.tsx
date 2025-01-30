@@ -5,9 +5,15 @@ import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
 import { Providers } from "./providers";
+import { Jura } from "next/font/google";
 import "./globals.css";
 
 const font = Inter({ subsets: ["latin"] });
+
+const jura = Jura({
+  subsets: ['latin'],
+  variable: '--font-jura',
+});
 
 export const viewport: Viewport = {
   // Will use the primary color of your theme to show a nice theme color in the URL bar of supported browsers
@@ -25,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang='en'
       data-theme={config.colors.theme}
-      className={font.className}
+      className={`${font.className} ${jura.variable}`}
       suppressHydrationWarning
     >
       {config.domainName && (

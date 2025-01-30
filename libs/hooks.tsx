@@ -105,7 +105,7 @@ export function useSessionStorage<T>(
 }
 
 export const useSidenavCollapse = () =>
-  useLocalStorage2('collapsed-menu', undefined);
+  useLocalStorage2('collapsed-menu', false);
 
 export const useAuth = () => {
   const [state, setState] = useState<boolean>();

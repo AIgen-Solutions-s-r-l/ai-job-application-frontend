@@ -9,9 +9,9 @@ import { useJobSearch } from '@/contexts/job-search-context';
 
 export const JobFeedList: React.FC = () => {
   const { jobs, isAllSelected, handleSelectAll } = useJobSearch();
-  const [focusedJob, setFocusedJob] = useState<MatchingJob | undefined>();  
-  
-  useEffect(()=> {
+  const [focusedJob, setFocusedJob] = useState<MatchingJob | undefined>();
+
+  useEffect(() => {
     if (jobs.length && !focusedJob) {
       setFocusedJob(jobs[0])
     }
@@ -26,20 +26,20 @@ export const JobFeedList: React.FC = () => {
   }
 
   return (
-    <div className="w-full gap-5 bg-base-200 mb-20 py-5">
+    <div className="w-full gap-5 bg-base-100 mb-20 py-5">
       <div className="w-[1440px] mx-auto flex gap-5">
         <div className="w-[430px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0">
-          <div className="h-16 flex items-center justify-end gap-5 pr-4 bg-base-100 rounded-xl">
+          <div className="h-16 drop-shadow-md flex items-center justify-end gap-5 pr-4 bg-white rounded-xl">
             <p>Select All</p>
             <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={handleSelectAll}>
               {isAllSelected() && <Check size={24} />}
             </div>
           </div>
           {jobs.map((job) => (
-              <JobSmallCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob?.id === job.id ? "outline outline-1 outline-primary" : ""} />
+            <JobSmallCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob?.id === job.id ? "outline outline-1 outline-primary" : ""} />
           ))}
         </div>
-        
+
         <JobLargeCard job={focusedJob} />
       </div>
     </div>

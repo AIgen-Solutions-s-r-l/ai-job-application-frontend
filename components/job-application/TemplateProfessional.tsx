@@ -28,12 +28,12 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
   const methods = useForm({
     defaultValues: resume,
   });
-  
+
   const handleResumeSubmit = async (data: Resume) => {
     // console.log(JSON.stringify(fromResumeType(data)));
     try {
       const response = await updateApplicationResumeAction(id, data);
-      
+
       if (response.success) {
         toast.success("Application resume updated successfully!");
         console.log("Application resume updated successfully");
@@ -59,7 +59,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
       </select> */}
       <FormProvider {...methods}>
         <div className={cn(
-          'w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px]', 
+          'w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px]',
           activeSection ? 'bg-black/20' : (template.background ?? 'bg-white'))}>
           <form
             id='my-form'
@@ -80,7 +80,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
           </form>
         </div>
       </FormProvider>
-      <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-secondary">
+      <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-primary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"
@@ -90,9 +90,9 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
             Go Back
           </button>
           <div className="flex items-center gap-10">
-            <p className='text-base text-white'>You’re editing the Resume</p>
+            <p className='text-base text-black'>You’re editing the Resume</p>
             <button
-              className="bg-black text-base leading-none text-white w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
+              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
               form='my-form'
               type="submit"
               disabled={methods.formState.isSubmitting}

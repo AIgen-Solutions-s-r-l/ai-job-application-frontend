@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/Skeleton";
 
 export const JobLargeCardSkeleton = () => {
   return (
-    <div className='sticky top-5 flex flex-col flex-1 max-h-[calc(100vh-120px)] bg-base-100 rounded-xl py-8 px-10'>
+    <div className='sticky top-5 flex flex-col flex-1 max-h-[calc(100vh-120px)] bg-white rounded-xl py-8 px-10'>
       <div className='flex justify-between flex-0'>
         <div className='flex flex-col gap-3 leading-none'>
           <Skeleton className='w-64 h-6' />

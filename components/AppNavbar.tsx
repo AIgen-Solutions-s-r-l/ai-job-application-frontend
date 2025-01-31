@@ -14,13 +14,13 @@ const AppNavbar: FC<Props> = ({ slot }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeTheme = (ev: ChangeEvent<HTMLInputElement>): void => {
-    const currentTheme = ev.target.checked ? "dark" : "cupcake";
+    const currentTheme = ev.target.checked ? "dark" : "lightTheme";
     setTheme(currentTheme);
     document.querySelector("html")?.setAttribute("data-theme", currentTheme);
   };
 
   useEffect(() => {
-    const currentTheme = inputRef.current.checked ? "dark" : "cupcake";
+    const currentTheme = inputRef.current.checked ? "dark" : "lightTheme";
     setTheme(currentTheme);
     document.querySelector("html")?.setAttribute("data-theme", currentTheme);
   }, []);
@@ -33,7 +33,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
     >
 
       <div className="hidden md:block">
-        <h1 className='text-[48px] font-light leading-none text-secondary'>LABORO</h1>
+        <h1 className='text-[48px] font-light leading-none text-accent'>LABORO</h1>
       </div>
       <div className="block md:hidden w-[80px] shrink-0">&nbsp;</div>
       <div className="flex items-center gap-[30px]">

@@ -50,7 +50,7 @@ const Passes = ({ userPlan }: PassesProps) => {
   );
 
   return (
-    <div className="col-span-1 rounded-lg shadow bg-base-100 p-6">
+    <div className="col-span-1 rounded-lg shadow bg-white p-6">
       <div className="border-b pb-4 mb-4 border-neutral">
         <h3 className="text-lg font-semibold">Your Pass</h3>
       </div>
@@ -87,7 +87,7 @@ const Passes = ({ userPlan }: PassesProps) => {
       <div className="mt-6">
         <button
           disabled={routing}
-          className="btn btn-outline btn-primary w-full"
+          className="btn btn-outline btn-primary hover:text-white w-full"
           onClick={() => {
             setRouting(true);
             router.push(`/dashboard/subscription`);

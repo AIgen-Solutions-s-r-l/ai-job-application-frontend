@@ -14,6 +14,7 @@ import { ExperienceDetailsOnboarding } from './cv-sections/ExperienceDetailsOnbo
 import { AdditionalInfoOnboarding } from './cv-sections/AdditionalInfoOnboarding';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { StepTracking } from './cv-sections/StepTracking';
+import { fromJobProfile } from '@/libs/utils/job-profile-util';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const router = useRouter()
@@ -47,19 +48,21 @@ export const CreateResumeOnboarding: React.FC = () => {
   }
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
-    try {      
-      const response = await createJobProfile(jobProfile);
+    console.log("job profile", JSON.stringify(jobProfile));
+    console.log("coverted", JSON.stringify(fromJobProfile(jobProfile)));  
+    // try {      
+    //   const response = await createJobProfile(jobProfile);
 
-      if (response.success) {
-        toast.success("Profile saved successfully!");
-        router.push('/dashboard')
-      } else {
-        toast.error("Error saving profile.");
-        console.error("Error saving profile:", response.error);
-      }
-    } catch (error) {
-      console.error("Error submitting profile:", error);
-    }
+    //   if (response.success) {
+    //     toast.success("Profile saved successfully!");
+    //     router.push('/dashboard')
+    //   } else {
+    //     toast.error("Error saving profile.");
+    //     console.error("Error saving profile:", response.error);
+    //   }
+    // } catch (error) {
+    //   console.error("Error submitting profile:", error);
+    // }
   };
 
   

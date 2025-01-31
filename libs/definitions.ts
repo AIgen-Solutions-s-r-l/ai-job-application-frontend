@@ -47,6 +47,13 @@ export interface EducationDetails {
   final_evaluation_grade?: string; // Opcional
   year_of_completion: string;
   start_date: string;
+  location: string;
+  exam: Exam[]
+}
+
+export interface Exam {
+  subject: string
+  grade: string
 }
 
 export interface ExperienceDetails {

@@ -3,6 +3,8 @@ import { cn } from '@/lib/utils';
 import { MatchingJob } from '@/libs/definitions';
 import { Check, Info } from 'lucide-react';
 import { useJobSearch } from '@/contexts/job-search-context';
+import Image from 'next/image';
+import Pin from '../svgs/Pin.svg'
 
 interface Props {
   className?: string;
@@ -24,8 +26,12 @@ export const JobSmallCard: React.FC<Props> = ({ className, job, onClick }) => {
       </div>
       <h3 className="text-2xl font-medium line-clamp-1">{job.company}</h3>
       <h3 className="text-[22px] font-medium line-clamp-2">{job.title}</h3>
-      <p className="text-md">{job.location}</p>
-      <p className="text-md">{job.workplace_type}</p>
+      <p className="text-md flex gap-2 items-center"><Image src={Pin} alt='pin' /> {job.location} | {job.workplace_type}</p>
+      <div className='flex gap-4'>
+        <div className='text-center text-white p-1 flex-grow bg-primary rounded-xl'>Remote</div>
+        <div className='text-center text-white p-1 flex-grow bg-primary rounded-xl'>Full-time</div>
+        <div className='text-center text-white p-1 flex-grow bg-primary rounded-xl'>English</div>
+      </div>
       <p className="text-md font-light line-clamp-4">{job.description}</p>
       <div className="absolute top-3 right-4 h-12 w-12 bg-base-content text-white rounded-xl flex items-center justify-center cursor-pointer" onClick={(e) => handleJobSelect(job, e)}>
         {selectedJobs.some((j) => j.id === job.id) && <Check size={24} />}

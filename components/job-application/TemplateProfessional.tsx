@@ -30,22 +30,22 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
   });
   
   const handleResumeSubmit = async (data: Resume) => {
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(fromResumeType(data)));
-    // try {
-    //   const response = await updateApplicationResumeAction(id, data);
+    // console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(fromResumeType(data)));
+    try {
+      const response = await updateApplicationResumeAction(id, data);
       
-    //   if (response.success) {
-    //     toast.success("Application resume updated successfully!");
-    //     console.log("Application resume updated successfully");
-    //   } else {
-    //     toast.error("Error updating application resume.");
-    //     console.error("Error updating application resume:", response.error);
+      if (response.success) {
+        toast.success("Application resume updated successfully!");
+        console.log("Application resume updated successfully");
+      } else {
+        toast.error("Error updating application resume.");
+        console.error("Error updating application resume:", response.error);
 
-    //   }
-    // } catch (error) {
-    //   console.error("Error submitting application resume:", error);
-    // }
+      }
+    } catch (error) {
+      console.error("Error submitting application resume:", error);
+    }
   };
 
   return (

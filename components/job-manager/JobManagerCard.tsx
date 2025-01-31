@@ -16,8 +16,8 @@ export const JobManagerCard: React.FC<Props> = ({ id, className, job, onClick })
   const { selectedApplications, handleApplicationSelect } = useJobManager();
 
   return (
-    <div 
-      className={cn("min-h-[408px] bg-base-100 rounded-xl p-5 flex flex-col justify-between divide-y divide-base-content leading-none cursor-pointer shadow-lg", className)}
+    <div
+      className={cn("min-h-[408px] bg-white rounded-xl p-5 flex flex-col justify-between divide-y divide-base-content leading-none cursor-pointer shadow-lg", className)}
       onClick={onClick}
     >
       <div className="flex flex-col gap-5">
@@ -36,7 +36,7 @@ export const JobManagerCard: React.FC<Props> = ({ id, className, job, onClick })
         <p className="text-md font-light line-clamp-6">{job.description}</p>
       </div>
       <div className="flex items-end gap-3 pt-3">
-        <Link 
+        <Link
           href={`/manager/${id}`}
           className="flex-1 h-12 border border-base-content rounded-full flex items-center justify-center hover:bg-base-content hover:text-white"
         >Resume & Cover Letter</Link>

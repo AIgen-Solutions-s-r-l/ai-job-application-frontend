@@ -9,10 +9,10 @@ interface Props {
 }
 
 export const JobLargeCard: React.FC<Props> = ({ className, job }) => {
-  if (!job) return <JobLargeCardSkeleton/>;
+  if (!job) return <JobLargeCardSkeleton />;
 
   return (
-    <div className={cn("sticky top-5 flex flex-col grow max-h-[calc(100vh-120px)] bg-base-100 rounded-xl py-8 px-10", className)}>
+    <div className={cn("sticky top-5 flex flex-col grow max-h-[calc(100vh-120px)] bg-white rounded-xl py-8 px-10", className)}>
       <div className="flex justify-between flex-0">
         <div className="flex flex-col gap-3 leading-none">
           <h3 className="text-2xl font-medium">{job.company}</h3>

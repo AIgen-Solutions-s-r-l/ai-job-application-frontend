@@ -15,7 +15,7 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
   index: number;
 }): React.ReactElement => {
   const { register, getValues } = useFormContext<FormData>();
-  const { fields, append, insert, remove } = useFieldArray({ 
+  const { fields, append, insert, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
   })
   const { template } = useCVTemplateContext();
@@ -72,12 +72,12 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
             placeholder="Grade"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
           />
-          <div 
+          <div
             className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
             onClick={() => handleRemoveExam(respIndex)}
           >-</div>
-          <div 
-            className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-secondary items-center justify-center rounded-full text-white text-lg leading-none cursor-pointer"
+          <div
+            className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-primray items-center justify-center rounded-full text-white text-lg leading-none cursor-pointer"
             onClick={() => handleInsertExam(respIndex)}
           >+</div>
         </li>
@@ -107,21 +107,21 @@ export const ResumeEducation: React.FC = () => {
     });
     setActiveSection(`${section}-${newIndex}`);
   };
-  
+
   const handleUpdateExam = (educationIndex: number) => {
     const currentValue = getValues(`educationDetails.${educationIndex}`);
     update(educationIndex, {
-        ...currentValue,
-        exam: [
-            ...currentValue.exam,
-            {
-                subject: "",
-                grade: ""
-            }
-        ]
+      ...currentValue,
+      exam: [
+        ...currentValue.exam,
+        {
+          subject: "",
+          grade: ""
+        }
+      ]
     });
   };
-  
+
   return (
     <div className={template.education.container} id="education-section">
       {!!fields.length && (
@@ -131,15 +131,15 @@ export const ResumeEducation: React.FC = () => {
       )}
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
-        
+
         return (
           <div
             key={exp.id}
             data-section={activeIndex}
             className={cn(
               template.education.entry,
-              'relative border-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              'relative border-2 hover:border-primary',
+              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -155,7 +155,7 @@ export const ResumeEducation: React.FC = () => {
                   setActiveSection(null);
                 }}
               >
-                <div 
+                <div
                   className='h-[40px] flex items-center gap-2 bg-base-100 px-3 text-base-content'
                   onClick={(e) => {
                     e.stopPropagation();

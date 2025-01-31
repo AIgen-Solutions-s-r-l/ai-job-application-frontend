@@ -24,7 +24,7 @@ export const EducationDetailsOnboarding: React.FC = () => {
   return (
     <div className="">
       {errors.educationDetails?.root && <p className="text-error text-xs">{errors.educationDetails.root.message}</p>}
-      
+
       {fields.map((education, index) => (
         <div key={education.id} className="flex flex-col gap-5 mt-5">
           <div className="flex items-center gap-10">
@@ -32,14 +32,14 @@ export const EducationDetailsOnboarding: React.FC = () => {
               <ArrowRight size={24} />
               <p className='text-2xl font-bold leading-none'>{index + 1}</p>
             </div>
-            {<button 
+            {<button
               className={`upderline ${fields.length === 1 && 'hidden'}`}
               onClick={() => remove(index)}
             >
               <p className='underline text-base leading-none'>Remove</p>
             </button>}
           </div>
-          
+
           {/* Institution */}
           <InputWrapper>
             <FormInput
@@ -99,12 +99,12 @@ export const EducationDetailsOnboarding: React.FC = () => {
       ))}
 
       <div className="flex items-center gap-4 my-5">
-        <div 
-          className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
+        <div
+          className="w-[240px] h-[50px] hover:text-base-100 text-black rounded-[20px] flex items-center justify-between px-[15px] bg-white cursor-pointer hover:bg-neutral group transition-all ease-in duration-100"
           onClick={addEducation}
         >
-          <p className='text-lg text-base-100'>Add Education</p>
-          <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
+          <p className='text-lg'>Add Education</p>
+          <Plus className='font-bold text-black group-hover:text-base-100' size={32} strokeWidth={3} />
         </div>
       </div>
     </div>

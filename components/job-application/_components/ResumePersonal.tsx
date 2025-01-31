@@ -15,13 +15,13 @@ export const ResumePersonal: React.FC = () => {
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const isActive = activeSection === 'personal-section';
   const { template } = useCVTemplateContext();
-  
+
   return <>
-    <div 
+    <div
       data-section="personal-section"
       className={cn(
-        'border-2 hover:border-secondary', 
-        isActive ? 'bg-white border-secondary' : 'border-transparent',
+        'border-2 hover:border-primary',
+        isActive ? 'bg-white border-primary' : 'border-transparent',
         template.personal.header,
       )}
       onClick={() => setActiveSection('personal-section')}

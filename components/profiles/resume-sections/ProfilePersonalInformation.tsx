@@ -9,9 +9,9 @@ export const ProfilePersonalInformation: React.FC = () => {
   const { register, formState: { errors } } = useFormContext<FormData>();
 
   return (
-    <div className="collapse collapse-arrow bg-base-200 group rounded-none">
+    <div className="collapse collapse-arrow bg-white group rounded-none">
       <input type="checkbox" name="my-accordion-2" defaultChecked />
-      <div className="collapse-title text-xl font-medium bg-base-300 group-has-[input:checked]:bg-base-200">Personal Information
+      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Personal Information
         {errors.personalInfo && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
       <div className="collapse-content">
@@ -38,7 +38,7 @@ export const ProfilePersonalInformation: React.FC = () => {
               title={'Date of Birth'}
               {...register('personalInfo.date_of_birth', { required: 'Date of Birth is required' })}
               type="date"
-              min="1980-01-01" 
+              min="1980-01-01"
               max={new Date().toLocaleDateString('en-ca')}
               error={!!errors.personalInfo?.date_of_birth}
               errorMessage={errors.personalInfo?.date_of_birth?.message}

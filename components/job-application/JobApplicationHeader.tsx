@@ -19,7 +19,7 @@ export const JobApplicationHeader: React.FC<Props> = ({ job }) => {
           </p>
         </div>
 
-        <div 
+        <div
           className="w-[493px] h-[235px] -mb-[48px] bg-base-100 shadow-xl rounded-xl relative p-[30px] flex flex-col gap-[20px] leading-none cursor-pointer"
         >
           <div className="flex gap-[8px] items-center">
@@ -31,13 +31,13 @@ export const JobApplicationHeader: React.FC<Props> = ({ job }) => {
             <p className='text-[18px] font-semibold'>{job.location ?? 'Santa Clara, USA'}</p>
           </div>
           <div className="flex gap-3 mt-2">
-            <div className="flex items-center justify-center w-[85px] h-[27px] rounded-full bg-secondary text-white">
+            <div className="flex items-center justify-center w-[85px] h-[27px] rounded-full bg-primary text-white">
               {job.is_remote ? 'Remote' : 'On-site'}
             </div>
-            <div className="flex items-center justify-center w-[85px] h-[27px] rounded-full bg-secondary text-white">
+            <div className="flex items-center justify-center w-[85px] h-[27px] rounded-full bg-primary text-white">
               {job.workplace_type ?? 'Full-time'}
             </div>
-            <div className="flex items-center justify-center w-[85px] h-[27px] rounded-full bg-secondary text-white">
+            <div className="flex items-center justify-center w-[85px] h-[27px] rounded-full bg-primary text-white">
               English
             </div>
           </div>

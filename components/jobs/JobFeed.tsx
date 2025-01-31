@@ -14,7 +14,7 @@ export default async function JobFeed() {
           You can search for jobs now. Let’s get rolling. This will only take a
           few minutes.
         </h3>
-        <div className='px-8 py-[50px] flex flex-col justify-center items-center rounded-2xl bg-base-300'>
+        <div className='px-8 py-[50px] flex flex-col justify-center items-center rounded-2xl bg-white'>
           <div className='flex flex-col items-center gap-6'>
             <h2 className='text-lg font-light'>
               You don’t have any applied jobs yet.

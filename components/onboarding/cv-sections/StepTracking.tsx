@@ -14,10 +14,10 @@ const StepBox = ({ step, currentStep, title }: StepBoxProps) => {
   const active: boolean = currentStep === step;
 
   return (
-    <li 
-      className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-6 items-center px-5 cursor-pointer ${active ? 'bg-secondary' : 'bg-neutral'}`}
+    <li
+      className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-6 items-center px-5 cursor-pointer ${active ? 'bg-primary' : 'bg-neutral'}`}
     >
-      <span className={`text-[48px] ${active ? 'text-white' : 'text-secondary'}`}>{step}</span>
+      <span className={`text-[48px] ${active ? 'text-secondary' : 'text-primary'}`}>{step}</span>
       <p className='text-[28px] text-base-100 font-light'>{title}</p>
     </li>
   );

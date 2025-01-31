@@ -10,14 +10,14 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
   const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.projects` });
 
   return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
       {fields.map((project, index) => (
         <div key={project.id} className="flex-col w-full">
           <div className="flex gap-2 mb-2 w-full">
             <button
               type="button"
               disabled={fields.length === 1}
-              className="w-10 h-10 mt-[28px] flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              className="w-10 h-10 mt-[28px] flex items-center justify-center bg-white outline-none border-[1px] border-base-content hover:bg-neutral text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -34,7 +34,7 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
                 />
                 <FormInput
                   title={'Project Link'}
-                  {...register(`additionalInfo.projects.${index}.link`, { 
+                  {...register(`additionalInfo.projects.${index}.link`, {
                     required: 'Project link is required',
                     pattern: {
                       value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
@@ -54,11 +54,10 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
                 <textarea
                   {...register(`additionalInfo.projects.${index}.description`, { required: 'Project Description is required' })}
                   placeholder="Project Description"
-                  className={`w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base ${
-                    errors.additionalInfo?.projects?.[index]?.description ? 'placeholder-shown:border-error' : 'placeholder-shown:border-secondary'
-                  }`}
+                  className={`w-full bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base ${errors.additionalInfo?.projects?.[index]?.description ? 'placeholder-shown:border-error' : 'placeholder-shown:border-neutral'
+                    }`}
                 />
-                {errors.additionalInfo?.projects?.[index]?.description && 
+                {errors.additionalInfo?.projects?.[index]?.description &&
                   <p className="text-error mt-1 text-xs leading-none">{errors.additionalInfo?.projects[index].description.message}</p>
                 }
               </div>
@@ -69,10 +68,10 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
 
       <button
         type="button"
-        className="w-[160px] h-10 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
+        className="w-[160px] h-10 bg-white outline outline-1 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-neutral hover:text-white"
         onClick={() => append({ name: "", description: "", link: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Project</p>
       </button>
     </div>
@@ -81,10 +80,10 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
 
 export const CertificationsNestedFieldArray: FC = (): ReactElement => {
   const { control, register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.certifications`});
+  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.certifications` });
 
   return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
@@ -103,7 +102,7 @@ export const CertificationsNestedFieldArray: FC = (): ReactElement => {
             <button
               type="button"
               disabled={fields.length === 1}
-              className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              className="w-10 h-10 flex items-center justify-center bg-white outline-none border-[1px] border-base-content hover:bg-neutral text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -113,14 +112,14 @@ export const CertificationsNestedFieldArray: FC = (): ReactElement => {
                 <input
                   {...register(`additionalInfo.certifications.${index}.name`)}
                   placeholder="e.g., Certification Name"
-                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                  className="w-full h-10 bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm px-[10px] rounded-md text-base"
                 />
               </div>
               <div className="w-full">
                 <input
                   {...register(`additionalInfo.certifications.${index}.description`)}
                   placeholder="e.g., Certification Description"
-                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                  className="w-full h-10 bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm px-[10px] rounded-md text-base"
                 />
               </div>
             </div>
@@ -130,10 +129,10 @@ export const CertificationsNestedFieldArray: FC = (): ReactElement => {
 
       <button
         type="button"
-        className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
+        className="w-[160px] outline outline-1 h-10 mt-2 bg-white rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-neutral hover:text-white"
         onClick={() => append({ name: "", description: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Certification</p>
       </button>
     </div>
@@ -145,7 +144,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
   const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.languages` });
 
   return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
@@ -164,7 +163,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
             <button
               type="button"
               disabled={fields.length === 1}
-              className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              className="w-10 h-10 flex items-center justify-center bg-white outline-none border-[1px] border-base-content hover:bg-neutral text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -175,8 +174,8 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   {...register(`additionalInfo.languages.${index}.language`, { required: 'Language is required' })}
                   placeholder="e.g., English"
                   className={
-                    `w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
-                    ${errors.additionalInfo?.languages?.[index]?.language ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}` 
+                    `w-full bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
+                    ${errors.additionalInfo?.languages?.[index]?.language ? "placeholder-shown:border-error" : "placeholder-shown:border-neutral"}`
                   }
                 />
                 {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].language.message}</p>}
@@ -186,8 +185,8 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   {...register(`additionalInfo.languages.${index}.proficiency`, { required: 'Proficiency is required' })}
                   // className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary px-[10px] rounded-md text-base"
                   className={
-                    `w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary px-[10px] rounded-md text-base
-                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-secondary"}` 
+                    `w-full h-10 bg-white outline-none border-[1px] border-neutral focus:border-primary px-[10px] rounded-md text-base
+                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-neutral"}`
                   }
                 >
                   <option value="" disabled>Select Proficiency</option>
@@ -204,10 +203,10 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
 
       <button
         type="button"
-        className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
+        className="w-[160px] h-10 mt-2 outline outline-1 bg-white rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-neutral hover:text-white"
         onClick={() => append({ language: '', proficiency: '' })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Language</p>
       </button>
     </div>
@@ -216,10 +215,10 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
 
 const AchievementsNestedFieldArray: FC = (): ReactElement => {
   const { control, register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.achievements`});
+  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.achievements` });
 
   return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
@@ -238,7 +237,7 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
             <button
               type="button"
               disabled={fields.length === 1}
-              className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              className="w-10 h-10 flex items-center justify-center bg-white outline-none border-[1px] border-black hover:bg-neutral text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -248,14 +247,14 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
                 <input
                   {...register(`additionalInfo.achievements.${index}.name`)}
                   placeholder="e.g., Achievement Name"
-                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                  className="w-full h-10 bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm px-[10px] rounded-md text-base"
                 />
               </div>
               <div className="w-full">
                 <input
                   {...register(`additionalInfo.achievements.${index}.description`)}
                   placeholder="e.g., Achievement Description"
-                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                  className="w-full h-10 bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm px-[10px] rounded-md text-base"
                 />
               </div>
             </div>
@@ -265,10 +264,10 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
 
       <button
         type="button"
-        className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
+        className="w-[160px] outline outline-1 h-10 mt-2 bg-white rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-neutral hover:text-white"
         onClick={() => append({ name: "", description: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Achievement</p>
       </button>
     </div>
@@ -280,28 +279,28 @@ const InterestsFieldArray: FC = (): ReactElement => {
   const interests: string[] = getValues('additionalInfo.interests');
 
   const debounce = (func: (...args: any[]) => void, delay: number) => {
-      let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
-      return (...args: any[]) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
-      };
+    let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
     };
-  
-    const handleInterestsChange = useCallback(
-      (value: string) => {
-        const interestsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
-        setValue(`additionalInfo.interests`, interestsArray);
-      },
-      [setValue]
-    );
-  
-    const debouncedHandleInterestsChange = useCallback(
-      debounce(handleInterestsChange, 500), 
-      [handleInterestsChange] 
-    );
+  };
+
+  const handleInterestsChange = useCallback(
+    (value: string) => {
+      const interestsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
+      setValue(`additionalInfo.interests`, interestsArray);
+    },
+    [setValue]
+  );
+
+  const debouncedHandleInterestsChange = useCallback(
+    debounce(handleInterestsChange, 500),
+    [handleInterestsChange]
+  );
 
   return (
-    <div className="flex p-10 rounded-[22px] bg-base-100">
+    <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
         <label className="flex justify-start text-base leading-none mb-2">
           Interests
@@ -310,7 +309,7 @@ const InterestsFieldArray: FC = (): ReactElement => {
           onChange={(e) => debouncedHandleInterestsChange(e.target.value)} // Use the debounced function
           defaultValue={interests ? interests.join(', ') : ''}
           placeholder="Hobbies (separate skills with commas)"
-          className="w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base"
+          className="w-full bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base"
         />
       </div>
     </div>
@@ -328,9 +327,9 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
       <ProjectsNestedFieldArray />
 
       <CertificationsNestedFieldArray />
-      
+
       <LanguageNestedFieldArray />
-      
+
       <InputWrapper>
         <FormInput
           title={'Availability'}
@@ -373,7 +372,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
 
       <InterestsFieldArray />
 
-      <div className="w-full p-10 rounded-[22px] bg-base-100">
+      <div className="w-full p-10 rounded-[22px] bg-white">
         <label className="w-full flex justify-start text-base leading-none mb-3">
           Specific Details
         </label>
@@ -383,7 +382,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
             <input
               {...register(`additionalInfo.self_identification.veteran`)}
               type="checkbox"
-              className="checkbox checkbox-secondary rounded-md mr-2"
+              className="checkbox checkbox-neutral rounded-md mr-2"
             />
             <span className="span">Veteran</span>
           </label>
@@ -392,7 +391,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
             <input
               {...register(`additionalInfo.self_identification.disability`)}
               type="checkbox"
-              className="checkbox checkbox-secondary rounded-md mr-2"
+              className="checkbox checkbox-neutral rounded-md mr-2"
             />
             <span className="span">Disability</span>
           </label>
@@ -400,7 +399,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
       </div>
 
       {/* Legal Authorization */}
-      <div className="w-full p-10 rounded-[22px] bg-base-100">
+      <div className="w-full p-10 rounded-[22px] bg-white">
         <label className="w-full flex justify-start text-base leading-none mb-3">
           Legal Authorization
         </label>
@@ -412,7 +411,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
                 <input
                   {...register(`additionalInfo.legal_authorization.${key}`)}
                   type="checkbox"
-                  className="checkbox checkbox-secondary rounded-md mr-2"
+                  className="checkbox checkbox-neutral rounded-md mr-2"
                 />
                 <span className="capitalize">{key.replace(/_/g, " ")}</span>
               </label>
@@ -421,7 +420,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
       </div>
 
       {/* Work Preferences */}
-      <div className="w-full p-10 rounded-[22px] bg-base-100">
+      <div className="w-full p-10 rounded-[22px] bg-white">
         <label className="w-full flex justify-start text-base leading-none mb-3">
           Work Preferences
         </label>
@@ -433,7 +432,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
                 <input
                   {...register(`additionalInfo.work_preferences.${key}`)}
                   type="checkbox"
-                  className="checkbox checkbox-secondary rounded-md mr-2"
+                  className="checkbox checkbox-neutral rounded-md mr-2"
                 />
                 <span className="span w-full capitalize">{key.replace(/_/g, " ")}</span>
               </label>

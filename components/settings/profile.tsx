@@ -22,7 +22,7 @@ const Profile = ({ profileData }: { profileData: any }) => {
   };
 
   return (
-    <div className="col-span-2 rounded-lg shadow bg-base-100 p-6">
+    <div className="col-span-2 rounded-lg shadow bg-white p-6">
       <div className="border-b pb-4 mb-4 border-neutral">
         <h3 className="text-lg font-semibold">Profile Information</h3>
       </div>
@@ -33,11 +33,11 @@ const Profile = ({ profileData }: { profileData: any }) => {
             <label className="label">
               <span className="label-text">Full Name</span>
             </label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="full_name"
-              placeholder="Enter your full name" 
-              className="input input-bordered w-full bg-base-100 dark:bg-base-200"
+              placeholder="Enter your full name"
+              className="input input-bordered w-full bg-white dark:bg-base-200"
               defaultValue={profileData?.full_name || ''}
             />
           </div>
@@ -46,11 +46,11 @@ const Profile = ({ profileData }: { profileData: any }) => {
             <label className="label">
               <span className="label-text">Phone Number</span>
             </label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="phone_number"
-              placeholder="+123 456 7890" 
-              className="input input-bordered w-full bg-base-100 dark:bg-base-200" 
+              placeholder="+123 456 7890"
+              className="input input-bordered w-full bg-white dark:bg-base-200"
               defaultValue={profileData?.phone_number || ''}
             />
           </div>
@@ -61,11 +61,11 @@ const Profile = ({ profileData }: { profileData: any }) => {
           <label className="label">
             <span className="label-text">Email Address</span>
           </label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             name="email"
-            placeholder="yourname@example.com" 
-            className="input input-bordered w-full bg-base-100 dark:bg-base-200"
+            placeholder="yourname@example.com"
+            className="input input-bordered w-full bg-white dark:bg-base-200"
             defaultValue={profileData?.email || ''}
           />
         </div>
@@ -73,18 +73,18 @@ const Profile = ({ profileData }: { profileData: any }) => {
           <label className="label">
             <span className="label-text">Username</span>
           </label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             name="username"
-            placeholder="Your username" 
-            className="input input-bordered w-full bg-base-100 dark:bg-base-200"
+            placeholder="Your username"
+            className="input input-bordered w-full bg-white dark:bg-base-200"
             defaultValue={profileData?.username || ''}
           />
         </div>
 
         <div className="flex justify-end gap-4 mt-6">
           <button className="btn btn-outline">Cancel</button>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary text-white">
             {isPending ? 'Saving...' : 'Save'}
           </button>
         </div>

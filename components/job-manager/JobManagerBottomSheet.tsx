@@ -24,27 +24,27 @@ export const JobManagerBottomSheet: React.FC = () => {
         }
       } catch (error) {
         console.error("Error submitting profile:", error);
-      } 
+      }
     }
   };
 
   return (
-    <div className="fixed bottom-0 z-10 w-full h-20 border-t border-base-content flex items-center bg-base-100">
+    <div className="fixed bottom-0 z-10 w-full h-20 border-t border-base-content flex items-center bg-primary">
       <div className="w-[1440px] mx-auto flex justify-between items-center">
-        <div 
+        <div
           className="flex items-center gap-5 pr-5 pl-3 py-2 border border-base-content text-base-content hover:bg-base-content hover:text-base-100 rounded-full cursor-pointer"
           onClick={() => router.back()}
         >
-          <ArrowLeft size={27} />
-          <p className='text-md'>Back to Job Search</p>
+          <ArrowLeft className='text-white' size={27} />
+          <p className='text-md text-white'>Back to Job Search</p>
         </div>
         <div className="flex items-center gap-5">
-          <p className='text-md'>You’re applying to <span className="font-bold">{selectedApplications.length} jobs</span> instantly</p>
+          <p className='text-md text-white'>You’re applying to <span className="font-bold">{selectedApplications.length} jobs</span> instantly</p>
           <div
             onClick={handleApply}
-            className="bg-black border-2 border-black rounded-full text-white py-2 pl-5 pr-2 flex items-center justify-between hover:bg-base-100 hover:text-black cursor-pointer"
+            className="bg-secondary rounded-full text-neutral py-2 pl-5 pr-2 flex items-center justify-between hover:bg-base-100 hover:text-black cursor-pointer"
           >
-            <p className="leading-none text-md">Apply</p>
+            <p className="leading-none text-md">Submit Applications</p>
             <ChevronRight size={30} />
           </div>
         </div>

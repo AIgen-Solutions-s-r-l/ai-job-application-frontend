@@ -1,11 +1,10 @@
 import { ReactNode } from "react";
-import { Inter } from "next/font/google";
+import { Inter, Jura } from "next/font/google";
 import { Viewport } from "next";
 import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
 import { Providers } from "./providers";
-import { Jura } from "next/font/google";
 import "./globals.css";
 
 const font = Inter({ subsets: ["latin"] });

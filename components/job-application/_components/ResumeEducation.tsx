@@ -24,7 +24,7 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
     (e: React.KeyboardEvent<HTMLInputElement>, respIndex: number) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        insert(respIndex + 1, "");
+        insert(respIndex + 1, { subject: "", grade: "" });
         setTimeout(() => {
           const nextInputId = `subject-${index}-${respIndex + 1}`;
           const nextInput = document.getElementById(nextInputId) as HTMLInputElement | null;
@@ -47,7 +47,7 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
   );
 
   const handleInsertExam = (respIndex: number) => {
-    insert(respIndex + 1, "");
+    insert(respIndex + 1, { subject: "", grade: "" });
   }
 
   const handleRemoveExam = (respIndex: number) => {

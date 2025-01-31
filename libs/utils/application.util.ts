@@ -68,12 +68,19 @@ export function fromResumeType(resumeData: Resume): any {
 
   const originalEducationDetails = educationDetails?.map(edu => ({
     ...edu,
-    exam: edu.exam && edu.exam.length > 0 && !edu.exam.every(({ subject, grade }) => subject === "" && grade === "")
-      ? edu.exam.reduce((acc: { [key: string]: string }, { subject, grade }) => {
-          acc[subject] = grade;
-          return acc;
-        }, {})
-      : null
+    exam: edu.exam && edu.exam.length > 0
+      ? (() => {
+          const filteredExam = edu.exam.filter(
+            ({ subject, grade }) => subject !== "" && grade !== ""
+          ); // Filter out invalid entries
+          return filteredExam.length > 0
+            ? filteredExam.reduce((acc: { [key: string]: string }, { subject, grade }) => {
+                acc[subject] = grade;
+                return acc;
+              }, {})
+            : null; // Set exam to null if all entries are invalid
+        })()
+      : null // Set exam to null if exam array is empty or doesn't 
   }));
   
   return {

@@ -3,9 +3,76 @@ import { JobProfile } from '@/libs/definitions';
 import { ArrowRight, Plus } from 'lucide-react';
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { CertificationsNestedFieldArray } from './AdditionalInfoOnboarding';
 
 type FormData = Pick<JobProfile, "educationDetails">
+
+const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
+  index,
+}: {
+  index: number;
+}): React.ReactElement => {
+  const { register } = useFormContext<FormData>();
+  const { fields, append, remove } = useFieldArray({ 
+    name: `educationDetails.${index}.exam`
+  })
+
+  if (!fields.length) return null;
+
+  return (
+    <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
+      <div className="flex gap-2 mb-3">
+        <div className="w-10"></div>
+        <div className="w-full grid grid-cols-2 gap-form">
+          <label className="w-full flex justify-start text-base leading-none">
+            Exam Subject
+          </label>
+          <label className="w-full flex justify-start text-base leading-none">
+            Exam Grade
+          </label>
+        </div>
+      </div>
+      {fields.map((responsibility, respIndex) => (
+        <div key={responsibility.id} className="flex-col w-full">
+          <div className="flex gap-2 mb-2">
+            <button
+              type="button"
+              disabled={fields.length === 1}
+              className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              onClick={() => remove(index)}
+            >
+              <span className="text-base">−</span>
+            </button>
+            <div className="w-full grid grid-cols-2 gap-form">
+              <div className="w-full">
+                <input
+                  {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
+                  placeholder="e.g., Certification Name"
+                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                />
+              </div>
+              <div className="w-full">
+                <input
+                  {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
+                  placeholder="e.g., Certification Description"
+                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
+        onClick={() => append({ subject: "", grade: "" })}
+      >
+        <span className="text-base">+</span> 
+        <p className="text-base">Add Exam</p>
+      </button>
+    </div>
+  )
+}
 
 export const EducationDetailsOnboarding: React.FC = () => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
@@ -19,6 +86,13 @@ export const EducationDetailsOnboarding: React.FC = () => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
+      location: "",
+      exam: [
+        {
+          subject: "",
+          grade: "",
+        }
+      ],
     });
 
   return (
@@ -94,7 +168,17 @@ export const EducationDetailsOnboarding: React.FC = () => {
               errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
               className='w-[149px]'
             />
+            <FormInput
+              title={'Location'}
+              {...register(`educationDetails.${index}.location`, { required: 'Location is required' })}
+              placeholder="e.g., Italy"
+              error={!!errors.educationDetails?.[index]?.location}
+              errorMessage={errors.educationDetails?.[index]?.location?.message}
+              className='w-[182px]'
+            />
           </InputWrapper>
+
+          <ExamNestedFieldArray index={index} />
         </div>
       ))}
 

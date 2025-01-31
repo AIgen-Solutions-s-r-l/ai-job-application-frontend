@@ -16,7 +16,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   index: number;
 }): React.ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, insert, remove } = useFieldArray({ 
+  const { fields, append, insert, remove } = useFieldArray({
     name: `experienceDetails.${index}.key_responsibilities`
   })
   const { template } = useCVTemplateContext();
@@ -26,7 +26,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
       append("");
     }
   }, []);
-  
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {
       if (e.key === 'Enter' && !e.shiftKey) {
@@ -76,7 +76,7 @@ export const ResumeExperience: React.FC = () => {
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'experience-section';
   const { template } = useCVTemplateContext();
-  
+
   const handleAddExperience = () => {
     const newIndex = fields.length;
     append({
@@ -90,7 +90,7 @@ export const ResumeExperience: React.FC = () => {
     });
     setActiveSection(`${section}-${newIndex}`);
   }
-  
+
   return (
     <div className={template.experience.container} id="experience-section">
       {!!fields.length && (
@@ -107,8 +107,8 @@ export const ResumeExperience: React.FC = () => {
             data-section={activeIndex}
             className={cn(
               template.experience.entry,
-              'relative border-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              'relative border-2 hover:border-primary',
+              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();

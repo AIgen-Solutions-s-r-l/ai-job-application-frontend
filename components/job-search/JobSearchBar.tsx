@@ -52,7 +52,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <label htmlFor='keywords' className='text-md leading-none'>
               Role
             </label>
-            <div className='mt-3 h-14 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5'>
+            <div className='mt-3 h-14 flex bg-white items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5'>
               <input
                 type='text'
                 id='keywords'
@@ -66,7 +66,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <label htmlFor='location' className='text-md leading-none'>
               Location
             </label>
-            <div className='mt-3 h-14 flex-1 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5'>
+            <div className='mt-3 h-14 flex-1 bg-white flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5'>
               <input
                 type='text'
                 id='location'
@@ -76,7 +76,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               />
             </div>
           </div>
-          <div className='w-[222px] h-14 flex-0 flex items-center outline outline-2 outline-base-content text-base-content hover:text-white hover:outline-primary hover:bg-primary rounded-3xl'>
+          <div className='w-[222px] bg-white h-14 flex-0 flex items-center outline outline-1 text-base-content hover:text-white hover:outline-primary hover:bg-primary rounded-3xl'>
             <button
               type='submit'
               className='w-full h-full flex items-center justify-between pl-5'
@@ -87,24 +87,24 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
         </form>
 
-      <div className="w-[1440px] mx-auto pb-5">
-        <div className="mt-5 flex gap-5 text-base">
-          <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
-            <option disabled selected>Full-time</option>
-            <option>Part-time</option>
-            <option>Internship</option>
-          </select>
-          <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
-            <option disabled selected>Remote</option>
-            <option>On-site</option>
-          </select>
-          <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
-            <option disabled selected>English</option>
-            <option>Russian</option>
-          </select>
+        <div className="w-[1440px] mx-auto pb-5">
+          <div className="mt-5 flex gap-5 text-base">
+            <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
+              <option disabled selected>Full-time</option>
+              <option>Part-time</option>
+              <option>Internship</option>
+            </select>
+            <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
+              <option disabled selected>Remote</option>
+              <option>On-site</option>
+            </select>
+            <select className="select bg-neutral-content focus:outline-none w-[150px] h-9 rounded-full flex gap-5 items-center">
+              <option disabled selected>English</option>
+              <option>Russian</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
 
       <div className='w-full bg-base-100'>
         <div className='w-[1440px] mx-auto pb-5'>

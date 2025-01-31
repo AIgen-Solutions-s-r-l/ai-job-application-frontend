@@ -17,7 +17,7 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
             <button
               type="button"
               disabled={fields.length === 1}
-              className="w-10 h-10 mt-[28px] flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              className="w-10 h-10 mt-[28px] flex items-center justify-center bg-white outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -50,11 +50,10 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
                 <textarea
                   {...register(`additionalInfo.projects.${index}.description`)}
                   placeholder="Project Description"
-                  className={`w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base ${
-                    errors.additionalInfo?.projects?.[index]?.description ? 'placeholder-shown:border-error' : 'placeholder-shown:border-secondary'
-                  }`}
+                  className={`w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base ${errors.additionalInfo?.projects?.[index]?.description ? 'placeholder-shown:border-error' : 'placeholder-shown:border-secondary'
+                    }`}
                 />
-                {errors.additionalInfo?.projects?.[index]?.description && 
+                {errors.additionalInfo?.projects?.[index]?.description &&
                   <p className="text-error mt-1 text-xs leading-none">{errors.additionalInfo?.projects[index].description.message}</p>
                 }
               </div>
@@ -68,7 +67,7 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
         className="w-[160px] h-10 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
         onClick={() => append({ name: "", description: "", link: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Project</p>
       </button>
     </div>
@@ -77,7 +76,7 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
 
 export const CertificationsNestedFieldArray: FC = (): ReactElement => {
   const { control, register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.certifications`});
+  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.certifications` });
 
   return (
     <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
@@ -129,7 +128,7 @@ export const CertificationsNestedFieldArray: FC = (): ReactElement => {
         className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
         onClick={() => append({ name: "", description: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Certification</p>
       </button>
     </div>
@@ -172,7 +171,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   placeholder="e.g., English"
                   className={
                     `w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
-                    ${errors.additionalInfo?.languages?.[index]?.language ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}` 
+                    ${errors.additionalInfo?.languages?.[index]?.language ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}`
                   }
                 />
                 {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].language.message}</p>}
@@ -183,7 +182,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   // className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary px-[10px] rounded-md text-base"
                   className={
                     `w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary px-[10px] rounded-md text-base
-                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-secondary"}` 
+                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-secondary"}`
                   }
                 >
                   <option value="" disabled>Select Proficiency</option>
@@ -203,7 +202,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
         className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
         onClick={() => append({ language: '', proficiency: '' })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Language</p>
       </button>
     </div>
@@ -212,7 +211,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
 
 const AchievementsNestedFieldArray: FC = (): ReactElement => {
   const { control, register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.achievements`});
+  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.achievements` });
 
   return (
     <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
@@ -264,7 +263,7 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
         className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
         onClick={() => append({ name: "", description: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-base">+</span>
         <p className="text-base">Add Achievement</p>
       </button>
     </div>
@@ -276,25 +275,25 @@ const InterestsFieldArray: FC = (): ReactElement => {
   const interests: string[] = getValues('additionalInfo.interests');
 
   const debounce = (func: (...args: any[]) => void, delay: number) => {
-      let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
-      return (...args: any[]) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
-      };
+    let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
     };
-  
-    const handleInterestsChange = useCallback(
-      (value: string) => {
-        const interestsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
-        setValue(`additionalInfo.interests`, interestsArray);
-      },
-      [setValue]
-    );
-  
-    const debouncedHandleInterestsChange = useCallback(
-      debounce(handleInterestsChange, 500), 
-      [handleInterestsChange] 
-    );
+  };
+
+  const handleInterestsChange = useCallback(
+    (value: string) => {
+      const interestsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
+      setValue(`additionalInfo.interests`, interestsArray);
+    },
+    [setValue]
+  );
+
+  const debouncedHandleInterestsChange = useCallback(
+    debounce(handleInterestsChange, 500),
+    [handleInterestsChange]
+  );
 
   return (
     <div className="flex p-10 rounded-[22px] bg-base-100">
@@ -314,7 +313,7 @@ const InterestsFieldArray: FC = (): ReactElement => {
 }
 
 export const ProfileAdditionalInfo: FC = (): ReactElement => {
-  const { register, getValues, formState: { errors} } = useFormContext<FormData>();
+  const { register, getValues, formState: { errors } } = useFormContext<FormData>();
 
   const legalAuthorizations: LegalAuthorization = getValues('additionalInfo.legal_authorization');
   const workPreferences: WorkPreferences = getValues('additionalInfo.work_preferences');
@@ -322,17 +321,17 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
   return (
     <div className="collapse collapse-arrow bg-base-200 group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title text-xl font-medium bg-base-300 group-has-[input:checked]:bg-base-200">Additional Information
+      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Additional Information
         {errors.additionalInfo && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content">
+      <div className="collapse-content bg-white">
         <div className="flex flex-col gap-5">
           <ProjectsNestedFieldArray />
 
           <LanguageNestedFieldArray />
 
           <CertificationsNestedFieldArray />
-          
+
           <InputWrapper>
             <FormInput
               title={'Availability'}

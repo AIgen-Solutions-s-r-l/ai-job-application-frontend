@@ -35,17 +35,17 @@ const SkillsNestedFieldArray: React.FC = () => {
   );
 
   const debouncedHandleSkillsChange = useCallback(
-    debounce(handleSkillsChange, 500), 
-    [handleSkillsChange] 
+    debounce(handleSkillsChange, 500),
+    [handleSkillsChange]
   );
 
   return additional_skills.length ? (
     <>
-      <div 
+      <div
         data-section="skills-section"
         className={cn(
           template.additional.skills,
-          'border-2 border-transparent hover:border-secondary has-[:focus]:border-secondary', 
+          'border-2 border-transparent hover:border-primary has-[:focus]:border-primary',
           isActive && 'bg-white'
         )}
         onClick={() => setActiveSection('skills-section')}
@@ -65,14 +65,14 @@ const SkillsNestedFieldArray: React.FC = () => {
 
 const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.languages`
   })
 
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'languages-section';
   const { template } = useCVTemplateContext();
-  
+
   const handleAddAchievement = () => {
     const newIndex = fields.length;
     append({
@@ -87,15 +87,15 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
       <span className="font-semibold">Languages: </span>
       {fields.map((item, index) => {
         const activeIndex = `${section}-${index}`
-        
+
         return (
-          <div 
-            key={item.id} 
+          <div
+            key={item.id}
             data-section={activeIndex}
             className={cn(
               template.additional.languageItem,
-              'relative border-2 border-transparent hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              'relative border-2 border-transparent hover:border-primary',
+              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -133,7 +133,7 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
 
 const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   const { register, getValues } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.side_projects`
   })
   const side_projects = getValues('additionalInfo.side_projects');
@@ -159,15 +159,15 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
       </h2>
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
-        
+
         return (
-          <div 
+          <div
             key={exp.id}
             data-section={activeIndex}
             className={cn(
               template.projects.entry,
-              'relative border-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              'relative border-2 hover:border-primary',
+              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -217,14 +217,15 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
               </li>
             </ul>
           </div>
-      )})}
+        )
+      })}
     </div>
   ) : null;
 }
 
 const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.achievements`
   })
 
@@ -240,7 +241,7 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
     });
     setActiveSection(`${section}-${newIndex}`);
   }
- 
+
   return fields.length ? (
     <div className={template.achievements.container}>
       <h2 className={template.achievements.h2}>
@@ -248,15 +249,15 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
       </h2>
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
-        
+
         return (
-          <div 
+          <div
             key={exp.id}
             data-section={activeIndex}
             className={cn(
               template.achievements.entry,
-              'relative border-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              'relative border-2 hover:border-primary',
+              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -265,14 +266,14 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
           >
             <div className={template.achievements.entryHeader}>
               {activeIndex === activeSection && (
-                  <EntryOperator
-                    itemsLength={fields.length}
-                    onAdd={handleAddAchievement}
-                    onRemove={() => {
-                      remove(index);
-                      setActiveSection(null);
-                    }}
-                  />
+                <EntryOperator
+                  itemsLength={fields.length}
+                  onAdd={handleAddAchievement}
+                  onRemove={() => {
+                    remove(index);
+                    setActiveSection(null);
+                  }}
+                />
               )}
               <NullifiedInput
                 {...register(`additionalInfo.achievements.${index}.name`)}
@@ -298,10 +299,10 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
 
 const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.certifications`
   })
-  
+
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'certifications-section';
   const { template } = useCVTemplateContext();
@@ -322,15 +323,15 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
       </h2>
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
-        
+
         return (
-          <div 
+          <div
             key={exp.id}
             data-section={activeIndex}
             className={cn(
               template.certifications.entry,
-              'relative border-2 hover:border-secondary', 
-              activeIndex === activeSection ? 'bg-white border-secondary' : 'border-transparent'
+              'relative border-2 hover:border-primary',
+              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -339,14 +340,14 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
           >
             <div className={template.certifications.entryHeader}>
               {activeIndex === activeSection && (
-                  <EntryOperator
-                    itemsLength={fields.length}
-                    onAdd={handleAddCertification}
-                    onRemove={() => {
-                      remove(index);
-                      setActiveSection(null);
-                    }}
-                  />
+                <EntryOperator
+                  itemsLength={fields.length}
+                  onAdd={handleAddCertification}
+                  onRemove={() => {
+                    remove(index);
+                    setActiveSection(null);
+                  }}
+                />
               )}
               <NullifiedInput
                 {...register(`additionalInfo.certifications.${index}.name`)}
@@ -372,19 +373,19 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
 
 export const ResumeAdditional: React.FC = () => {
   const { template } = useCVTemplateContext();
-  
+
   return <>
     <ProjectsNestedFieldArray />
 
     <AchievementsNestedFieldArray />
 
-    <CertificationsNestedFieldArray />      
-    
+    <CertificationsNestedFieldArray />
+
     <div className={template.additional.container} id="skills-section">
       <h1 className={template.additional.h2}>
         Additional Information
       </h1>
-      
+
       <SkillsNestedFieldArray />
 
       <LanguageNestedFieldArray />

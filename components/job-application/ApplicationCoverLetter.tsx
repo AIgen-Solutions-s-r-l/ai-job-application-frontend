@@ -21,12 +21,12 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
   const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>({
     defaultValues: letter.cover_letter,
   });
-  
+
   const handleLetterSubmit = async (data: CoverLetterCoverLetter) => {
     // console.log(JSON.stringify((data)));
     try {
       const response = await updateApplicationLetterAction(id, data);
-      
+
       if (response.success) {
         toast.success("Application cover letter updated successfully!");
         console.log("Application cover letter updated successfully");
@@ -133,7 +133,7 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
           </div>
         </form>
       </div>
-      <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-secondary">
+      <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-primary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"
@@ -145,7 +145,7 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
           <div className="flex items-center gap-10">
             <p className='text-base text-white'>You’re editing the Cover Letter</p>
             <button
-              className="bg-black text-base leading-none text-white w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
+              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
               form='my-form'
               type="submit"
               disabled={formState.isSubmitting}

@@ -13,7 +13,7 @@ export const JobManagerHeader: React.FC = () => {
         <h1 className='text-[32px] leading-10 mb-8'>Job Manager</h1>
 
         <div className="flex gap-5 -mb-8">
-          <div className="w-[430px] h-16 flex items-center justify-end gap-5 pr-4 bg-base-100 rounded-xl outline outline-1 outline-neutral-content z-50">
+          <div className="w-[430px] h-16 flex items-center justify-end gap-5 pr-4 bg-white rounded-xl outline outline-1 outline-neutral z-50">
             <p>Select All</p>
             <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={() => handleSelectAll()}>
               {isAllSelected() && <Check size={24} />}

@@ -15,7 +15,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   index: number;
 }): ReactElement => {
   const { register, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `experienceDetails.${index}.key_responsibilities`
   })
 
@@ -28,23 +28,23 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   return (
     <>
       {fields.map((responsibility, respIndex) => (
-        <div key={responsibility.id} className="flex items-center gap-2 mb-2">
+        <div key={responsibility.id} className="flex items-center gap-2 mb-2 bg-white">
           <button
             type="button"
             disabled={fields.length === 1}
-            className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+            className="w-10 h-10 flex items-center justify-center bg-white outline-none border-[1px] border-base-content hover:bg-neutral text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
             onClick={() => remove(respIndex)}
           >
             <span className="text-base">−</span>
           </button>
           <input
-            {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`, { 
-              required: fields.length === 1 ? 'Responsibilities are required' : undefined 
+            {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`, {
+              required: fields.length === 1 ? 'Responsibilities are required' : undefined
             })}
             placeholder="e.g., Led a team of developers to build scalable applications"
             className={
-              `w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
-              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}` 
+              `w-full bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
+              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "placeholder-shown:border-error" : "placeholder-shown:border-primary"}`
             }
           />
         </div>
@@ -52,7 +52,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
       {fields.length === 1 && errors.experienceDetails?.[index]?.key_responsibilities?.[0] && <p className="text-error mt-[2px] text-xs">At least one responsibility is required</p>}
       <button
         type="button"
-        className="bg-base-200 rounded-md h-10 flex items-center gap-2 px-3 mt-4 text-base-content hover:bg-secondary hover:text-white"
+        className="bg-white outline outline-1 outline-black rounded-md h-10 flex items-center gap-2 px-3 mt-4 text-base-content hover:bg-neutral hover:text-white"
         onClick={() => append("")}
       >
         <span className="text-base">+</span>
@@ -87,12 +87,12 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   );
 
   const debouncedHandleSkillsChange = useCallback(
-    debounce(handleSkillsChange, 500), 
-    [handleSkillsChange] 
+    debounce(handleSkillsChange, 500),
+    [handleSkillsChange]
   );
 
   return (
-    <div className="flex p-10 rounded-[22px] bg-base-100">
+    <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
         <label className="flex justify-start text-base leading-none mb-2">
           Skills
@@ -101,7 +101,7 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
           onChange={(e) => debouncedHandleSkillsChange(index, e.target.value)} // Use the debounced function
           defaultValue={skills ? skills.join(', ') : ''}
           placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
-          className="w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base"
+          className="w-full bg-base-100 outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base"
         />
       </div>
     </div>
@@ -110,9 +110,11 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
 
 export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
   const { control, register, setValue, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: "experienceDetails", rules: { 
-    required: 'At least one experience is required',
-  }});
+  const { fields, append, remove } = useFieldArray({
+    control, name: "experienceDetails", rules: {
+      required: 'At least one experience is required',
+    }
+  });
 
   const handleAddExperience = () =>
     append({
@@ -124,7 +126,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
       key_responsibilities: [],
       skills_acquired: [],
     }
-  );
+    );
 
   return (
     <div>
@@ -137,7 +139,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               <ArrowRight size={24} />
               <p className='text-2xl font-bold leading-none'>{index + 1}</p>
             </div>
-            {<button 
+            {<button
               className={`upderline ${fields.length === 1 && 'hidden'}`}
               onClick={() => remove(index)}
             >
@@ -189,7 +191,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
             />
           </InputWrapper>
 
-          <div className="flex p-10 rounded-[22px] bg-base-100">
+          <div className="flex p-10 rounded-[22px] bg-white">
             <div className="w-full">
               <label className="flex justify-start text-base leading-none mb-2">
                 Key Responsibilities <span className="text-error ml-1">*</span>
@@ -197,23 +199,21 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               <ResponsibilityNestedFieldArray index={index} />
             </div>
           </div>
-          
+
           <SkillsNestedFieldArray index={index} />
         </div>
-        
+
       ))}
 
       <div className="flex items-center gap-4 my-5">
-        <div 
-          className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
+        <div
+          className="w-[240px] h-[50px] hover:text-base-100 text-black rounded-[20px] flex items-center justify-between px-[15px] bg-white cursor-pointer hover:bg-neutral group transition-all ease-in duration-100"
           onClick={handleAddExperience}
         >
-          <p className='text-lg text-base-100'>Add Experience</p>
-          <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
+          <p className='text-lg'>Add Experience</p>
+          <Plus className='font-bold text-black group-hover:text-base-100' size={32} strokeWidth={3} />
         </div>
       </div>
-
-      <ProjectsNestedFieldArray />
     </div>
   );
 };

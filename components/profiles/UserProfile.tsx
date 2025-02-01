@@ -5,7 +5,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { updateJobProfile } from '@/libs/actions';
 import toast from 'react-hot-toast';
-import { defaultJobProfile } from '@/libs/job-profile-util';
+import { defaultJobProfile } from '@/libs/utils/job-profile-util';
 import { ProfilePersonalInformation } from './resume-sections/ProfilePersonalInformation';
 import { ProfileEducationDetails } from './resume-sections/ProfileEducationDetails';
 import { ProfileExperienceDetails } from './resume-sections/ProfileExperienceDetails';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const UserProfile: React.FC<Props> = ({ profile }) => {
-  
+
   const methods = useForm({
     defaultValues: profile ?? defaultJobProfile,
   });
@@ -24,7 +24,7 @@ export const UserProfile: React.FC<Props> = ({ profile }) => {
   const onSubmit = async (data: JobProfile) => {
     try {
       const response = await updateJobProfile(data);
-      
+
       if (response.success) {
         toast.success("Profile updated successfully!");
       } else {
@@ -35,9 +35,9 @@ export const UserProfile: React.FC<Props> = ({ profile }) => {
       console.error("Error submitting profile:", error);
     }
   };
-  
+
   return (
-    <div className='w-full '>
+    <div className='w-full'>
       {/* Header Section */}
       <div className="mb-5">
         <h1 className="text-3xl font-bold mb-2">My Profile</h1>

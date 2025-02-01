@@ -97,7 +97,7 @@ const config = {
   },
   colors: {
     // REQUIRED — The DaisyUI theme to use. Leave blank for default (light & dark mode). 
-    theme: "cupcake",
+    theme: "lightTheme",
     // REQUIRED — This color will be reflected on the whole app outside of the document (loading bar, Chrome tabs, etc.). By default, it takes the primary color from your DaisyUI theme.
     main: themes["cupcake"]["primary"],
   },

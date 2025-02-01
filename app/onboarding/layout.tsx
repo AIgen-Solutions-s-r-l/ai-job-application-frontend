@@ -10,7 +10,7 @@ import RequireLogin from "@/permissions/requireLogin";
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <CVDataContextProvider>
-      <div className="w-full h-screen flex flex-col items-center bg-base-200">
+      <div className="w-full h-screen flex flex-col items-center bg-base-100">
         <OngoingNabvar />
         {children}
       </div>

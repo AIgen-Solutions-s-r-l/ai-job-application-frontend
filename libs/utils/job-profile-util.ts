@@ -4,7 +4,8 @@ import {
   SelfIdentification,
   LegalAuthorization,
   WorkPreferences,
-} from './definitions';
+  EducationDetails,
+} from '../definitions';
 
 
 export function toJobProfile(resumeData: any): JobProfile {
@@ -28,6 +29,15 @@ export function toJobProfile(resumeData: any): JobProfile {
     salary_expectations,
   } = resumeData;
 
+  const transformedEducationDetails = education_details.map((education: EducationDetails) => {
+    if (education.exam) {
+      return {
+        ...education,
+        exam: Object.entries(education.exam).map(([subject, grade]) => ({ subject, grade })),
+      };
+    }
+    return education;
+  });
 
   const additionalInfo: AdditionalInfo = {
     projects: projects?.length ? projects : defaultJobProfile.additionalInfo.projects,
@@ -44,7 +54,7 @@ export function toJobProfile(resumeData: any): JobProfile {
 
   return {
     personalInfo: personal_information,
-    educationDetails: education_details || [
+    educationDetails: transformedEducationDetails || [
     {
       start_date: "",
       institution: "",
@@ -52,6 +62,13 @@ export function toJobProfile(resumeData: any): JobProfile {
       education_level: "",
       year_of_completion: "",
       final_evaluation_grade: "",
+      location: "",
+      exam: [
+        {
+          subject: "",
+          grade: "", 
+        }
+      ],
     }
   ],
     experienceDetails: experience_details || [
@@ -70,9 +87,26 @@ export function toJobProfile(resumeData: any): JobProfile {
 }
 
 export function fromJobProfile(jobProfile: JobProfile): any {
+  const originalEducationDetails = jobProfile.educationDetails?.map(edu => ({
+    ...edu,
+    exam: edu.exam && edu.exam.length > 0
+    ? (() => {
+        const filteredExam = edu.exam.filter(
+          ({ subject, grade }) => subject !== "" && grade !== ""
+        ); // Filter out invalid entries
+        return filteredExam.length > 0
+          ? filteredExam.reduce((acc: { [key: string]: string }, { subject, grade }) => {
+              acc[subject] = grade;
+              return acc;
+            }, {})
+          : null; // Set exam to null if all entries are invalid
+      })()
+    : null // Set exam to null if exam array is empty or doesn't exist
+  }));
+  
   return {
       "personal_information": jobProfile.personalInfo,
-      "education_details": jobProfile.educationDetails,
+      "education_details": originalEducationDetails,
       "experience_details": jobProfile.experienceDetails,
       "projects": jobProfile.additionalInfo.projects,
       "achievements": jobProfile.additionalInfo.achievements,
@@ -184,6 +218,13 @@ export const defaultJobProfile: JobProfile = {
       education_level: "",
       year_of_completion: "",
       final_evaluation_grade: "",
+      location: "",
+      exam: [
+        {
+          subject: "",
+          grade: "", 
+        }
+      ],
     }
   ],
   experienceDetails: [

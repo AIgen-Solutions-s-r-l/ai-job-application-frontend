@@ -22,17 +22,17 @@ const Integrations = ({ integrationData }: { integrationData: any }) => {
   };
 
   return (
-    <div className="col-span-1 rounded-lg shadow bg-base-100 p-6">
+    <div className="col-span-1 rounded-lg shadow bg-white p-6">
       <div className="border-b pb-4 mb-4 border-neutral flex justify-between items-center">
         <h3 className="text-lg font-semibold">Integrations</h3>
       </div>
       <form onSubmit={handleSave}>
         <div className="space-y-6">
-          <div className="card bg-base-100 p-4 rounded-lg">
+          <div className="card bg-white p-4 rounded-lg">
             <div className="flex items-center gap-4 mb-6">
-              <Image 
-                src="/linkedin-logo.webp" 
-                alt="LinkedIn Logo" 
+              <Image
+                src="/linkedin-logo.webp"
+                alt="LinkedIn Logo"
                 width={64} // Ancho en píxeles
                 height={64} // Altura en píxeles
                 className="w-16 h-16" // Puedes ajustar el tamaño también si lo deseas
@@ -48,11 +48,11 @@ const Integrations = ({ integrationData }: { integrationData: any }) => {
               <label className="label">
                 <span className="label-text">LinkedIn Email</span>
               </label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 name="integration_email"
-                placeholder="Enter your LinkedIn email" 
-                className="input input-bordered w-full bg-base-200"
+                placeholder="Enter your LinkedIn email"
+                className="input input-bordered w-full bg-white"
                 defaultValue={integrationData?.email || ''}
               />
             </div>
@@ -60,18 +60,18 @@ const Integrations = ({ integrationData }: { integrationData: any }) => {
               <label className="label">
                 <span className="label-text">LinkedIn Password</span>
               </label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 name="integration_password"
-                placeholder="Enter your LinkedIn password" 
-                className="input input-bordered w-full bg-base-200"
+                placeholder="Enter your LinkedIn password"
+                className="input input-bordered w-full bg-white"
                 defaultValue={integrationData?.password || ''}
               />
             </div>
 
             <div className="flex justify-end gap-4 mt-6">
               <button className="btn btn-outline">Cancel</button>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary text-white">
                 {isPending ? 'Saving...' : 'Save'}
               </button>
             </div>

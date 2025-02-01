@@ -9,7 +9,7 @@ const Navbar = () => {
   const { setTheme, theme } = useTheme();
 
   const onChangeTheme = (ev: ChangeEvent<HTMLInputElement>): void => {
-    const currentTheme = ev.target.checked ? "dark" : "cupcake";
+    const currentTheme = ev.target.checked ? "dark" : "lightTheme";
     setTheme(currentTheme);
     document.querySelector("html")?.setAttribute("data-theme", currentTheme);
   };

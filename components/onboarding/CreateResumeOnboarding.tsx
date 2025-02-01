@@ -28,7 +28,7 @@ export const CreateResumeOnboarding: React.FC = () => {
     switch (currentStep) {
       case 1: validateFields = ['personalInfo']; break;
       case 2: validateFields = ['educationDetails']; break;
-      case 3: validateFields = ['experienceDetails', 'additionalInfo.projects']; break;
+      case 3: validateFields = ['experienceDetails']; break;
       case 4: validateFields = ['additionalInfo']; break;
     }
 
@@ -47,7 +47,7 @@ export const CreateResumeOnboarding: React.FC = () => {
   }
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
-    try {      
+    try {
       const response = await createJobProfile(jobProfile);
 
       if (response.success) {
@@ -62,10 +62,10 @@ export const CreateResumeOnboarding: React.FC = () => {
     }
   };
 
-  
+
   return (
     <div className='w-full h-full flex flex-col items-center'>
-      <div className="w-full pt-5 pb-[120px] bg bg-base-200">
+      <div className="w-full pt-5 pb-[120px] bg bg-base-100">
         <div className="w-[1440px] mx-auto flex-1">
           <h3 className="text-[28px] mb-10 leading-none">View & edit your information</h3>
           <div className="mb-10">
@@ -93,17 +93,17 @@ export const CreateResumeOnboarding: React.FC = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 z-10 w-full h-[100px] flex items-center bg-secondary">
+      <div className="fixed bottom-0 z-10 w-full h-[100px] flex items-center bg-primary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           {currentStep === 1
-          ? <button
+            ? <button
               className="w-max place-self-end btn btn-primary rounded-full px-4 text-white text-lg"
               type="button"
               onClick={() => setCVData(null)}
             >
-              Continue with CV
+              Back to CV Uploader
             </button>
-          : <div></div>}
+            : <div></div>}
           <div className="flex gap-5">
             {/* <button
               className="bg-black py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-center items-center hover:bg-base-content"
@@ -119,13 +119,13 @@ export const CreateResumeOnboarding: React.FC = () => {
             >
               <p>Clear Errors</p>
             </button> */}
-            <button className="bg-black pl-[16px] pr-[30px] py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-between items-center hover:bg-base-content disabled:bg-neutral-content" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
+            <button className="bg-neutral pl-[16px] pr-[30px] py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-between items-center hover:bg-base-content disabled:bg-neutral-content" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
               <ChevronLeft size={30} />
               <p>Previous Step</p>
             </button>
             {currentStep < 4 ? (
               <button
-                className="bg-black pl-[30px] pr-[16px] py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-between items-center hover:bg-base-content"
+                className="bg-secondary pl-[30px] pr-[16px] py-3 text-lg leading-none text-black w-[240px] rounded-full flex justify-between items-center"
                 type="button"
                 onClick={nextStep}
               >
@@ -133,7 +133,7 @@ export const CreateResumeOnboarding: React.FC = () => {
                 <ChevronRight size={30} />
               </button>
             ) : (
-              <button className="bg-black pl-[30px] pr-[16px] py-3 text-lg leading-none text-white w-[300px] rounded-full flex justify-between items-center hover:bg-base-content" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
+              <button className="bg-secondary pl-[30px] pr-[16px] py-3 text-lg leading-none text-black w-[300px] rounded-full flex justify-between items-center" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
                 {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
                 <p>Save & Continue</p>
                 <ChevronRight size={30} />

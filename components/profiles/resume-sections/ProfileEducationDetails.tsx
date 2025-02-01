@@ -23,10 +23,10 @@ export const ProfileEducationDetails: React.FC = () => {
   return (
     <div className="collapse collapse-arrow bg-base-200 group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title text-xl font-medium bg-base-300 group-has-[input:checked]:bg-base-200">Education Details
+      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Education Details
         {errors.educationDetails && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content">
+      <div className="collapse-content bg-white">
         {fields.map((education, index) => (
           <div key={education.id} className="flex flex-col gap-5 mt-5">
             <div className="flex items-center gap-10">
@@ -34,14 +34,14 @@ export const ProfileEducationDetails: React.FC = () => {
                 <ArrowRight size={24} />
                 <p className='text-2xl font-bold leading-none'>{index + 1}</p>
               </div>
-              {<button 
+              {<button
                 className={`upderline ${fields.length === 1 && 'hidden'}`}
                 onClick={() => remove(index)}
               >
                 <p className='underline text-base leading-none'>Remove</p>
               </button>}
             </div>
-            
+
             {/* Institution */}
             <InputWrapper>
               <FormInput
@@ -101,12 +101,12 @@ export const ProfileEducationDetails: React.FC = () => {
         ))}
 
         <div className="flex items-center gap-4 my-5">
-          <div 
+          <div
             className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
             onClick={addEducation}
           >
             <p className='text-lg text-base-100'>Add Education</p>
-            <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
+            <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3} />
           </div>
         </div>
       </div>

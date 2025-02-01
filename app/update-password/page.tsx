@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/libs/supabase/client";
 import toast from "react-hot-toast";
 import config from "@/config";
 import { useRouter } from "next/navigation";
+import { updateUser } from "@/libs/api/auth";
+import Link from "next/link";
 
-export default function UpdatePassword() {
-  const supabase = createClient();
+export default function UpdatePassword({
+  searchParams,
+}: {
+  searchParams: { token: string; };
+}) {
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
   const router = useRouter();
+  const token = searchParams.token;
 
+  useEffect(() => {
+    if (!token) {
+      router.replace("/forgot-password");
+    }
+  });
+  
   const handleUpdatePassword = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
@@ -24,13 +37,18 @@ export default function UpdatePassword() {
     }
 
     try {
-      const { error } = await supabase.auth.updateUser({ password: newPassword });
-      if (error) throw error;
-      toast.success("Password updated successfully! Please log in with your new password.");
-      router.replace("/signin"); // Redirigir a la página de inicio de sesión
+      const response = await updateUser(newPassword, searchParams.token);
+      if (response.success) {
+        toast.success("Password updated successfully! Please log in with your new password.");
+        router.replace("/signin");
+      } else {
+        toast.error("Failed to update password.");
+        console.error("Failed to update password.:", response.error);
+        setHasError(true);
+      }
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to update password.");
+      console.error("Unexpected error occured during password update:", error);
+      setHasError(true);
     } finally {
       setIsLoading(false);
     }
@@ -77,6 +95,9 @@ export default function UpdatePassword() {
               "Update password"
             )}
           </button>
+          {hasError && (
+            <Link href="/forgot-password" className="btn btn-secondary w-full">Send new email</Link>
+          )}
         </form>
 
         <div className="flex justify-center text-sm mt-4">

@@ -32,7 +32,7 @@ export const JobSearchBottomSheet: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 z-10 w-full h-28 flex items-center bg-primary shadow-[0px_-4px_4px_rgba(0,0,0,0.25)]">
+    <div className="fixed bottom-0 z-10 w-full h-20 flex items-center bg-primary shadow-[0px_-4px_4px_rgba(0,0,0,0.25)]">
       <div className="w-[1440px] mx-auto flex justify-end items-center gap-5">
         <p className='text-md'>Adding <span className="font-bold">{selectedJobs.length} jobs</span> to your Job Manager</p>
         <div

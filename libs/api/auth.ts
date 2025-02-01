@@ -51,13 +51,13 @@ export const login = createServerAction(async (username: string, password: strin
   }
 });
 
-export async function refreshToken() {
+export const refreshToken = createServerAction(async () => {
   const cookies = require('next/headers').cookies;
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
   if (!accessToken) {
-    throw new Error("No accessToken were found");
+    throw new ServerActionError("No accessToken were found");
   }
 
   try {
@@ -66,7 +66,7 @@ export async function refreshToken() {
     });
 
     if (!response || !response.data) {
-      throw new Error("No data received from API.");
+      throw new ServerActionError("No data received from API.");
     }
 
     const decoded = jwtDecode(response.data.access_token);
@@ -84,9 +84,9 @@ export async function refreshToken() {
   } catch (error: any) {
     const status = error.response?.status;
     const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
-    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+    throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
   }
-}
+});
 
 export async function fetchUserData(): Promise<any> {
   try {
@@ -149,3 +149,43 @@ export const register = createServerAction(async (username: string, email: strin
     }
   }
 });
+
+export async function resetPasswordForEmail(email: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/forgot-password`, {
+      email,
+    });
+
+    if (response.status !== 201) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(`Error when sending password reset email: ${email}`, error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateUser(new_password: string, token: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/reset-password/${token}`, {
+      new_password,
+    });
+
+    if (response.status !== 201) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    } 
+
+    return { success: true };
+  } catch (error) {
+    console.error(`Error when updating password`, error);
+    return { success: false, error: error.message };
+  }
+}

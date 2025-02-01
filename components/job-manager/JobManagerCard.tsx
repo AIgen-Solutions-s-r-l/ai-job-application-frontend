@@ -39,19 +39,7 @@ export const JobManagerCard: React.FC<Props> = ({ id, className, job, onClick })
       <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
         {selectedApplications.some((j) => j === id) && <Check size={24} />}
       </div>
-      <button className='btn mt-8 font-jura text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white'>Edit Resume & Cover Letter <Image src={Document} alt='Document' /></button>
+      <Link href={`/manager/${id}`} className='btn mt-8 font-jura text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white'>Edit Resume & Cover Letter <Image src={Document} alt='Document' /></Link>
     </div>
-    // <div className="flex items-end gap-3 pt-3">
-    //   <Link
-    //     href={`/manager/${id}`}
-    //     className="flex-1 h-12 border border-base-content rounded-full flex items-center justify-center hover:bg-base-content hover:text-white"
-    //   >Resume & Cover Letter</Link>
-    //   <div className="flex flex-col items-center gap-3">
-    //     <p>Apply</p>
-    //     <div className="flex-0 h-12 w-[72px] bg-base-content text-white rounded-full flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
-    //       {selectedApplications.some((j) => j === id) && <Check size={24} />}
-    //     </div>
-    //   </div>
-    // </div>
   );
 };

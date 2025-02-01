@@ -58,3 +58,55 @@ export async function applySelectedApplications(applications: string[]): Promise
     return { success: false, error: error.message };
   }
 }
+
+export async function updateApplicationResume(id: string, data: any): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.pending}/update_application/resume_optimized/${id}`, data, {
+      headers: {
+      Accept: "application/json",
+      }
+    })
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    if (!response.data) {
+      return { success: false, error: "Resume creation failed" };
+    }
+
+    return { success: true};
+  } catch (error) {
+    console.error(`Error updating job profile: ${data}`, error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateApplicationLetter(id: string, data: any): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.pending}/update_application/cover_letter/${id}`, data, {
+      headers: {
+      Accept: "application/json",
+      }
+    })
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    if (!response.data) {
+      return { success: false, error: "Resume creation failed" };
+    }
+
+    return { success: true};
+  } catch (error) {
+    console.error(`Error updating job profile: ${data}`, error);
+    return { success: false, error: error.message };
+  }
+}

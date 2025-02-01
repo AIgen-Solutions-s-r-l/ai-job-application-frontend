@@ -1,4 +1,5 @@
 export type Theme =
+  | "lightTheme"
   | "light"
   | "dark"
   | "cupcake"

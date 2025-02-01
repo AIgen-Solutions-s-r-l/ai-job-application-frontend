@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Inter, Jura } from "next/font/google";
+import { Inter, Montserrat, Jura } from "next/font/google";
 import { Viewport } from "next";
 import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
@@ -9,6 +9,10 @@ import "./globals.css";
 
 const font = Inter({ subsets: ["latin"] });
 
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+});
 const jura = Jura({
   subsets: ['latin'],
   variable: '--font-jura',
@@ -30,7 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang='en'
       data-theme={config.colors.theme}
-      className={`${font.className} ${jura.variable}`}
+      className={`${font.className} ${montserrat.variable} ${jura.variable}`}
       suppressHydrationWarning
     >
       {config.domainName && (

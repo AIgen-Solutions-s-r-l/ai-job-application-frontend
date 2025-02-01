@@ -79,7 +79,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <label htmlFor='keywords' className='text-md leading-none'>
               Role
             </label>
-            <div className='mt-3 h-14 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5'>
+            <div className='mt-3 h-12 flex bg-white items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
               <input
                 type='text'
                 id='keywords'
@@ -93,7 +93,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <label htmlFor='location' className='text-md leading-none'>
               Location
             </label>
-            <div className='mt-3 h-14 flex-1 flex items-center outline outline-2 outline-base-content has-[input:focus-within]:outline-primary rounded-3xl px-5'>
+            <div className='mt-3 h-12 flex-1 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
               <input
                 type='text'
                 id='location'
@@ -105,7 +105,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               />
             </div>
             {dataArray.length > 0 && showSuggestions &&
-              <div className='absolute w-full bg-base-100 box-border py-3 outline outline-2 outline-base-content max-h-[200px] mt-2 z-10 flex flex-col gap-1 rounded-3xl overflow-auto'>
+              <div className='absolute bg-white w-full bg-base-100 box-border py-3 border border-1 border-neutral max-h-[200px] mt-2 z-10 flex flex-col gap-1 rounded-md overflow-auto'>
                 {dataArray.map((data, index) => (
                   <div
                     key={index}
@@ -118,7 +118,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               </div>
             }
           </div>
-          <div className='w-[222px] h-14 flex-0 flex items-center outline outline-2 outline-base-content text-base-content hover:text-white hover:outline-primary hover:bg-primary rounded-3xl'>
+          <div className='w-[222px] bg-white h-14 flex-0 flex items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
             <button
               type='submit'
               className='w-full h-full flex items-center justify-between pl-5'
@@ -129,30 +129,25 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
         </form>
 
-        <div className='w-[1440px] mx-auto pb-5'>
-          <div className='mt-5 flex gap-5'>
-            <div className='bg-neutral-content rounded-full flex gap-5 items-center pl-5 pr-3 py-1 cursor-pointer'>
-              <p>Full-time</p>
-              <ChevronDown size={24} />
-            </div>
-            <div className='bg-neutral-content rounded-full flex gap-5 items-center pl-5 pr-3 py-1 cursor-pointer'>
-              <p>Remote</p>
-              <ChevronDown size={24} />
-            </div>
-            <div className='bg-neutral-content rounded-full flex gap-5 items-center pl-5 pr-3 py-1 cursor-pointer'>
-              <p>English</p>
-              <ChevronDown size={24} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className='w-full bg-base-100'>
-        <div className='w-[1440px] mx-auto pb-5'>
+        <div className="flex items-center w-[1440px] mx-auto pb-5 mt-5 gap-16">
           <p className='text-lg'>
-            Your suggested jobs based on your resume:{' '}
-            <span className='font-semibold'>{jobs.length} jobs</span> are found.
+            <span className='font-semibold'>{jobs.length} jobs</span> found.
           </p>
+          <div className="flex gap-8 text-base">
+            <select className="select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center">
+              <option disabled selected>Full-time</option>
+              <option>Part-time</option>
+              <option>Internship</option>
+            </select>
+            <select className="select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center">
+              <option disabled selected>Remote</option>
+              <option>On-site</option>
+            </select>
+            <select className="select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center">
+              <option disabled selected>English</option>
+              <option>Russian</option>
+            </select>
+          </div>
         </div>
       </div>
     </>

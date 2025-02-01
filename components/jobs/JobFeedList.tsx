@@ -48,7 +48,7 @@ export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
 
   return (
     <div className='flex flex-col'>
-      <div className='h-[67px] px-8 flex justify-end rounded-lg bg-base-300'>
+      <div className='h-[67px] px-8 flex justify-end rounded-lg'>
         <div className='flex gap-10 items-center'>
           <button onClick={() => setSortBy('job_state')}>
             {underlineOrParagraph('Sort by: Phase', sortBy === 'posted_date')}
@@ -65,13 +65,13 @@ export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
           aria-label='Pending jobs list'
         >
           <Tabs.Trigger
-            className='px-10 py-4 rounded-t-md data-[state=active]:bg-base-100'
+            className='px-10 bg-neutral-content py-4 rounded-t-md data-[state=active]:bg-white'
             value='pending'
           >
             Pending...
           </Tabs.Trigger>
           <Tabs.Trigger
-            className='px-10 py-4 rounded-t-md data-[state=active]:bg-base-100 flex gap-3'
+            className='px-10 py-4 rounded-t-md bg-neutral-content data-[state=active]:bg-white flex gap-3'
             value='applied'
           >
             Applied
@@ -82,7 +82,7 @@ export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
         </Tabs.List>
 
         <Tabs.Content
-          className='pt-5 flex flex-col gap-4 bg-base-100-'
+          className='pt-5 flex flex-col gap-4 bg-white px-8'
           value='pending'
         >
           {isLoading ? (
@@ -96,7 +96,7 @@ export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
           )}
         </Tabs.Content>
         <Tabs.Content
-          className='pt-5 flex flex-col gap-4 bg-base-100-'
+          className='pt-5 flex flex-col gap-4 bg-white px-8'
           value='applied'
         >
           {isLoading ? (

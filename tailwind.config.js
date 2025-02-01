@@ -11,6 +11,12 @@ module.exports = {
     extend: {
       fontFamily: {
         jura: ['var(--font-jura)'],
+        montserrat: ['var(--font-montserrat)'],
+        roboto: ['Roboto', 'serif'],
+        poppins: ['Poppins', 'serif'],
+        barlow: ['Barlow', 'serif'],
+        'josefin-sans': ['Josefin Sans', 'serif'],
+        'open-sans': ['Open Sans', 'serif'],
       },
       backgroundImage: {
         gradient:
@@ -91,6 +97,17 @@ module.exports = {
     // Add "data-theme='theme_name" to any HTML tag to enable the 'theme_name' theme.
     // https://daisyui.com/
     themes: [
+      {
+        lightTheme: {
+          "primary": "#8783D1",
+          "secondary": "#B9FF5E",
+          "accent": "#EE3449",
+          "neutral-cold": "#DCDCDC",
+          "neutral": "#3d4451",
+          "neutral-content": "#E9E3EE",
+          "base-100": "#F9F3F9",
+        },
+      },
       "cupcake",
       "dark"
     ],

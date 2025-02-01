@@ -47,6 +47,13 @@ export interface EducationDetails {
   final_evaluation_grade?: string; // Opcional
   year_of_completion: string;
   start_date: string;
+  location: string;
+  exam: Exam[]
+}
+
+export interface Exam {
+  subject: string
+  grade: string
 }
 
 export interface ExperienceDetails {
@@ -179,21 +186,24 @@ export interface MatchingJob {
 export type PendingApplicationRecord = Record<string, PendingApplication>;
 
 export interface PendingApplication {
-  job_id:      number;
-  title:       string;
+  job_id: number;
+  title: string;
   description: string;
-  portal:      string;
-  sent:        boolean;
+  portal: string;
+  company: string;
+  location: string;
+  workplace_type: string;
+  sent: boolean;
 }
 
 export interface DetailedPendingApplication {
   resume_optimized: string;
-  cover_letter:     string;
-  job_id:           number;
-  title:            string;
-  description:      string;
-  portal:           string;
-  sent:             boolean;
+  cover_letter: string;
+  job_id: number;
+  title: string;
+  description: string;
+  portal: string;
+  sent: boolean;
 }
 
 export interface AppliedJob {

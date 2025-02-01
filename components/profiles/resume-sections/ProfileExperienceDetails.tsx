@@ -14,7 +14,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   index: number;
 }): ReactElement => {
   const { register, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `experienceDetails.${index}.key_responsibilities`
   })
 
@@ -37,13 +37,13 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
             <span className="text-base">−</span>
           </button>
           <input
-            {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`, { 
-              required: fields.length === 1 ? 'Responsibilities are required' : undefined 
+            {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`, {
+              required: fields.length === 1 ? 'Responsibilities are required' : undefined
             })}
             placeholder="e.g., Led a team of developers to build scalable applications"
             className={
               `w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
-              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}` 
+              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}`
             }
           />
         </div>
@@ -86,12 +86,12 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   );
 
   const debouncedHandleSkillsChange = useCallback(
-    debounce(handleSkillsChange, 500), 
-    [handleSkillsChange] 
+    debounce(handleSkillsChange, 500),
+    [handleSkillsChange]
   );
 
   return (
-    <div className="flex p-10 rounded-[22px] bg-base-100">
+    <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
         <label className="flex justify-start text-base leading-none mb-2">
           Skills
@@ -109,9 +109,11 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
 
 export const ProfileExperienceDetails: FC = (): ReactElement => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: "experienceDetails", rules: { 
-    required: 'At least one experience is required',
-  }});
+  const { fields, append, remove } = useFieldArray({
+    control, name: "experienceDetails", rules: {
+      required: 'At least one experience is required',
+    }
+  });
 
   const handleAddExperience = () =>
     append({
@@ -123,15 +125,15 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
       key_responsibilities: [],
       skills_acquired: [],
     }
-  );
+    );
 
   return (
     <div className="collapse collapse-arrow bg-base-200 group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title text-xl font-medium bg-base-300 group-has-[input:checked]:bg-base-200">Experience Details
+      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Experience Details
         {errors.experienceDetails && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content">
+      <div className="collapse-content bg-white">
         {fields.map((experience, index) => (
           <div key={experience.id} className="flex flex-col gap-5 mt-5">
             <div className="flex items-center gap-10">
@@ -139,7 +141,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 <ArrowRight size={24} />
                 <p className='text-2xl font-bold leading-none'>{index + 1}</p>
               </div>
-              {<button 
+              {<button
                 className={`upderline ${fields.length === 1 && 'hidden'}`}
                 onClick={() => remove(index)}
               >
@@ -191,7 +193,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
               />
             </InputWrapper>
 
-            <div className="flex p-10 rounded-[22px] bg-base-100">
+            <div className="flex p-10 rounded-[22px] bg-white">
               <div className="w-full">
                 <label className="flex justify-start text-base leading-none mb-2">
                   Key Responsibilities <span className="text-error ml-1">*</span>
@@ -199,19 +201,19 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 <ResponsibilityNestedFieldArray index={index} />
               </div>
             </div>
-            
+
             <SkillsNestedFieldArray index={index} />
           </div>
-          
+
         ))}
 
         <div className="flex items-center gap-4 my-5">
-          <div 
+          <div
             className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
             onClick={handleAddExperience}
           >
             <p className='text-lg text-base-100'>Add Experience</p>
-            <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3}  />
+            <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3} />
           </div>
         </div>
       </div>

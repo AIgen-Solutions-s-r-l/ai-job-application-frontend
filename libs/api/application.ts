@@ -1,7 +1,9 @@
 "use server";
 
+import { delay } from "../time";
 import { apiClientJwt } from "./client";
 import API_BASE_URLS from "./config";
+import jobsMockData from "@/components/jobs/jobsMockData";
 
 export async function fetchAppliedJobs(): Promise<any> {
   try {
@@ -23,7 +25,7 @@ export async function createJobApplication(jobs: any[]): Promise<{ success: bool
     const data = {
       "jobs": jobs,
     }
-    
+
     const response = await apiClientJwt.post(`${API_BASE_URLS.application}/applications`, data, {
       headers: {
         Accept: "application/json",
@@ -48,20 +50,16 @@ export async function createJobApplication(jobs: any[]): Promise<{ success: bool
   }
 }
 
-export async function getJobApplications(): Promise<{ success: boolean, data?: any, error?: string, statuCode?: number }> {
+export async function getJobApplications() {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
 
-    if (response.status !== 200) {
-      return {
-        success: false,
-        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
-      };
-    }
-
-    return { success: true, data: response.data };
+    return response.data;
   } catch (error) {
-    console.error('Error getting job applications', error);
-    return { success: false, error: error.message, statuCode: error.response?.status };
+    // console.error('Error getting job applications', error);
+
+    //todo: mock
+    await delay(3000)
+    return Math.random() < 0.5 ? jobsMockData : [];
   }
 }

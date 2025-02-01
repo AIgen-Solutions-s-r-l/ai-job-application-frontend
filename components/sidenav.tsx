@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import NavLinks from "./nav-links";
 import Image from "next/image";
@@ -10,8 +10,12 @@ import { SquareChevronRight, SquareChevronLeft } from "lucide-react";
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapse, setIsCollapse] = useState(
-    localStorage.getItem("collapsed-menu") === "true"
+    false
   );
+
+  useEffect(()=>{
+    setIsCollapse(localStorage.getItem("collapsed-menu") === "true")
+  }, [])
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);

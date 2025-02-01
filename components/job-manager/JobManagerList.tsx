@@ -15,9 +15,9 @@ export const JobManagerList: React.FC = () => {
       </div>
     );
   }
-  
+
   return (
-    <div className='w-full h-full gap-5 bg-base-200 mb-20 pt-16 pb-5'>
+    <div className='w-full h-full gap-5 bg-base-100 mb-20 pt-16 pb-5'>
       <div className="w-[1440px] mx-auto grid grid-cols-3 gap-5">
         {Object.entries(applications).map(([key, value]) => (
           <JobManagerCard key={key} id={key} job={value} onClick={() => setFocusedJobId(key)} className={focusedJobId === key ? "outline outline-1 outline-primary" : ""} />

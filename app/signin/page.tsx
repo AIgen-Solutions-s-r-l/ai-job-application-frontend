@@ -6,41 +6,48 @@ import logo from "@/app/icon.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import config from "@/config";
-import { useRouter, useSearchParams } from "next/navigation";
-import { login } from "@/libs/api/auth"; // Importa la función de login
-import { fetchUserResume } from "@/libs/api/resume";
+import { useRouter } from "next/navigation";
+import { fetchUserData, login } from "@/libs/api/auth"; // Importa la función de login
+import { isResumeExits } from "@/libs/api/resume";
 import RequireLogout from "@/permissions/requireLogout";
+import { useUserContext } from "@/contexts/user-context";
 
 const Login = () => {
   const [username, setUsername] = useState<string>(""); // Cambiado de email a username
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setUser } = useUserContext();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const handleLogin = async (e: any) => {
     e?.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await login(username, password);
+      const result  = await login(username, password);
 
-      if (response?.access_token) {
+      if (result.success && result.value?.access_token) {
         localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
-        const relocationUrl = searchParams.get('r');
         try {
-          await fetchUserResume();
-          router.replace(relocationUrl ? relocationUrl : "/dashboard");
+          const [exists, me] = await Promise.all([
+            isResumeExits(),
+            fetchUserData()
+          ]);
+
+          setUser({ ...exists, ...me });
+          router.replace(exists.exists ? "/dashboard" : "/onboarding");
         } catch (error) {
           router.replace("/onboarding");
         }
+      } else if (result.success == false) {
+        toast.error(result.error || "Failed to login.");
       } else {
         throw new Error("Access token not received.");
       }
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message || "Failed to login.");
+      toast.error("An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }

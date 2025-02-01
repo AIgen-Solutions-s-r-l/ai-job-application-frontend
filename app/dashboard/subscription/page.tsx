@@ -7,7 +7,7 @@ export default async function Subscription() {
   const plans: UserPlan = await getPlans(true);
 
   return (
-    <div className="rounded-lg shadow bg-base-100 p-6 h-full">
+    <div className="rounded-lg shadow bg-white p-6 h-full">
       <Tabs defaultValue="monthly" className="text-center">
         <h1 className="text-4xl font-bold py-4">Choose Your Pass</h1>
         <div className="flex justify-center">

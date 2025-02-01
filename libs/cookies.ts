@@ -12,6 +12,7 @@ export async function setServerCookie(name: string, value: string, options: {
   maxAge?: number;
   path?: string;
   domain?: string;
+  expires?: Date;
 }): Promise<void> {
   cookies().set(name, value, options);
 }

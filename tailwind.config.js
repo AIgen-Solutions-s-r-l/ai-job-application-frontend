@@ -9,6 +9,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ['Roboto', 'serif'],
+        poppins: ['Poppins', 'serif'],
+        barlow: ['Barlow', 'serif'],
+        'josefin-sans': ['Josefin Sans', 'serif'],
+        'open-sans': ['Open Sans', 'serif'],
+      },
       backgroundImage: {
         gradient:
           "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
@@ -87,7 +94,20 @@ module.exports = {
     // You can add another theme among the list of 30+
     // Add "data-theme='theme_name" to any HTML tag to enable the 'theme_name' theme.
     // https://daisyui.com/
-    themes: ["cupcake", "dark"],
+    themes: [
+      {
+        lightTheme: {
+          "primary": "#8783D1",
+          "secondary": "#B9FF5E",
+          "accent": "#EE3449",
+          "neutral": "#3d4451",
+          "neutral-content": "#E9E3EE",
+          "base-100": "#F9F3F9",
+        },
+      },
+      "cupcake",
+      "dark"
+    ],
   },
   darkMode: ["selector", '[data-theme="dark"]'],
 };

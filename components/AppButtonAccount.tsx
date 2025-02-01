@@ -22,16 +22,19 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { deleteServerCookie } from "@/libs/cookies";
+import { useUserContext } from "@/contexts/user-context";
 
 const AppButtonAccount = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(null);
   const pathname = usePathname();
+  const { user } = useUserContext();
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    setUsername(storedUsername);
-  }, []);
+    if (user) {
+      setUsername(user.username);
+    }
+  }, [user]);
 
   const handleSignOut = async () => {
     await deleteServerCookie("accessToken");
@@ -81,7 +84,7 @@ const AppButtonAccount = () => {
               className={clsx(
                 `h-10`,
                 pathname === "/dashboard/settings" &&
-                  `bg-gray-300 dark:bg-gray-600`
+                `bg-gray-300 dark:bg-gray-600`
               )}
             >
               <Settings />

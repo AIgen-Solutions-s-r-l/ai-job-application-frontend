@@ -1,268 +1,238 @@
 'use client';
 
-import { Resume } from '@/components/job-application/trash/application.types';
 import React, { useState } from 'react';
 import { TemplateProfessional } from './TemplateProfessional';
-import { PersonalInformationOnboarding } from '../onboarding/cv-sections/PersonalInformationOnboarding';
-import { ApplicationForm } from './trash/ApplicationForm';
-import { ResumePreview } from './ResumePreview';
-import { FormProvider, useForm } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
-import { toResumeType } from './application.util';
-import { DetailedPendingApplication } from './trash/old-application.types';
+import { toJobInfoType, toResumeType } from '../../libs/utils/application.util';
+import { ActiveSectionProvider } from '../../contexts/active-section-context';
+import { DetailedPendingApplication } from '../../libs/types/response-application.types';
+import { ApplicationCoverLetter } from './ApplicationCoverLetter';
+import { ApplicationJobInfo } from './ApplicationJobInfo';
+import CVTemplateProvider from '../../contexts/cv-template-context';
+import { JobApplicationHeader } from './JobApplicationHeader';
 
 interface Props {
-  applicationDetails: DetailedPendingApplication;
+    id: string;
+    applicationDetails: DetailedPendingApplication;
 }
 
 type Tab = "jobInfo" | "resume" | "coverLetter";
 
-export const JobApplicationTabs: React.FC<Props> = ({ applicationDetails }) => {
-  if (!applicationDetails) {
-    applicationDetails = {
-      "resume_optimized": {
-        "resume": {
-          "header": {
-            "personal_information": {
-              "name": "Arystanbek",
-              "surname": "Kazhym",
-              "date_of_birth": "2000-10-23",
-              "country": "Kazakhstan",
-              "city": "Almaty",
-              "address": "Street of Rage 1",
-              "phone_prefix": "+7",
-              "phone": "7059848044",
-              "email": "cholicer@gmail.com",
-              "github": "https://www.perplexity.ai/",
-              "linkedin": "https://www.linkedin.com/in/arystanbek-kagan-3b968733a/"
+export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) => {
+    const mockApplicationDetails: DetailedPendingApplication = {
+        "resume_optimized": {
+            "resume": {
+                "header": {
+                    "personal_information": {
+                        "name": "Marco",
+                        "surname": "Rossi",
+                        "date_of_birth": "15/08/1995",
+                        "country": "Italy",
+                        "city": "Milan",
+                        "address": "Corso Buenos Aires 12",
+                        "phone_prefix": "+39",
+                        "phone": 3401234567.0,
+                        "email": "marco.rossi@example.com",
+                        "github": "https://github.com/marco-rossi/ProjectExample",
+                        "linkedin": "https://www.linkedin.com/in/marco-rossi"
+                    }
+                },
+                "body": {
+                    "education_details": {
+                        "education_details": [
+                            {
+                                "education_level": "Masters Degree",
+                                "institution": "Politecnico di Milano",
+                                "location": "Italy",
+                                "field_of_study": "Software Engineering",
+                                "final_evaluation_grade": "3.8/4",
+                                "start_date": 2018,
+                                "year_of_completion": 2024,
+                                "exam": {
+                                    "Data Structures": 3.9,
+                                    "Web Technologies": 3.8,
+                                    "Mobile Development": 4,
+                                    "Database Management": 3.7,
+                                    "Machine Learning": 4,
+                                    "Cloud Computing": 3.8
+                                }
+                            }
+                        ]
+                    },
+                    "experience_details": {
+                        "experience_details": [
+                            {
+                                "position": "Software Engineer",
+                                "company": "Tech Innovations",
+                                "employment_period": "06/2020 - Present",
+                                "location": "Italy",
+                                "industry": "Technology",
+                                "key_responsibilities": [
+                                    "Developed scalable web applications using modern frameworks",
+                                    "Collaborated with cross-functional teams to define project requirements",
+                                    "Implemented RESTful APIs for mobile and web applications",
+                                    "Conducted code reviews and mentored junior developers",
+                                    "Participated in Agile ceremonies and continuous improvement initiatives"
+                                ],
+                                "skills_acquired": [
+                                    "JavaScript",
+                                    "React",
+                                    "Node.js",
+                                    "Agile Methodologies",
+                                    "REST APIs",
+                                    "Cloud Services",
+                                    "DevOps Practices",
+                                    "Database Management",
+                                    "Team Collaboration",
+                                    "Technical Documentation"
+                                ]
+                            }
+                        ]
+                    },
+                    "projects": [
+                        {
+                            "name": "Portfolio Website",
+                            "description": "Created a personal portfolio website to showcase my projects and skills",
+                            "link": "https://github.com/marco-rossi/portfolio-website"
+                        },
+                        {
+                            "name": "E-commerce Platform",
+                            "description": "Developed a full-stack e-commerce application with payment integration and user authentication",
+                            "link": "https://github.com/marco-rossi/ecommerce-platform"
+                        }
+                    ],
+                    "achievements": {
+                        "achievements": [
+                            {
+                                "name": "Top Performer",
+                                "description": "Recognized as a top performer in the software engineering team for three consecutive quarters, demonstrating consistent excellence in software development and teamwork."
+                            },
+                            {
+                                "name": "Hackathon Winner",
+                                "description": "Won first place in a regional hackathon for developing an innovative mobile app, showcasing problem-solving skills and creativity in software design."
+                            },
+                            {
+                                "name": "Publication",
+                                "description": "Published an article on Medium about best practices in web development, highlighting expertise in the field and ability to communicate technical concepts effectively."
+                            }
+                        ]
+                    },
+                    "certifications": {
+                        "certifications": [
+                            {
+                                "name": "AWS Certified Solutions Architect",
+                                "description": "Certification demonstrating proficiency in designing distributed applications and systems on AWS"
+                            }
+                        ]
+                    },
+                    "additional_skills": {
+                        "additional_skills": [
+                            "Artificial Intelligence",
+                            "Blockchain Technology",
+                            "Open Source Development",
+                            "Cybersecurity",
+                            "Game Development",
+                            "Robotics",
+                            "Virtual Reality",
+                            "REST APIs",
+                            "Technical Documentation",
+                            "React",
+                            "DevOps Practices",
+                            "Agile Methodologies",
+                            "Cloud Services",
+                            "Database Management",
+                            "Team Collaboration",
+                            "Node.js",
+                            "JavaScript"
+                        ],
+                        "languages": [
+                            {
+                                "language": "Italian",
+                                "proficiency": "Native"
+                            },
+                            {
+                                "language": "English",
+                                "proficiency": "Fluent"
+                            },
+                            {
+                                "language": "Spanish",
+                                "proficiency": "Intermediate"
+                            }
+                        ]
+                    }
+                }
             }
-          },
-          "body": {
-            "education_details": {
-              "education_details": [
-                {
-                  "education_level": "B.S.",
-                  "institution": "Almaty University of Power Engineering and Telecommunications",
-                  "field_of_study": "Computer Science",
-                  "final_evaluation_grade": "3.8",
-                  "start_date": "September 2019",
-                  "year_of_completion": "March 2024"
-                }
-              ]
-            },
-            "experience_details": {
-              "experience_details": [
-                {
-                  "position": "Software Engineer Intern",
-                  "company": "Aura",
-                  "employment_period": "MAY 2024 - Present",
-                  "location": "Almaty, KZ",
-                  "industry": "Tech",
-                  "key_responsibilities": [
-                      "Participated in agile development processes, effectively adapting to changing requirements while maintaining high-quality results.",
-                      "Documented development procedures, creating valuable reference materials for future projects or team members joining the team.",
-                      "Collaborated with software engineers to develop and test application procedures for system efficiency.",
-                      "Enhanced software performance by optimizing algorithms and streamlining code.",
-                      "Utilized version control systems like Git effectively managing changes over time allowing for seamless collaboration among team members."
-                  ],
-                  "skills_acquired": [
-                      "Dart",
-                      "JavaScript",
-                      "TypeScript",
-                      "Flutter",
-                      "React.js",
-                      "Next.js",
-                      "Git",
-                      "RESTful APIs",
-                      "Firebase",
-                      "Agile",
-                      "Scrum"
-                  ]
-                }
-              ]
-            },
-            "side_projects": [
-              {
-                "name": "Portfolio",
-                "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing.",
-                "link": "https://www.perplexity.ai/"
-              },
-              {
-                "name": "Web Scaper",
-                "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing.",
-                "link": "https://www.perplexity.ai/"
-              }
-            ],
-            "achievements": {
-              "achievements": [
-                {
-                  "name": "Top Performer",
-                  "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing. Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing."
-                },
-                {
-                  "name": "Top Frontender",
-                  "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing. Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing."
-                }
-              ]
-            },
-            "certifications": {
-              "certifications": [
-                {
-                  "name": "AWS Certified Developer",
-                  "description": "Validates expertise in developing and maintaining applications on the AWS platform, showcasing skills in cloud computing."
-                },
-                {
-                  "name": "Microsoft Certified: Azure Developer",
-                  "description": "Demonstrates proficiency in designing, building, testing, and maintaining cloud applications and services on Microsoft Azure."
-                }
-              ]
-            },
-            "additional_skills": {
-              "additional_skills": [
-                "Python",
-                "Java",
-                "C++",
-                "Agile methodologies",
-                "Scrum",
-                "Git",
-                "Debugging",
-                "Unit testing",
-                "Integration testing",
-                "SQL",
-                "NoSQL databases"
-              ],
-              "languages": [
-                {
-                  "language": "Kazakh",
-                  "proficiency": "Native"
-                },
-                {
-                  "language": "Russian",
-                  "proficiency": "Fluent"
-                },
-                {
-                  "language": "English",
-                  "proficiency": "Intermediate"
-                }
-              ]
-            }
-          }
-        }
-      },
-      "cover_letter": {
+        },
         "cover_letter": {
-          "header": {
-            "applicant_details": {
-              "name": "asdasd asdasd",
-              "address": "sad",
-              "city_state_zip": "asdasd, sadasd",
-              "email": "asasddasd@asas.asd",
-              "phone_number": "asdsad asdasd"
-            },
-            "company_details": {
-              "name": "[Company Name]"
+            "cover_letter": {
+                "header": {
+                    "applicant_details": {
+                        "name": "Marco Rossi",
+                        "address": "Corso Buenos Aires 12",
+                        "city_state_zip": "Milan, Italy",
+                        "email": "marco.rossi@example.com",
+                        "phone_number": "+39 3401234567"
+                    },
+                    "company_details": {
+                        "name": "Google"
+                    }
+                },
+                "body": {
+                    "greeting": "Dear Google Hiring Team,",
+                    "opening_paragraph": "I am writing to express my interest in the Software Engineer position at Google. With a Master's degree in Software Engineering from Politecnico di Milano and over three years of professional experience in developing scalable web applications, I am excited about the opportunity to contribute to a company that values innovation and excellence.",
+                    "body_paragraphs": "In my current role at Tech Innovations, I have successfully developed and implemented RESTful APIs and collaborated with cross-functional teams to deliver high-quality software solutions. My proficiency in Java and cloud services, along with my experience in Agile methodologies, aligns well with the requirements outlined in the job description. Additionally, my AWS Certified Solutions Architect certification demonstrates my commitment to staying current with industry trends, particularly in cloud computing and microservices architecture. I am particularly drawn to Google's mission of organizing the world's information and making it universally accessible and useful, as I believe technology should empower and enhance lives.",
+                    "closing_paragraph": "I am eager to bring my skills in software development and my passion for problem-solving to Google. Thank you for considering my application; I look forward to the opportunity to discuss how I can contribute to your team."
+                },
+                "footer": {
+                    "closing": "Sincerely",
+                    "signature": "Marco Rossi",
+                    "date": "October 2023"
+                }
             }
-          },
-          "body": {
-            "greeting": "Dear [Recipient Team]",
-            "opening_paragraph": "I am excited to apply for the web developer position at [Company Name]. With a strong foundation in Python and Django, alongside experience in front-end technologies like HTML, CSS, and JavaScript, I am eager to contribute to your team and help drive innovative web solutions.",
-            "body_paragraphs": "In my previous role, I successfully designed and maintained web applications, ensuring clean, efficient, and well-documented code. My proficiency in RESTful APIs and database technologies such as PostgreSQL and MySQL has allowed me to optimize application performance and implement robust security measures. Additionally, my familiarity with Agile methodologies and contributions to open-source projects have honed my teamwork and problem-solving skills, aligning perfectly with the collaborative culture at [Company Name].",
-            "closing_paragraph": "I am particularly drawn to [Company Name]'s commitment to leveraging emerging technologies and continuous learning. I am enthusiastic about the opportunity to discuss how my background and skills can contribute to your mission. Thank you for considering my application."
-          },
-          "footer": {
-            "closing": "Sincerely",
-            "signature": "asdasd asdasd",
-            "date": "[Date]"
-          }
-        }
-      },
-      "job_id": null,
-      "title": "Software Developer",
-      "description": "Remote position  Skills & Requirements  Experience: B.S. Computer Science or applicable field and 2 to 5 years of professional experience working in full-stack development with demonstrated experience in front-end, server side, and database work.  Needed Skills: Python, Django, JavaScript, SQL, HTML, CSS, strong experience with developing and using APIs.  Bonus Credit Skills: React, PostgreSQL, AWS exposure, EC2, S3, Git, Responsive web frameworks, Jira  Additional: The candidate should have strong experience working with Django, ORM, Python, and responsive front-end development. Experience developing and integrating APIs is a must. Adept communication skills, talking with content experts, design specialists, and product owners will be expected and interpreting their needs into actionable items is crucial.",
-      "portal": "test_portal",
-      "sent": "false"
-    }
-  }
-
-  const converted = toResumeType(applicationDetails);
-  
-  const [ activeTab, setActiveTab ] = useState<Tab>("resume");
-  const methods = useForm({
-    defaultValues: converted,
-  });
-  
-  const handleResumeSubmit = (data: Resume) => {
-    const updates = {};
-    // for (const key in methods.formState.dirtyFields) {
-    //   // Convert dot notation to MongoDB update format
-    //   const parts = key.split('.');
-    //   let current = updates;
-    //   for (let i = 0; i < parts.length - 1; i++) {
-    //     if (!current[parts[i]]) {
-    //       current[parts[i]] = {};
-    //     }
-    //     current = current[parts[i]];
-    //   }
-    //   current[parts[parts.length - 1]] = data[key as keyof Resume]; // Type-safe access
-    // }
-
-    const redef = {
-      "resume_optimized": {
-        "resume": data
-      }
+        },
+        "title": "FP&A manager",
+        "is_remote": null,
+        "workplace_type": null,
+        "posted_date": null,
+        "job_state": null,
+        "description": "Boh",
+        "apply_link": null,
+        "company_name": null,
+        "location": null,
+        "id": null,
+        "job_id": 1111,
+        "portal": "example",
+        "gen_cv": null
     }
 
-    console.log("Updates for data:", JSON.stringify(redef));
-    console.log("Updates for dirtyFields:", JSON.stringify(methods.formState.dirtyFields));
+    const converted = toResumeType(mockApplicationDetails);
+    const jobInfo = toJobInfoType(mockApplicationDetails);
+    const [activeTab, setActiveTab] = useState<Tab>("resume");
 
-    // console.log("Updates for MongoDB:", JSON.stringify(updates, null, 2));
-    // onSave(data); // Or send the 'updates' object to your backend for the PUT request
-  };
-
-  return (
-    <div className="w-full flex flex-col bg-base-200">
-      <div className="w-[1440px] mx-auto flex gap-10 pt-5">
-        <button className={`btn btn-outline ${activeTab === "resume" ? "btn-primary" : ""}`} onClick={() => setActiveTab("resume")}>resume</button>
-        <button className={`btn btn-outline ${activeTab === "jobInfo" ? "btn-primary" : ""}`} onClick={() => setActiveTab("jobInfo")}>jobInfo</button>
-        <button className={`btn btn-outline ${activeTab === "coverLetter" ? "btn-primary" : ""}`} onClick={() => setActiveTab("coverLetter")}>coverLetter</button>
-      </div>
-      <div className="w-[1440px] mx-auto py-5">
-        {activeTab === "resume" && (
-          <FormProvider {...methods}>
-            <div className="aspect-[210/297] h-fit w-1/2 mx-auto overflow-y-auto bg-white text-black shadow-xl">
-              <form 
-                id='my-form' 
-                className="w-full" 
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                  }
-                }}
-                onSubmit={methods.handleSubmit(handleResumeSubmit)}
-              >
-                <TemplateProfessional />
-              </form>
-            </div>
-          </FormProvider>
-        )}
-        {activeTab === "jobInfo" && (<h1 className='text-[32px] leading-10 mb-8'>
-          {applicationDetails.title}
-        </h1>)}
-        {activeTab === "coverLetter" && (<h1 className='text-[32px] leading-10 mb-8'>
-          {
-            applicationDetails.cover_letter.cover_letter.header.applicant_details.name
-          }
-        </h1>)}
-        <button 
-          className="bg-black pl-[30px] pr-[16px] py-3 text-lg leading-none text-white w-[300px] rounded-full flex justify-between items-center hover:bg-base-content" 
-          form='my-form' 
-          type="submit" 
-          disabled={methods.formState.isSubmitting}
-        >
-          {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
-          <p>Save & Continue</p>
-        </button>
-      </div>
-    </div>
-  );
+    return (
+        <>
+            <JobApplicationHeader job={jobInfo} />
+            <ActiveSectionProvider>
+                <div className="w-full grow flex flex-col bg-base-100">
+                    <div className="w-[940px] mx-auto flex gap-2 pt-5">
+                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "resume" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("resume")}>Resume</button>
+                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "coverLetter" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("coverLetter")}>Cover Letter</button>
+                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "jobInfo" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("jobInfo")}>Job Description</button>
+                    </div>
+                    <div className="">
+                        {activeTab === "resume" && (
+                            <CVTemplateProvider>
+                                <TemplateProfessional id={id} resume={converted} />
+                            </CVTemplateProvider>
+                        )}
+                        {activeTab === "coverLetter" && (
+                            <ApplicationCoverLetter id={id} letter={mockApplicationDetails.cover_letter} />
+                        )}
+                        {activeTab === "jobInfo" && (
+                            <ApplicationJobInfo job={jobInfo} />
+                        )}
+                    </div>
+                </div>
+            </ActiveSectionProvider>
+        </>
+    );
 };

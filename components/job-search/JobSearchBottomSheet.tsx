@@ -16,7 +16,7 @@ export const JobSearchBottomSheet: React.FC = () => {
       router.push('/manager')
       // try {
       //   const response = await addJobsToManager(selectedJobs);
-  
+
       //   if (response.success) {
       //     toast.success("Application submitted!");
       //     router.push('/manager')
@@ -28,14 +28,14 @@ export const JobSearchBottomSheet: React.FC = () => {
       // } 
     }
   };
-  
+
   return (
-    <div className="fixed bottom-0 z-10 w-full h-20 border-t border-base-content flex items-center bg-base-100">
+    <div className="fixed bottom-0 z-10 w-full h-20 border-t border-base-content flex items-center bg-primary">
       <div className="w-[1440px] mx-auto flex justify-end items-center gap-5">
         <p className='text-md'>Adding <span className="font-bold">{selectedJobs.length} jobs</span> to your Job Manager</p>
-        <div 
-          onClick={handleApply} 
-          className="bg-black border-2 border-black rounded-full text-white py-2 pl-5 pr-2 flex items-center justify-between hover:bg-base-100 hover:text-black cursor-pointer"
+        <div
+          onClick={handleApply}
+          className="bg-secondary border-2 border-black rounded-full text-black py-2 pl-5 pr-2 flex items-center justify-between hover:bg-base-100 hover:text-black cursor-pointer"
         >
           <p className="leading-none text-md">Add to Job Manager</p>
           <ChevronRight size={30} />

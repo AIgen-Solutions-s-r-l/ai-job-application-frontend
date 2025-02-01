@@ -5,13 +5,15 @@ import { revalidatePath } from "next/cache";
 import { Bot, JobProfile, MatchingJob, UploadFile } from "./definitions";
 import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
-import { SafeParseError, SafeParseReturnType, SafeParseSuccess, z } from "zod";
+import { SafeParseError, SafeParseReturnType, SafeParseSuccess } from "zod";
 import moment from "moment";
 import { createResume, pdfToJson, updateResume } from "./api/resume";
-import { fromJobProfile, toJobProfile } from "./job-profile-util";
+import { fromJobProfile, toJobProfile } from "./utils/job-profile-util";
 import { createJobApplication } from "./api/application";
-import { redirect } from "next/navigation";
-import { applySelectedApplications } from "./api/apply_pending";
+import { applySelectedApplications, updateApplicationLetter, updateApplicationResume } from "./api/apply_pending";
+import { Resume } from "./types/application.types";
+import { fromResumeType } from "./utils/application.util";
+import { CoverLetterCoverLetter } from "./types/response-application.types";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -184,6 +186,54 @@ export const applySelectedApplicationsAction = async (applications: string[]): P
     return { success: true };
   } catch (error) {    
     console.error("Error when applying to selected jobs:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const updateApplicationResumeAction = async (id: string, resumeData: Resume): Promise<{
+  success: boolean;
+  error?: string;
+}> => {
+  try {
+    const entries: any = fromResumeType(resumeData);
+
+    const response = await updateApplicationResume(id, entries);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+
+    revalidatePath(`/manager/${id}`);
+
+    return { success: true };
+  } catch (error) {    
+    console.error("Error updating job profile:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const updateApplicationLetterAction = async (id: string, resumeData: CoverLetterCoverLetter): Promise<{
+  success: boolean;
+  error?: string;
+}> => {
+  try {
+    const response = await updateApplicationLetter(id, resumeData);
+
+    if (!response.success) {
+      return {
+        success: false,
+        error: `Server returned ${response.error}`,
+      };
+    }
+
+    revalidatePath(`/manager/${id}`);
+
+    return { success: true };
+  } catch (error) {    
+    console.error("Error updating job profile:", error);
     return { success: false, error: error.message };
   }
 }

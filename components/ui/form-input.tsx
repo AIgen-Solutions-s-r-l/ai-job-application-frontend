@@ -14,19 +14,19 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, title, error, errorMessage, required = true, ...props }, ref) => {
     return (
       <div className={className}>
-        <label className="flex justify-start text-base leading-none mb-3">
+        <label className="flex justify-start text-base leading-none mb-3 font-jura font-semibold">
           {title} {required && <span className="text-error ml-1">*</span>}
         </label>
         <input
           type={type}
           className={cn(
-            "w-full h-10 bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm px-[10px] rounded-md text-base",
+            "w-full h-10 bg-white outline-none border border-my-neutral-4 focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base px-[10px] rounded-md text-[18px] font-jura",
             error && "placeholder-shown:border-error"
           )}
           ref={ref}
           {...props}
         />
-        {error && <p className="text-error mt-[2px] text-xs">{errorMessage}</p>}
+        {error && <p className="text-error mt-[2px] text-xs font-jura">{errorMessage}</p>}
       </div>
     )
   }

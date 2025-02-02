@@ -59,11 +59,11 @@ const TOS = () => {
         >
           {`Last updated: October 11, 2024
 
-Welcome to aihawk (“we”, “us”, or “our”). By accessing or using our website located at https://aihawk.co (the “Service”), you agree to be bound by these Terms & Services (“Terms”). If you do not agree to these Terms, please do not use the Service.
+Welcome to laboro (“we”, “us”, or “our”). By accessing or using our website located at https://laboro.co (the “Service”), you agree to be bound by these Terms & Services (“Terms”). If you do not agree to these Terms, please do not use the Service.
 
 1. Description of Service
 
-aihawk automates job applications on LinkedIn, allowing users to personalize their applications with AI-generated cover letters and responses. The Service is intended for personal use only.
+laboro automates job applications on LinkedIn, allowing users to personalize their applications with AI-generated cover letters and responses. The Service is intended for personal use only.
 
 2. Eligibility
 
@@ -77,7 +77,7 @@ You must be at least 18 years old to use the Service. By using the Service, you 
 4. Payment and Refund Policy
 
 	•	Payment: Certain features of the Service may require payment. By making a purchase, you agree to provide accurate payment information.
-	•	Refunds: If you have not used the Service, you may request a refund within 7 days of purchase by contacting us at david@aihawk.co.
+	•	Refunds: If you have not used the Service, you may request a refund within 7 days of purchase by contacting us at david@laboro.co.
 
 5. Data Collection and Privacy
 
@@ -87,7 +87,7 @@ You must be at least 18 years old to use the Service. By using the Service, you 
 
 6. Intellectual Property
 
-All content and materials on the Service are the property of aihawk and are protected by applicable intellectual property laws. Unauthorized use is prohibited.
+All content and materials on the Service are the property of laboro and are protected by applicable intellectual property laws. Unauthorized use is prohibited.
 
 7. Modifications to the Service and Terms
 
@@ -99,9 +99,9 @@ These Terms are governed by the laws of Spain, without regard to its conflict of
 
 9. Contact Information
 
-If you have any questions or concerns about these Terms, please contact us at david@aihawk.co.
+If you have any questions or concerns about these Terms, please contact us at david@laboro.co.
 
-Thank you for using aihawk!`}
+Thank you for using laboro!`}
         </pre>
       </div>
     </main>

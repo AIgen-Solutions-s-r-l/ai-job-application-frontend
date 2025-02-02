@@ -145,7 +145,7 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
           <div className="flex items-center gap-10">
             <p className='text-base text-white'>You’re editing the Cover Letter</p>
             <button
-              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
+              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-100 disabled:bg-neutral-content"
               form='my-form'
               type="submit"
               disabled={formState.isSubmitting}

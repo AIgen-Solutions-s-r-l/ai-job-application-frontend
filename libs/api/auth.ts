@@ -152,11 +152,11 @@ export const register = createServerAction(async (username: string, email: strin
 
 export async function resetPasswordForEmail(email: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/forgot-password`, {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/password-reset-request`, {
       email,
     });
 
-    if (response.status !== 201) {
+    if (response.status !== 200) {
       return {
         success: false,
         error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
@@ -170,13 +170,14 @@ export async function resetPasswordForEmail(email: string): Promise<{ success: b
   }
 }
 
-export async function updateUser(new_password: string, token: string): Promise<{ success: boolean; error?: string }> {
+export async function resetPassword(new_password: string, token: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/reset-password/${token}`, {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/reset-password`, {
+      token,
       new_password,
     });
 
-    if (response.status !== 201) {
+    if (response.status !== 200) {
       return {
         success: false,
         error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
@@ -185,7 +186,23 @@ export async function updateUser(new_password: string, token: string): Promise<{
 
     return { success: true };
   } catch (error) {
-    console.error(`Error when updating password`, error);
-    return { success: false, error: error.message };
+    const status = error.response?.status;
+    switch (status) {
+      case 400:
+        return {
+        success: false,
+        error: 'Invalid or expired reset token',
+      };
+      case 422: {
+        return {
+        success: false,
+        error: 'Validation error (password requirements not met)',
+      };
+      }
+      default: {
+        console.error(`Error when updating password`, error);
+        return { success: false, error: error.message };
+      }
+    }
   }
 }

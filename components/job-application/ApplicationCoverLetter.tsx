@@ -12,9 +12,10 @@ import { useRouter } from 'next/navigation';
 interface Props {
   id: string;
   letter: CoverLetter;
+  goBack?: () => void;
 }
 
-export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
+export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter, goBack }) => {
   const { activeSection } = useActiveSectionContext();
   const router = useRouter();
 
@@ -138,7 +139,7 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"
             type="button"
-            onClick={() => router.replace('/manager')}
+            onClick={goBack}
           >
             Go Back
           </button>

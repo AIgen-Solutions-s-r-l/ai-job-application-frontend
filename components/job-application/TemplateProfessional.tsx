@@ -18,9 +18,10 @@ import { useRouter } from 'next/navigation';
 interface Props {
   id: string;
   resume: Resume;
+  goBack?: () => void;
 }
 
-export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
+export const TemplateProfessional: React.FC<Props> = ({ id, resume, goBack }) => {
   const { activeSection } = useActiveSectionContext();
   const { template, setSelectedTemplate } = useCVTemplateContext();
   const router = useRouter();
@@ -86,14 +87,14 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"
             type="button"
-            onClick={() => router.replace('/manager')}
+            onClick={goBack}
           >
             Go Back
           </button>
           <div className="flex items-center gap-10">
             <p className='text-base text-black'>You’re editing the Resume</p>
             <button
-              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
+              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-100 disabled:bg-neutral-content"
               form='my-form'
               type="submit"
               disabled={methods.formState.isSubmitting}

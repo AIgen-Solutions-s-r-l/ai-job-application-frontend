@@ -20,7 +20,7 @@ export const JobApplicationHeader: React.FC<Props> = ({ job }) => {
         </div>
 
         <div
-          className="w-[493px] h-[235px] -mb-[48px] bg-base-100 shadow-xl rounded-xl relative p-[30px] flex flex-col gap-[20px] leading-none cursor-pointer"
+          className="w-[493px] h-[235px] -mb-[48px] shadow-xl rounded-xl relative p-[30px] flex flex-col gap-[20px] leading-none cursor-pointer bg-white"
         >
           <div className="flex gap-[8px] items-center">
             <p className='text-[32px] font-medium'>{job.company_name ?? 'Company Name'}</p>

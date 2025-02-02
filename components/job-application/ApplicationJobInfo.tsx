@@ -4,16 +4,17 @@ import { useRouter } from 'next/navigation';
 import { JobInfo } from '@/libs/types/application.types';
 
 interface Props {
-  className?: string;
   job: JobInfo;
+  className?: string;
+  goBack?: () => void;
 }
 
-export const ApplicationJobInfo: React.FC<Props> = ({ className, job }) => {
+export const ApplicationJobInfo: React.FC<Props> = ({ className, job, goBack }) => {
   const router = useRouter();
 
   return (
     <>
-      <div className={cn("w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-base-100 py-8 px-10 shadow-xl mb-[80px]", className)}>
+      <div className={cn("w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]", className)}>
         <div className="flex justify-between flex-0">
           <div className="flex flex-col gap-3 leading-none">
             <h3 className="text-[22px] font-medium">{job.title}</h3>
@@ -31,7 +32,7 @@ export const ApplicationJobInfo: React.FC<Props> = ({ className, job }) => {
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"
             type="button"
-            onClick={() => router.replace('/manager')}
+            onClick={goBack}
           >
             Go Back
           </button>

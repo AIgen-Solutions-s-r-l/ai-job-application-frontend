@@ -9,6 +9,7 @@ import { ApplicationCoverLetter } from './ApplicationCoverLetter';
 import { ApplicationJobInfo } from './ApplicationJobInfo';
 import CVTemplateProvider from '../../contexts/cv-template-context';
 import { JobApplicationHeader } from './JobApplicationHeader';
+import { useRouter } from 'next/navigation';
 
 interface Props {
     id: string;
@@ -204,6 +205,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
         "gen_cv": null
     }
 
+    const router = useRouter();
     const converted = toResumeType(mockApplicationDetails);
     const jobInfo = toJobInfoType(mockApplicationDetails);
     const [activeTab, setActiveTab] = useState<Tab>("resume");
@@ -221,14 +223,14 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
                     <div className="">
                         {activeTab === "resume" && (
                             <CVTemplateProvider>
-                                <TemplateProfessional id={id} resume={converted} />
+                                <TemplateProfessional id={id} resume={converted} goBack={() => router.back()} />
                             </CVTemplateProvider>
                         )}
                         {activeTab === "coverLetter" && (
-                            <ApplicationCoverLetter id={id} letter={mockApplicationDetails.cover_letter} />
+                            <ApplicationCoverLetter id={id} letter={mockApplicationDetails.cover_letter} goBack={() => router.back()} />
                         )}
                         {activeTab === "jobInfo" && (
-                            <ApplicationJobInfo job={jobInfo} />
+                            <ApplicationJobInfo job={jobInfo} goBack={() => router.back()} />
                         )}
                     </div>
                 </div>

@@ -36,15 +36,15 @@ export const JobManagerBottomSheet: React.FC = () => {
           onClick={() => router.back()}
         >
           <ArrowLeft className='text-white' size={27} />
-          <p className='text-md text-white'>Back to Job Search</p>
+          <p className='text-base text-white'>Back to Job Search</p>
         </div>
         <div className="flex items-center gap-5">
-          <p className='text-md text-white'>You’re applying to <span className="font-bold">{selectedApplications.length} jobs</span> instantly</p>
+          <p className='text-base text-white'>You’re applying to <span className="font-bold">{selectedApplications.length} jobs</span> instantly</p>
           <div
             onClick={handleApply}
-            className="bg-secondary rounded-full text-neutral py-2 pl-5 pr-2 flex items-center justify-between hover:bg-base-100 hover:text-black cursor-pointer"
+            className="bg-secondary rounded-full py-2 pl-5 pr-2 flex items-center justify-between hover:bg-base-100 cursor-pointer"
           >
-            <p className="leading-none text-md">Submit Applications</p>
+            <p className="leading-none text-base">Submit Applications</p>
             <ChevronRight size={30} />
           </div>
         </div>

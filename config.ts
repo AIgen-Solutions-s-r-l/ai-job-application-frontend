@@ -3,12 +3,12 @@ import { ConfigProps } from "./types/config";
 
 const config = {
   // REQUIRED
-  appName: "aihawk",
+  appName: "laboro",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "Automate your LinkedIn job applications effortlessly with aihawk. Save time, apply faster, and get hired quicker.",
+    "Automate your LinkedIn job applications effortlessly with laboro. Save time, apply faster, and get hired quicker.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
-  domainName: "aihawk.co",
+  domainName: "laboro.co",
   crisp: {
     // Crisp website ID. If you don't use Crisp, you can remove this.
     id: "",
@@ -27,7 +27,7 @@ const config = {
         //  REQUIRED - Name of the plan, displayed on the pricing page
         name: "Free Plan",
         // A friendly description of the plan, displayed on the pricing page
-        description: "Try the essential features of aihawk for free",
+        description: "Try the essential features of laboro for free",
         // The price you want to display, the one user will be charged on Stripe
         price: 0,
         // No priceAnchor because this is a free plan
@@ -79,21 +79,21 @@ const config = {
   },
   aws: {
     // If you use AWS S3/Cloudfront, put values in here
-    bucket: "aihawk-bucket",
-    bucketUrl: `https://aihawk-bucket.s3.amazonaws.com/`,
-    cdn: "https://cdn.aihawk.co/",
+    bucket: "laboro-bucket",
+    bucketUrl: `https://laboro-bucket.s3.amazonaws.com/`,
+    cdn: "https://cdn.laboro.co/",
   },
   mailgun: {
     // subdomain to use when sending emails
     subdomain: "mg",
     // REQUIRED — Email 'From' field to be used when sending magic login links
-    fromNoReply: `aihawk <noreply@mg.aihawk.co>`,
+    fromNoReply: `laboro <noreply@mg.laboro.co>`,
     // REQUIRED — Email 'From' field to be used when sending other emails, like abandoned carts, updates, etc.
-    fromAdmin: `David at aihawk <david@mg.aihawk.co>`,
+    fromAdmin: `David at laboro <david@mg.laboro.co>`,
     // Email shown to customers if they need support
-    supportEmail: "support@aihawk.co",
+    supportEmail: "support@laboro.co",
     // When someone replies to the support email, forward it to this email
-    forwardRepliesTo: "david@aihawk.co",
+    forwardRepliesTo: "david@laboro.co",
   },
   colors: {
     // REQUIRED — The DaisyUI theme to use. Leave blank for default (light & dark mode). 

@@ -133,7 +133,7 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter }) => {
           </div>
         </form>
       </div>
-      <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-primary">
+      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"

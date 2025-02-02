@@ -24,7 +24,7 @@ export default function ResetPassword() {
         toast.success("Password reset email sent! Check your inbox.");
         setIsEmailSend(true);
       } else {
-        toast.error("Failed to send password reset email.");
+        toast.error(`Failed to send password reset email: ${response.error}`);
         console.error("Failed to send password reset email.:", response.error);
       }
     } catch (error) {

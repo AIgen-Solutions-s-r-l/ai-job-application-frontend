@@ -5,7 +5,7 @@ import { createClient } from "@/libs/supabase/client";
 import toast from "react-hot-toast";
 import config from "@/config";
 import { useRouter } from "next/navigation";
-import { updateUser } from "@/libs/api/auth";
+import { resetPassword } from "@/libs/api/auth";
 import Link from "next/link";
 
 export default function UpdatePassword({
@@ -37,12 +37,12 @@ export default function UpdatePassword({
     }
 
     try {
-      const response = await updateUser(newPassword, searchParams.token);
+      const response = await resetPassword(newPassword, searchParams.token);
       if (response.success) {
         toast.success("Password updated successfully! Please log in with your new password.");
         router.replace("/signin");
       } else {
-        toast.error("Failed to update password.");
+        toast.error(`Failed to update password: ${response.error}`);
         console.error("Failed to update password.:", response.error);
         setHasError(true);
       }

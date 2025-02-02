@@ -10,6 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        jura: ['var(--font-jura)'],
+        montserrat: ['var(--font-montserrat)'],
         roboto: ['Roboto', 'serif'],
         poppins: ['Poppins', 'serif'],
         barlow: ['Barlow', 'serif'],
@@ -100,6 +102,7 @@ module.exports = {
           "primary": "#8783D1",
           "secondary": "#B9FF5E",
           "accent": "#EE3449",
+          "neutral-cold": "#DCDCDC",
           "neutral": "#3d4451",
           "neutral-content": "#E9E3EE",
           "base-100": "#F9F3F9",

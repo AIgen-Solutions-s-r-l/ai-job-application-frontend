@@ -93,7 +93,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
           <div className="flex items-center gap-10">
             <p className='text-base text-black'>You’re editing the Resume</p>
             <button
-              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-content disabled:bg-neutral-content"
+              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-100 disabled:bg-neutral-content"
               form='my-form'
               type="submit"
               disabled={methods.formState.isSubmitting}

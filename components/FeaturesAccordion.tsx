@@ -19,7 +19,7 @@ const features = [
   {
     title: "AI-Powered Job Applications",
     description:
-      "aihawk automates the entire job application process using AI. From answering job-specific questions to generating custom cover letters, let AI handle the heavy lifting and increase your chances of landing a job.",
+      "laboro automates the entire job application process using AI. From answering job-specific questions to generating custom cover letters, let AI handle the heavy lifting and increase your chances of landing a job.",
     type: "video",
     path: "https://www.youtube.com/embed/gdW9wogHEUM", // Enlace embebido de YouTube
     embed: true, // Indica que es un video embebido
@@ -42,7 +42,7 @@ const features = [
   {
     title: "AI-Generated Resumes",
     description:
-      "aihawk gives you the option to either upload your own resume or let our AI generate one for you. The AI-crafted resume will be tailored to the job you're applying for, ensuring your best skills and experiences stand out.",
+      "laboro gives you the option to either upload your own resume or let our AI generate one for you. The AI-crafted resume will be tailored to the job you're applying for, ensuring your best skills and experiences stand out.",
     type: "image",
     path: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
     alt: "AI-Generated Resume",
@@ -66,7 +66,7 @@ const features = [
   {
     title: "AI-Generated Cover Letters",
     description:
-      "No need to worry about crafting the perfect cover letter. AiHawk’s AI generates personalized, job-specific cover letters that highlight your strengths and align with the job description.",
+      "No need to worry about crafting the perfect cover letter. laboro’s AI generates personalized, job-specific cover letters that highlight your strengths and align with the job description.",
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@ const features = [
   {
     title: "Job-Specific Question Responses",
     description:
-      "AiHawk’s AI generates smart, job-specific answers to common application questions, ensuring your application is thorough and professional without the hassle of manual input.",
+      "laboro’s AI generates smart, job-specific answers to common application questions, ensuring your application is thorough and professional without the hassle of manual input.",
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@ const FeaturesAccordion = () => {
         <h2 className="font-extrabold text-4xl lg:text-6xl tracking-tight mb-12 md:mb-24">
           AI-Driven Job Applications are
           <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed whitespace-nowrap">
-            aihawk’s
+            laboro’s
           </span>
         </h2>
         <div className="flex flex-col md:flex-row gap-12 md:gap-24">

@@ -2,7 +2,6 @@
 
 import { useJobManager } from '@/contexts/job-manager-context';
 import { applySelectedApplicationsAction } from '@/libs/actions';
-import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
@@ -31,7 +30,7 @@ export const JobManagerBottomSheet: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 z-10 w-full h-20 flex items-center bg-primary shadow-[0px_-4px_4px_rgba(0,0,0,0.25)]">
+    <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary shadow-[0px_-4px_4px_rgba(0,0,0,0.25)]">
       <div className="w-[1440px] mx-auto flex justify-between items-center">
         <div className='flex items-center gap-3'>
           <div

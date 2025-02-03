@@ -29,10 +29,10 @@ export const JobFeedList: React.FC = () => {
     <div className="w-full gap-5 bg-base-100 mb-20 py-5">
       <div className="w-[1440px] mx-auto flex gap-5">
         <div className="w-[430px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0">
-          <div className="h-16 drop-shadow-md flex items-center justify-end gap-5 pr-4 bg-white rounded-xl">
+          <div className="h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
             <p>Select All</p>
-            <div className="h-12 w-12 border border-base-content rounded-xl flex items-center justify-center cursor-pointer" onClick={handleSelectAll}>
-              {isAllSelected() && <Check size={24} />}
+            <div className="h-10 w-10 border border-base-content rounded-md flex items-center justify-center cursor-pointer bg-black" onClick={handleSelectAll}>
+              {isAllSelected() && <Check className='text-white' size={24} />}
             </div>
           </div>
           {jobs.map((job) => (

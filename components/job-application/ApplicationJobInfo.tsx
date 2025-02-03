@@ -13,7 +13,7 @@ export const ApplicationJobInfo: React.FC<Props> = ({ className, job }) => {
 
   return (
     <>
-      <div className={cn("w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-base-100 py-8 px-10 shadow-xl mb-[80px]", className)}>
+      <div className={cn("w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]", className)}>
         <div className="flex justify-between flex-0">
           <div className="flex flex-col gap-3 leading-none">
             <h3 className="text-[22px] font-medium">{job.title}</h3>
@@ -26,7 +26,7 @@ export const ApplicationJobInfo: React.FC<Props> = ({ className, job }) => {
           <p className="text-md font-light">{job.description}</p>
         </div>
       </div>
-      <div className="fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-primary">
+      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           <button
             className="w-[220px] h-[40px] rounded-full text-white text-lg"

@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
         >
           {`Last updated: October 11, 2024
 
-Thank you for choosing aihawk (“we,” “us,” or “our”). This Privacy Policy explains how we collect, use, and protect your personal information when you use our website https://aihawk.co (the “Service”). By accessing or using the Service, you agree to the terms of this Privacy Policy.
+Thank you for choosing laboro (“we,” “us,” or “our”). This Privacy Policy explains how we collect, use, and protect your personal information when you use our website https://laboro.co (the “Service”). By accessing or using the Service, you agree to the terms of this Privacy Policy.
 
 1. Information We Collect
 
@@ -100,9 +100,9 @@ We may update our Privacy Policy from time to time. We will notify you of any ch
 
 7. Contact Us
 
-If you have any questions or concerns about this Privacy Policy, please contact us at david@aihawk.co.
+If you have any questions or concerns about this Privacy Policy, please contact us at david@laboro.co.
 
-By using aihawk, you consent to the terms of this Privacy Policy.`}
+By using laboro, you consent to the terms of this Privacy Policy.`}
         </pre>
       </div>
     </main>

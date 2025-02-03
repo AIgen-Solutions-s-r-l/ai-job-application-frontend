@@ -36,9 +36,9 @@ const Login = () => {
           ]);
 
           setUser({ ...exists, ...me });
-          router.push(exists.exists ? "/dashboard" : "/onboarding");
+          router.replace(exists.exists ? "/dashboard" : "/onboarding");
         } catch (error) {
-          router.push("/onboarding");
+          router.replace("/onboarding");
         }
       } else if (result.success == false) {
         toast.error(result.error || "Failed to login.");

@@ -5,7 +5,6 @@ import { JobProfile } from "@/libs/definitions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { ArrowRight, Plus } from "lucide-react";
 import { FormInput, InputWrapper } from "@/components/ui/form-input";
-import { ProjectsNestedFieldArray } from "./AdditionalInfoOnboarding";
 
 type FormData = Pick<JobProfile, "experienceDetails">
 
@@ -32,7 +31,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
           <button
             type="button"
             disabled={fields.length === 1}
-            className="w-10 h-10 flex items-center justify-center bg-white outline-none border-[1px] border-base-content hover:bg-neutral text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+            className="remove-nested"
             onClick={() => remove(respIndex)}
           >
             <span className="text-base">−</span>
@@ -43,8 +42,8 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
             })}
             placeholder="e.g., Led a team of developers to build scalable applications"
             className={
-              `w-full bg-white outline-none border-[1px] border-neutral focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
-              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "placeholder-shown:border-error" : "placeholder-shown:border-primary"}`
+              `my-input
+              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] && "placeholder-shown:border-error"}`
             }
           />
         </div>
@@ -52,11 +51,11 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
       {fields.length === 1 && errors.experienceDetails?.[index]?.key_responsibilities?.[0] && <p className="text-error mt-[2px] text-xs">At least one responsibility is required</p>}
       <button
         type="button"
-        className="bg-white outline outline-1 outline-black rounded-md h-10 flex items-center gap-2 px-3 mt-4 text-base-content hover:bg-neutral hover:text-white"
+        className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-base">+</span>
-        <p className="text-base">Add Responsibility</p>
+        <span className="text-2xl">+</span> 
+        <p className="text-base">Add Exam</p>
       </button>
     </>
   )
@@ -94,14 +93,14 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   return (
     <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
-        <label className="flex justify-start text-base leading-none mb-2">
+        <label className="flex justify-start text-base leading-none mb-3 font-semibold">
           Skills
         </label>
         <textarea
           onChange={(e) => debouncedHandleSkillsChange(index, e.target.value)} // Use the debounced function
           defaultValue={skills ? skills.join(', ') : ''}
           placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
-          className="w-full bg-base-100 outline-none border-[1px] border-neutral focus:border-primary placeholder-shown:border-neutral placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base"
+          className="w-full bg-white outline-none border border-my-neutral-4 focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base h-20 px-[10px] pt-3 rounded-md text-[18px] font-jura"
         />
       </div>
     </div>
@@ -193,7 +192,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
 
           <div className="flex p-10 rounded-[22px] bg-white">
             <div className="w-full">
-              <label className="flex justify-start text-base leading-none mb-2">
+              <label className="flex justify-start text-base leading-none mb-3 font-semibold">
                 Key Responsibilities <span className="text-error ml-1">*</span>
               </label>
               <ResponsibilityNestedFieldArray index={index} />
@@ -207,11 +206,11 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
 
       <div className="flex items-center gap-4 my-5">
         <div
-          className="w-[240px] h-[50px] hover:text-base-100 text-black rounded-[20px] flex items-center justify-between px-[15px] bg-white cursor-pointer hover:bg-neutral group transition-all ease-in duration-100"
+          className="w-[240px] h-[50px] font-jura hover:text-white text-black rounded-[20px] flex items-center justify-between pl-[25px] pr-[20px] bg-white cursor-pointer hover:bg-my-neutral-5 group transition-all ease-in duration-100"
           onClick={handleAddExperience}
         >
-          <p className='text-lg'>Add Experience</p>
-          <Plus className='font-bold text-black group-hover:text-base-100' size={32} strokeWidth={3} />
+          <p className='text-lg font-semibold'>Add Experience</p>
+          <Plus className='font-bold text-black group-hover:text-white' size={32} strokeWidth={3} />
         </div>
       </div>
     </div>

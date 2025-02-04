@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,6 +14,10 @@ progress::-webkit-progress-value {
   transition: 0.6s width ease-out;
 }
 
+::-webkit-calendar-picker-indicator {
+  filter: invert(58%) sepia(10%) saturate(623%) hue-rotate(219deg) brightness(87%) contrast(88%);
+}
+
 @layer base {
   .btn-gradient {
     @apply !bg-gradient !bg-[length:300%_300%] hover:saturate-[1.2] shadow duration-100 !border-0 !border-transparent !bg-transparent animate-shimmer disabled:!bg-none disabled:!bg-gray-500/30 !text-white;
@@ -21,6 +25,26 @@ progress::-webkit-progress-value {
 
   .btn {
     @apply !capitalize;
+  }
+
+  .my-btn {
+    @apply h-[56px] px-7 flex items-center justify-between bg-primary-light-purple hover:bg-primary-light-purple-gray transition-all ease-in duration-100 rounded-[20px];
+  }
+
+  .my-btn-green {
+    @apply h-[56px] px-5 flex items-center justify-between bg-splash-green rounded-[20px];
+  }
+
+  .my-input {
+    @apply w-full h-10 bg-white outline-none border border-my-neutral-4 focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base px-[10px] rounded-md text-[18px] font-jura;
+  }
+
+  .add-nested {
+    @apply w-max px-6 h-10 font-jura font-semibold mt-4 bg-my-neutral-2 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-primary-light-purple transition-all ease-in duration-100 hover:text-white;
+  }
+
+  .remove-nested {
+    @apply w-10 h-10 flex items-center justify-center bg-my-neutral-2 outline-none border border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md;
   }
 
   @media (width <= 767px) {

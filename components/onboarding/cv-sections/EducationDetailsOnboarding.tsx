@@ -19,25 +19,25 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
   if (!fields.length) return null;
 
   return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-base-100">
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
-          <label className="w-full flex justify-start text-base leading-none">
+          <label className="w-full flex justify-start text-base leading-none font-semibold">
             Exam Subject
           </label>
-          <label className="w-full flex justify-start text-base leading-none">
+          <label className="w-full flex justify-start text-base leading-none font-semibold">
             Exam Grade
           </label>
         </div>
       </div>
       {fields.map((responsibility, respIndex) => (
         <div key={responsibility.id} className="flex-col w-full">
-          <div className="flex gap-2 mb-2">
+          <div className="flex gap-2">
             <button
               type="button"
               disabled={fields.length === 1}
-              className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              className="w-10 h-10 flex items-center justify-center bg-my-neutral-2 outline-none border border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -47,14 +47,14 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
                 <input
                   {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
                   placeholder="e.g., Certification Name"
-                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                  className="my-input"
                 />
               </div>
               <div className="w-full">
                 <input
                   {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
                   placeholder="e.g., Certification Description"
-                  className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm px-[10px] rounded-md text-base"
+                  className="my-input"
                 />
               </div>
             </div>
@@ -64,10 +64,10 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
 
       <button
         type="button"
-        className="w-[160px] h-10 mt-2 bg-base-200 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-secondary hover:text-white"
+        className="w-max px-6 h-10 font-jura font-semibold mt-4 bg-my-neutral-2 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-primary-light-purple transition-all ease-in duration-100 hover:text-white"
         onClick={() => append({ subject: "", grade: "" })}
       >
-        <span className="text-base">+</span> 
+        <span className="text-2xl">+</span> 
         <p className="text-base">Add Exam</p>
       </button>
     </div>
@@ -184,11 +184,11 @@ export const EducationDetailsOnboarding: React.FC = () => {
 
       <div className="flex items-center gap-4 my-5">
         <div
-          className="w-[240px] h-[50px] hover:text-base-100 text-black rounded-[20px] flex items-center justify-between px-[15px] bg-white cursor-pointer hover:bg-neutral group transition-all ease-in duration-100"
+          className="w-[240px] h-[50px] font-jura hover:text-white text-black rounded-[20px] flex items-center justify-between pl-[25px] pr-[20px] bg-white cursor-pointer hover:bg-my-neutral-5 group transition-all ease-in duration-100"
           onClick={addEducation}
         >
-          <p className='text-lg'>Add Education</p>
-          <Plus className='font-bold text-black group-hover:text-base-100' size={32} strokeWidth={3} />
+          <p className='text-lg font-semibold'>Add Education</p>
+          <Plus className='font-bold text-black group-hover:text-white' size={32} strokeWidth={3} />
         </div>
       </div>
     </div>

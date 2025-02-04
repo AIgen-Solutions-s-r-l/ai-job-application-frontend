@@ -14,6 +14,7 @@ import { FaSpinner } from 'react-icons/fa';
 import { fromResumeType } from '@/libs/utils/application.util';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { Check } from 'lucide-react';
 
 interface Props {
   id: string;
@@ -82,25 +83,26 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume, goBack }) =>
           </form>
         </div>
       </FormProvider>
-      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
+      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary-light-purple font-jura">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           <button
-            className="w-[220px] h-[40px] rounded-full text-white text-lg"
+            className="my-btn text-white text-[18px] font-semibold"
             type="button"
             onClick={goBack}
           >
             Go Back
           </button>
           <div className="flex items-center gap-10">
-            <p className='text-base text-black'>You’re editing the Resume</p>
+            <p className='text-lg text-white font-semibold'>You’re editing the Resume</p>
             <button
-              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-100 disabled:bg-neutral-content"
+              className="my-btn-green gap-[30px] font-semibold text-lg"
               form='my-form'
               type="submit"
               disabled={methods.formState.isSubmitting}
             >
               {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
               <p>Update Resume</p>
+              <Check size={24} />
             </button>
           </div>
         </div>

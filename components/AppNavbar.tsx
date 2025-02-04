@@ -2,57 +2,37 @@
 
 import React, { ChangeEvent, useEffect, JSX, FC, useRef } from "react";
 import { useTheme } from "next-themes";
-import AppButtonAccount from "./AppButtonAccount";
-import { Moon, Sun } from "lucide-react";
+import Image from 'next/image';
 
 type Props = {
   slot?: JSX.Element
 }
 
 const AppNavbar: FC<Props> = ({ slot }) => {
-  const { setTheme, theme } = useTheme();
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const { setTheme, theme } = useTheme();
+  // const inputRef = useRef<HTMLInputElement>(null);
 
-  const onChangeTheme = (ev: ChangeEvent<HTMLInputElement>): void => {
-    const currentTheme = ev.target.checked ? "dark" : "lightTheme";
-    setTheme(currentTheme);
-    document.querySelector("html")?.setAttribute("data-theme", currentTheme);
-  };
+  // const onChangeTheme = (ev: ChangeEvent<HTMLInputElement>): void => {
+  //   const currentTheme = ev.target.checked ? "dark" : "lightTheme";
+  //   setTheme(currentTheme);
+  //   document.querySelector("html")?.setAttribute("data-theme", currentTheme);
+  // };
 
-  useEffect(() => {
-    const currentTheme = inputRef.current.checked ? "dark" : "lightTheme";
-    setTheme(currentTheme);
-    document.querySelector("html")?.setAttribute("data-theme", currentTheme);
-  }, []);
+  // useEffect(() => {
+  //   const currentTheme = inputRef.current.checked ? "dark" : "lightTheme";
+  //   setTheme(currentTheme);
+  //   document.querySelector("html")?.setAttribute("data-theme", currentTheme);
+  // }, []);
 
   return (
     <div
       role="navigation"
       aria-label="Navbar"
-      className="flex items-center justify-between bg-base-100 pt-8 pb-4 px-4 md:px-0"
+      className="flex items-center justify-between pt-[55px] pb-[25px] px-4 md:px-0"
     >
+      <Image src="/laboro.png" alt="Logo" width={214} height={58} />
 
-      <div className="hidden md:block">
-        <h1 className='text-[48px] font-light leading-none text-accent'>LABORO</h1>
-      </div>
-      <div className="block md:hidden w-[80px] shrink-0">&nbsp;</div>
-      <div className="flex items-center gap-[30px]">
-        {slot}
-        <label className="swap swap-rotate">
-          <input
-            ref={inputRef}
-            type="checkbox"
-            onChange={onChangeTheme}
-            checked={theme === "dark" ? true : false}
-          />
-
-          <Sun className="swap-off" />
-
-          <Moon className="swap-on" />
-        </label>
-
-        <AppButtonAccount />
-      </div>
+      {slot}
     </div>
   );
 };

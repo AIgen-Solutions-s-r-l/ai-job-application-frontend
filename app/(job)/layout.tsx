@@ -5,23 +5,36 @@ import React, { ReactNode } from 'react';
 import AppNavbar from '@/components/AppNavbar';
 import RequireLogin from '@/permissions/requireLogin';
 import { Container } from '@/components/Container';
+import AppButtonAccount from '@/components/AppButtonAccount';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const navbarMenu = (
-    <Link
-      key='Dashboard'
-      href='/dashboard'
-      className='flex items-center text-md leading-none border-2 border-black px-8 py-3 rounded-full font-semibold'
-    >
-      <span>Dashboard</span>
-    </Link>
+    <div className='flex items-center gap-[30px] font-jura'>
+      <Link
+        key='Dashboard'
+        href='/dashboard'
+        className='font-semibold text-[18px]'
+      >
+        <span>Dashboard</span>
+      </Link>
+      
+      <Link
+        key='Contacts'
+        href='/contacts'
+        className='font-semibold text-[18px]'
+      >
+        <span>Contact</span>
+      </Link>
+
+      <AppButtonAccount />
+    </div>
   );
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-base-100">
-      <div className='w-[1440px] mx-auto'>
+      <Container>
         <AppNavbar slot={navbarMenu} />
-      </div>
+      </Container>
       {children}
     </div>
   );

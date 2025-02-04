@@ -65,9 +65,9 @@ export const CreateResumeOnboarding: React.FC = () => {
 
   return (
     <div className='w-full h-full flex flex-col items-center'>
-      <div className="w-full pt-5 pb-[120px] bg bg-base-100">
+      <div className="w-full pb-[100px] bg-base-100">
         <div className="w-[1440px] mx-auto flex-1">
-          <h3 className="text-[28px] mb-10 leading-none">View & edit your information</h3>
+          <h4 className="text-[20px] font-montserrat mb-[60px] font-medium leading-none">View & edit your information</h4>
           <div className="mb-10">
             <StepTracking currentStep={currentStep} />
           </div>
@@ -82,7 +82,7 @@ export const CreateResumeOnboarding: React.FC = () => {
               }}
               onSubmit={methods.handleSubmit(handleProfileSubmit)}
             >
-              <div className="">
+              <div className="font-jura">
                 {currentStep === 1 && <PersonalInformationOnboarding />}
                 {currentStep === 2 && <EducationDetailsOnboarding />}
                 {currentStep === 3 && <ExperienceDetailsOnboarding />}
@@ -93,39 +93,25 @@ export const CreateResumeOnboarding: React.FC = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 z-10 w-full h-[100px] flex items-center bg-primary">
+      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           {currentStep === 1
             ? <button
-              className="w-max place-self-end btn btn-primary rounded-full px-4 text-white text-lg"
+              className="my-btn text-white text-[18px] font-jura font-semibold"
               type="button"
               onClick={() => setCVData(null)}
             >
               Back to CV Uploader
             </button>
             : <div></div>}
-          <div className="flex gap-5">
-            {/* <button
-              className="bg-black py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-center items-center hover:bg-base-content"
-              type="button"
-              onClick={() => console.log(methods.formState.errors)}
-            >
-              <p>Show Errors</p>
-            </button>
-            <button
-              className="bg-black py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-center items-center hover:bg-base-content"
-              type="button"
-              onClick={() => console.log(methods.clearErrors())}
-            >
-              <p>Clear Errors</p>
-            </button> */}
-            <button className="bg-neutral pl-[16px] pr-[30px] py-3 text-lg leading-none text-white w-[240px] rounded-full flex justify-between items-center hover:bg-base-content disabled:bg-neutral-content" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
+          <div className="flex gap-5 font-jura">
+            <button className="bg-my-neutral-6 pl-[16px] pr-[30px] py-3 text-lg font-semibold leading-none text-white w-[240px] rounded-[20px] flex justify-between items-center hover:bg-my-neutral-5 disabled:hidden" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
               <ChevronLeft size={30} />
               <p>Previous Step</p>
             </button>
             {currentStep < 4 ? (
               <button
-                className="bg-secondary pl-[30px] pr-[16px] py-3 text-lg leading-none text-black w-[240px] rounded-full flex justify-between items-center"
+                className="bg-splash-green pl-[30px] pr-[16px] py-3 text-lg font-semibold leading-none text-black w-[240px] rounded-[20px] flex justify-between items-center"
                 type="button"
                 onClick={nextStep}
               >
@@ -133,7 +119,7 @@ export const CreateResumeOnboarding: React.FC = () => {
                 <ChevronRight size={30} />
               </button>
             ) : (
-              <button className="bg-secondary pl-[30px] pr-[16px] py-3 text-lg leading-none text-black w-[300px] rounded-full flex justify-between items-center" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
+              <button className="bg-splash-green pl-[30px] pr-[16px] py-3 text-lg font-semibold leading-none text-black w-[300px] rounded-[20px] flex justify-between items-center" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
                 {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
                 <p>Save & Continue</p>
                 <ChevronRight size={30} />

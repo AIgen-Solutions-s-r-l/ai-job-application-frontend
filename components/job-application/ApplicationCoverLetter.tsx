@@ -7,6 +7,7 @@ import { updateApplicationLetterAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRouter } from 'next/navigation';
+import { Check } from 'lucide-react';
 
 
 interface Props {
@@ -134,25 +135,26 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter, goBack }) 
           </div>
         </form>
       </div>
-      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
+      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary-light-purple font-jura">
         <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
           <button
-            className="w-[220px] h-[40px] rounded-full text-white text-lg"
+            className="my-btn text-white text-[18px] font-semibold"
             type="button"
             onClick={goBack}
           >
             Go Back
           </button>
           <div className="flex items-center gap-10">
-            <p className='text-base text-white'>You’re editing the Cover Letter</p>
+            <p className='text-lg text-white font-semibold'>You’re editing the Cover Letter</p>
             <button
-              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-100 disabled:bg-neutral-content"
+              className="my-btn-green gap-[30px] font-semibold text-lg"
               form='my-form'
               type="submit"
               disabled={formState.isSubmitting}
             >
               {formState.isSubmitting && <FaSpinner className="animate-spin" />}
               <p>Update Cover Letter</p>
+              <Check size={24} />
             </button>
           </div>
         </div>

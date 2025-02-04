@@ -215,12 +215,12 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
             <JobApplicationHeader job={jobInfo} />
             <ActiveSectionProvider>
                 <div className="w-full grow flex flex-col bg-base-100">
-                    <div className="w-[940px] mx-auto flex gap-2 pt-5">
-                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "resume" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("resume")}>Resume</button>
-                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "coverLetter" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("coverLetter")}>Cover Letter</button>
-                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "jobInfo" ? "bg-white" : "bg-neutral-content"}`} onClick={() => setActiveTab("jobInfo")}>Job Description</button>
+                    <div className="w-[940px] mx-auto flex gap-2 pt-5 font-kanit">
+                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "resume" ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} onClick={() => setActiveTab("resume")}>Resume</button>
+                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "coverLetter" ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} onClick={() => setActiveTab("coverLetter")}>Cover Letter</button>
+                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "jobInfo" ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} onClick={() => setActiveTab("jobInfo")}>Job Description</button>
                     </div>
-                    <div className="">
+                    <div className="pb-5">
                         {activeTab === "resume" && (
                             <CVTemplateProvider>
                                 <TemplateProfessional id={id} resume={converted} goBack={() => router.back()} />

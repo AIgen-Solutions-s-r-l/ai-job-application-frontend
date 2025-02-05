@@ -7,11 +7,11 @@ interface ToggleSwitchProps {
 const ToggleSwitch = ({ value, onChange, label }: ToggleSwitchProps) => {
     return (
         <section onClick={() => onChange(!value)}
-            className="flex items-center bg-primary relative w-[330px] cursor-pointer border py-[10px] flex items-center justify-between rounded-[8px]">
-            <label className={`${value ? 'text-black' : 'text-white'} text-center flex-grow z-[999] font-jura font-semibold`}>
+            className="flex items-center bg-primary relative w-[330px] border py-[10px] flex items-center justify-between rounded-[8px]">
+            <label className={`${value ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[999] font-jura font-semibold`}>
                 {label}
             </label>
-            <label className={`${!value ? 'text-black' : 'text-white'} text-center flex-grow z-[999] font-jura font-semibold`}>
+            <label className={`${!value ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[999] font-jura font-semibold`}>
                 Use my resume
             </label>
             <input type="checkbox" hidden checked={value} />

@@ -1,8 +1,11 @@
-import { UserProfile } from "@/components/profiles/UserProfile";
-import { getUserProfile } from "@/libs/data";
+import { Suspense } from 'react';
+import { UserProfilesDispatcher } from '@/components/profiles/UserProfilesDispatcher';
+import { UserProfileSkeleton } from '@/components/profiles/UserProfileSkeleton';
 
-export default async function JobProfiles() {
-  const profileWithDetails = await getUserProfile();
-
-  return <UserProfile profile={profileWithDetails} />;
+export default function JobProfiles() {
+  return (
+    <Suspense fallback={<UserProfileSkeleton />}>
+      <UserProfilesDispatcher />
+    </Suspense>
+  );
 }

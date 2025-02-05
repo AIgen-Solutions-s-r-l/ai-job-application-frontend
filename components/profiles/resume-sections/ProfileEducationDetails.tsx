@@ -18,6 +18,8 @@ export const ProfileEducationDetails: React.FC = () => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
+      location: "",
+      exam: []
     });
 
   return (

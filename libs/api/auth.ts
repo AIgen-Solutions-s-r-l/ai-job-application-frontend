@@ -23,7 +23,9 @@ export const login = createServerAction(async (username: string, password: strin
 
     const decoded = jwtDecode(response.data.access_token);
     const expirationDate = new Date(decoded.exp * 1000);
-    expirationDate.setHours(expirationDate.getHours() + 1);
+
+    // TODO: Uncomment - Backend api ends up in an infinite loop when the token expires.
+    // expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
@@ -182,7 +184,7 @@ export async function resetPassword(new_password: string, token: string): Promis
         success: false,
         error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
       };
-    } 
+    }
 
     return { success: true };
   } catch (error) {
@@ -190,14 +192,14 @@ export async function resetPassword(new_password: string, token: string): Promis
     switch (status) {
       case 400:
         return {
-        success: false,
-        error: 'Invalid or expired reset token',
-      };
+          success: false,
+          error: 'Invalid or expired reset token',
+        };
       case 422: {
         return {
-        success: false,
-        error: 'Validation error (password requirements not met)',
-      };
+          success: false,
+          error: 'Validation error (password requirements not met)',
+        };
       }
       default: {
         console.error(`Error when updating password`, error);

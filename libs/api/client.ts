@@ -41,15 +41,16 @@ apiClientJwt.interceptors.request.use(
 const responseInterceptor = (response: any) => response;
 
 const errorInterceptor = async (error: any) => {
-  if (error?.response?.status === 401 && accessToken) {
-    try {
-      await refreshToken();
-      const originalRequest = error.config;
-      return apiClientJwt(originalRequest);
-    } catch (refreshError) {
-      redirect(`${config.auth.loginUrl}/`);
-    }
-  }
+  // TODO: Uncomment - Backend api ends up in an infinite loop when the token expires.
+  // if (error?.response?.status === 401 && accessToken) {
+  //   try {
+  //     await refreshToken();
+  //     const originalRequest = error.config;
+  //     return apiClientJwt(originalRequest);
+  //   } catch (refreshError) {
+  //     redirect(`${config.auth.loginUrl}/`);
+  //   }
+  // }
 
   if ([401, 403].includes(error?.response?.status)) {
     redirect(`${config.auth.loginUrl}/`)

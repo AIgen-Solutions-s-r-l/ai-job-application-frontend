@@ -53,7 +53,7 @@ const errorInterceptor = async (error: any) => {
   // }
 
   if ([401, 403].includes(error?.response?.status)) {
-    redirect(`${config.auth.loginUrl}/`)
+    // redirect(`${config.auth.loginUrl}/`)
   }
 
   return Promise.reject(error);

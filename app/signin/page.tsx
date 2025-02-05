@@ -121,7 +121,7 @@ const Login = () => {
         </form>
 
         <div className="flex justify-between text-sm mt-4">
-          <Link href="/update-password" className="text-sm font-medium text-primary">
+          <Link href="/forgot-password" className="text-sm font-medium text-primary">
             Forgot password?
           </Link>
           <p className="text-center text-sm">

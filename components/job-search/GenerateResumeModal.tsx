@@ -13,7 +13,6 @@ import React from "react";
 import ToggleSwitch from "../common/ToggleSwitch";
 import TemplateCard from "./TemplateCard";
 import { AiFillFilePdf } from "react-icons/ai";
-import { ChevronRight } from "lucide-react";
 
 interface ModalProps {
     isModalOpen: boolean;
@@ -76,15 +75,6 @@ const GenerateResumeModal = ({
         const file = e.target.files?.[0];
         if (file) {
             setCVFile(file);
-        }
-    };
-
-    const handleUpload = async () => {
-        if (cvFile) {
-            // Implement your upload logic here
-            // After successful upload:
-            onConfirm();
-            setIsModalOpen(false);
         }
     };
 
@@ -193,13 +183,13 @@ const GenerateResumeModal = ({
                                 }
                                 <div className="flex w-full px-7 justify-end gap-4">
                                     <button
-                                        className="btn btn-outline"
+                                        className="btn"
                                         onClick={handleCancel}
                                     >
                                         Cancel
                                     </button>
                                     <button
-                                        className="btn outline outline-1 outline-black bg-purple-200 hover:bg-purple-300"
+                                        className="btn outline-black bg-primary hover:bg-primary hover:text-white"
                                         onClick={() => {
                                             onConfirm();
                                             setIsModalOpen(false);

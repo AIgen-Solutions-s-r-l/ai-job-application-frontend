@@ -23,6 +23,7 @@ const TemplateCard = ({
                 alt={`template ${templateNumber}`}
                 width={200}
                 height={280}
+                className={`${isSelected && 'outline outline-1 outline-black'}`}
             />
             <div
                 className={`flex items-center justify-center h-8 bg-black w-8 rounded-[6px] ${isEnabled ? 'cursor-pointer' : 'cursor-not-allowed'}`}

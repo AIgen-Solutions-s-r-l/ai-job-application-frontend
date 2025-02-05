@@ -21,8 +21,7 @@ export const JobSearchBottomSheet: React.FC = () => {
     if (selectedJobs.length > 0) {
       router.push('/manager')
       // try {
-      //   const response = await addJobsToManager(selectedJobs);
-
+      //   const response = await addJobsToManager(selectedJobs, generateTemplate ? null : cvFile);
       //   if (response.success) {
       //     toast.success("Application submitted!");
       //     router.push('/manager')

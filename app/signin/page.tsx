@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/app/icon.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import config from "@/config";
@@ -54,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-base-200" data-theme={config.colors.theme}>
+    <main className="flex items-center justify-center min-h-screen bg-base-100 md:bg-base-200 font-montserrat" data-theme={config.colors.theme}>
       <div className="absolute top-4 left-4">
         <Link href="/" className="btn btn-ghost btn-sm flex items-center space-x-1">
           <svg
@@ -74,19 +73,13 @@ const Login = () => {
           <span>Back to Home</span>
         </Link>
       </div>
-      <div className="w-full max-w-lg p-10 space-y-6 card bg-base-100 border-2">
-        <div className="text-center">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={64}
-            height={64}
-            className="mx-auto mb-8"
-          />
-          <h2 className="text-3xl font-bold">Login to your Account</h2>
+      <div className="w-full md:max-w-lg px-4 md:p-10 space-y-6 card bg-base-100 border-none md:border-2">
+        <div className="flex flex-col gap-2">
+          <Image src="/laboro.png" alt="Logo" width={214} height={58} />
+          <h2 className="text-xl md:text-2xl font-semibold">Login to your Account</h2>
         </div>
 
-        <form className="space-y-4" onSubmit={handleLogin}>
+        <form className="space-y-4 font-jura" onSubmit={handleLogin}>
           <div className="form-control">
             <input
               type="text" // Cambiado de "email" a "text"
@@ -103,13 +96,13 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="input input-bordered w-full"
+              className="input input-bordered w-full autofill:!bg-yellow-200"
               placeholder="Password"
             />
           </div>
           <button
             type="submit"
-            className="btn btn-primary w-full"
+            className="btn btn-primary w-full text-white font-medium text-base"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -120,12 +113,12 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="flex justify-between text-sm mt-4">
-          <Link href="/forgot-password" className="text-sm font-medium text-primary">
+        <div className="flex justify-between text-xs md:text-sm mt-4">
+          <Link href="/forgot-password" className="font-medium text-primary">
             Forgot password?
           </Link>
-          <p className="text-center text-sm">
-            Don’t have an account? <Link href="/signup" className="text-sm text-primary">Sign Up</Link>
+          <p className="text-center">
+            Don’t have an account? <Link href="/signup" className="text-primary">Sign Up</Link>
           </p>
         </div>
       </div>

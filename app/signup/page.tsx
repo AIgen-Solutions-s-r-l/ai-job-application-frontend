@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation"; // Importa el router
 import config from "@/config";
 import Image from "next/image";
-import logo from "@/app/icon.png";
 import { fetchUserData, register } from "@/libs/api/auth"; // Importa la función register
 import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
@@ -67,20 +66,14 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-base-200" data-theme={config.colors.theme}>
-      <div className="w-full max-w-lg p-10 space-y-6 card bg-base-100 border-2">
-        <div className="text-center">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={64}
-            height={64}
-            className="mx-auto mb-8"
-          />
-          <h2 className="text-3xl font-bold">Create an account</h2>
+    <main className="flex items-center justify-center min-h-screen bg-base-100 md:bg-base-200 font-montserrat" data-theme={config.colors.theme}>
+      <div className="w-full md:max-w-lg px-4 md:p-10 space-y-6 card bg-base-100 border-none md:border-2">
+        <div className="flex flex-col gap-2">
+          <Image src="/laboro.png" alt="Logo" width={214} height={58} />
+          <h2 className="text-xl md:text-2xl font-semibold">Create an account</h2>
         </div>
 
-        <form className="space-y-4" onSubmit={handleSignup}>
+        <form className="space-y-4 font-jura" onSubmit={handleSignup}>
           <div className="form-control">
             <input
               type="text"
@@ -127,7 +120,7 @@ const Signup = () => {
           </div>
           <button
             type="submit"
-            className={`btn btn-primary w-full ${isLoading && "btn-disabled"}`}
+            className={`btn btn-primary w-full text-white font-medium text-base ${isLoading && "btn-disabled"}`}
             disabled={isLoading}
           >
             {isLoading ? (
@@ -138,8 +131,8 @@ const Signup = () => {
           </button>
         </form>
 
-        <div className="flex justify-center text-sm mt-4">
-          <p className="text-center text-sm">
+        <div className="flex text-xs md:text-sm mt-4">
+          <p className="text-center">
             If you are already a member, please <Link href="/signin" className="text-primary">Sign in</Link>
           </p>
         </div>

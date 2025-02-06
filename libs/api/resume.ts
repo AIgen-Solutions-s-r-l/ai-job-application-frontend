@@ -16,7 +16,7 @@ export async function fetchUserResume(): Promise<any> {
     return response.data;
   } catch (error) {
     console.error("Error fetching user resumes:", error);
-    throw null;
+    throw error;
   }
 }
 

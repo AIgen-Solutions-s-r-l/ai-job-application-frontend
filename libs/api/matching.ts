@@ -20,9 +20,28 @@ export async function fetchMatchingJobs(params: JobSearchParams = {}): Promise<a
   } catch (error) {
     console.error("Error fetching job matches:", error);
     // throw new Error("Unable to fetch job matches. Please try again later.");
-    
+
     //todo: mock
     await delay(3000)
     return JobSearchMockData;
+  }
+}
+
+export async function locationQuery(query: string): Promise<any> {
+  try {
+    const response = await apiClientJwt.get(`https://nominatim.openstreetmap.org/search`, {
+      params: {
+        'q': query,
+        format: "json",
+        addressdetails: 1,
+      },
+      headers: {
+        "Accept-Language": "en"
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("API Error", error);
+    return null;
   }
 }

@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { createClient } from "@/libs/supabase/client";
 import toast from "react-hot-toast";
 import config from "@/config";
 import Image from "next/image";
-import logo from "@/app/icon.png";
 import { resetPasswordForEmail } from "@/libs/api/auth";
 
 export default function ResetPassword() {
@@ -35,31 +33,25 @@ export default function ResetPassword() {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-base-200" data-theme={config.colors.theme}>
-      <div className="w-full max-w-lg p-10 space-y-6 card bg-base-100 border-2">
-        <div className="text-center">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={64}
-            height={64}
-            className="mx-auto mb-8"
-          />
-          <h2 className="text-3xl font-bold mb-4">Reset your password</h2>
+    <main className="flex items-center justify-center min-h-screen bg-base-100 md:bg-base-200 font-montserrat" data-theme={config.colors.theme}>
+      <div className="w-full md:max-w-lg px-4 md:p-10 space-y-6 card bg-base-100 border-none md:border-2">
+        <div className="flex flex-col">
+          <Image src="/laboro.png" alt="Logo" width={214} height={58} />
+          <h2 className="text-xl md:text-2xl font-semibold mt-2 mb-4">Reset your password</h2>
           
           {isEmailSend ? (
             <p className="text-sm text-gray-600 mb-4">
               Password reset email was sent yo your inbox! Follow the instructions to reset your password.
             </p>
           ) : (
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-gray-600">
               Enter your email address and we&apos;ll send you a link to reset your password.
             </p>
           )}
         </div>
 
         {isEmailSend || (
-          <form className="space-y-4" onSubmit={handleResetPassword}>
+          <form className="space-y-4 font-jura" onSubmit={handleResetPassword}>
             <div className="form-control">
               <input
                 type="email"
@@ -73,7 +65,7 @@ export default function ResetPassword() {
             </div>
             <button
               type="submit"
-              className="btn btn-primary w-full"
+              className="btn btn-primary w-full text-white font-medium text-base"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -85,8 +77,8 @@ export default function ResetPassword() {
           </form>
         )}
 
-        <div className="flex justify-center text-sm mt-4">
-          <p className="text-center text-sm">
+        <div className="flex text-xs md:text-sm mt-4">
+          <p className="">
             Remember your password? <Link href="/signin" className="text-primary">Sign in</Link>
           </p>
         </div>

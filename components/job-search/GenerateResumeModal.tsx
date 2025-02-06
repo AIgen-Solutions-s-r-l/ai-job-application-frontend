@@ -142,7 +142,7 @@ const GenerateResumeModal = ({
                                         }
                                     </section>
                                     :
-                                    <section className={`px-7 flex items-center justify-center w-full py-3 h-[320px] gap-4 bg-purple-100 relative`}>
+                                    <section className={`px-7 flex items-center justify-center w-full py-3 min-h-[320px] gap-4 bg-purple-100 relative`}>
                                         {!cvFile ? (
                                             <div
                                                 onDragOver={handleDragOver}
@@ -169,7 +169,7 @@ const GenerateResumeModal = ({
                                         ) : (
                                             <div className="flex flex-col items-center justify-center">
                                                 <Image src={ResumeUpload} alt='Resume' />
-                                                <p className="font-jura text-lg mt-2 font-bold">{cvFile.name}</p>
+                                                <p className="font-jura text-lg mt-2 font-bold">{cvFile.name.length > 30 ? cvFile.name.slice(0, 30) + '...' : cvFile.name}</p>
                                                 <div
                                                     onClick={() => setCVFile(null)}
                                                     className="cursor-pointer rounded-full px-6 text-lg text-error"

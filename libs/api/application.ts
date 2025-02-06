@@ -20,10 +20,11 @@ export async function fetchAppliedJobs(): Promise<any> {
   }
 }
 
-export async function createJobApplication(jobs: any[]): Promise<{ success: boolean; error?: string }> {
+export async function createJobApplication(jobs: any[], cv: File): Promise<{ success: boolean; error?: string }> {
   try {
     const data = {
       "jobs": jobs,
+      "cv": cv ? cv : null
     }
 
     const response = await apiClientJwt.post(`${API_BASE_URLS.application}/applications`, data, {

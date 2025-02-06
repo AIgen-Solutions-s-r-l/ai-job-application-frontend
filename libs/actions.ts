@@ -110,7 +110,7 @@ export const createJobProfile = async (profileData: JobProfile): Promise<{
     revalidatePath("/dashboard");
 
     return { success: true };
-  } catch (error) {    
+  } catch (error) {
     console.error("Error saving job profile:", error);
     return { success: false, error: error.message };
   }
@@ -135,15 +135,15 @@ export const updateJobProfile = async (profileData: JobProfile): Promise<{
     revalidatePath("/dashboard/profiles");
 
     return { success: true };
-  } catch (error) {    
+  } catch (error) {
     console.error("Error updating job profile:", error);
     return { success: false, error: error.message };
   }
 }
 
-export const addJobsToManager = async (jobs: MatchingJob[]): Promise<{ 
-  success: boolean; 
-  error?: string 
+export const addJobsToManager = async (jobs: MatchingJob[], cv: File): Promise<{
+  success: boolean;
+  error?: string
 }> => {
   try {
     const jobItems = jobs.map((job) => ({
@@ -153,7 +153,7 @@ export const addJobsToManager = async (jobs: MatchingJob[]): Promise<{
       portal: job.portal
     }))
 
-    const response = await createJobApplication(jobItems);
+    const response = await createJobApplication(jobItems, cv);
 
     if (!response.success) {
       return {
@@ -161,17 +161,17 @@ export const addJobsToManager = async (jobs: MatchingJob[]): Promise<{
         error: `Server returned ${response.error}`,
       };
     }
-    
+
     return { success: true };
-  } catch (error) {    
+  } catch (error) {
     console.error("Error when adding jobs to jobs manager:", error);
     return { success: false, error: error.message };
   }
 }
 
-export const applySelectedApplicationsAction = async (applications: string[]): Promise<{ 
-  success: boolean; 
-  error?: string 
+export const applySelectedApplicationsAction = async (applications: string[]): Promise<{
+  success: boolean;
+  error?: string
 }> => {
   try {
     const response = await applySelectedApplications(applications);
@@ -182,9 +182,9 @@ export const applySelectedApplicationsAction = async (applications: string[]): P
         error: `Server returned ${response.error}`,
       };
     }
-    
+
     return { success: true };
-  } catch (error) {    
+  } catch (error) {
     console.error("Error when applying to selected jobs:", error);
     return { success: false, error: error.message };
   }
@@ -209,7 +209,7 @@ export const updateApplicationResumeAction = async (id: string, resumeData: Resu
     revalidatePath(`/manager/${id}`);
 
     return { success: true };
-  } catch (error) {    
+  } catch (error) {
     console.error("Error updating job profile:", error);
     return { success: false, error: error.message };
   }
@@ -232,7 +232,7 @@ export const updateApplicationLetterAction = async (id: string, resumeData: Cove
     revalidatePath(`/manager/${id}`);
 
     return { success: true };
-  } catch (error) {    
+  } catch (error) {
     console.error("Error updating job profile:", error);
     return { success: false, error: error.message };
   }

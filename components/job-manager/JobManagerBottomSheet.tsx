@@ -45,6 +45,7 @@ export const JobManagerBottomSheet: React.FC = () => {
           instantly
         </p>
         <ButtonApply
+          title='Submit Applications'
           handleApply={handleApply}
           disabled={!selectedApplications.length}
         />

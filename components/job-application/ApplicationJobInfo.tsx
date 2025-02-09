@@ -42,7 +42,6 @@ export const ApplicationJobInfo: React.FC<Props> = ({
       </div>
       <JobButtomSheet className='flex-none items-center justify-between'>
         <ButtonApplication title='Go Back' handleClick={goBack} />
-        <div />
       </JobButtomSheet>
     </>
   );

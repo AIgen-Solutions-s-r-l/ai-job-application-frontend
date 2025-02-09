@@ -182,7 +182,7 @@ export async function resetPassword(new_password: string, token: string): Promis
         success: false,
         error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
       };
-    } 
+    }
 
     return { success: true };
   } catch (error) {
@@ -190,15 +190,52 @@ export async function resetPassword(new_password: string, token: string): Promis
     switch (status) {
       case 400:
         return {
-        success: false,
-        error: 'Invalid or expired reset token',
-      };
+          success: false,
+          error: 'Invalid or expired reset token',
+        };
       case 422: {
         return {
-        success: false,
-        error: 'Validation error (password requirements not met)',
-      };
+          success: false,
+          error: 'Validation error (password requirements not met)',
+        };
       }
+      default: {
+        console.error(`Error when updating password`, error);
+        return { success: false, error: error.message };
+      }
+    }
+  }
+}
+
+export async function changePassword(username: string, current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/${username}/password`, {
+      current_password,
+      new_password,
+    });
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    const status = error.response?.status;
+    switch (status) {
+      // case 400:
+      //   return {
+      //     success: false,
+      //     error: 'Invalid or expired reset token',
+      //   };
+      // case 422: {
+      //   return {
+      //     success: false,
+      //     error: 'Validation error (password requirements not met)',
+      //   };
+      // }
       default: {
         console.error(`Error when updating password`, error);
         return { success: false, error: error.message };

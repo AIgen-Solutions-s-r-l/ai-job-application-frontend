@@ -1,14 +1,17 @@
 import React from 'react';
 import { useActiveSectionContext } from '../../contexts/active-section-context';
-import { CoverLetter, CoverLetterCoverLetter } from '../../libs/types/response-application.types';
+import {
+  CoverLetter,
+  CoverLetterCoverLetter,
+} from '../../libs/types/response-application.types';
 import { useForm } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
 import { updateApplicationLetterAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRouter } from 'next/navigation';
-import { Check } from 'lucide-react';
-
+import { JobButtomSheet } from '@/components/JobButtomSheet';
+import { ButtonSubmit } from '@/components/ButtonSubmit';
+import { ButtonApplication } from '@/components/ButtonApplication';
 
 interface Props {
   id: string;
@@ -16,13 +19,19 @@ interface Props {
   goBack?: () => void;
 }
 
-export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter, goBack }) => {
+export const ApplicationCoverLetter: React.FC<Props> = ({
+  id,
+  letter,
+  goBack,
+}) => {
   const { activeSection } = useActiveSectionContext();
   const router = useRouter();
 
-  const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>({
-    defaultValues: letter.cover_letter,
-  });
+  const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>(
+    {
+      defaultValues: letter.cover_letter,
+    }
+  );
 
   const handleLetterSubmit = async (data: CoverLetterCoverLetter) => {
     // console.log(JSON.stringify((data)));
@@ -30,24 +39,30 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter, goBack }) 
       const response = await updateApplicationLetterAction(id, data);
 
       if (response.success) {
-        toast.success("Application cover letter updated successfully!");
-        console.log("Application cover letter updated successfully");
+        toast.success('Application cover letter updated successfully!');
+        console.log('Application cover letter updated successfully');
       } else {
-        toast.error("Error updating application cover letter.");
-        console.error("Error updating application cover letter:", response.error);
-
+        toast.error('Error updating application cover letter.');
+        console.error(
+          'Error updating application cover letter:',
+          response.error
+        );
       }
     } catch (error) {
-      console.error("Error submitting application cover letter:", error);
+      console.error('Error submitting application cover letter:', error);
     }
   };
 
   return (
     <>
-      <div className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${activeSection ? 'bg-black/20' : 'bg-white'}`}>
+      <div
+        className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${
+          activeSection ? 'bg-black/20' : 'bg-white'
+        }`}
+      >
         <form
           id='my-form'
-          className="w-full"
+          className='w-full'
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault();
@@ -55,110 +70,104 @@ export const ApplicationCoverLetter: React.FC<Props> = ({ id, letter, goBack }) 
           }}
           onSubmit={handleSubmit(handleLetterSubmit)}
         >
-          <div id="letter-sections" className="w-full h-full flex flex-col gap-4 px-10 py-8 text-base">
+          <div
+            id='letter-sections'
+            className='w-full h-full flex flex-col gap-4 px-10 py-8 text-base'
+          >
             {/* Header */}
-            <div className="">
+            <div className=''>
               <TextareaAutosize
                 {...register(`header.applicant_details.name`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`header.applicant_details.address`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`header.applicant_details.city_state_zip`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`header.applicant_details.email`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`header.applicant_details.phone_number`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`header.company_details.name`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
             </div>
 
             {/* Body */}
-            <div className="">
+            <div className=''>
               <TextareaAutosize
                 {...register(`body.greeting`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`body.opening_paragraph`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`body.body_paragraphs`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`body.closing_paragraph`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
             </div>
 
             {/* Footer */}
-            <div className="">
+            <div className=''>
               <TextareaAutosize
                 {...register(`footer.date`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`footer.closing`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
               <TextareaAutosize
                 {...register(`footer.signature`)}
                 minRows={1}
-                className="w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
               />
             </div>
           </div>
         </form>
       </div>
-      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary-light-purple font-jura">
-        <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
-          <button
-            className="my-btn text-white text-[18px] font-semibold"
-            type="button"
-            onClick={goBack}
-          >
-            Go Back
-          </button>
-          <div className="flex items-center gap-10">
-            <p className='text-lg text-white font-semibold'>You’re editing the Cover Letter</p>
-            <button
-              className="my-btn-green gap-[30px] font-semibold text-lg"
-              form='my-form'
-              type="submit"
-              disabled={formState.isSubmitting}
-            >
-              {formState.isSubmitting && <FaSpinner className="animate-spin" />}
-              <p>Update Cover Letter</p>
-              <Check size={24} />
-            </button>
-          </div>
+
+      <JobButtomSheet className='flex-none items-center justify-between'>
+        <ButtonApplication title='Go Back' handleClick={goBack} />
+
+        <div className='flex items-center gap-10'>
+          <p className='text-lg text-white font-semibold'>
+            You’re editing the Cover Letter
+          </p>
+          <ButtonSubmit
+            title='Update Cover Letter'
+            isSubmitting={formState.isSubmitting}
+            disabled={formState.isSubmitting}
+          />
         </div>
-      </div>
+      </JobButtomSheet>
     </>
   );
 };

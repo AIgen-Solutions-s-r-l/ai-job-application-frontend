@@ -31,7 +31,8 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
   const handleApply = async () => {
     if (selectedJobs.length > 0) {
       try {      
-        const response = await createJobApplication(selectedJobs);
+        const cv = new File([""], "empty.pdf", { type: "application/pdf" }); // Replace with actual CV file
+        const response = await createJobApplication(selectedJobs, cv);
 
         if (response.success) {
           toast.success("Application submitted!");

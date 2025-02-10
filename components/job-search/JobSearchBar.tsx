@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ChevronDown, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useJobSearch } from '@/contexts/job-search-context';
 import { locationQuery } from '@/libs/api/matching';
 
@@ -17,7 +17,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 }) => {
   const [dataArray, setDataArray] = useState<any[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [searchTimeout, setSearchTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
   const { register, handleSubmit, getValues, setValue } = useForm<{
     keywords?: string;
     location?: string;
@@ -32,7 +32,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   useEffect(() => {
     setValue('keywords', keywords);
     setValue('location', location);
-  }, [keywords, location]);
+  }, [keywords, location, setValue]);
 
   const onSubmit = () => {
     const { keywords, location } = getValues();

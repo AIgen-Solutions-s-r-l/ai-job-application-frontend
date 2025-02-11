@@ -1,33 +1,42 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-import { FeaturesCarousel } from './FeaturesCarousel';
-import { LandingContainer } from './LandingContainer';
-import { HorizontalCarousel } from './HorizontalCarousel';
-import Example from './Example';
 
-export const Features: React.FC = () => {
+export const HorizontalCarousel: React.FC = () => {
+  return (
+    <div className="bg-neutral-800">
+      <div className="flex h-48 items-center justify-center">
+        <span className="font-semibold uppercase text-neutral-500">
+          Scroll down
+        </span>
+      </div>
+      <HorizontalScrollCarousel />
+      <div className="flex h-48 items-center justify-center">
+        <span className="font-semibold uppercase text-neutral-500">
+          Scroll up
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const HorizontalScrollCarousel: React.FC = () => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
 
   return (
-    <section ref={targetRef} className="bg-primary-light-purple relative h-[300vh]">
-      <div className="sticky top-0 flex flex-col gap-[150px] pt-[100px] h-screen overflow-hidden">
-        <div className="sticky left-0 w-full flex flex-col items-center gap-10 font-montserrat">
-          <h2 className="text-[50px] font-medium leading-[55px] text-center text-white">All the jobs on the internet, in one place.</h2>
-          <p className="text-[20px] text-primary-deep-purple leading-[120%] text-center">Laboro collects opportunities from every website and job board, <br/>automates your applications, and matches you with the perfect role, <br/>saving you time and effort. Bring the power back to job seekers.</p>
-        </div>
-        
+    <section ref={targetRef} className="relative h-[300vh] bg-neutral-900">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div style={{ x }} className="flex gap-4">
           <div
-            className="features-slide justify-end font-montserra ml-[70px]"
+            className="features-slide justify-end font-montserra"
           >
             <Image src='/landing/feature-1.png' alt='feature-1' width={405} height={100} />
   
@@ -81,3 +90,4 @@ export const Features: React.FC = () => {
     </section>
   );
 };
+

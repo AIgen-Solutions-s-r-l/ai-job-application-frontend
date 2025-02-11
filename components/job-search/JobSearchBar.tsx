@@ -150,24 +150,33 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <span className='font-semibold'>{jobs.length} jobs</span> found.
           </p>
           <div className='flex gap-8 text-base'>
-            <select className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'>
-              <option disabled selected>
+            <select
+              className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
+              defaultValue='fullTime'
+            >
+              <option disabled value='fullTime'>
                 Full-time
               </option>
-              <option>Part-time</option>
-              <option>Internship</option>
+              <option value='partTime'>Part-time</option>
+              <option value='internship'>Internship</option>
             </select>
-            <select className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'>
-              <option disabled selected>
+            <select
+              className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
+              defaultValue='remote'
+            >
+              <option disabled value='remote'>
                 Remote
               </option>
-              <option>On-site</option>
+              <option value='onSite'>On-site</option>
             </select>
-            <select className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'>
-              <option disabled selected>
+            <select
+              className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
+              defaultValue='english'
+            >
+              <option disabled value='english'>
                 English
               </option>
-              <option>Russian</option>
+              <option value='russian'>Russian</option>
             </select>
           </div>
         </div>

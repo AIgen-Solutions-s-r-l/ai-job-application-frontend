@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Search } from 'lucide-react';
 import { useJobSearch } from '@/contexts/job-search-context';
@@ -7,6 +7,7 @@ import { JobSearchProps } from '@/libs/definitions';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
+  // eslint-disable-next-line no-unused-vars
   onSearch: (searchProps: JobSearchProps) => void;
 }
 
@@ -21,10 +22,9 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     null
   );
 
-  const { register, handleSubmit, getValues, setValue, reset } =
-    useForm<JobSearchProps>({
-      defaultValues: searchParams,
-    });
+  const { register, handleSubmit, getValues, reset } = useForm<JobSearchProps>({
+    defaultValues: searchParams,
+  });
   const { jobs } = useJobSearch();
 
   const onSubmit = () => {

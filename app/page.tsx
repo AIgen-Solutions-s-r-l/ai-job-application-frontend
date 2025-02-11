@@ -1,29 +1,30 @@
-import { Suspense } from 'react'
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-// import WithWithout from "@/components/WithWithout";
-import Problem from "@/components/Problem";
-import FeaturesAccordion from "@/components/FeaturesAccordion";
-import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
 import React from 'react';
+import { Header } from "@/components/landing/Header";
+import { Hero } from '@/components/landing/Hero';
+import { Features } from '@/components/landing/Features';
+import { Clouds } from '@/components/landing/Clouds';
+import { Spotlight } from '@/components/landing/Spotlight';
+import { Automate } from '@/components/landing/Automate';
+import { Testimonials } from '@/components/landing/Testimonials';
+import { FAQ } from '@/components/landing/FAQ';
+import { GetHired } from '@/components/landing/GetHired';
+import { Contacts } from '@/components/landing/Contacts';
+import { Footer } from '@/components/landing/Footer';
 
 export default function Home() {
   return (
     <>
-      <Suspense>
-        <Header />
-      </Suspense>
+      <Header />
       <main>
         <Hero />
-        <Problem />
-        {/* <WithWithout/> */}
-        <FeaturesAccordion />
-        <Pricing />
+        <Features />
+        <Clouds />
+        <Spotlight />
+        <Automate />
+        <Testimonials />
         <FAQ />
-        <CTA />
+        <GetHired />
+        <Contacts />
       </main>
       <Footer />
     </>

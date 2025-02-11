@@ -37,6 +37,8 @@ module.exports = {
         roboto: ['Roboto', 'serif'],
         poppins: ['Poppins', 'serif'],
         barlow: ['Barlow', 'serif'],
+        k2d: ['K2D', 'serif'],
+        italianno: ['Italianno', 'serif'],
         'josefin-sans': ['Josefin Sans', 'serif'],
         'open-sans': ['Open Sans', 'serif'],
       },

@@ -1,13 +1,8 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
 import Image from "next/image";
-import { FeaturesCarousel } from './FeaturesCarousel';
-import { LandingContainer } from './LandingContainer';
-import { HorizontalCarousel } from './HorizontalCarousel';
-import Example from './Example';
 
 export const Features: React.FC = () => {
   const targetRef = useRef(null);

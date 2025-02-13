@@ -8,11 +8,11 @@ export const Clouds: React.FC = () => {
   const sectionRef = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "center end"]
+    offset: ["start center", "center end"]
   });
 
-  const leftCloudXRaw = useTransform(scrollYProgress, [0, 1], [-200, 0]);
-  const rightCloudXRaw = useTransform(scrollYProgress, [0, 1], [200, 0]);
+  const leftCloudXRaw = useTransform(scrollYProgress, [0, 1], [-300, 0]);
+  const rightCloudXRaw = useTransform(scrollYProgress, [0, 1], [300, 0]);
 
   const leftCloudX = useSpring(leftCloudXRaw, { stiffness: 50, damping: 20, restDelta: 0.01 });
   const rightCloudX = useSpring(rightCloudXRaw, { stiffness: 50, damping: 20, restDelta: 0.01 });

@@ -206,21 +206,25 @@ export interface DetailedPendingApplication {
   sent: boolean;
 }
 
-export interface AppliedJob {
-  job_id: number;
-  title: string;
-  is_remote?: boolean;
-  workplace_type?: string;
-  posted_date?: string;
-  job_state?: string;
-  description?: string;
-  apply_link?: string;
-  // company_id: number;
-  company: string;
-  // location_id: number;
-  location: string;
-  portal: string;
+export interface JobDetail {
+  id: number
+  portal: string
+  title: string
+  workplace_type: string
+  posted_date: string
+  job_state: string
+  description: string
+  apply_link: string
+  company_name: string
+  location: string
+  short_description: string
+  field: string
+  company_logo: string
+  experience: string
+  skills_required: string[]
 }
+
+export type JobsList = Record<string, JobDetail>
 
 export interface JobSearchParams {
   country?: string

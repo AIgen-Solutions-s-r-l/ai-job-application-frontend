@@ -2,89 +2,114 @@
 
 import React, { useMemo, useState } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
-import { AppliedJob } from '@/libs/definitions';
+import { JobDetail, JobsList } from '@/libs/definitions';
 import { Check } from 'lucide-react';
 import { JobCard } from './JobCard';
 import { sortArrayByDate } from '@/libs/utils';
 import { JobCardSkeleton } from './JobCardSkeleton';
+import { typography } from '../typography';
+
+/*
+  todo: what need to fill Pending tab?
+*/
 
 interface Props {
-  jobs: AppliedJob[];
+  appliedJobs: JobsList;
+  failedJobs: JobsList;
   isLoading?: boolean;
 }
 
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
   isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
-export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
-  const [sortBy, setSortBy] = useState<'posted_date' | 'job_state'>(
-    'posted_date'
-  );
+export const JobFeedList: React.FC<Props> = ({
+  appliedJobs,
+  failedJobs,
+  isLoading,
+}) => {
+  const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
 
-  const pendingJobs = useMemo(() => {
-    if (!Array.isArray(jobs)) return jobs;
+  const jobs = useMemo(() => {
+    const nullDate = new Date();
 
-    //todo: need add filtering by job_state
-    return sortArrayByDate(jobs, sortBy, 'desc');
-  }, [jobs, sortBy]);
+    // make array and fix null dates
+    const applied: JobDetail[] = Object.keys(appliedJobs)
+      .map((key) => appliedJobs[key])
+      .map(
+        (job) =>
+          ({ ...job, posted_date: job.posted_date ?? nullDate } as JobDetail)
+      );
 
-  const appliedJobs = useMemo(() => {
-    if (!Array.isArray(jobs)) return jobs;
+    const failed = Object.keys(failedJobs).map((key) => failedJobs[key]);
 
-    const sortedJobs: Record<string, AppliedJob[]> = {};
-    //todo: need add filtering by job_state
-    jobs.forEach((e) => {
-      const year = new Date(e.posted_date).getFullYear();
-      if (!sortedJobs[year]) {
-        sortedJobs[year] = [];
-      }
-      sortedJobs[year].push(e);
-    });
-    for (const i of Object.keys(sortedJobs)) {
-      sortedJobs[i] = sortArrayByDate(sortedJobs[i], sortBy, 'desc');
-    }
-    return sortedJobs;
-  }, [jobs, sortBy]);
+    //todo: is there a need to sort by year?
+    // const sortedJobs: Record<string, JobsList[]> = {};
+    // //todo: need add filtering by alphabetically
+    // jobs.forEach((e) => {
+    //   const year = new Date(e.latest).getFullYear();
+    //   if (!sortedJobs[year]) {
+    //     sortedJobs[year] = [];
+    //   }
+    //   sortedJobs[year].push(e);
+    // });
+    // for (const i of Object.keys(sortedJobs)) {
+    //   sortedJobs[i] = sortArrayByDate(sortedJobs[i], sortBy, 'desc');
+    // }
+    // return sortedJobs;
+
+    return {
+      pending:
+        sortBy === 'latest'
+          ? sortArrayByDate(applied, 'posted_date', 'desc')
+          : applied.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
+      applied,
+      failed,
+    } satisfies {
+      pending: JobDetail[];
+      applied: JobDetail[];
+      failed: JobDetail[];
+    };
+  }, [appliedJobs, sortBy]);
 
   return (
-    <div className='flex flex-col'>
-      <div className='h-[67px] px-8 flex justify-end rounded-lg'>
-        <div className='flex gap-10 items-center'>
-          <button onClick={() => setSortBy('job_state')}>
-            {underlineOrParagraph('Sort by: Phase', sortBy === 'posted_date')}
-          </button>
-          <button onClick={() => setSortBy('posted_date')}>
-            {underlineOrParagraph('Sort by: Latest', sortBy === 'job_state')}
-          </button>
-        </div>
+    <div className='h-full relative flex flex-col'>
+      <div className='absolute top-0 left-[200px] h-[50px] flex items-center gap-1 z-10'>
+        Sort by:
+        <button onClick={() => setSortBy('latest')}>
+          {underlineOrParagraph('Latest', sortBy === 'alphabetically')}
+        </button>
+        |
+        <button onClick={() => setSortBy('alphabetically')}>
+          {underlineOrParagraph('Alphabetically', sortBy === 'latest')}
+        </button>
       </div>
 
-      <Tabs.Root className='mt-[-25px] h-full' defaultValue='pending'>
+      <Tabs.Root className='h-full' defaultValue='pending'>
         <Tabs.List
-          className='h-[50px] w-96 mt-[-25px] flex text-lg'
+          className={`${typography.tabs.list} h-[50px] w-96`}
           aria-label='Pending jobs list'
         >
           <Tabs.Trigger
-            className='px-10 bg-neutral-content py-4 rounded-t-md data-[state=active]:bg-white'
+            className={`${typography.tabs.trigger} w-[500px]`}
             value='pending'
           >
             Pending...
           </Tabs.Trigger>
-          <Tabs.Trigger
-            className='px-10 py-4 rounded-t-md bg-neutral-content data-[state=active]:bg-white flex gap-3'
-            value='applied'
-          >
+          <Tabs.Trigger className={typography.tabs.trigger} value='applied'>
             Applied
-            <div className='w-[28px] h-[28px] rounded-full flex justify-center items-center bg-base-100 shrink-0'>
-              <Check height={18} width={18} />
+            <div className='w-[28px] h-[28px] flex justify-center items-center shrink-0'>
+              <Check height={24} width={24} />
             </div>
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            className={`${typography.tabs.trigger} grow`}
+            value='failed'
+          >
+            Failed
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content
-          className='pt-5 flex flex-col gap-4 bg-white px-8'
-          value='pending'
-        >
+        <Tabs.Content className={typography.tabs.content} value='pending'>
           {isLoading ? (
             <>
               <JobCardSkeleton />
@@ -92,13 +117,12 @@ export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
               <JobCardSkeleton />
             </>
           ) : (
-            pendingJobs.map((job, key) => <JobCard job={job} key={key} />)
+            jobs.pending.map((job, key) => (
+              <JobCard job={job} status='Pending...' key={key} />
+            ))
           )}
         </Tabs.Content>
-        <Tabs.Content
-          className='pt-5 flex flex-col gap-4 bg-white px-8'
-          value='applied'
-        >
+        <Tabs.Content className={typography.tabs.content} value='applied'>
           {isLoading ? (
             <>
               <JobCardSkeleton />
@@ -106,13 +130,21 @@ export const JobFeedList: React.FC<Props> = ({ jobs, isLoading }) => {
               <JobCardSkeleton />
             </>
           ) : (
-            Object.keys(appliedJobs).map((year) => (
-              <React.Fragment key={year}>
-                {year}
-                {appliedJobs[year].map((job, key) => (
-                  <JobCard job={job} key={key} />
-                ))}
-              </React.Fragment>
+            jobs.applied.map((job, key) => (
+              <JobCard job={job} status='Applied' key={key} />
+            ))
+          )}
+        </Tabs.Content>
+        <Tabs.Content className={typography.tabs.content} value='failed'>
+          {isLoading ? (
+            <>
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+            </>
+          ) : (
+            jobs.failed.map((job, key) => (
+              <JobCard job={job} status='Applied' key={key} />
             ))
           )}
         </Tabs.Content>

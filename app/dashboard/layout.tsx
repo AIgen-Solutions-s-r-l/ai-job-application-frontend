@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import AppNavbar from '@/components/AppNavbar';
 import AppSidenav from '@/components/AppSidenav';
-import RequireLogin from "@/permissions/requireLogin";
+import RequireLogin from '@/permissions/requireLogin';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -11,14 +11,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <AppNavbar />
       <div className='flex gap-12 h-[calc(100vh-138px)] overflow-hidden'>
         <AppSidenav />
-        <div className='grow bg-base-100'>
-          <div className='overflow-y-auto h-full pb-5 rounded-xl'>
-            {children}
-          </div>
+        <div className='h-full grow pb-5 overflow-auto  rounded-xl bg-base-100'>
+          {children}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default RequireLogin(Layout, true);

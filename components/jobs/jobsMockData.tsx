@@ -1,68 +1,95 @@
-import { AppliedJob } from '@/libs/definitions';
+import { JobsList } from '@/libs/definitions';
 
-const jobsMockData: AppliedJob[] = [
-  {
-    job_id: 1,
-    title: 'Backend Developer',
-    is_remote: false,
-    workplace_type: 'On-site',
-    posted_date: '2024-12-03T10:00:00',
-    job_state: 'Active',
+export const jobsMockData: JobsList = {
+  '30302425-44ca-466a-ae37-87a5039d73ee': {
+    id: 2,
+    portal: 'workday',
+    title: 'NodeJs Developer',
+    workplace_type: null,
+    posted_date: '2025-02-01',
+    job_state: null,
     description:
-      'This is mock data. Randomly 50/50 show this data or null result.',
-    apply_link: 'https://backend.jobs/apply/789',
-    company: 'Backend Gurus',
-    location: 'Turin, Italy',
-    portal: 'Indeed',
+      "Required Skills & Experience Experience developing and deploying web application backends in NodeJS and JavaScript to support a RESTful microservices architectureNestJS experience- Deep level of proficiency with Docker, JavaScript/TypeScript, and server-side NodeJS- Strong experience building REST APIs and integrating them with frontend technologies- Experience migrating APIs from application gateways to self-hosted solutions- Ability to modify and/or support enterprise applications and data- Experience with document-based NoSQL databases like MongoDB- Great communication skills -- must have desire/comfortability training more junior developers! Nice to Have Skills & Experience Certification in a technology specific domain (Cloud Architecture, Security, etc.)- Experience with implementing backend APIs in Java / Spring Boot- Previous experience working with insurance related applications- Bachelors or master's degree in computer science or related field of study- Hands-on experience with Axway application gatewayhas context menu",
+    apply_link: null,
+    company_name: null,
+    location: null,
+    short_description: null,
+    field: null,
+    company_logo: null,
+    experience: null,
+    skills_required: null,
   },
-  {
-    job_id: 2,
-    title: 'Backend Developer',
-    is_remote: false,
-    workplace_type: 'On-site',
-    posted_date: '2024-12-03T10:00:00',
-    job_state: 'Active',
-    description: `
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente cumque temporibus porro suscipit ipsam. Dolore maiores consequuntur laboriosam ad explicabo, quod harum culpa sit soluta. Eveniet laboriosam explicabo repudiandae fuga.
-      A vitae libero alias ratione autem quam unde esse aliquam fugit, non cum voluptatibus velit impedit molestiae fuga? Hic, laboriosam? Natus distinctio ut, expedita culpa nemo ducimus nostrum a accusantium.
-      Laborum dolorem reiciendis inventore nulla officia a veritatis, laudantium recusandae perspiciatis vitae culpa molestias nam facere blanditiis nesciunt minus accusamus quam nisi velit autem sint. Aspernatur distinctio explicabo nesciunt aperiam!
-      Recusandae, architecto explicabo harum quaerat rem distinctio, esse inventore fugit autem vel nisi officia accusantium qui! Quidem expedita aliquam, blanditiis accusamus, neque, hic cum quibusdam consequuntur odit dolore corrupti cumque.
-      Minima nam dignissimos facere ullam rem sit incidunt. Consequuntur expedita blanditiis quos minus corporis aspernatur, sequi qui, dolorum, eos nobis dignissimos iste veritatis doloremque officia magnam exercitationem possimus incidunt atque!
-      Quibusdam illo, animi non quasi qui fuga corporis reprehenderit, assumenda possimus libero atque, ea beatae temporibus impedit ipsam molestiae vitae eaque. Porro error officiis dolores voluptatibus facere ipsa deleniti. Incidunt!
-    `,
-    apply_link: 'https://backend.jobs/apply/789',
-    company: 'Backend Gurus',
-    location: 'Turin, Italy',
-    portal: 'Indeed',
-  },
-  {
-    job_id: 3,
-    title: 'Backend Developer',
-    is_remote: false,
-    workplace_type: 'On-site',
-    posted_date: '2024-12-03T10:00:00',
-    job_state: 'Active',
+  '479b1aee-ca9c-48b1-8ff2-8f1f7c379894': {
+    id: 12345,
+    portal: 'workday',
+    title: 'Senior Software Engineer',
+    workplace_type: 'remote',
+    posted_date: '2025-01-02',
+    job_state: 'open',
     description:
-      'Develop and optimize backend APIs, ensure robust database management.',
-    apply_link: 'https://backend.jobs/apply/789',
-    company: 'Backend Gurus',
-    location: 'Turin, Italy',
-    portal: 'Indeed',
+      'We are seeking a Senior Software Engineer to develop high-quality software solutions.',
+    apply_link: 'https://example.com/job/12345/apply',
+    company_name: 'TechCorp',
+    location: 'San Francisco, CA',
+    short_description: 'Exciting role at a fast-growing tech company.',
+    field: 'Technology',
+    company_logo: 'https://example.com/assets/logos/techcorp.png',
+    experience: '5+ years of experience',
+    skills_required: ['Python', 'Docker', 'Kubernetes', 'AWS'],
   },
-  {
-    job_id: 4,
-    title: 'Backend Developer',
-    is_remote: false,
-    workplace_type: 'On-site',
-    posted_date: '2024-12-03T10:00:00',
-    job_state: 'Active',
-    description:
-      'Develop and optimize backend APIs, ensure robust database management.',
-    apply_link: 'https://backend.jobs/apply/789',
-    company: 'Backend Gurus',
-    location: 'Turin, Italy',
-    portal: 'Indeed',
+  '900d7249-310d-475d-8527-f06fd552cd3d': {
+    id: 21,
+    portal: 'workday',
+    title: 'FP&A manager',
+    workplace_type: null,
+    posted_date: null,
+    job_state: '2024-01-01',
+    description: 'Boh',
+    apply_link: null,
+    company_name: null,
+    location: null,
+    short_description: null,
+    field: null,
+    company_logo: null,
+    experience: null,
+    skills_required: null,
   },
-];
+  'e32b9819-5a43-450a-aacb-799182572db1': {
+    id: 1,
+    portal: 'workday',
+    title: 'FP&A manager (mock data)',
+    workplace_type: null,
+    posted_date: '2024-12-01',
+    job_state: null,
+    description: 'Boh',
+    apply_link: null,
+    company_name: null,
+    location: null,
+    short_description: null,
+    field: null,
+    company_logo: null,
+    experience: null,
+    skills_required: null,
+  },
+};
 
-export default jobsMockData;
+export const failedJobsMockData: JobsList = {
+  'e32b9819-5a43-450a-aacb-799182572db1': {
+    id: 12345,
+    portal: 'workday',
+    title: 'Senior Software Engineer (failed mock data)',
+    workplace_type: 'remote',
+    posted_date: '2025-01-01',
+    job_state: 'open',
+    description:
+      'We are seeking a Senior Software Engineer to develop high-quality software solutions.',
+    apply_link: 'https://example.com/job/12345/apply',
+    company_name: 'TechCorp',
+    location: 'San Francisco, CA',
+    short_description: 'Exciting role at a fast-growing tech company.',
+    field: 'Technology',
+    company_logo: 'https://example.com/assets/logos/techcorp.png',
+    experience: '5+ years of experience',
+    skills_required: ['Python', 'Docker', 'Kubernetes', 'AWS'],
+  },
+};

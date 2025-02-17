@@ -56,45 +56,71 @@ progress::-webkit-progress-value {
   }
 
   .collapse-title {
-    @apply !text-[20px] !pt-[34px] !pb-[27px] !px-[50px]
+    @apply !text-[16px] md:!text-[20px] !pt-[21px] !pb-[16px] !pl-[20px] !pr-[30px] md:!pt-[34px] md:!pb-[27px] md:!px-[50px]
   }
 
   .collapse-content {
-    @apply !text-[20px] !pt-[0] !pb-[7px] !px-[70px]
+    @apply !text-[14px] md:!text-[20px] !pt-[0] !pb-[5px] !px-[30px] md:!pb-[7px] md:!px-[70px]
   }
 
   .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-content {
     @apply !pb-[34px]
   }
 
-  .my-collapse-plus > .collapse-title:after {
-    position: absolute;
-    display: block;
-    background-image: url('/landing/faq-plus.svg');
-    background-size: 28px 28px;
-    width: 28px; 
-    height: 28px;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    transition-duration: 300ms;
-    top:  30px;
-    inset-inline-end: 30px;
-    content: "";
-    pointer-events: none;
+  @media (width <= 767px) {
+    .my-collapse-plus > .collapse-title:after {
+      position: absolute;
+      display: block;
+      background-image: url('/landing/faq-plus.svg');
+      background-size: 24px 24px;
+      width: 24px; 
+      height: 24px;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      transition-duration: 300ms;
+      top:  22px;
+      inset-inline-end: 16px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-title:after 
+    {
+      transform: rotate(45deg);
+    }
   }
 
-  .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-title:after 
-  {
-    transform: rotate(45deg);
+  @media (width > 767px) {
+    .my-collapse-plus > .collapse-title:after {
+      position: absolute;
+      display: block;
+      background-image: url('/landing/faq-plus.svg');
+      background-size: 28px 28px;
+      width: 28px; 
+      height: 28px;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      transition-duration: 300ms;
+      top:  30px;
+      inset-inline-end: 30px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-title:after 
+    {
+      transform: rotate(45deg);
+    }
   }
 
   .footer-link {
-    @apply font-jura font-semibold text-[18px] text-white leading-none tracking-tight underline
+    @apply font-jura font-semibold text-[16px] md:text-[18px] text-white leading-none tracking-tight underline
   }
   
   .testimonials-button {
-    @apply w-[100px] h-[100px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
+    @apply w-[70px] h-[70px] md:w-[86px] md:h-[86px] xl:w-[100px] xl:h-[100px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
   }
   
   .testimonial-text-highlight {
@@ -106,7 +132,15 @@ progress::-webkit-progress-value {
   }
   
   .text-heading {
-    @apply text-[40px] 2xl:text-[50px] font-medium leading-[1.1] text-center text-white
+    @apply text-3xl md:text-[40px] 2xl:text-[50px] font-medium leading-[1.1] text-center text-white
+  }
+
+  .footer-social-container {
+    @apply w-9 h-9 md:w-12 md:h-12 rounded-full md:bg-my-neutral-2 flex items-center justify-center
+  }
+
+  .footer-social-icon {
+    @apply w-5 h-5 md:w-7 md:h-7 fill-white md:fill-my-neutral-7
   }
   
   @media (width <= 767px) {

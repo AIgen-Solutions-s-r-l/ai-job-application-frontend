@@ -7,7 +7,7 @@ import { useWindowSize } from "@/lib/hooks";
 
 const MobileFeatures: React.FC = () => {
   return (
-    <section className="bg-primary-light-purple py-12 px-4">
+    <section className="py-12 px-4">
       {/* Header */}
       <div className="flex flex-col items-center gap-6 mb-12">
         <h2 className="text-3xl font-medium text-center text-white">
@@ -114,7 +114,7 @@ export const DesktopFeatures: React.FC = () => {
   });
   
   return (
-    <section ref={targetRef} className="bg-primary-light-purple relative h-[300vh]">
+    <section ref={targetRef} className="relative h-[300vh]">
       <div className="sticky top-0 flex flex-col gap-[100px] 2xl:gap-[150px] pt-[80px] 2xl:pt-[100px] h-screen overflow-hidden">
         <div className="sticky left-0 w-full flex flex-col items-center gap-10 font-montserrat">
           <h2 className="text-heading">All the jobs on the internet, in one place.</h2>
@@ -188,6 +188,12 @@ export const Features: React.FC = () => {
 
   const MemoizedMobileFeatures = React.memo(MobileFeatures);
   const MemoizedDesktopFeatures = React.memo(DesktopFeatures);
+
+  if (!width) {
+    return (
+      <section className="h-[100vh]"></section>
+    );
+  }
 
   return isMobile ? <MemoizedMobileFeatures /> : <MemoizedDesktopFeatures />;
 };

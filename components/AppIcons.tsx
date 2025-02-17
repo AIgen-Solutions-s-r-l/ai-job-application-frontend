@@ -39,4 +39,17 @@ const LinkedinIcon: React.FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-export { InstagramIcon, TwitterIcon, LinkedinIcon };
+const CheckmarkIcon: React.FC<SvgIconProps> = ({ classname }) => (
+  <svg 
+    width="59" 
+    height="34" 
+    viewBox="0 0 59 34" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className={classname}  
+  >
+    <path d="M2.13477 7.16129L17.6878 29.4216C19.3944 31.8641 22.845 32.2813 25.0846 30.3158L57.3488 2" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  </svg>
+);
+
+export { InstagramIcon, TwitterIcon, LinkedinIcon, CheckmarkIcon };

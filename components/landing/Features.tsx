@@ -1,16 +1,52 @@
 'use client';
 
-import React, { useRef } from "react";
-import { motion, useTransform, useScroll } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useTransform, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 
 export const Features: React.FC = () => {
+  const [isClient, setIsClient] = useState(false)
+  const [dimensions, setDimensions] = useState(0);
+ 
   const targetRef = useRef(null);
+  
+  useEffect(() => {
+    setIsClient(true)
+    if (targetRef.current) {
+      setDimensions(targetRef.current.offsetWidth);
+      test()
+    }
+  }, [])
+  
+  // const windowWidth = useRef(window.innerWidth);
+  
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  
+  const x = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]));
+  const xtra = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "-67%"]));
+  let say;
+
+  // if (typeof window !== "undefined") {
+  //   console.log('window check: ', window)
+  // }
+
+  function test() {
+    console.log("this shit is running: ", dimensions)
+    if (dimensions > 720) {
+      if (dimensions < 1280) {
+        say = xtra
+      }
+      say = x
+    }
+    say = null
+  }
+
+  if (!isClient) {
+    return <section className="bg-primary-light-purple h-[100vh]"></section>
+  }
 
   return (
     <section ref={targetRef} className="bg-primary-light-purple relative h-[300vh]">
@@ -20,9 +56,9 @@ export const Features: React.FC = () => {
           <p className="text-[20px] text-primary-deep-purple leading-[120%] text-center">Laboro collects opportunities from every website and job board, <br/>automates your applications, and matches you with the perfect role, <br/>saving you time and effort. Bring the power back to job seekers.</p>
         </div>
         
-        <motion.div style={{ x }} className="flex gap-4">
+        <motion.div style={{ x: say }} className="grid grid-cols-5 gap-4 w-[300vw] 2xl:w-[200vw] h-[40vh] px-[70px]">
           <div
-            className="features-slide justify-end font-montserra ml-[70px]"
+            className="features-slide justify-end font-montserra"
           >
             <Image src='/landing/feature-1.png' alt='feature-1' width={405} height={100} />
   
@@ -57,7 +93,7 @@ export const Features: React.FC = () => {
             <Image src='/landing/feature-4.png' alt='feature-4' width={420} height={264} />
           </div>
           <div
-            className="flex flex-row flex-none snap-start w-[640px] h-[365px] rounded-[40px] px-[40px] py-[30px] border-4 border-splash-green bg-primary-deep-purple items-center gap-[15px] font-montserrat"
+            className="features-slide flex-row bg-primary-deep-purple items-center gap-[15px] font-montserrat"
           >
             <div className="w-[335px]">
               <p className="text-[24px] leading-[1.1] text-primary-light-purple-gray">

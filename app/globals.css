@@ -102,7 +102,11 @@ progress::-webkit-progress-value {
   }
 
   .features-slide {
-    @apply flex flex-col flex-none snap-start rounded-[40px] px-[40px] py-[30px] border-4 border-splash-green
+    @apply flex flex-col flex-none snap-start rounded-[40px] px-[27px] py-[20px] 2xl:px-[40px] 2xl:py-[30px] border-4 border-splash-green
+  }
+  
+  .text-heading {
+    @apply text-[40px] 2xl:text-[50px] font-medium leading-[1.1] text-center text-white
   }
   
   @media (width <= 767px) {

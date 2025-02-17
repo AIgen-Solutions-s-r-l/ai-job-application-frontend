@@ -173,7 +173,7 @@ export const DesktopFeatures: React.FC = () => {
                 system is <span className='text-splash-orange'>higher</span>, since you can apply to many jobs with <span className="text-white">perfectly matching resume & cover letters.</span>
               </p>
             </div>
-  
+
             <Image src='/landing/feature-5.png' alt='feature-5' width={200} height={277} />
           </div>
         </motion.div>

@@ -9,6 +9,10 @@ body {
   scroll-behavior: smooth !important;
 }
 
+main {
+  background-color: #8783d1;
+}
+
 /* It makes the HTML progress bar filling smooth when value change. */
 progress::-webkit-progress-value {
   transition: 0.6s width ease-out;
@@ -98,7 +102,7 @@ progress::-webkit-progress-value {
   }
 
   .features-slide {
-    @apply flex flex-col flex-none snap-start w-[640px] h-[365px] rounded-[40px] px-[40px] py-[30px] border-4 border-splash-green
+    @apply flex flex-col flex-none snap-start rounded-[40px] px-[40px] py-[30px] border-4 border-splash-green
   }
   
   @media (width <= 767px) {

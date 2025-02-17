@@ -223,8 +223,18 @@ export interface AppliedJob {
 }
 
 export interface JobSearchParams {
-  q?: string;
-  l?: string;
+  country?: string
+  city?: string
+  latitude?: number
+  longitude?: number
+  radius_km?: number
+  keywords?: string[]
+  offset?: number
+}
+
+export type JobSearchProps = JobSearchParams & {
+  q: string;
+  location: string;
 }
 
 export interface JobProfile {

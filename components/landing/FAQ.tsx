@@ -1,6 +1,8 @@
 import React from 'react';
 import FaqQuestion from '@/public/landing/faq-question.svg';
 import { LandingContainer } from './LandingContainer';
+import * as motion from "motion/react-client";
+import { useScroll, useTransform } from "motion/react";
 
 const accordionItems = [
   {
@@ -56,14 +58,26 @@ const accordionItems = [
 ]
 
 export const FAQ: React.FC = () => {
+  const sectionRef = React.useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["200px end", "center end"]
+  });
+
+  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.6, 0.9], ['0%', '80%', '80%', '0%', '0%']);
+  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.6, 0.9], [0, 0, 110, 110, 245]);
+
   return (
-    <section className='bg-primary-light-purple pt-[240px]'>
-      <div className="w-max mx-auto">
-        <div className="w-[199px] h-[224px] relative" style={{ backgroundImage: `url(${FaqQuestion.src})` }} ></div>
-        
+    <section ref={sectionRef} className='bg-primary-light-purple pt-[240px]'>
+      <div className="relative w-max mx-auto">
+        <div className="w-[199px] h-[224px]" style={{ backgroundImage: `url(${FaqQuestion.src})` }} ></div>
         <div className="flex gap-5 items-center mt-4 mb-[78px]">
-          <div className="w-10 h-10 rounded-full bg-splash-orange"></div>
-          <h2 className="text-[50px] font-medium font-montserrat leading-none tracking-tight text-white">F.A.Q</h2>
+          <motion.div className="absolute top-0 w-10 left-[0px] h-10 rounded-full bg-splash-orange"
+            style={{
+              left: pathX,
+              top: pathY,
+            }} />
+          <h2 className="ml-10 text-[50px] font-medium font-montserrat leading-none tracking-tight text-white">F.A.Q</h2>
         </div>
       </div>
 

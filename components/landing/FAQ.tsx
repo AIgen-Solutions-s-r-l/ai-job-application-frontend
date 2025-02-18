@@ -68,16 +68,16 @@ export const FAQ: React.FC = () => {
   const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.6, 0.9], [0, 0, 110, 110, 245]);
 
   return (
-    <section ref={sectionRef} className='bg-primary-light-purple pt-[240px]'>
+    <section ref={sectionRef} className='bg-primary-light-purple pt-[150px] md:pt-[200px] xl:pt-[240px]'>
       <div className="relative w-max mx-auto">
         <div className="w-[199px] h-[224px]" style={{ backgroundImage: `url(${FaqQuestion.src})` }} ></div>
-        <div className="flex gap-5 items-center mt-4 mb-[78px]">
+        <div className="flex gap-5 items-center mt-4 mb-[48px] md:mb-[78px]">
           <motion.div className="absolute top-0 w-10 left-[0px] h-10 rounded-full bg-splash-orange"
             style={{
               left: pathX,
               top: pathY,
             }} />
-          <h2 className="ml-10 text-[50px] font-medium font-montserrat leading-none tracking-tight text-white">F.A.Q</h2>
+          <h2 className="ml-[50px] text-[50px] md:text-[50px] font-medium font-montserrat leading-none tracking-tight text-white">F.A.Q</h2>
         </div>
       </div>
 

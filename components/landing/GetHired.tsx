@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import HiredFlower from '@/public/landing/hired-flower.svg'
-import HiredElevator from '@/public/landing/hired-elevator.svg'
 import * as motion from "motion/react-client"
 import { useScroll, useTransform, useSpring } from "motion/react"
 
@@ -11,18 +10,18 @@ export const GetHired: React.FC = () => {
     target: sectionRef,
     offset: ["start end", "end center"]
   });
-  const pathY = useTransform(scrollYProgress, [0, 1], ['0%', '70%']);
+  const pathY = useTransform(scrollYProgress, [0, 1], ['90%', '0%']);
   const pathYSpring = useSpring(pathY, { stiffness: 50, damping: 20, restDelta: 0.01 });
   const rotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const rotationSpring = useSpring(rotation, { stiffness: 50, damping: 20, restDelta: 0.01 });
 
 
   return (
-    <section className='flex flex-col items-center bg-primary-light-purple pt-[191px]'>
+    <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[140px] xl:pt-[191px]'>
       <motion.div style={{ rotate: rotationSpring }}>
         <Image src={HiredFlower} alt='hired-flower' />
       </motion.div>
-      <div ref={sectionRef} className="relative flex flex-col mt-[62px] font-josefin-sans text-[200px] tracking-tight text-primary-deep-purple leading-[0.84] relative">
+      <div ref={sectionRef} className="relative flex flex-col mt-[62px] font-josefin-sans text-[80px] md:text-[160px] xl:text-[200px] tracking-tight text-primary-deep-purple leading-[0.84]">
         <p>Get Hired.</p>
         <p>Get Hired.</p>
         <p>Get Hired.</p>
@@ -30,11 +29,10 @@ export const GetHired: React.FC = () => {
         <p>Get Hired.</p>
         <p>Get Hired.</p>
         <p>Get Hired.</p>
-        <motion.div className="absolute -top-[20%] left-[51%] -translate-x-1/2"
+        <motion.div className="absolute -top-[20%] left-[51%] -translate-x-1/2 w-[80px] h-[120px] md:w-[160px] md:h-[240px] xl:w-[184px] xl:h-[310px] border-[10px] md:border-[20px] border-black"
           style={{ top: pathYSpring }}
         >
-          <Image src={HiredElevator} alt='hired-elevator' />
-          <Image src='/landing/hired-dude.png' alt='hired-dude' width={84} height={166} className='absolute left-[45px] bottom-5' />
+          <Image src='/landing/hired-dude.png' alt='hired-dude' width={127} height={244} className='w-[50px] md:w-[100px] xl:w-[127px] h-auto absolute left-[6px] md:left-[10px] bottom-0' />
         </motion.div>
       </div>
     </section>

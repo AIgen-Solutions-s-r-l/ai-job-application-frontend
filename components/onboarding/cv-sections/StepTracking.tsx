@@ -15,7 +15,7 @@ const StepBox = ({ step, currentStep, title }: StepBoxProps) => {
 
   return (
     <li
-      className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-7 items-center px-7 cursor-pointer ${active ? 'bg-primary-light-purple' : 'bg-my-neutral-5'}`}
+      className={`w-[260px] h-[80px] rounded-lg text-lg gap-7 items-center px-7 cursor-pointer ${active ? 'bg-primary-light-purple flex' : 'bg-my-neutral-5 hidden lg:flex'}`}
     >
       <span className={`text-[48px] font-kanit font-medium ${active ? 'text-splash-green' : 'text-primary-light-purple-gray'}`}>{step}</span>
       <p className='text-[20px] leading-[22px] text-white font-kanit font-light'>{title}</p>
@@ -25,7 +25,7 @@ const StepBox = ({ step, currentStep, title }: StepBoxProps) => {
 
 const StepArrow = () => {
   return (
-    <div className="w-[90px] h-1 bg-accent relative">
+    <div className="w-[90px] h-1 bg-accent relative hidden lg:block">
       <div className="absolute top-0 right-0 w-5 h-1 bg-accent rotate-45 origin-right"></div>
       <div className="absolute top-0 right-0 w-5 h-1 bg-accent -rotate-45 origin-right"></div>
     </div>

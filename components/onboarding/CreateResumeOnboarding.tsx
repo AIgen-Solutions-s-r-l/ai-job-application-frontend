@@ -14,6 +14,7 @@ import { ExperienceDetailsOnboarding } from './cv-sections/ExperienceDetailsOnbo
 import { AdditionalInfoOnboarding } from './cv-sections/AdditionalInfoOnboarding';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { StepTracking } from './cv-sections/StepTracking';
+import { Container } from '../Container';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const router = useRouter()
@@ -37,7 +38,7 @@ export const CreateResumeOnboarding: React.FC = () => {
 
   const nextStep = async (ev: FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();
-    if (await validateStep())
+    // if (await validateStep())
       setCurrentStep((prev) => prev + 1)
   };
 
@@ -66,8 +67,8 @@ export const CreateResumeOnboarding: React.FC = () => {
   return (
     <div className='w-full h-full flex flex-col items-center'>
       <div className="w-full pb-[100px] bg-base-100">
-        <div className="w-[1440px] mx-auto flex-1">
-          <h4 className="text-[20px] font-montserrat mb-[60px] font-medium leading-none">View & edit your information</h4>
+        <Container className="flex-1">
+          <h4 className="text-[16px] md:text-[20px] font-montserrat mb-[30px] lg:mb-[60px] font-medium leading-none">View & edit your information</h4>
           <div className="mb-10">
             <StepTracking currentStep={currentStep} />
           </div>
@@ -90,28 +91,28 @@ export const CreateResumeOnboarding: React.FC = () => {
               </div>
             </form>
           </FormProvider>
-        </div>
+        </Container>
       </div>
 
-      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
-        <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
+      <div className="fixed bottom-0 left-0 z-10 w-full h-[80px] flex items-center bg-primary">
+        <Container className="flex flex-none items-center justify-between">
           {currentStep === 1
             ? <button
-              className="my-btn text-white text-[18px] font-jura font-semibold"
+              className="my-btn text-white text-[12px] md:text-[18px] font-jura font-semibold"
               type="button"
               onClick={() => setCVData(null)}
             >
               Back to CV Uploader
             </button>
             : <div></div>}
-          <div className="flex gap-5 font-jura">
-            <button className="bg-my-neutral-6 pl-[16px] pr-[30px] py-3 text-lg font-semibold leading-none text-white w-[240px] rounded-[20px] flex justify-between items-center hover:bg-my-neutral-5 disabled:hidden" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
+          <div className="flex gap-5 font-jura text-sm md:text-lg">
+            <button className="bg-my-neutral-6 pl-[4px] pr-[10px] md:pl-[16px] md:pr-[30px] py-2 md:py-3 font-semibold leading-none text-white md:w-[240px] rounded-[20px] flex gap-5 justify-between items-center hover:bg-my-neutral-5 disabled:hidden" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
               <ChevronLeft size={30} />
               <p>Previous Step</p>
             </button>
             {currentStep < 4 ? (
               <button
-                className="bg-splash-green pl-[30px] pr-[16px] py-3 text-lg font-semibold leading-none text-black w-[240px] rounded-[20px] flex justify-between items-center"
+                className="bg-splash-green pl-[10px] pr-[4px] md:pl-[30px] md:pr-[16px] py-2 md:py-3 font-semibold leading-none text-black md:w-[240px] rounded-[20px] flex gap-5 justify-between items-center"
                 type="button"
                 onClick={nextStep}
               >
@@ -119,14 +120,14 @@ export const CreateResumeOnboarding: React.FC = () => {
                 <ChevronRight size={30} />
               </button>
             ) : (
-              <button className="bg-splash-green pl-[30px] pr-[16px] py-3 text-lg font-semibold leading-none text-black w-[300px] rounded-[20px] flex justify-between items-center" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
+              <button className="bg-splash-green pl-[10px] pr-[4px] md:pl-[30px] md:pr-[16px] py-2 md:py-3 font-semibold leading-none text-black md:w-[300px] rounded-[20px] flex gap-5 justify-between items-center" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
                 {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
                 <p>Save & Continue</p>
                 <ChevronRight size={30} />
               </button>
             )}
           </div>
-        </div>
+        </Container>
       </div>
     </div>
   );

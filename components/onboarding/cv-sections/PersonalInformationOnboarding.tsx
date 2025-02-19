@@ -114,7 +114,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             placeholder="e.g., john.doe@example.com"
             error={!!errors.personalInfo?.email}
             errorMessage={errors.personalInfo?.email?.message}
-            className='w-[579px]'
+            className='grow lg:w-[579px]'
           />
         </InputWrapper>
 
@@ -134,7 +134,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             placeholder="e.g., https://github.com/johndoe"
             error={!!errors.personalInfo?.github}
             errorMessage={errors.personalInfo?.github?.message}
-            className='w-[402px]'
+            className='grow lg:w-[402px]'
           />
           <FormInput
             title={'Linkedin'}
@@ -150,7 +150,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             placeholder="e.g., https://linkedin.com/in/johndoe"
             error={!!errors.personalInfo?.linkedin}
             errorMessage={errors.personalInfo?.linkedin?.message}
-            className='w-[579px]'
+            className='grow lg:w-[579px]'
           />
         </InputWrapper>
       </div>

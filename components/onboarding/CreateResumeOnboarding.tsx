@@ -38,7 +38,7 @@ export const CreateResumeOnboarding: React.FC = () => {
 
   const nextStep = async (ev: FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();
-    // if (await validateStep())
+    if (await validateStep())
       setCurrentStep((prev) => prev + 1)
   };
 

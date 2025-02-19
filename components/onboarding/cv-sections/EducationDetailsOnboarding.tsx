@@ -23,10 +23,10 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Exam Subject
           </label>
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Exam Grade
           </label>
         </div>
@@ -138,7 +138,7 @@ export const EducationDetailsOnboarding: React.FC = () => {
               placeholder="e.g., Computer Science"
               error={!!errors.educationDetails?.[index]?.field_of_study}
               errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
-              className='w-[429px]'
+              className='grow lg:w-[429px]'
             />
           </InputWrapper>
 

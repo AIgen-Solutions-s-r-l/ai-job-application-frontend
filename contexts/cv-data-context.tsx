@@ -17,10 +17,7 @@ const SESSION_STORAGE_KEY = "onboarding-cv-data";
 export const CVDataContext = createContext<CVDataContextType | null>(null);
 
 export default function CVDataContextProvider ({ children }: CVDataContextProviderProps) {
-  const [CVData, setCVData] = useState<JobProfile>(() => {
-    let stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    return stored ? JSON.parse(stored) : null;
-  });
+  const [CVData, setCVData] = useState<JobProfile>(null);
 
   useEffect(() => {
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(CVData));

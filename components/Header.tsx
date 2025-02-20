@@ -54,13 +54,10 @@ const Header = () => {
             <Image
               src={logo}
               alt={`${config.appName} logo`}
-              className="w-8"
+              className="w-36"
               placeholder="blur"
               priority={true}
-              width={32}
-              height={32}
             />
-            <span className="font-extrabold text-lg">{config.appName}</span>
             {/* Add the Beta badge here */}
             <span className="badge badge-outline text-xs ml-1">Beta</span>
           </Link>

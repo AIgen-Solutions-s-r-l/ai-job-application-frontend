@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Italianno&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,9 +9,17 @@ body {
   scroll-behavior: smooth !important;
 }
 
+main {
+  background-color: #8783d1;
+}
+
 /* It makes the HTML progress bar filling smooth when value change. */
 progress::-webkit-progress-value {
   transition: 0.6s width ease-out;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(58%) sepia(10%) saturate(623%) hue-rotate(219deg) brightness(87%) contrast(88%);
 }
 
 @layer base {
@@ -23,6 +31,118 @@ progress::-webkit-progress-value {
     @apply !capitalize;
   }
 
+  .my-btn {
+    @apply h-[56px] px-7 flex items-center justify-between bg-primary-light-purple hover:bg-primary-light-purple-gray transition-all ease-in duration-100 rounded-[20px];
+  }
+
+  .my-btn-green {
+    @apply h-[56px] px-5 flex items-center justify-between bg-splash-green rounded-[20px];
+  }
+
+  .my-input {
+    @apply w-full h-10 bg-white outline-none border border-my-neutral-4 focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base px-[10px] rounded-md text-[18px] font-jura;
+  }
+
+  .add-nested {
+    @apply w-max px-6 h-10 font-jura font-semibold mt-4 bg-my-neutral-2 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-primary-light-purple transition-all ease-in duration-100 hover:text-white;
+  }
+
+  .remove-nested {
+    @apply w-10 h-10 flex items-center justify-center bg-my-neutral-2 outline-none border border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md;
+  }
+
+  .stroked-text {
+    text-shadow: -1px -1px 0 #A9A6E3, 1px -1px 0 #A9A6E3, -1px 1px 0 #A9A6E3, 1px 1px 0 #A9A6E3;
+  }
+
+  .collapse-title {
+    @apply !text-[16px] md:!text-[20px] !pt-[21px] !pb-[16px] !pl-[20px] !pr-[30px] md:!pt-[34px] md:!pb-[27px] md:!px-[50px]
+  }
+
+  .collapse-content {
+    @apply !text-[14px] md:!text-[20px] !pt-[0] !pb-[5px] !px-[30px] md:!pb-[7px] md:!px-[70px]
+  }
+
+  .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-content {
+    @apply !pb-[34px]
+  }
+
+  @media (width <= 767px) {
+    .my-collapse-plus > .collapse-title:after {
+      position: absolute;
+      display: block;
+      background-image: url('/landing/faq-plus.svg');
+      background-size: 24px 24px;
+      width: 24px; 
+      height: 24px;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      transition-duration: 300ms;
+      top:  22px;
+      inset-inline-end: 16px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-title:after 
+    {
+      transform: rotate(45deg);
+    }
+  }
+
+  @media (width > 767px) {
+    .my-collapse-plus > .collapse-title:after {
+      position: absolute;
+      display: block;
+      background-image: url('/landing/faq-plus.svg');
+      background-size: 28px 28px;
+      width: 28px; 
+      height: 28px;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      transition-duration: 300ms;
+      top:  30px;
+      inset-inline-end: 30px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-title:after 
+    {
+      transform: rotate(45deg);
+    }
+  }
+
+  .footer-link {
+    @apply font-jura font-semibold text-[16px] md:text-[18px] text-white leading-none tracking-tight underline
+  }
+  
+  .testimonials-button {
+    @apply w-[70px] h-[70px] md:w-[86px] md:h-[86px] xl:w-[100px] xl:h-[100px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
+  }
+  
+  .testimonial-text-highlight {
+    @apply font-semibold
+  }
+
+  .features-slide {
+    @apply flex flex-col flex-none snap-start rounded-[40px] px-[27px] py-[20px] 2xl:px-[40px] 2xl:py-[30px] border-4 border-splash-green
+  }
+  
+  .text-heading {
+    @apply text-3xl md:text-[40px] 2xl:text-[50px] font-medium leading-[1.1] text-center text-white
+  }
+
+  .footer-social-container {
+    @apply w-9 h-9 md:w-12 md:h-12 rounded-full md:bg-my-neutral-2 flex items-center justify-center
+  }
+
+  .footer-social-icon {
+    @apply w-5 h-5 md:w-7 md:h-7 fill-white md:fill-my-neutral-7
+  }
+  
   @media (width <= 767px) {
     .drawer-menu {
       width: 16rem;

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/libs/supabase/client";
 import toast from "react-hot-toast";
 import config from "@/config";
 import { useRouter } from "next/navigation";
 import { resetPassword } from "@/libs/api/auth";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function UpdatePassword({
@@ -55,15 +55,15 @@ export default function UpdatePassword({
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-base-200" data-theme={config.colors.theme}>
-      <div className="w-full max-w-lg p-10 space-y-6 card bg-base-100 border-2">
-        <div className="text-center">
-          <img src="/icon.png" alt="Logo" className="mx-auto mb-4 w-16" />
-          <h2 className="text-2xl font-bold mb-6">Set a new password</h2>
-          <p className="text-sm text-gray-600 mb-4">Enter your new password below to update your account.</p>
+    <main className="flex items-center justify-center min-h-screen bg-base-100 md:bg-base-200 font-montserrat" data-theme={config.colors.theme}>
+      <div className="w-full md:max-w-lg px-4 md:p-10 space-y-6 card bg-base-100 border-none md:border-2">
+        <div className="flex flex-col">
+          <Image src="/laboro.png" alt="Logo" width={214} height={58} />
+          <h2 className="text-xl md:text-2xl font-semibold mt-2 mb-4">Set a new password</h2>
+          <p className="text-sm text-gray-600">Enter your new password below to update your account.</p>
         </div>
 
-        <form className="space-y-4" onSubmit={handleUpdatePassword}>
+        <form className="space-y-4 font-jura" onSubmit={handleUpdatePassword}>
           <div className="form-control">
             <input
               type="password"
@@ -86,7 +86,7 @@ export default function UpdatePassword({
           </div>
           <button
             type="submit"
-            className="btn btn-primary w-full"
+            className="btn btn-primary w-full text-white font-medium text-base"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -100,8 +100,8 @@ export default function UpdatePassword({
           )}
         </form>
 
-        <div className="flex justify-center text-sm mt-4">
-          <p className="text-center text-sm">
+        <div className="flex text-xs md:text-sm mt-4">
+          <p className="">
             Remembered your password? <a href="/signin" className="text-primary">Sign in</a>
           </p>
         </div>

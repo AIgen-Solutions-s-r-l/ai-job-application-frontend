@@ -15,10 +15,10 @@ const StepBox = ({ step, currentStep, title }: StepBoxProps) => {
 
   return (
     <li
-      className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-6 items-center px-5 cursor-pointer ${active ? 'bg-primary' : 'bg-neutral'}`}
+      className={`w-[260px] h-[80px] rounded-lg text-lg flex gap-7 items-center px-7 cursor-pointer ${active ? 'bg-primary-light-purple' : 'bg-my-neutral-5'}`}
     >
-      <span className={`text-[48px] ${active ? 'text-secondary' : 'text-primary'}`}>{step}</span>
-      <p className='text-[28px] text-base-100 font-light'>{title}</p>
+      <span className={`text-[48px] font-kanit font-medium ${active ? 'text-splash-green' : 'text-primary-light-purple-gray'}`}>{step}</span>
+      <p className='text-[20px] leading-[22px] text-white font-kanit font-light'>{title}</p>
     </li>
   );
 }

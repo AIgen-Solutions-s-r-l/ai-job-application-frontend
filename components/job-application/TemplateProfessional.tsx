@@ -9,18 +9,25 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { updateApplicationResumeAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
 import { useCVTemplateContext } from '../../contexts/cv-template-context';
-import { TemplateType } from './_components/resumeTemplates';
-import { FaSpinner } from 'react-icons/fa';
-import { fromResumeType } from '@/libs/utils/application.util';
+// import { TemplateType } from './_components/resumeTemplates';
+// import { fromResumeType } from '@/libs/utils/application.util';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { JobButtomSheet } from '@/components/JobButtomSheet';
+import { ButtonSubmit } from '@/components/ButtonSubmit';
+import { ButtonApplication } from '@/components/ButtonApplication';
 
 interface Props {
   id: string;
   resume: Resume;
+  goBack?: () => void;
 }
 
-export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
+export const TemplateProfessional: React.FC<Props> = ({
+  id,
+  resume,
+  goBack,
+}) => {
   const { activeSection } = useActiveSectionContext();
   const { template, setSelectedTemplate } = useCVTemplateContext();
   const router = useRouter();
@@ -36,15 +43,14 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
       const response = await updateApplicationResumeAction(id, data);
 
       if (response.success) {
-        toast.success("Application resume updated successfully!");
-        console.log("Application resume updated successfully");
+        toast.success('Application resume updated successfully!');
+        console.log('Application resume updated successfully');
       } else {
-        toast.error("Error updating application resume.");
-        console.error("Error updating application resume:", response.error);
-
+        toast.error('Error updating application resume.');
+        console.error('Error updating application resume:', response.error);
       }
     } catch (error) {
-      console.error("Error submitting application resume:", error);
+      console.error('Error submitting application resume:', error);
     }
   };
 
@@ -64,7 +70,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
           activeSection ? 'bg-black/20' : (template.background ?? 'bg-white'))}>
           <form
             id='my-form'
-            className="w-full"
+            className='w-full'
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
@@ -72,7 +78,7 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
             }}
             onSubmit={methods.handleSubmit(handleResumeSubmit)}
           >
-            <div id="resume-sections" className={template.body}>
+            <div id='resume-sections' className={template.body}>
               <ResumePersonal />
               <ResumeEducation />
               <ResumeExperience />
@@ -81,29 +87,19 @@ export const TemplateProfessional: React.FC<Props> = ({ id, resume }) => {
           </form>
         </div>
       </FormProvider>
-      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
-        <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
-          <button
-            className="w-[220px] h-[40px] rounded-full text-white text-lg"
-            type="button"
-            onClick={() => router.replace('/manager')}
-          >
-            Go Back
-          </button>
-          <div className="flex items-center gap-10">
-            <p className='text-base text-black'>You’re editing the Resume</p>
-            <button
-              className="bg-secondary text-base leading-none text-black w-[220px] h-[40px] rounded-full flex justify-center items-center hover:bg-base-100 disabled:bg-neutral-content"
-              form='my-form'
-              type="submit"
-              disabled={methods.formState.isSubmitting}
-            >
-              {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
-              <p>Update Resume</p>
-            </button>
-          </div>
+      <JobButtomSheet className='flex-none items-center justify-between'>
+        <ButtonApplication title='Go Back' handleClick={goBack} />
+        <div className='flex items-center gap-10'>
+          <p className='text-lg text-white font-semibold'>
+            You’re editing the Resume
+          </p>
+          <ButtonSubmit
+            title='Update Resume'
+            isSubmitting={methods.formState.isSubmitting}
+            disabled={methods.formState.isSubmitting}
+          />
         </div>
-      </div>
+      </JobButtomSheet>
     </>
   );
 };

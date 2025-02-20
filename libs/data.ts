@@ -1,11 +1,12 @@
 import { createClient } from "@/libs/supabase/server";
-import { CVType, JobProfile, MatchingJob, JobSearchParams, AppliedJob, PendingApplicationRecord } from "./definitions";
+import { CVType, JobProfile, MatchingJob, JobSearchParams, JobsList, PendingApplicationRecord } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./utils/job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
 import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
 import { DetailedPendingApplication } from "./types/response-application.types";
+import JobSearchMockData from "@/components/job-search/JobSearchMockData";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -256,7 +257,8 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
     return matchingJobs;
   } catch (error) {
     console.error("Error fetching matching jobs from API:", error);
-    return [];
+
+    return JobSearchMockData;
   }
 }
 
@@ -280,13 +282,13 @@ export async function getDetailedApplicationData(id: string): Promise<DetailedPe
   }
 }
 
-export async function getAppliedJobsData(): Promise<AppliedJob[]> {
+export async function getAppliedJobsData(): Promise<JobsList> {
   try {
     const applies = await fetchAppliedJobs();
-    const appliedJobs: AppliedJob[] = applies || [];
+    const appliedJobs: JobsList = applies || {};
     return appliedJobs;
   } catch (error) {
     console.error("Error fetching applied jobs from API:", error);
-    return [];
+    return {};
   }
 }

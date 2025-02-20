@@ -1,14 +1,14 @@
 'use client';
 
-import { ChevronRight } from "lucide-react";
-import { AiFillFilePdf } from "react-icons/ai";
 import React, { ChangeEvent, DragEvent, FormEvent, useState } from 'react';
 import { useCVDataContext } from "@/contexts/cv-data-context";
 import { extractResume } from "@/libs/actions";
-import { defaultJobProfile, toJobProfile } from "@/libs/utils/job-profile-util";
+import { defaultJobProfile } from "@/libs/utils/job-profile-util";
 import Loading from "../Loading";
-import { FaSpinner } from "react-icons/fa";
-import { JobProfile } from "@/libs/definitions";
+import { Container } from "../Container";
+import Image from "next/image";
+import ArrowBlack from "@/public/vectors/arrow-black.svg";
+import { AiFillFilePdf } from "react-icons/ai";
 
 export const UploadResumeOnboarding: React.FC = () => {
   const [cvFile, setCVFile] = useState<File | null>(null);
@@ -99,57 +99,51 @@ export const UploadResumeOnboarding: React.FC = () => {
   }
 
   return (
-    <div className="w-[896px] mx-auto flex flex-col">
-      <p className="text-xl mt-[100px]">Please upload your resume or drag & drop here to continue</p>
+    <Container className="flex flex-col">
+      <h4 className="text-xl font-montserrat leading-none font-medium">Upload your resume</h4>
 
-      {!cvFile ? (
-        <>
-          <div
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            className={`flex flex-col items-center justify-center flex-grow rounded-xl border-2 mt-16  ${isDragging ? 'border-dashed border-primary bg-primary/10' : 'border-dashed border-gray-300 bg-base-200'
-              } transition-all duration-200 p-6`}
-          >
-            <div className="flex flex-col items-center py-10">
-              <AiFillFilePdf className={`text-7xl ${isDragging ? 'text-primary' : 'text-neutral'} mb-4`} />
-              <p className="text-gray-600 text-base font-medium">Drag & drop your PDF resume here</p>
-              <p className="text-sm text-gray-500 mb-4">or</p>
-              <label className="btn btn-neutral">
-                Browse Files
-                <input
-                  type="file"
-                  accept=".pdf"
-                  onChange={handleFileChange}
-                  className="hidden"
-                />
-              </label>
-            </div>
-          </div>
-          <button className="w-max place-self-end btn btn-primary rounded-full px-4 text-white text-lg mt-14" onClick={() => setCVData(defaultJobProfile)}>Continue Manually</button>
-        </>
-      ) : (
-        <div className="mt-10">
-          <p className="text-xl font-bold mb-16">{cvFile.name}</p>
-          <div className="flex gap-16">
-            <button
-              type="button"
-              onClick={() => setCVFile(null)}
-              className="btn btn-outline rounded-full px-6 text-lg"
-            >
-              Upload Again
-            </button>
-            <button
-              type="button"
-              onClick={handleUpload}
-              className="btn btn-primary rounded-full flex items-center pl-6 pr-2 text-white text-lg"
-            >
-              <p className="text-xl">Upload Resume</p>
-              <ChevronRight size={36} />
-            </button>
-          </div>
+      <div className="w-full mt-[120px] p-[30px] rounded-[22px] bg-my-neutral-0">
+        <div
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          className={`flex flex-col items-center justify-center w-full h-[408px] rounded-[22px] border border-dashed border-my-neutral-7 ${isDragging && 'bg-neutral-cold-0'}`}
+        >
+            {isDragging ? (
+              <AiFillFilePdf className='text-7xl text-primary' />
+            ) : cvFile ? (
+              <>
+                <p className="font-montserrat text-[20px] font-semibold leading-none mb-10">You have successfully uploaded “{cvFile.name}”</p>
+                <button
+                  type="button"
+                  onClick={handleUpload}
+                  className="w-[273px] my-btn-green"
+                >
+                  <p className="text-xl">Create Resume</p>
+                  <Image src={ArrowBlack} alt="ArrowBlack" />
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="font-montserrat text-[20px] leading-none mb-10">You can also drag & drop your resume here.</p>
+                <label className="w-[273px] my-btn-green cursor-pointer">
+                  <p className="font-jura text-[18px] font-semibold">Upload</p>
+                  <Image src={ArrowBlack} alt="ArrowBlack" />
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                </label>
+              </>
+            )}
         </div>
-      )}
-    </div>
+      </div>
+
+      {!cvFile && (
+        <button className="my-btn place-self-end text-white text-[18px] font-jura mt-14" onClick={() => setCVData(defaultJobProfile)}>Continue Manually</button>
+      )} 
+    </Container>
   );
 };

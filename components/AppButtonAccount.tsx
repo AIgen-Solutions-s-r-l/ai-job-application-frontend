@@ -65,12 +65,12 @@ const AppButtonAccount = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="rounded-full py-5">
-            <span className="w-8 h-8 bg-base-100 flex justify-center items-center rounded-full shrink-0 capitalize">
+          <Button variant="outline" className="rounded-full py-5 border-my-neutral-7">
+            <span className="w-8 h-8 bg-primary-light-purple-gray flex justify-center items-center rounded-full shrink-0 capitalize font-semibold text-[18px] text-white">
               {username?.charAt(0) || "A"} {/* Mostrar la inicial del username */}
             </span>
-            <span className="truncate hidden md:block">
-              {username || "Account"} {/* Mostrar el username o un texto por defecto */}
+            <span className="truncate hidden md:block font-semibold text-[18px]">
+              {username || "Profile"} {/* Mostrar el username o un texto por defecto */}
             </span>
             {isLoading ? <Loader2 className="animate-spin" /> : <ChevronDown />}
           </Button>

@@ -23,7 +23,9 @@ export const login = createServerAction(async (username: string, password: strin
 
     const decoded = jwtDecode(response.data.access_token);
     const expirationDate = new Date(decoded.exp * 1000);
-    expirationDate.setHours(expirationDate.getHours() + 1);
+
+    // TODO: Uncomment - Backend api ends up in an infinite loop when the token expires.
+    // expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
@@ -51,13 +53,13 @@ export const login = createServerAction(async (username: string, password: strin
   }
 });
 
-export const refreshToken = createServerAction(async () => {
+export async function refreshToken() {
   const cookies = require('next/headers').cookies;
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
   if (!accessToken) {
-    throw new ServerActionError("No accessToken were found");
+    throw new Error("No accessToken were found");
   }
 
   try {
@@ -66,7 +68,7 @@ export const refreshToken = createServerAction(async () => {
     });
 
     if (!response || !response.data) {
-      throw new ServerActionError("No data received from API.");
+      throw new Error("No data received from API.");
     }
 
     const decoded = jwtDecode(response.data.access_token);
@@ -84,9 +86,9 @@ export const refreshToken = createServerAction(async () => {
   } catch (error: any) {
     const status = error.response?.status;
     const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
-    throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
   }
-});
+}
 
 export async function fetchUserData(): Promise<any> {
   try {

@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { JobInfo } from '@/libs/types/application.types';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
-import { ButtonApplication } from '@/components/ButtonApplication';
+import { ButtonUnderline } from '../ButtonUnderline';
 
 interface Props {
   job: JobInfo;
@@ -41,7 +41,7 @@ export const ApplicationJobInfo: React.FC<Props> = ({
         </div>
       </div>
       <JobButtomSheet className='flex-none items-center justify-between'>
-        <ButtonApplication title='Go Back' handleClick={goBack} />
+        <ButtonUnderline title='Go Back' handleClick={goBack} />
       </JobButtomSheet>
     </>
   );

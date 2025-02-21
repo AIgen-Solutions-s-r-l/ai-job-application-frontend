@@ -11,7 +11,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { useRouter } from 'next/navigation';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
-import { ButtonApplication } from '@/components/ButtonApplication';
+import { ButtonUnderline } from '../ButtonUnderline';
 
 interface Props {
   id: string;
@@ -155,10 +155,10 @@ export const ApplicationCoverLetter: React.FC<Props> = ({
       </div>
 
       <JobButtomSheet className='flex-none items-center justify-between'>
-        <ButtonApplication title='Go Back' handleClick={goBack} />
+        <ButtonUnderline title='Go Back' handleClick={goBack} />
 
         <div className='flex items-center gap-10'>
-          <p className='text-lg text-white font-semibold'>
+          <p className='text-[20px] text-white font-montserrat'>
             You’re editing the Cover Letter
           </p>
           <ButtonSubmit

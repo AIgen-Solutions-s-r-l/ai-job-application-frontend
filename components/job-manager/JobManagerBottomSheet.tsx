@@ -38,7 +38,7 @@ export const JobManagerBottomSheet: React.FC = () => {
         <div className='w-[1px] h-16 bg-white' />
         <ButtonUnderline title='Cancel' handleClick={() => router.back()} />
       </div>
-      <div className='flex items-center gap-5'>
+      <div className='flex items-center gap-10'>
         <p className='text-[20px] font-normal text-white font-montserrat'>
           You’re applying to{' '}
           <span className='font-bold'>{selectedApplications.length} jobs</span>{' '}

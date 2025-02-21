@@ -35,8 +35,8 @@ export const JobSearchBottomSheet: React.FC = () => {
 
   return (
     <>
-      <JobButtomSheet className='justify-end items-center gap-5'>
-        <p className='text-md'>
+      <JobButtomSheet className='justify-end items-center gap-10'>
+        <p className='text-[20px] font-normal text-white font-montserrat'>
           Adding <span className='font-bold'>{selectedJobs.length} jobs</span>{' '}
           to your Job Manager
         </p>

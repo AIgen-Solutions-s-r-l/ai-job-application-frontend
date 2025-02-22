@@ -101,6 +101,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 id='q'
                 placeholder='Job title, keywords, or company'
                 {...register('q')}
+                autoComplete='off'
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>
@@ -117,6 +118,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 {...register('location', {
                   onChange: onLocationChange,
                 })}
+                autoComplete='off'
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>

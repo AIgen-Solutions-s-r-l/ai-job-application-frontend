@@ -93,7 +93,7 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   return (
     <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
-        <label className="flex justify-start text-base leading-none mb-3 font-semibold">
+        <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Skills
         </label>
         <textarea
@@ -192,7 +192,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
 
           <div className="flex p-10 rounded-[22px] bg-white">
             <div className="w-full">
-              <label className="flex justify-start text-base leading-none mb-3 font-semibold">
+              <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
                 Key Responsibilities <span className="text-error ml-1">*</span>
               </label>
               <ResponsibilityNestedFieldArray index={index} />

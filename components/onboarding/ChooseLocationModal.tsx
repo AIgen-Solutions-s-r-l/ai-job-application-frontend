@@ -132,6 +132,7 @@ const ChoseLocationModal = ({
                                                 {...register('location', {
                                                     onChange: onLocationChange,
                                                 })}
+                                                autoComplete="off"
                                                 className='block w-full bg-transparent focus:outline focus:outline-0 text-base font-semibold leading-[20px]'
                                             />
                                         </div>

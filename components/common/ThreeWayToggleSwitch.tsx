@@ -19,27 +19,27 @@ const ThreeWayToggleSwitch = ({ value, onChange }: ThreeWayToggleSwitchProps) =>
         <section className="flex items-center bg-primary-light-purple-gray relative w-[550px] border rounded-[8px] py-1">
             <label
                 onClick={() => onChange('monthly')}
-                className={`flex items-center justify-center gap-2 ${value === 'monthly' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[999] font-jura font-semibold whitespace-nowrap`}
+                className={`flex items-center justify-center gap-2 ${value === 'monthly' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[2] font-jura font-semibold whitespace-nowrap`}
             >
                 Monthly
                 <span className="block text-sm">20% off</span>
             </label>
             <label
                 onClick={() => onChange('yearly')}
-                className={`flex items-center justify-center gap-2 ${value === 'yearly' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[999] font-jura font-semibold whitespace-nowrap`}
+                className={`flex items-center justify-center gap-2 ${value === 'yearly' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[2] font-jura font-semibold whitespace-nowrap`}
             >
                 Yearly
                 <span className="block text-sm">35% off</span>
             </label>
             <label
                 onClick={() => onChange('onetime')}
-                className={`flex items-center justify-center gap-2 ${value === 'onetime' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[999] font-jura font-semibold whitespace-nowrap`}
+                className={`flex items-center justify-center gap-2 ${value === 'onetime' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[2] font-jura font-semibold whitespace-nowrap`}
             >
                 One-time
                 <span className="block text-sm">payment</span>
             </label>
             <div
-                className={`bg-secondary z-[99] absolute ${getSliderPosition()} drop-shadow-lg rounded-[5px] w-[33.33%] h-[30px] transition-all`}
+                className={`bg-secondary z-[1] absolute ${getSliderPosition()} drop-shadow-lg rounded-[5px] w-[33.33%] h-[30px] transition-all`}
             />
         </section>
     );

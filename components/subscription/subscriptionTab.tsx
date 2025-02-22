@@ -6,12 +6,14 @@ import Arrow from '../svgs/ArrowPurple.svg';
 import MasterCard from '../svgs/MasterCard.svg';
 import ThreeWayToggleSwitch from '../common/ThreeWayToggleSwitch';
 import Cart from '../svgs/Cart.svg';
+import PaymentModal from './PaymentModal';
 
 function SubscriptionTab() {
     const [sliderValue, setSliderValue] = useState(0);
     const currentApplications = 300;
     const pricePerApplication = 0.02;
     const [paymentPlan, setPaymentPlan] = useState<'monthly' | 'yearly' | 'onetime'>('monthly');
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
     const values = [
         { value: '100' },
@@ -92,11 +94,21 @@ function SubscriptionTab() {
                     value={paymentPlan}
                     onChange={setPaymentPlan}
                 />
-                <button className='flex items-center gap-10 text-black font-jura font-semibold text-[18px] px-5 py-2 leading-[110%] tracking-[-0.396px] rounded-5px border border-my-neutral-3 bg-my-neutral-2 rounded-2xl'>
+                <button
+                    onClick={() => setIsPaymentModalOpen(true)}
+                    className='flex items-center gap-10 text-black font-jura font-semibold text-[18px] px-5 py-2 leading-[110%] tracking-[-0.396px] rounded-5px border border-my-neutral-3 bg-my-neutral-2 rounded-2xl'>
                     Purchase
                     <Image src={Cart} alt='arrow' />
                 </button>
             </div>
+
+            <PaymentModal
+                isModalOpen={isPaymentModalOpen}
+                setIsModalOpen={setIsPaymentModalOpen}
+                onConfirm={() => setIsPaymentModalOpen(false)}
+                amount={Number(totals.price)}
+            />
+
             <div className='w-full h-[1px] bg-my-neutral-2' />
             <div className='flex flex-col gap-4'>
                 <p className='font-montserrat font-semibold text-[20px] text-black mb-2'>

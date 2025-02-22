@@ -33,20 +33,20 @@ function SliderInput({ values, sliderValue, setSliderValue }: { values: { value:
                     value={sliderValue}
                     onChange={handleSliderChange}
                     className="
-                relative w-full appearance-none bg-transparent z-10
-                [&::-webkit-slider-thumb]:appearance-none
-                [&::-webkit-slider-thumb]:h-5 
-                [&::-webkit-slider-thumb]:w-5
-                [&::-webkit-slider-thumb]:rounded-full
-                [&::-webkit-slider-thumb]:bg-secondary
-                [&::-webkit-slider-thumb]:shadow
-                [&::-moz-range-thumb]:h-5 
-                [&::-moz-range-thumb]:w-5
-                [&::-moz-range-thumb]:rounded-full
-                [&::-moz-range-thumb]:bg-secondary
-                [&::-moz-range-thumb]:shadow
-                cursor-pointer
-            "
+                        relative w-full appearance-none bg-transparent z-10
+                        [&::-webkit-slider-thumb]:appearance-none
+                        [&::-webkit-slider-thumb]:h-5 
+                        [&::-webkit-slider-thumb]:w-5
+                        [&::-webkit-slider-thumb]:rounded-full
+                        [&::-webkit-slider-thumb]:bg-secondary
+                        [&::-webkit-slider-thumb]:shadow
+                        [&::-moz-range-thumb]:h-5 
+                        [&::-moz-range-thumb]:w-5
+                        [&::-moz-range-thumb]:rounded-full
+                        [&::-moz-range-thumb]:bg-secondary
+                        [&::-moz-range-thumb]:shadow
+                        cursor-pointer
+                    "
                 />
             </div>
         </div>

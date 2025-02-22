@@ -125,7 +125,7 @@ export const UploadResumeOnboarding: React.FC = () => {
               </>
             ) : (
               <>
-                <p className="font-montserrat text-[20px] leading-none mb-10">You can also drag & drop your resume here.</p>
+                <p className="hidden md:inline-block font-montserrat text-[20px] leading-none mb-10">You can also drag & drop your resume here.</p>
                 <label className="w-[273px] my-btn-green cursor-pointer">
                   <p className="font-jura text-[18px] font-semibold">Upload</p>
                   <Image src={ArrowBlack} alt="ArrowBlack" />
@@ -142,7 +142,7 @@ export const UploadResumeOnboarding: React.FC = () => {
       </div>
 
       {!cvFile && (
-        <button className="my-btn place-self-end text-white text-[18px] font-jura mt-14" onClick={() => setCVData(defaultJobProfile)}>Continue Manually</button>
+        <button className="my-btn place-self-end text-white text-[18px] font-jura mt-14 mb-10" onClick={() => setCVData(defaultJobProfile)}>Continue Manually</button>
       )} 
     </Container>
   );

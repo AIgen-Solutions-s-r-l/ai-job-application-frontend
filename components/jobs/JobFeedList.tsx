@@ -72,7 +72,7 @@ export const JobFeedList: React.FC<Props> = ({
   }, [appliedJobs, sortBy]);
 
   return (
-    <div className='h-full relative flex flex-col'>
+    <div className='relative flex flex-col'>
       <div className='absolute top-0 left-[200px] h-[50px] flex items-center gap-1 z-10'>
         Sort by:
         <button onClick={() => setSortBy('latest')}>
@@ -84,7 +84,7 @@ export const JobFeedList: React.FC<Props> = ({
         </button>
       </div>
 
-      <Tabs.Root className='h-full' defaultValue='pending'>
+      <Tabs.Root defaultValue='pending'>
         <Tabs.List
           className={`${typography.tabs.list} h-[50px] w-96`}
           aria-label='Pending jobs list'

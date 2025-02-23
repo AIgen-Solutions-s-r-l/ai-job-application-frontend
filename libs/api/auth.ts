@@ -211,7 +211,7 @@ export async function resetPassword(new_password: string, token: string): Promis
 
 export async function changePassword(username: string, current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/${username}/password`, {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/password`, {
       current_password,
       new_password,
     });
@@ -225,19 +225,69 @@ export async function changePassword(username: string, current_password: string,
 
     return { success: true };
   } catch (error) {
-    const status = error.response?.status;
-    switch (status) {
-      // case 400:
-      //   return {
-      //     success: false,
-      //     error: 'Invalid or expired reset token',
-      //   };
-      // case 422: {
-      //   return {
-      //     success: false,
-      //     error: 'Validation error (password requirements not met)',
-      //   };
-      // }
+    switch (error.response?.status) {
+      case 401:
+        return {
+          success: false,
+          error: 'Invalid current password',
+        };
+      case 404:
+        return {
+          success: false,
+          error: 'User not found',
+        };
+      case 422: {
+        return {
+          success: false,
+          error: 'Validation Error',
+        };
+      }
+      default: {
+        console.error(`Error when updating password`, error);
+        return { success: false, error: error.message };
+      }
+    }
+  }
+}
+
+export async function changeEmail(username: string, current_password: string, new_email: string,): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/email`, {
+      current_password,
+      new_email,
+    });
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    switch (error.response?.status) {
+      case 400:
+        return {
+          success: false,
+          error: 'Email already registered',
+        };
+      case 401:
+        return {
+          success: false,
+          error: 'Invalid password or unauthorized',
+        };
+      case 404:
+        return {
+          success: false,
+          error: 'User not found',
+        };
+      case 422: {
+        return {
+          success: false,
+          error: 'Validation Error',
+        };
+      }
       default: {
         console.error(`Error when updating password`, error);
         return { success: false, error: error.message };

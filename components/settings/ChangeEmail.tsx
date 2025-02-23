@@ -5,14 +5,15 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { typography } from '@/components/typography';
 import { FormInput } from '@/components/ui/form-input';
-import { changePassword } from '@/libs/api/auth';
+import { changeEmail } from '@/libs/api/auth';
 
 type FormData = {
+  name: string;
   password: string;
-  newPassword: string;
+  newEmail: string;
 };
 
-export const ChangePassword: React.FC = () => {
+export const ChangeEmail: React.FC = () => {
   const {
     handleSubmit,
     register,
@@ -24,27 +25,27 @@ export const ChangePassword: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const username = localStorage.getItem('username');
-      const response = await changePassword(
+      const response = await changeEmail(
         username,
         data.password,
-        data.newPassword
+        data.newEmail
       );
 
       if (response.success) {
-        toast.success('Password updated successfully!');
+        toast.success('Email updated successfully!');
       } else {
-        toast.error('Error updating password.');
-        console.error('Error updating password:', response.error);
+        toast.error('Error updating email.');
+        console.error('Error updating email:', response.error);
       }
     } catch (error) {
-      console.error('Error updating password:', error);
+      console.error('Error updating email:', error);
     }
   };
 
   return (
     <div className={typography.forms.container}>
       <div className={typography.forms.header.container}>
-        <h2 className={typography.forms.header.mainText}>Change Password</h2>
+        <h2 className={typography.forms.header.mainText}>Change Email</h2>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={typography.forms.row}>
@@ -59,13 +60,18 @@ export const ChangePassword: React.FC = () => {
             className='grow'
           />
           <FormInput
-            title={'New Password'}
-            {...register('newPassword', {
-              required: 'Password is required',
+            title={'New Email'}
+            {...register('newEmail', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[a-zA-Z0-9.]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+                message: 'Invalid email address',
+              },
             })}
-            type='password'
-            error={!!errors.newPassword}
-            errorMessage={errors.newPassword?.message}
+            type='email'
+            placeholder='e.g., john.doe@example.com'
+            error={!!errors.newEmail}
+            errorMessage={errors.newEmail?.message}
             className='grow'
           />
           <button

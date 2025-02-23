@@ -48,7 +48,7 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
                 />
               </div>
               <div className="w-full">
-                <label className="flex justify-start text-base leading-none mb-3 font-jura font-semibold">
+                <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-jura font-semibold">
                   Project Description <span className="text-error ml-1">*</span>
                 </label>
                 <textarea
@@ -87,10 +87,10 @@ export const CertificationsNestedFieldArray: FC = (): ReactElement => {
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Certification Name
           </label>
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Certification Description
           </label>
         </div>
@@ -148,10 +148,10 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Language <span className="text-error ml-1">*</span>
           </label>
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Proficiency <span className="text-error ml-1">*</span>
           </label>
         </div>
@@ -222,10 +222,10 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Achievement Name
           </label>
-          <label className="w-full flex justify-start text-base leading-none font-semibold">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
             Achievement Description
           </label>
         </div>
@@ -302,7 +302,7 @@ const InterestsFieldArray: FC = (): ReactElement => {
   return (
     <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
-        <label className="flex justify-start text-base leading-none mb-3 font-jura font-semibold">
+        <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-jura font-semibold">
           Interests
         </label>
         <textarea
@@ -326,9 +326,9 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
     <div className="flex flex-col gap-5">
       <ProjectsNestedFieldArray />
 
-      <CertificationsNestedFieldArray />
-
       <LanguageNestedFieldArray />
+
+      <CertificationsNestedFieldArray />
 
       <InputWrapper>
         <FormInput
@@ -373,11 +373,11 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
       <InterestsFieldArray />
 
       <div className="w-full p-10 rounded-[22px] bg-white">
-        <label className="w-full flex justify-start text-base leading-none mb-3 font-semibold">
+        <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Specific Details
         </label>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 text-[14px] md:text-base">
           <label className="flex items-center capitalize">
             <input
               {...register(`additionalInfo.self_identification.veteran`)}
@@ -400,14 +400,14 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
 
       {/* Legal Authorization */}
       <div className="w-full p-10 rounded-[22px] bg-white">
-        <label className="w-full flex justify-start text-base leading-none mb-3 font-semibold">
+        <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Legal Authorization
         </label>
         <div className="grid grid-cols-2 gap-3">
           {Object.keys(legalAuthorizations)
             .filter(key => typeof legalAuthorizations[key as keyof LegalAuthorization] === "boolean")
             .map((key: keyof LegalAuthorization) => (
-              <label key={key} className="flex items-center capitalize">
+              <label key={key} className="flex items-center capitalize text-[14px] md:text-base">
                 <input
                   {...register(`additionalInfo.legal_authorization.${key}`)}
                   type="checkbox"
@@ -421,10 +421,10 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
 
       {/* Work Preferences */}
       <div className="w-full p-10 rounded-[22px] bg-white">
-        <label className="w-full flex justify-start text-base leading-none mb-3 font-semibold">
+        <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Work Preferences
         </label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 text-[14px] md:text-base">
           {Object.keys(workPreferences)
             .filter(key => typeof workPreferences[key as keyof WorkPreferences] === "boolean")
             .map((key: keyof WorkPreferences) => (

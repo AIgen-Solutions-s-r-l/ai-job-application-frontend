@@ -1,9 +1,10 @@
 "use server";
 
+import { JobsList } from "../definitions";
 import { delay } from "../time";
 import { apiClientJwt } from "./client";
 import API_BASE_URLS from "./config";
-import jobsMockData from "@/components/jobs/jobsMockData";
+import { failedJobsMockData, jobsMockData } from "@/components/jobs/jobsMockData";
 
 export async function fetchAppliedJobs(): Promise<any> {
   try {
@@ -51,16 +52,32 @@ export async function createJobApplication(jobs: any[], cv: File): Promise<{ suc
   }
 }
 
-export async function getJobApplications() {
+export async function getAppliedJobApplications(): Promise<JobsList> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
+    console.log('getJobApplications', response.data);
 
-    return response.data;
+    return response.data as JobsList;
   } catch (error) {
-    // console.error('Error getting job applications', error);
+    console.error('Error getting job applications', error);
 
     //todo: mock
-    await delay(3000)
-    return Math.random() < 0.5 ? jobsMockData : [];
+    await delay(1000)
+    return jobsMockData;
+  }
+}
+
+export async function getFailedJobApplications(): Promise<JobsList> {
+  try {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.application}/fail_applied`)
+    console.log('getFailedJobApplications', response.data);
+
+    return response.data as JobsList;
+  } catch (error) {
+    console.error('Error getting failed job applications', error);
+
+    //todo: mock
+    await delay(1000)
+    return failedJobsMockData;
   }
 }

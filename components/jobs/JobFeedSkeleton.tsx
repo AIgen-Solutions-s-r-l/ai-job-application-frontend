@@ -7,6 +7,6 @@ export const JobFeedSkeleton = (
         Refresh this page to get see pending applications turn into finalized.
       </p>
     </div>
-    <JobFeedList jobs={[]} isLoading={true} />
+    <JobFeedList appliedJobs={{}} failedJobs={{}} isLoading={true} />
   </div>
 );

@@ -7,18 +7,22 @@ import React, { FormEvent, useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaSpinner } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
 import { PersonalInformationOnboarding } from './cv-sections/PersonalInformationOnboarding';
 import { EducationDetailsOnboarding } from './cv-sections/EducationDetailsOnboarding';
 import { ExperienceDetailsOnboarding } from './cv-sections/ExperienceDetailsOnboarding';
 import { AdditionalInfoOnboarding } from './cv-sections/AdditionalInfoOnboarding';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { StepTracking } from './cv-sections/StepTracking';
+import { Container } from '../Container';
+import { ButtonUnderline } from '../ButtonUnderline';
+import { ArrowLeftIcon, ArrowRightIcon } from '../AppIcons';
+import ChoseLocationModal from './ChooseLocationModal';
 
 export const CreateResumeOnboarding: React.FC = () => {
-  const router = useRouter()
   const { CVData, setCVData } = useCVDataContext();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [defaultLocation, setDefaultLocation] = useState<string>('');
+  
   const methods = useForm({
     defaultValues: CVData,
   });
@@ -52,7 +56,8 @@ export const CreateResumeOnboarding: React.FC = () => {
 
       if (response.success) {
         toast.success("Profile saved successfully!");
-        router.push('/dashboard')
+        setDefaultLocation(jobProfile.personalInfo.country)
+        setIsModalOpen(true);
       } else {
         toast.error("Error saving profile.");
         console.error("Error saving profile:", response.error);
@@ -66,8 +71,8 @@ export const CreateResumeOnboarding: React.FC = () => {
   return (
     <div className='w-full h-full flex flex-col items-center'>
       <div className="w-full pb-[100px] bg-base-100">
-        <div className="w-[1440px] mx-auto flex-1">
-          <h4 className="text-[20px] font-montserrat mb-[60px] font-medium leading-none">View & edit your information</h4>
+        <Container className="flex-1">
+          <h4 className="text-[16px] md:text-[20px] font-montserrat mb-[30px] lg:mb-[60px] font-medium leading-none">View & edit your information</h4>
           <div className="mb-10">
             <StepTracking currentStep={currentStep} />
           </div>
@@ -90,44 +95,55 @@ export const CreateResumeOnboarding: React.FC = () => {
               </div>
             </form>
           </FormProvider>
-        </div>
+        </Container>
       </div>
 
-      <div className="fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary">
-        <div className="w-[1440px] mx-auto flex flex-none items-center justify-between">
+      <div className="fixed bottom-0 left-0 z-10 w-full h-[80px] flex items-center bg-primary">
+        <Container className="flex flex-none items-center justify-between">
           {currentStep === 1
-            ? <button
-              className="my-btn text-white text-[18px] font-jura font-semibold"
-              type="button"
-              onClick={() => setCVData(null)}
-            >
-              Back to CV Uploader
-            </button>
+            ? <ButtonUnderline title='Back to CV Uploader' handleClick={() => setCVData(null)} />
             : <div></div>}
-          <div className="flex gap-5 font-jura">
-            <button className="bg-my-neutral-6 pl-[16px] pr-[30px] py-3 text-lg font-semibold leading-none text-white w-[240px] rounded-[20px] flex justify-between items-center hover:bg-my-neutral-5 disabled:hidden" type="button" onClick={prevStep} disabled={currentStep === 1 || methods.formState.isSubmitting}>
-              <ChevronLeft size={30} />
+          <div className="flex gap-5 font-jura text-sm md:text-lg">
+            <button
+              className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
+              type="button"
+              onClick={prevStep}
+              disabled={currentStep === 1 || methods.formState.isSubmitting}
+            >
+              <ArrowLeftIcon classname='fill-white' />
               <p>Previous Step</p>
             </button>
             {currentStep < 4 ? (
               <button
-                className="bg-splash-green pl-[30px] pr-[16px] py-3 text-lg font-semibold leading-none text-black w-[240px] rounded-[20px] flex justify-between items-center"
+                className="my-btn-green gap-10 font-semibold text-[18px] font-jura"
                 type="button"
                 onClick={nextStep}
               >
                 <p>Next Step</p>
-                <ChevronRight size={30} />
+                <ArrowRightIcon classname='fill-black' />
               </button>
             ) : (
-              <button className="bg-splash-green pl-[30px] pr-[16px] py-3 text-lg font-semibold leading-none text-black w-[300px] rounded-[20px] flex justify-between items-center" form='my-form' type="submit" disabled={methods.formState.isSubmitting}>
+              <button 
+                className="my-btn-green gap-10 font-semibold text-[18px] font-jura" 
+                form='my-form' 
+                type="submit"
+                disabled={methods.formState.isSubmitting}
+              >
                 {methods.formState.isSubmitting && <FaSpinner className="animate-spin" />}
                 <p>Save & Continue</p>
-                <ChevronRight size={30} />
+                <ArrowRightIcon classname='fill-black' />
               </button>
             )}
           </div>
-        </div>
+        </Container>
       </div>
+
+      {defaultLocation && (
+        <ChoseLocationModal
+          isModalOpen={isModalOpen}
+          defaultLocation={defaultLocation}
+        />
+      )}
     </div>
   );
 };

@@ -32,11 +32,15 @@ progress::-webkit-progress-value {
   }
 
   .my-btn {
-    @apply h-[56px] px-2 md:px-7 flex items-center justify-between bg-primary-light-purple hover:bg-primary-light-purple-gray transition-all ease-in duration-100 rounded-[20px];
+    @apply h-[56px] px-2 md:px-7 flex items-center justify-between bg-primary-light-purple hover:bg-primary-light-purple-gray transition-all ease-in duration-200 rounded-[20px];
   }
 
   .my-btn-green {
-    @apply h-[56px] px-2 md:px-5 flex items-center justify-between bg-splash-green rounded-[20px];
+    @apply h-[56px] px-2 md:px-5 flex items-center justify-between bg-splash-green rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
+  }
+
+  .my-btn-clay {
+    @apply h-[56px] px-2 md:px-5 flex items-center justify-between bg-my-neutral-6 rounded-[20px] hover:hover:bg-my-neutral-5 transition-all ease-in duration-300;
   }
 
   .my-input {

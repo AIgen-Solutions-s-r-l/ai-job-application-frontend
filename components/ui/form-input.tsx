@@ -14,7 +14,7 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, title, error, errorMessage, required = true, ...props }, ref) => {
     return (
       <div className={className}>
-        <label className="flex justify-start text-base leading-none mb-3 font-jura font-semibold">
+        <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-jura font-semibold">
           {title} {required && <span className="text-error ml-1">*</span>}
         </label>
         <input
@@ -34,7 +34,7 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
 FormInput.displayName = "FormInput"
 
 const InputWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return <div className="flex gap-form p-10 rounded-[22px] bg-white">
+  return <div className="flex flex-col lg:flex-row gap-form p-10 rounded-[22px] bg-white">
     {children}
   </div>
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/navbar"; // Importar el componente de Navbar
 import { ReactNode } from "react";
 import React from "react";
 import CVDataContextProvider from "@/contexts/cv-data-context";

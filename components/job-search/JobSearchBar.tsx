@@ -101,6 +101,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 id='q'
                 placeholder='Job title, keywords, or company'
                 {...register('q')}
+                autoComplete='off'
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>
@@ -117,11 +118,12 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 {...register('location', {
                   onChange: onLocationChange,
                 })}
+                autoComplete='off'
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>
             {dataArray.length > 0 && showSuggestions && (
-              <div className='absolute bg-white w-full bg-base-100 box-border py-3 border border-1 border-neutral max-h-[200px] mt-2 z-10 flex flex-col gap-1 rounded-md overflow-auto'>
+              <div className='absolute w-full bg-white box-border py-3 border border-1 border-neutral max-h-[200px] mt-2 z-10 flex flex-col gap-1 rounded-md overflow-auto'>
                 {dataArray.map((data, index) => (
                   <div
                     key={index}

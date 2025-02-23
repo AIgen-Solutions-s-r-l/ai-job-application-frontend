@@ -39,4 +39,41 @@ const LinkedinIcon: React.FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-export { InstagramIcon, TwitterIcon, LinkedinIcon };
+const CheckmarkIcon: React.FC<SvgIconProps> = ({ classname }) => (
+  <svg 
+    width="59" 
+    height="34" 
+    viewBox="0 0 59 34" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className={classname}  
+  >
+    <path d="M2.13477 7.16129L17.6878 29.4216C19.3944 31.8641 22.845 32.2813 25.0846 30.3158L57.3488 2" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  </svg>
+);
+
+const ArrowRightIcon: React.FC<SvgIconProps> = ({ classname }) => (
+  <svg 
+    width="52" 
+    height="16" 
+    viewBox="0 0 52 16" 
+    xmlns="http://www.w3.org/2000/svg"
+    className={classname}
+  >
+    <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM51.7071 8.70711C52.0976 8.31659 52.0976 7.68342 51.7071 7.2929L45.3431 0.928936C44.9526 0.538412 44.3195 0.538412 43.9289 0.928936C43.5384 1.31946 43.5384 1.95263 43.9289 2.34315L49.5858 8L43.9289 13.6569C43.5384 14.0474 43.5384 14.6805 43.9289 15.0711C44.3195 15.4616 44.9526 15.4616 45.3431 15.0711L51.7071 8.70711ZM1 9L51 9L51 7L1 7L1 9Z"/>
+  </svg>
+)
+
+const ArrowLeftIcon: React.FC<SvgIconProps> = ({ classname }) => (
+  <svg 
+    width="52" 
+    height="16" 
+    viewBox="0 0 52 16" 
+    xmlns="http://www.w3.org/2000/svg"
+    className={'rotate-180 ' + classname}
+  >
+    <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM51.7071 8.70711C52.0976 8.31659 52.0976 7.68342 51.7071 7.2929L45.3431 0.928936C44.9526 0.538412 44.3195 0.538412 43.9289 0.928936C43.5384 1.31946 43.5384 1.95263 43.9289 2.34315L49.5858 8L43.9289 13.6569C43.5384 14.0474 43.5384 14.6805 43.9289 15.0711C44.3195 15.4616 44.9526 15.4616 45.3431 15.0711L51.7071 8.70711ZM1 9L51 9L51 7L1 7L1 9Z"/>
+  </svg>
+)
+
+export { InstagramIcon, TwitterIcon, LinkedinIcon, CheckmarkIcon, ArrowRightIcon, ArrowLeftIcon };

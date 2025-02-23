@@ -12,7 +12,7 @@ type Props = {
 
 export const ButtonSubmit: FC<Props> = ({ title, disabled, isSubmitting }) => (
   <button
-    className='my-btn-green gap-[30px] font-semibold text-lg'
+    className='my-btn-green gap-[30px] font-semibold text-lg font-jura'
     form='my-form'
     type='submit'
     disabled={disabled}

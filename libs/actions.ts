@@ -107,8 +107,6 @@ export const createJobProfile = async (profileData: JobProfile): Promise<{
       };
     }
 
-    revalidatePath("/dashboard");
-
     return { success: true };
   } catch (error) {
     console.error("Error saving job profile:", error);

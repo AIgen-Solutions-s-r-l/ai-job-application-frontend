@@ -20,28 +20,28 @@ export default async function SettingsPage() {
   return (
     <Tabs.Root className='h-full-' defaultValue='profile'>
       <Tabs.List className={typography.tabs.list} aria-label='Profile data'>
-        <Tabs.Trigger className={typography.tabs.trigger} value='profile'>
+        {/* <Tabs.Trigger className={typography.tabs.trigger} value='profile'>
           <User />
           Auth
-        </Tabs.Trigger>
-        <Tabs.Trigger
+        </Tabs.Trigger> */}
+        {/* <Tabs.Trigger
           className={`${typography.tabs.trigger} px-9`}
           value='info'
         >
           <FileUser />
           Personal
-        </Tabs.Trigger>
+        </Tabs.Trigger> */}
       </Tabs.List>
 
       <Tabs.Content className={typography.tabs.content} value='profile'>
         <ChangePassword />
         <ChangeEmail />
       </Tabs.Content>
-      <Tabs.Content className={typography.tabs.content} value='info'>
+      {/* <Tabs.Content className={typography.tabs.content} value='info'>
         <Suspense fallback={<ProfilePersonalInformationSkeleton />}>
           <PersonalInfo jobProfile={profileData} />
         </Suspense>
-      </Tabs.Content>
+      </Tabs.Content> */}
     </Tabs.Root>
   );
 }

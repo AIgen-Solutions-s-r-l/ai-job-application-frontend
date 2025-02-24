@@ -60,16 +60,17 @@ export const JobFeedList: React.FC<Props> = ({
     return {
       pending:
         sortBy === 'latest'
+          ? sortArrayByDate(failed, 'posted_date', 'desc')
+          : failed.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
+      applied:
+        sortBy === 'latest'
           ? sortArrayByDate(applied, 'posted_date', 'desc')
           : applied.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
-      applied,
-      failed,
     } satisfies {
       pending: JobDetail[];
       applied: JobDetail[];
-      failed: JobDetail[];
     };
-  }, [appliedJobs, sortBy]);
+  }, [appliedJobs, failedJobs, sortBy]);
 
   return (
     <div className='h-full relative flex flex-col'>
@@ -101,12 +102,6 @@ export const JobFeedList: React.FC<Props> = ({
               <Check height={24} width={24} />
             </div>
           </Tabs.Trigger>
-          <Tabs.Trigger
-            className={`${typography.tabs.trigger} grow`}
-            value='failed'
-          >
-            Failed
-          </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content className={typography.tabs.content} value='pending'>
@@ -131,19 +126,6 @@ export const JobFeedList: React.FC<Props> = ({
             </>
           ) : (
             jobs.applied.map((job, key) => (
-              <JobCard job={job} status='Applied' key={key} />
-            ))
-          )}
-        </Tabs.Content>
-        <Tabs.Content className={typography.tabs.content} value='failed'>
-          {isLoading ? (
-            <>
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-            </>
-          ) : (
-            jobs.failed.map((job, key) => (
               <JobCard job={job} status='Applied' key={key} />
             ))
           )}

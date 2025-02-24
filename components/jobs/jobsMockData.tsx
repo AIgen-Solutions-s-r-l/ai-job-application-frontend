@@ -77,7 +77,7 @@ export const failedJobsMockData: JobsList = {
   'e32b9819-5a43-450a-aacb-799182572db1': {
     id: 12345,
     portal: 'workday',
-    title: 'Senior Software Engineer (failed mock data)',
+    title: 'Senior Software Engineer (this is a mock)',
     workplace_type: 'remote',
     posted_date: '2025-01-01',
     job_state: 'open',

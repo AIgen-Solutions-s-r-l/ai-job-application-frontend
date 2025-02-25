@@ -128,7 +128,7 @@ progress::-webkit-progress-value {
   }
 
   .features-slide {
-    @apply flex flex-col flex-none snap-start rounded-[40px] px-[27px] py-[20px] 2xl:px-[40px] 2xl:py-[30px] border-4 border-splash-green
+    @apply flex flex-col flex-none snap-start rounded-[40px] px-[27px] py-[20px] 2xl:px-[40px] 2xl:py-[30px] border-4 border-splash-green w-[670px]
   }
   
   .text-heading {

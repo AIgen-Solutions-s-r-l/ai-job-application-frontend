@@ -3,6 +3,8 @@ import Image from 'next/image';
 import HiredFlower from '@/public/landing/hired-flower.svg'
 import * as motion from "motion/react-client"
 import { useScroll, useTransform, useSpring } from "motion/react"
+import Link from 'next/link';
+import ContactsArrow from '@/public/landing/contacts-arrow.svg';
 
 export const GetHired: React.FC = () => {
   const sectionRef = React.useRef(null);
@@ -17,7 +19,7 @@ export const GetHired: React.FC = () => {
 
 
   return (
-    <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[140px] xl:pt-[191px]'>
+    <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[140px] xl:pt-[191px] pb-[150px]'>
       <motion.div style={{ rotate: rotationSpring }}>
         <Image src={HiredFlower} alt='hired-flower' />
       </motion.div>
@@ -35,6 +37,20 @@ export const GetHired: React.FC = () => {
           <Image src='/landing/hired-dude.png' alt='hired-dude' width={127} height={244} className='w-[50px] md:w-[100px] xl:w-[127px] h-auto absolute left-[6px] md:left-[10px] bottom-0' />
         </motion.div>
       </div>
+
+      <Link
+        href="/signup"
+        className="mt-20 h-[60px] md:h-[74px] px-[36px] flex items-center justify-between bg-splash-green rounded-[20px] gap-[50px]"
+      >
+        <p className="text-[27px] md:text-[32px] font-light font-k2d text-my-neutral-7 leading-none">Sign up</p>
+        <div className='hidden lg:block md:block'>
+          <Image
+            src={ContactsArrow}
+            alt="signup-arrow"
+            className="mt-1"
+          />
+        </div>
+      </Link>
     </section>
   );
 };

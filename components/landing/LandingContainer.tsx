@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const LandingContainer: React.FC<React.PropsWithChildren<Props>> = ({ className, children }) => {
-  return <div className={cn('w-full max-w-[1920px] mx-auto px-4 md:px-[30px] 2xl:px-[70px]', className)}>
+  return <div className={cn('w-full max-w-[1920px] mx-auto px-[15vw] mb:px-[5vw]', className)}>
     {children}
   </div>;
 };

@@ -1,4 +1,4 @@
-import { JobSearchParams, JobSearchProps, MatchingJob } from '@/libs/definitions';
+import { JobSearchProps, MatchingJob } from '@/libs/definitions';
 import { JobSearchView } from './JobSearchView';
 import { getMatchingJobsData } from '@/libs/data';
 

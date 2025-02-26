@@ -13,18 +13,18 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <Link
         key='Dashboard'
         href='/dashboard'
-        className='font-semibold text-[18px]'
+        className='font-semibold text-[18px] hidden md:block'
       >
         <span>Dashboard</span>
       </Link>
       
-      <Link
+      {/* <Link
         key='Contacts'
         href='/contacts'
         className='font-semibold text-[18px]'
       >
         <span>Contact</span>
-      </Link>
+      </Link> */}
 
       <AppButtonAccount />
     </div>
@@ -40,4 +40,5 @@ const Layout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default RequireLogin(Layout);
+export default Layout;
+// export default RequireLogin(Layout);

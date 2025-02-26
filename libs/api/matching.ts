@@ -2,22 +2,9 @@
 
 import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
-import { JobSearchParams } from "@/libs/definitions";
-import JobSearchMockData from "@/components/job-search/JobSearchMockData";
-import { delay } from "@/libs/time";
 
-export async function fetchMatchingJobs(params: JobSearchParams = {}): Promise<any> {
+export async function fetchMatchingJobs(queryString: string): Promise<any> {
   try {
-    const queryString = Object.entries(params)
-      .map(([key, value]) => {
-        if (Array.isArray(value)) {
-          return value.map((v) => `${key}=${encodeURIComponent(v)}`).join('&');
-        } else {
-          return `${key}=${encodeURIComponent(value)}`;
-        }
-      })
-      .join('&');
-
     const response = await apiClientJwt.get(
       `${API_BASE_URLS.matching}/jobs/match?${queryString}`,
       {
@@ -31,11 +18,7 @@ export async function fetchMatchingJobs(params: JobSearchParams = {}): Promise<a
     return response.data;
   } catch (error) {
     console.error("Error fetching job matches:", error);
-    // throw new Error("Unable to fetch job matches. Please try again later.");
-
-    //todo: mock
-    await delay(3000)
-    return JobSearchMockData;
+    throw new Error("Unable to fetch job matches. Please try again later.");
   }
 }
 

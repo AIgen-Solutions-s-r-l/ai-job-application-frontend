@@ -5,6 +5,7 @@ import { useJobSearch } from '@/contexts/job-search-context';
 import { locationQuery } from '@/libs/api/matching';
 import { JobSearchProps } from '@/libs/definitions';
 import { useRouter } from 'next/navigation';
+import { Container } from '../Container';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
@@ -110,20 +111,18 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   };
 
   return (
-    <>
-      <div className='w-full bg-base-100'>
-        <div className='w-[1440px] mx-auto'>
-          <h1 className='text-[32px] leading-10'>Job Search</h1>
-        </div>
+    <Container>
+      <div className='hidden lg:block w-full'>
+        <h1 className='text-[32px] leading-10'>Job Search</h1>
       </div>
 
-      <div className='w-full bg-base-100 pt-5'>
+      <div className='w-full md:pt-5'>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='w-[1440px] mx-auto flex items-end gap-[30px]'
+          className='flex flex-col md:flex-row md:items-end md:gap-4 xl:gap-[30px]'
         >
-          <div className='w-[516px] flex-1'>
-            <label htmlFor='q' className='text-md leading-none'>
+          <div className='flex-1'>
+            <label htmlFor='q' className='hidden md:block text-md leading-none'>
               Role
             </label>
             <div className='mt-3 h-12 flex bg-white items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
@@ -137,8 +136,9 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               />
             </div>
           </div>
-          <div className='relative w-[498px] flex-1'>
-            <label htmlFor='location' className='text-md leading-none'>
+
+          <div className='relative flex-1'>
+            <label htmlFor='location' className='hidden md:block text-md leading-none'>
               Location
             </label>
             <div className='mt-3 h-12 flex-1 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
@@ -167,7 +167,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               </div>
             )}
           </div>
-          <div className='w-[222px] bg-white h-14 flex-0 flex items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
+
+          <div className='md:w-[162px] lg:w-[222px] mt-3 md:mt-0 bg-white h-14 flex-0 flex items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
             <button
               type='submit'
               className='w-full h-full flex items-center justify-between pl-5'
@@ -178,11 +179,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
         </form>
 
-        <div className='flex items-center w-[1440px] mx-auto pb-5 mt-5 gap-16'>
-          <p className='text-lg'>
+        <div className='flex items-center pb-3 mt-3 md:pb-5 md:mt-5 gap-16'>
+          <p className='hidden md:block text-lg'>
             <span className='font-semibold'>{jobs.length} jobs</span> found.
           </p>
-          <div className='flex gap-8 text-base'>
+          <div className='flex flex-wrap gap-2 md:gap-8 text-base'>
             <select
               className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
               defaultValue='fullTime'
@@ -214,6 +215,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
         </div>
       </div>
-    </>
+    </Container>
   );
 };

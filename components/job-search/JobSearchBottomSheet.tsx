@@ -4,9 +4,10 @@ import { useJobSearch } from '@/contexts/job-search-context';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import GenerateResumeModal from './GenerateResumeModal';
-// import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { ButtonApply } from '@/components/ButtonAppy';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
+import { addJobsToManager } from '@/libs/actions';
 
 export const JobSearchBottomSheet: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -36,7 +37,7 @@ export const JobSearchBottomSheet: React.FC = () => {
   return (
     <>
       <JobButtomSheet className='justify-end items-center gap-10'>
-        <p className='text-[20px] font-normal text-white font-montserrat'>
+        <p className='text-sm md:text-base lg:text-[20px] font-normal text-white font-montserrat'>
           Adding <span className='font-bold'>{selectedJobs.length} jobs</span>{' '}
           to your Job Manager
         </p>

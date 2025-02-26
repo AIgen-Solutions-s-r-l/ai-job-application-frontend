@@ -8,13 +8,25 @@ import { delay } from "@/libs/time";
 
 export async function fetchMatchingJobs(params: JobSearchParams = {}): Promise<any> {
   try {
-    const response = await apiClientJwt.get(`${API_BASE_URLS.matching}/jobs/match`, {
-      params,
-      headers: {
-        Accept: "application/json",
-      },
-      timeout: 30000,
-    });
+    const queryString = Object.entries(params)
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return value.map((v) => `${key}=${encodeURIComponent(v)}`).join('&');
+        } else {
+          return `${key}=${encodeURIComponent(value)}`;
+        }
+      })
+      .join('&');
+
+    const response = await apiClientJwt.get(
+      `${API_BASE_URLS.matching}/jobs/match?${queryString}`,
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+        timeout: 30000,
+      }
+    );
 
     return response.data;
   } catch (error) {

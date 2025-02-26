@@ -4,16 +4,15 @@ import { Search } from 'lucide-react';
 import { useJobSearch } from '@/contexts/job-search-context';
 import { locationQuery } from '@/libs/api/matching';
 import { JobSearchProps } from '@/libs/definitions';
+import { useRouter } from 'next/navigation';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
   // eslint-disable-next-line no-unused-vars
-  onSearch: (searchProps: JobSearchProps) => void;
 }
 
 export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   searchParams,
-  onSearch,
 }) => {
   const [dataArray, setDataArray] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -27,8 +26,40 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   });
   const { jobs } = useJobSearch();
 
+  const router = useRouter();
+  
+  const onSearch = (searchProps: JobSearchProps) => {
+    const params = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(searchProps)) {
+      params.set(key, value);
+    }
+
+    router.push(`?${params.toString()}`);
+  };
+
   const onSubmit = () => {
-    onSearch(getValues());
+    const { q, location, country, city, latitude, longitude } = getValues();
+  
+    const cleanParams: JobSearchProps = {
+      q,
+      location
+    };
+    
+    if (country) {
+      cleanParams.country = country;
+    }
+    
+    if (city && city !== 'undefined') {
+      cleanParams.city = city;
+      
+      if (latitude && longitude) {
+        cleanParams.latitude = latitude;
+        cleanParams.longitude = longitude;
+      }
+    }
+    
+    onSearch(cleanParams);
   };
 
   const onLocationChange = useCallback(

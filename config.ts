@@ -16,64 +16,45 @@ const config = {
     onlyShowOnRoutes: ["/"],
   },
   stripe: {
-    // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
+    // Only the plan for 100 applications is included for now.
     plans: [
       {
-        // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
+        // Monthly plan for 100 applications (20% discount)
         priceId:
           process.env.NODE_ENV === "development"
-            ? "price_dev_example_123"
-            : "price_prod_example_456",
-        //  REQUIRED - Name of the plan, displayed on the pricing page
-        name: "Free Plan",
-        // A friendly description of the plan, displayed on the pricing page
-        description: "Try the essential features of laboro for free",
-        // The price you want to display, the one user will be charged on Stripe
-        price: 0,
-        // No priceAnchor because this is a free plan
+            ? "price_1QwgkhEZ5izZ581vRMUrj1A2"
+            : "price_1QwgkhEZ5izZ581vRMUrj1A2",
+        name: "100 Applications - Monthly",
+        description:
+          "Get 100 applications per month with a 20% discount applied.",
+        price: 1.60,
         priceAnchor: null,
-        features: [
-          { name: "Unlimited applications (shared bot)" },
-          { name: "AI Cover letters" },
-          { name: "AI Specific questions" },
-          { name: "Community support" },
-        ],
+        features: [{ name: "100 Applications" }],
       },
       {
+        // Yearly plan for 100 applications (35% discount)
         priceId:
           process.env.NODE_ENV === "development"
-            ? "price_dev_example_789"
-            : "price_prod_example_012",
-        // This plan will look different on the pricing page, it will be highlighted. You can only have one plan with isFeatured: true
-        isFeatured: true,
-        name: "Intermediate Plan",
-        description: "Access advanced features with higher accuracy and exclusivity",
-        price: 30,
-        priceAnchor: 50,
-        features: [
-          { name: "Up to 300 applications" },
-          { name: "AI Cover letters" },
-          { name: "AI Specific questions" },
-          { name: "Exclusive bot access" },
-          { name: "Email support" },
-        ],
+            ? "price_dev_100_yearly"
+            : "price_prod_100_yearly",
+        name: "100 Applications - Yearly",
+        description:
+          "Get 100 applications per year with a 35% discount applied.",
+        price: 1.30,
+        priceAnchor: null,
+        features: [{ name: "100 Applications" }],
       },
       {
+        // One-time payment plan for 100 applications (no discount)
         priceId:
           process.env.NODE_ENV === "development"
-            ? "price_dev_example_345"
-            : "price_prod_example_678",
-        name: "Premium Plan",
-        description: "High volume applications with multiple bots running simultaneously",
-        price: 60,
-        priceAnchor: 100,
-        features: [
-          { name: "Up to 1,000 applications" },
-          { name: "AI Cover letters" },
-          { name: "AI Specific questions" },
-          { name: "Up to 3 bots (exclusive)" },
-          { name: "Priority support" },
-        ],
+            ? "price_dev_100_onetime"
+            : "price_prod_100_onetime",
+        name: "100 Applications - One-Time Payment",
+        description: "One-time purchase for 100 applications with no discount.",
+        price: 2.00,
+        priceAnchor: null,
+        features: [{ name: "100 Applications" }],
       },
     ],
   },

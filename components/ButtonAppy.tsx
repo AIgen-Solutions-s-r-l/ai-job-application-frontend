@@ -12,11 +12,11 @@ type Props = {
 
 export const ButtonApply: FC<Props> = ({ title, handleApply, disabled }) => (
   <button
-    className='my-btn-green gap-8 font-semibold text-[18px] font-jura'
+    className='my-btn-green gap-8 font-semibold text-sm md:text-[18px] font-jura'
     onClick={handleApply}
     disabled={disabled}
   >
     <p>{title}</p>
-    <Image src={Arrow} alt='Arrow' />
+    <Image src={Arrow} alt='Arrow' className='hidden md:block' />
   </button>
 );

@@ -2,9 +2,14 @@
 
 import { apiClient, apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
-import { setServerCookie } from "../cookies";
+import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
+
+interface UserInfo {
+  id: string;
+  email: string;
+}
 
 export const login = createServerAction(async (username: string, password: string) => {
   if (!username || !password) {
@@ -206,5 +211,34 @@ export async function resetPassword(new_password: string, token: string): Promis
         return { success: false, error: error.message };
       }
     }
+  }
+}
+
+export async function getUserInfo(): Promise<UserInfo> {
+  const accessToken = await getServerCookie('accessToken');
+  if (!accessToken) {
+    throw new Error("No access token found in cookies");
+  }
+
+  const decoded: any = jwtDecode(accessToken);
+  
+  const userId = decoded?.id;
+  if (!userId) {
+    throw new Error("Unable to extract user ID from token");
+  }
+
+  try {
+    const userData = await fetchUserData();
+    if (!userData?.email) {
+      throw new Error("Unable to retrieve user email");
+    }
+
+    return {
+      id: userId,
+      email: userData.email
+    };
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw new Error("Failed to get user information");
   }
 }

@@ -6,7 +6,8 @@ import Arrow from '../svgs/ArrowPurple.svg';
 import MasterCard from '../svgs/MasterCard.svg';
 import ThreeWayToggleSwitch from '../common/ThreeWayToggleSwitch';
 import Cart from '../svgs/Cart.svg';
-import PaymentModal from './PaymentModal';
+import config from "@/config";
+import { getUserInfo } from '@/libs/api/auth';
 
 function SubscriptionTab() {
     const [sliderValue, setSliderValue] = useState(0);
@@ -14,6 +15,7 @@ function SubscriptionTab() {
     const pricePerApplication = 0.02;
     const [paymentPlan, setPaymentPlan] = useState<'monthly' | 'yearly' | 'onetime'>('monthly');
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const values = [
         { value: '100' },
@@ -44,6 +46,50 @@ function SubscriptionTab() {
             totalApplications,
             price: priceWithSavings.toFixed(2)
         };
+    };
+
+    const handlePurchase = async () => {
+        try {
+            setIsLoading(true);
+            
+            const userInfo = await getUserInfo();
+            
+            let selectedPlan = config.stripe.plans.find((plan) =>
+                plan.name.toLowerCase().includes(paymentPlan === "monthly" ? "monthly" : 
+                                              paymentPlan === "yearly" ? "yearly" : "one-time")
+            );
+
+            if (!selectedPlan) {
+                throw new Error("No plan found");
+            }
+
+            const mode = paymentPlan === "onetime" ? "payment" : "subscription";
+
+            const response = await fetch("/api/stripe/create-checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    priceId: selectedPlan.priceId,
+                    mode,
+                    successUrl: window.location.origin + "/success",
+                    cancelUrl: window.location.origin + "/dashboard/subscription",
+                    userId: userInfo.id,
+                    userEmail: userInfo.email
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.url) {
+                window.location.assign(data.url);
+            } else {
+                throw new Error(data.error || "Failed to create checkout session");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const totals = calculateTotal();
@@ -95,19 +141,30 @@ function SubscriptionTab() {
                     onChange={setPaymentPlan}
                 />
                 <button
-                    onClick={() => setIsPaymentModalOpen(true)}
-                    className='flex items-center gap-10 text-black font-jura font-semibold text-[18px] px-5 py-2 leading-[110%] tracking-[-0.396px] rounded-5px border border-my-neutral-3 bg-my-neutral-2 rounded-2xl'>
-                    Purchase
-                    <Image src={Cart} alt='arrow' />
+                    onClick={handlePurchase}
+                    disabled={isLoading}
+                    className='flex items-center gap-10 text-black font-jura font-semibold text-[18px] px-5 py-2 leading-[110%] tracking-[-0.396px] rounded-5px border border-my-neutral-3 bg-my-neutral-2 rounded-2xl disabled:opacity-70'
+                >
+                    {isLoading ? (
+                        <>
+                            <span className="loading loading-spinner loading-sm"></span>
+                            Processing...
+                        </>
+                    ) : (
+                        <>
+                            Purchase
+                            <Image src={Cart} alt='cart' />
+                        </>
+                    )}
                 </button>
             </div>
 
-            <PaymentModal
+            {/* <PaymentModal
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
                 onConfirm={() => setIsPaymentModalOpen(false)}
                 amount={Number(totals.price)}
-            />
+            /> */}
 
             <div className='w-full h-[1px] bg-my-neutral-2' />
             <div className='flex flex-col gap-4'>

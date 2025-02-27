@@ -139,7 +139,7 @@ progress::-webkit-progress-value {
   }
   
   .text-heading {
-    @apply text-3xl md:text-[33px] 2xl:text-[36px] font-medium leading-[1.1] text-center text-white
+    @apply text-[30px] md:text-[33px] 2xl:text-[36px] font-medium leading-[1.1] text-center text-white
   }
 
   .footer-social-container {

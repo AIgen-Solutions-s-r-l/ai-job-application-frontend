@@ -83,18 +83,18 @@ export const Automate: React.FC = () => {
           </div>
 
           <Image src={Automate2} alt='Automate2' />
-          
-          <p className="w-full text-3xl md:text-[40px] 2xl:text-[50px] leading-none text-my-neutral-6 tracking-tight my-[25px] xl:my-[50px]">
+
+          <p className="w-full text-3xl md:text-[38px] 2xl:text-[40px] leading-none text-my-neutral-6 tracking-tight my-[25px] xl:my-[50px]">
             Fully Automated job hunting process, <br />
             from <span className='font-semibold'>search</span> to <span className='font-semibold'>resume-editing</span> & <span className='font-semibold'>cover letter <br />
               creation</span>, to <span className='font-semibold'>submitting job applications</span>.
           </p>
-          
+
           <div className="w-full">
             <Image src={Automate3} alt='Automate3' width={638} height={170} className='w-[200px] md:w-[340px] lg:w-[460px] xl:w-[638px] h-auto ml-2 md:ml-5' />
           </div>
-          
-          <p className="text-3xl md:text-[40px] 2xl:text-[50px] font-semibold text-my-neutral-6 tracking-tight leading-none text-center mt-[18px] mb-[88px] xl:mt-[33px] xl:mb-[122px]">So you can enjoy your time.</p>
+
+          <p className="text-3xl md:text-[40px] 2xl:text-[45px] font-semibold text-my-neutral-6 tracking-tight leading-none text-center mt-[18px] mb-[88px] xl:mt-[33px] xl:mb-[122px]">So you can enjoy your time.</p>
           <div className="md:w-[505px] relative mx-auto">
             <div className="w-max relative mx-auto">
               <Image src={AutomateEyeBase} alt="automate-eye-base" />
@@ -122,13 +122,12 @@ export const Automate: React.FC = () => {
 const AutomateItem: React.FC<{ text: string, featured?: boolean }> = ({ text, featured = false }) => {
   return (
     <div className="w-full flex text-white">
-      <div className={`flex items-center justify-between flex-grow px-[16px] md:px-[24px] xl:px-[60px] h-[60px] md:h-[80px] xl:h-[112px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
-        <h4 className="text-[18px] md:text-[22px] xl:text-[40px] tracking-tight leading-none">{text}</h4>
+      <div className={`flex items-center justify-between flex-grow px-[16px] md:px-[24px] xl:px-[60px] py-[18px] md:py-[22px] xl:py-[24px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
+        <h4 className="text-[18px] md:text-[20px] xl:text-[32px] tracking-tight leading-none">{text}</h4>
         <Image src={AutomateItemArrow} alt='automate-item-arrow' className='hidden md:block' />
       </div>
-      <div className={`flex items-center justify-center shrink-0 w-[60px] h-[60px] md:w-[80px] md:h-[80px] xl:w-[112px] xl:h-[112px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
-        {/* <Image src={AutomateItemCheck} alt='automate-item-check' /> */}
-        <CheckmarkIcon classname='w-[40px] xl:w-[59px] h-auto' />
+      <div className={`flex items-center justify-center shrink-0 w-[60px] h-[60px] md:w-[70px] md:h-[70px] xl:w-[80px] xl:h-[80px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
+        <CheckmarkIcon classname='w-[30px] xl:w-[40px] h-auto' />
       </div>
     </div>
   );

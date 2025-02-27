@@ -42,8 +42,8 @@ export const Clouds: React.FC = () => {
 
       <LandingContainer>
         <div className="mt-[100%] lg:mt-[50%] md:mt-[80%]">
-          <p className="text-[30px] font-medium leading-[1.1] text-center text-white lg:text-[50px]">
-            Spotlight on Our Founders: Media's Fascination with Their Journey
+          <p className="text-[30px] font-medium leading-[1.1] text-center text-white lg:text-[45px]">
+            Spotlight on Our Founders:<br /> Media's Fascination with Their Journey
           </p>
         </div>
       </LandingContainer>

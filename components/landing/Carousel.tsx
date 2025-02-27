@@ -156,52 +156,7 @@ export const Carousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full relative">
-      <div className="absolute -top-[100px] md:-top-[100px] xl:-top-[100px] right-0 flex gap-4">
-        <motion.button
-          onClick={movePrev}
-          className="testimonials-button disabled:opacity-50"
-          disabled={currentIndex === 0}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-20 stroke-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </motion.button>
-        <motion.button
-          onClick={moveNext}
-          className="testimonials-button disabled:opacity-50"
-          disabled={currentIndex >= maxIndex}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-20 stroke-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </motion.button>
-      </div>
-
+    <div className="w-full relative flex justify-center flex-col items-center">
       <motion.div
         className="w-full h-[527px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-3 lg:gap-4 xl:gap-5 2xl:gap-6"
         variants={containerVariants}
@@ -250,6 +205,50 @@ export const Carousel: React.FC = () => {
           ))}
         </AnimatePresence>
       </motion.div>
+      <div className="flex gap-4 -mt-[50px]">
+        <motion.button
+          onClick={movePrev}
+          className="testimonials-button disabled:opacity-50"
+          disabled={currentIndex === 0}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-12 w-20 stroke-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </motion.button>
+        <motion.button
+          onClick={moveNext}
+          className="testimonials-button disabled:opacity-50"
+          disabled={currentIndex >= maxIndex}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-12 w-20 stroke-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </motion.button>
+      </div>
     </div>
   );
 };

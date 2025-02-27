@@ -1,14 +1,14 @@
 'use client';
 
 import { JobInfo } from '@/libs/types/application.types';
-import { Check, MapPin } from 'lucide-react';
-import React from 'react';
+import { MapPin } from 'lucide-react';
+import { FC } from 'react';
 
 interface Props {
   job: JobInfo;
 }
 
-export const JobApplicationHeader: React.FC<Props> = ({ job }) => {
+export const JobApplicationHeader: FC<Props> = ({ job }) => {
   return (
     <div className="w-full bg-base-100 font-montserrat">
       <div className="w-[1440px] mx-auto flex justify-between">

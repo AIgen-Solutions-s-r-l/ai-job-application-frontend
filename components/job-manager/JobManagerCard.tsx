@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { PendingApplication } from '@/libs/definitions';
 import { Check, Info } from 'lucide-react';
@@ -15,7 +15,7 @@ interface Props {
   onClick: () => void;
 }
 
-export const JobManagerCard: React.FC<Props> = ({ id, className, job, onClick }) => {
+export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
   const { selectedApplications, handleApplicationSelect } = useJobManager();
 
   return (

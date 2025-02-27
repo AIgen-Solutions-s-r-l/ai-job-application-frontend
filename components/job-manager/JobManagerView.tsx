@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { FC } from 'react';
 import { JobManagerHeader } from './JobManagerHeader';
 import { JobManagerList } from './JobManagerList';
 import { JobManagerBottomSheet } from './JobManagerBottomSheet';
@@ -11,7 +11,7 @@ interface Props {
   applications: PendingApplicationRecord;
 }
 
-export const JobManagerView: React.FC<Props> = ({ applications }) => {
+export const JobManagerView: FC<Props> = ({ applications }) => {
   applications = {
     "30302425-44ca-466a-ae37-87a5039d73ee": {
       "job_id": 9999,

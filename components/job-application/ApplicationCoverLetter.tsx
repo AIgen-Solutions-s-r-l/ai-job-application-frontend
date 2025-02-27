@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useActiveSectionContext } from '../../contexts/active-section-context';
 import {
   CoverLetter,
@@ -19,7 +19,7 @@ interface Props {
   goBack?: () => void;
 }
 
-export const ApplicationCoverLetter: React.FC<Props> = ({
+export const ApplicationCoverLetter: FC<Props> = ({
   id,
   letter,
   goBack,
@@ -56,9 +56,8 @@ export const ApplicationCoverLetter: React.FC<Props> = ({
   return (
     <>
       <div
-        className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${
-          activeSection ? 'bg-black/20' : 'bg-white'
-        }`}
+        className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${activeSection ? 'bg-black/20' : 'bg-white'
+          }`}
       >
         <form
           id='my-form'

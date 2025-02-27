@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC, useRef } from 'react';
 import Image from 'next/image';
 import { LandingContainer } from './LandingContainer';
 import * as motion from "motion/react-client"
 import { useScroll, useTransform, useSpring } from "motion/react"
 
-export const Clouds: React.FC = () => {
-  const sectionRef = React.useRef(null);
+export const Clouds: FC = () => {
+  const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start center", "center end"]

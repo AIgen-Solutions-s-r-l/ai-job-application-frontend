@@ -1,18 +1,18 @@
 import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
 import { ArrowRight, Plus } from 'lucide-react';
-import React from 'react';
+import { FC, ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 type FormData = Pick<JobProfile, "educationDetails">
 
-const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
+const ExamNestedFieldArray: FC<{ index: number; }> = ({
   index,
 }: {
   index: number;
-}): React.ReactElement => {
+}): ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ 
+  const { fields, append, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
   })
 
@@ -67,14 +67,14 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
         className="w-max px-6 h-10 font-jura font-semibold mt-4 bg-my-neutral-2 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-primary-light-purple transition-all ease-in duration-100 hover:text-white"
         onClick={() => append({ subject: "", grade: "" })}
       >
-        <span className="text-2xl">+</span> 
+        <span className="text-2xl">+</span>
         <p className="text-base">Add Exam</p>
       </button>
     </div>
   )
 }
 
-export const EducationDetailsOnboarding: React.FC = () => {
+export const EducationDetailsOnboarding: FC = () => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: "educationDetails", rules: { required: 'At least one education is required' } });
 

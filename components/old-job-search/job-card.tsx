@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { MatchingJob } from '@/libs/definitions';
 
@@ -7,7 +7,7 @@ interface Props {
   job: MatchingJob;
 }
 
-export const JobCard: React.FC<Props> = ({ className, job }) => {
+export const JobCard: FC<Props> = ({ className, job }) => {
   return (
     <div className={cn("w-[900px] border-[1px] border-neutral-content rounded-xl bg-base-100 p-4 text-base-content", className)}>
       <h3 className='text-2xl line-clamp-2 mb-2 leading-tight font-semibold'>{job.title}</h3>

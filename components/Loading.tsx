@@ -1,4 +1,3 @@
-import React from "react";
 import Wire from './Wire.svg';
 
 const Loading = () => {

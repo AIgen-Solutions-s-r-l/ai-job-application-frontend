@@ -2,9 +2,9 @@
 
 import { useJobManager } from '@/contexts/job-manager-context';
 import { Check } from 'lucide-react';
-import React from 'react';
+import { FC } from 'react';
 
-export const JobManagerHeader: React.FC = () => {
+export const JobManagerHeader: FC = () => {
   const { isAllSelected, handleSelectAll } = useJobManager();
 
   return (

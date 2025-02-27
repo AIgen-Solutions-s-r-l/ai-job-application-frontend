@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { MatchingJob } from '@/libs/definitions';
 import { JobLargeCardSkeleton } from './JobLargeCardSkeleton';
@@ -11,7 +11,7 @@ interface Props {
   job: MatchingJob;
 }
 
-export const JobLargeCard: React.FC<Props> = ({ className, job }) => {
+export const JobLargeCard: FC<Props> = ({ className, job }) => {
   if (!job) return <JobLargeCardSkeleton />;
 
   return (

@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import { LandingContainer } from './LandingContainer';
 import Link from 'next/link';
 import Image from 'next/image';
 import { InstagramIcon, LinkedinIcon, TwitterIcon } from '../AppIcons';
 
-export const Footer: React.FC = () => {
+export const Footer: FC = () => {
   return (
     <footer className='bg-my-neutral-7 pt-[37px] pb-[45px] xl:pt-[47px] xl:pb-[53px]'>
       <LandingContainer>

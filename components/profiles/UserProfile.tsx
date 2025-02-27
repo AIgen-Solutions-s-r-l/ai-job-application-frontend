@@ -1,7 +1,7 @@
 'use client';
 
 import { JobProfile } from '@/libs/definitions';
-import React from 'react';
+import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { updateJobProfile } from '@/libs/actions';
 import toast from 'react-hot-toast';
@@ -15,7 +15,7 @@ interface Props {
   profile: JobProfile
 }
 
-export const UserProfile: React.FC<Props> = ({ profile }) => {
+export const UserProfile: FC<Props> = ({ profile }) => {
 
   const methods = useForm({
     defaultValues: profile ?? defaultJobProfile,

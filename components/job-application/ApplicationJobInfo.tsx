@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { JobInfo } from '@/libs/types/application.types';
@@ -11,7 +11,7 @@ interface Props {
   goBack?: () => void;
 }
 
-export const ApplicationJobInfo: React.FC<Props> = ({
+export const ApplicationJobInfo: FC<Props> = ({
   className,
   job,
   goBack,

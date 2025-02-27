@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { FC } from 'react';
 import { MapPin, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
@@ -8,7 +8,7 @@ interface JobSearchBarProps {
   onSearch: (keywords: string, location: string) => void;
 }
 
-export const JobSearchBar: React.FC<JobSearchBarProps> = ({ onSearch }) => {
+export const JobSearchBar: FC<JobSearchBarProps> = ({ onSearch }) => {
   const { register, handleSubmit } = useForm<{ keywords: string; location: string }>();
 
   const onSubmit = (data: { keywords: string; location: string }) => {
@@ -31,7 +31,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({ onSearch }) => {
           </div>
           <div className="w-[1px] h-1/2 bg-neutral-content self-center z-10"></div>
           <div className="flex items-center flex-grow outline outline-2 outline-transparent has-[input:focus-within]:outline-primary rounded-r-[10px] z-20">
-            <MapPin className="text-gray-400 mx-4" size={27}  />
+            <MapPin className="text-gray-400 mx-4" size={27} />
             <input
               type="text"
               id="location"

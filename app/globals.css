@@ -127,7 +127,7 @@ progress::-webkit-progress-value {
   }
   
   .testimonials-button {
-    @apply w-[70px] h-[70px] md:w-[70px] md:h-[70px] xl:w-[80px] xl:h-[80px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
+    @apply w-[70px] h-[70px] md:w-[60px] md:h-[60px] xl:w-[60px] xl:h-[60px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
   }
   
   .testimonial-text-highlight {

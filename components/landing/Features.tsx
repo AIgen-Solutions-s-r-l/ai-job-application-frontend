@@ -139,7 +139,7 @@ export const DesktopFeatures: React.FC = () => {
 
         <div className="overflow-x-auto scrollbar-hide" ref={containerRef}>
           <motion.div
-            className="flex flex-row gap-4 w-[100%] h-[40vh]"
+            className="flex flex-row gap-4 w-[100%] h-[35vh]"
             style={{ x: translateX }}
           >
             <div
@@ -147,26 +147,26 @@ export const DesktopFeatures: React.FC = () => {
             >
               <Image src='/landing/feature-1.png' alt='feature-1' width={405} height={100} />
 
-              <p className="mt-[33px] text-[30px] xl:text-[50px] font-light leading-[1.1] text-white">300K+ Followers</p>
+              <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">300K+ Followers</p>
 
-              <p className="mt-[8px] text-[20px] xl:text-[24px] font-medium leading-none text-white">on social platforms (Instagram, Github)</p>
+              <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">on social platforms (Instagram, Github)</p>
             </div>
 
             <div
               className="features-slide justify-end relative overflow-visible font-k2d"
             >
-              <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[20px] left-0 z-10' />
+              <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[15px] left-0 z-20' />
 
-              <p className="text-[24px] 2xl:text-[30px] font-thin text-white leading-[1.2]">1- Upload your resume</p>
-              <p className="text-[24px] 2xl:text-[30px] font-thin text-white leading-[1.2]">2- Find matching jobs</p>
-              <p className="text-[24px] 2xl:text-[30px] font-semibold text-white leading-[1.2]">3- Laboro creates a set of resume and cover letter for each job application</p>
-              <p className="text-[24px] 2xl:text-[30px] font-semibold text-splash-green leading-[1.2]">4- Auto-apply to many jobs at once!</p>
+              <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]">1- Upload your resume</p>
+              <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]">2- Find matching jobs</p>
+              <p className="text-[20px] 2xl:text-[25px] font-semibold text-white leading-[1.2]">3- Laboro creates a set of resume and cover letter for each job application</p>
+              <p className="text-[20px] 2xl:text-[25px] font-semibold text-splash-green leading-[1.2]">4- Auto-apply to many jobs at once!</p>
             </div>
 
             <div
-              className="features-slide font-k2d justify-end"
+              className="features-slide font-k2d justify-start"
             >
-              <p className="text-[40px] 2xl:text-[50px] leading-[1.1] font-thin text-white">
+              <p className="text-[35px] 2xl:text-[40px] leading-[1.1] font-thin text-white">
                 We currently have<br />
                 300.021 Job Posts,<br />
                 from <span className='text-splash-green'>465 companies!</span>
@@ -176,16 +176,16 @@ export const DesktopFeatures: React.FC = () => {
             <div
               className="features-slide items-center justify-center font-montserrat"
             >
-              <p className="text-white text-[24px] 2xl:text-[32px] leading-none">Companies hiring now</p>
+              <p className="text-white text-[22px] 2xl:text-[28px] leading-none">Companies hiring now</p>
 
-              <Image src='/landing/feature-4.png' alt='feature-4' width={420} height={264} />
+              <Image src='/landing/feature-4.png' alt='feature-4' width={350} height={264} />
             </div>
 
             <div
               className="features-slide flex-row bg-primary-deep-purple items-center justify-center gap-[15px] font-montserrat"
             >
               <div className="w-[335px]">
-                <p className="text-[24px] 2xl:text-[27px] leading-[1.1] text-primary-light-purple-gray">
+                <p className="text-[18px] 2xl:text-[20px] leading-[1.1] text-primary-light-purple-gray">
                   Your chance to<br />
                   <span className="text-splash-orange">get hired</span> with<br />
                   our <span className="text-splash-green">AI-automated</span><br />

@@ -183,7 +183,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           <p className='hidden md:block text-[20px] font-montserrat'>
             <span className='font-bold'>{jobs.length} jobs</span> found.
           </p>
-          <div className='flex flex-wrap gap-2 md:gap-8 text-base font-jura font-semibold'>
+          <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
             <select
               className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
               defaultValue='fullTime'

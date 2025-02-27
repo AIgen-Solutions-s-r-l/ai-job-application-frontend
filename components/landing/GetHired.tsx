@@ -21,9 +21,9 @@ export const GetHired: React.FC = () => {
   return (
     <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[140px] xl:pt-[191px] pb-[150px]'>
       <motion.div style={{ rotate: rotationSpring }}>
-        <Image src={HiredFlower} alt='hired-flower' width={300} height={300} />
+        <Image src={HiredFlower} alt='hired-flower' width={250} height={250} />
       </motion.div>
-      <div ref={sectionRef} className="relative flex flex-col mt-[62px] font-josefin-sans text-[80px] md:text-[160px] xl:text-[160px] tracking-tight text-primary-deep-purple leading-[0.84]">
+      <div ref={sectionRef} className="relative flex flex-col mt-[62px] font-josefin-sans text-[80px] md:text-[130px] xl:text-[140px] tracking-tight text-primary-deep-purple leading-[0.84]">
         <p>Get Hired.</p>
         <p>Get Hired.</p>
         <p>Get Hired.</p>
@@ -31,10 +31,10 @@ export const GetHired: React.FC = () => {
         <p>Get Hired.</p>
         <p>Get Hired.</p>
         <p>Get Hired.</p>
-        <motion.div className="absolute -top-[20%] left-[51%] -translate-x-1/2 w-[80px] h-[120px] md:w-[160px] md:h-[240px] xl:w-[170px] xl:h-[310px] border-[10px] md:border-[20px] border-black"
+        <motion.div className="absolute -top-[20%] left-[51%] -translate-x-1/2 w-[80px] h-[120px] md:w-[160px] md:h-[240px] xl:w-[140px] xl:h-[270px] border-[10px] md:border-[20px] border-black"
           style={{ top: pathYSpring }}
         >
-          <Image src='/landing/hired-dude.png' alt='hired-dude' width={127} height={244} className='w-[50px] md:w-[100px] xl:w-[107px] h-auto absolute left-[6px] md:left-[15px] bottom-0' />
+          <Image src='/landing/hired-dude.png' alt='hired-dude' width={127} height={244} className='w-[50px] md:w-[100px] xl:w-[90px] h-auto absolute left-[6px] bottom-0' />
         </motion.div>
       </div>
 

@@ -8,7 +8,7 @@ export const Testimonials: React.FC = () => {
       <LandingContainer>
         <div className='flex items-center justify-between mb-[150px] gap-[10px]'>
           <Heart />
-          <h2 className="text-3xl md:text-[40px] 2xl:text-[45px] font-medium leading-[1.1] text-white">Don’t take our word for it!<br />Hear it from our customers</h2>
+          <h2 className="text-3xl md:text-[35px] 2xl:text-[40px] font-medium leading-[1.1] text-white">Don’t take our word for it!<br />Hear it from our customers</h2>
           <Heart />
         </div>
         <Carousel />

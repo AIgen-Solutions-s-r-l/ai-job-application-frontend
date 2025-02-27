@@ -23,6 +23,13 @@ progress::-webkit-progress-value {
 }
 
 @layer base {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+  }
   .btn-gradient {
     @apply !bg-gradient !bg-[length:300%_300%] hover:saturate-[1.2] shadow duration-100 !border-0 !border-transparent !bg-transparent animate-shimmer disabled:!bg-none disabled:!bg-gray-500/30 !text-white;
   }
@@ -60,7 +67,7 @@ progress::-webkit-progress-value {
   }
 
   .collapse-content {
-    @apply !text-[14px] md:!text-[20px] !pt-[0] !pb-[5px] !px-[30px] md:!pb-[7px] md:!px-[70px]
+    @apply !text-[14px] md:!text-[17px] !pt-[0] !pb-[5px] !px-[30px] md:!pb-[7px] md:!px-[70px]
   }
 
   .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-content {
@@ -120,7 +127,7 @@ progress::-webkit-progress-value {
   }
   
   .testimonials-button {
-    @apply w-[70px] h-[70px] md:w-[86px] md:h-[86px] xl:w-[100px] xl:h-[100px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
+    @apply w-[70px] h-[70px] md:w-[70px] md:h-[70px] xl:w-[80px] xl:h-[80px] rounded-full border border-my-neutral-7 bg-transparent hover:bg-my-neutral-7 flex items-center justify-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed transition-all ease-in-out duration-300
   }
   
   .testimonial-text-highlight {
@@ -132,7 +139,7 @@ progress::-webkit-progress-value {
   }
   
   .text-heading {
-    @apply text-3xl md:text-[40px] 2xl:text-[45px] font-medium leading-[1.1] text-center text-white
+    @apply text-3xl md:text-[33px] 2xl:text-[36px] font-medium leading-[1.1] text-center text-white
   }
 
   .footer-social-container {

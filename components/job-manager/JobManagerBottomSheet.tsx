@@ -8,6 +8,8 @@ import toast from 'react-hot-toast';
 import { ButtonApply } from '@/components/ButtonAppy';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonUnderline } from '@/components/ButtonUnderline';
+import LaboroSmiley from '@/public/LaboroSmiley.svg';
+import Image from 'next/image';
 
 export const JobManagerBottomSheet: React.FC = () => {
   const { selectedApplications } = useJobManager();
@@ -39,6 +41,12 @@ export const JobManagerBottomSheet: React.FC = () => {
         <ButtonUnderline title='Cancel' handleClick={() => router.back()} />
       </div>
       <div className='flex items-center gap-5'>
+        <div className='flex items-center gap-5 bg-primary-deep-purple rounded-full pl-[2px] pr-[25px] py-[3px]'>
+          <Image src={LaboroSmiley} alt='LaboroSmiley' width={40} height={40} />
+          <p className='text-white text-right font-jura text-xl font-semibold leading-6 tracking-tight'>
+            300 Applications
+          </p>
+        </div>
         <p className='text-[20px] font-normal text-white font-montserrat'>
           You’re applying to{' '}
           <span className='font-bold'>{selectedApplications.length} jobs</span>{' '}

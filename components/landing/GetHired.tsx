@@ -12,7 +12,7 @@ export const GetHired: React.FC = () => {
     target: sectionRef,
     offset: ["start end", "end center"]
   });
-  const pathY = useTransform(scrollYProgress, [0, 1], ['90%', '0%']);
+  const pathY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const pathYSpring = useSpring(pathY, { stiffness: 50, damping: 20, restDelta: 0.01 });
   const rotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const rotationSpring = useSpring(rotation, { stiffness: 50, damping: 20, restDelta: 0.01 });

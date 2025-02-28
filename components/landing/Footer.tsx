@@ -7,7 +7,7 @@ import { InstagramIcon, LinkedinIcon, TwitterIcon } from '../AppIcons';
 export const Footer: React.FC = () => {
   return (
     <footer className='bg-my-neutral-7 pt-[37px] pb-[45px] xl:pt-[47px] xl:pb-[53px]'>
-      <LandingContainer>
+      <LandingContainer className='xl:px-[10vw] md:px-[10vw] px-[5vw]'>
         <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-11">
           <div className="col-span-1 md:col-span-1 xl:col-span-2 py-[12px] xl:py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >About Us</Link>

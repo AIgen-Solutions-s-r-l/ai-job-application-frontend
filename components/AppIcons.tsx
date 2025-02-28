@@ -52,7 +52,7 @@ const CheckmarkIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-const ArrowRightIcon: React.FC<SvgIconProps> = ({ classname }) => (
+const ArrowRightIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg 
     width="52" 
     height="16" 
@@ -64,7 +64,7 @@ const ArrowRightIcon: React.FC<SvgIconProps> = ({ classname }) => (
   </svg>
 )
 
-const ArrowLeftIcon: React.FC<SvgIconProps> = ({ classname }) => (
+const ArrowLeftIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg 
     width="52" 
     height="16" 

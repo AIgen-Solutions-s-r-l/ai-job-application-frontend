@@ -43,7 +43,7 @@ export const Clouds: FC = () => {
       <LandingContainer>
         <div className="mt-[100%] lg:mt-[50%] md:mt-[80%]">
           <p className="text-[30px] font-medium leading-[1.1] text-center text-white lg:text-[40px]">
-            Spotlight on Our Founders:<br /> Media's Fascination with Their Journey
+            Spotlight on Our Founders:<br /> Media&apos;s Fascination with Their Journey
           </p>
         </div>
       </LandingContainer>

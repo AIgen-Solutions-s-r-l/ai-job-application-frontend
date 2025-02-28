@@ -122,6 +122,11 @@ export const DesktopFeatures: FC = () => {
     return 2;
   });
 
+  // Pre-calculate opacity transformations for each dot
+  const dotOpacity0 = useTransform(activeDot, (active) => active === 0 ? 1 : 0.5);
+  const dotOpacity1 = useTransform(activeDot, (active) => active === 1 ? 1 : 0.5);
+  const dotOpacity2 = useTransform(activeDot, (active) => active === 2 ? 1 : 0.5);
+
   const scrollToSection = (index: number) => {
     if (containerRef.current) {
       const scrollWidth = containerRef.current.scrollWidth - containerRef.current.clientWidth;
@@ -200,17 +205,30 @@ export const DesktopFeatures: FC = () => {
         </div>
       </div>
       <div className="flex justify-center items-center gap-4 mt-8">
-        {[0, 1, 2].map((index) => (
-          <motion.span
-            key={index}
-            className="w-2 h-2 rounded-full cursor-pointer"
-            style={{
-              backgroundColor: 'black',
-              opacity: useTransform(activeDot, (active) => active === index ? 1 : 0.5)
-            }}
-            onClick={() => scrollToSection(index)}
-          />
-        ))}
+        <motion.span
+          className="w-2 h-2 rounded-full cursor-pointer"
+          style={{
+            backgroundColor: 'black',
+            opacity: dotOpacity0
+          }}
+          onClick={() => scrollToSection(0)}
+        />
+        <motion.span
+          className="w-2 h-2 rounded-full cursor-pointer"
+          style={{
+            backgroundColor: 'black',
+            opacity: dotOpacity1
+          }}
+          onClick={() => scrollToSection(1)}
+        />
+        <motion.span
+          className="w-2 h-2 rounded-full cursor-pointer"
+          style={{
+            backgroundColor: 'black',
+            opacity: dotOpacity2
+          }}
+          onClick={() => scrollToSection(2)}
+        />
       </div>
     </section>
   );

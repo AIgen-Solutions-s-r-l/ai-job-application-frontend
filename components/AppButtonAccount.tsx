@@ -16,6 +16,7 @@ import {
   Loader2,
   LogOut,
   Settings,
+  SquareKanban,
 } from "lucide-react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
@@ -78,6 +79,18 @@ const AppButtonAccount = () => {
           className="w-56 bg-base-100"
           align="end"
         >
+          <Link href="/dashboard" passHref className="md:hidden">
+            <DropdownMenuItem
+              className={clsx(
+                `h-10`,
+                pathname === "/dashboard" &&
+                `bg-gray-300 dark:bg-gray-600`
+              )}
+            >
+              <SquareKanban />
+              Dashboard
+            </DropdownMenuItem>
+          </Link>
           <Link href="/dashboard/settings" passHref>
             <DropdownMenuItem
               className={clsx(

@@ -1,11 +1,11 @@
 import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
-import React from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 type FormData = Pick<JobProfile, "personalInfo">
 
-export const PersonalInformationOnboarding: React.FC = () => {
+export const PersonalInformationOnboarding: FC = () => {
   const { register, formState: { errors } } = useFormContext<FormData>();
 
   return (
@@ -33,7 +33,7 @@ export const PersonalInformationOnboarding: React.FC = () => {
             title={'Date of Birth'}
             {...register('personalInfo.date_of_birth', { required: 'Date of Birth is required' })}
             type="date"
-            min="1980-01-01" 
+            min="1980-01-01"
             max={new Date().toLocaleDateString('en-ca')}
             error={!!errors.personalInfo?.date_of_birth}
             errorMessage={errors.personalInfo?.date_of_birth?.message}

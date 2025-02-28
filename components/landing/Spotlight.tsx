@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 import { LandingContainer } from './LandingContainer';
 
-export const Spotlight: React.FC = () => {
+export const Spotlight: FC = () => {
   return (
     <LandingContainer>
       <section className='flex flex-col items-center gap-[70px] xl:gap-[100px] bg-primary-light-purple font-montserrat pt-[100px] md:pt-[140px] 2xl:pt-[180px]'>

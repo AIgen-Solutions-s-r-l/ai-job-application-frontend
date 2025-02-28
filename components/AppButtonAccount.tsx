@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import apiClient from "@/libs/api";
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,

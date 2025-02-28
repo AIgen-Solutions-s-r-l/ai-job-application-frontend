@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { JobDetail } from '@/libs/definitions';
 
 const dateOptions: Intl.DateTimeFormatOptions = {
@@ -12,7 +12,7 @@ interface Props {
   status: string;
 }
 
-export const JobCard: React.FC<Props> = ({ job, status }) => {
+export const JobCard: FC<Props> = ({ job, status }) => {
   const date = new Date(job.posted_date);
 
   return (

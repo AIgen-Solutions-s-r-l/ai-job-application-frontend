@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { FC } from 'react';
 import { JobSearchProps, MatchingJob } from '@/libs/definitions';
 import { useRouter } from 'next/navigation';
 import { JobSearchBar } from './JobSearchBar';
@@ -13,7 +13,7 @@ type JobSearchViewProps = {
   searchParams: JobSearchProps; //{ q?: string; l?: string };
 };
 
-export const JobSearchView: React.FC<JobSearchViewProps> = ({
+export const JobSearchView: FC<JobSearchViewProps> = ({
   initialJobs,
   searchParams,
 }) => {

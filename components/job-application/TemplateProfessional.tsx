@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { ResumePersonal } from './_components/ResumePersonal';
 import { ResumeEducation } from './_components/ResumeEducation';
 import { ResumeExperience } from './_components/ResumeExperience';
@@ -23,7 +23,7 @@ interface Props {
   goBack?: () => void;
 }
 
-export const TemplateProfessional: React.FC<Props> = ({
+export const TemplateProfessional: FC<Props> = ({
   id,
   resume,
   goBack,

@@ -1,11 +1,11 @@
 'use client';
 
-import React from "react";
+import { FC, useRef, memo } from "react";
 import { motion, useTransform, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 import { useWindowSize } from "@/lib/hooks";
 
-const MobileFeatures: React.FC = () => {
+const MobileFeatures: FC = () => {
   return (
     <section className="py-12 px-4">
       {/* Header */}
@@ -100,8 +100,8 @@ const MobileFeatures: React.FC = () => {
   );
 };
 
-export const DesktopFeatures: React.FC = () => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
+export const DesktopFeatures: FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollXProgress } = useScroll({
     container: containerRef,
   });
@@ -216,12 +216,12 @@ export const DesktopFeatures: React.FC = () => {
   );
 };
 
-export const Features: React.FC = () => {
+export const Features: FC = () => {
   const { width } = useWindowSize();
   const isMobile = width <= 1024;
 
-  const MemoizedMobileFeatures = React.memo(MobileFeatures);
-  const MemoizedDesktopFeatures = React.memo(DesktopFeatures);
+  const MemoizedMobileFeatures = memo(MobileFeatures);
+  const MemoizedDesktopFeatures = memo(DesktopFeatures);
 
   if (!width) {
     return (

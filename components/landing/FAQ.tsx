@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useRef } from 'react';
 import FaqQuestion from '@/public/landing/faq-question.svg';
 import { LandingContainer } from './LandingContainer';
 import * as motion from "motion/react-client";
@@ -57,8 +57,8 @@ const accordionItems = [
   },
 ]
 
-export const FAQ: React.FC = () => {
-  const sectionRef = React.useRef(null);
+export const FAQ: FC = () => {
+  const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["200px end", "center end"]

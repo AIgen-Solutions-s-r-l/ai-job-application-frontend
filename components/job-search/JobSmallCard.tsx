@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { MatchingJob } from '@/libs/definitions';
 import { Check, Info } from 'lucide-react';
@@ -12,7 +12,7 @@ interface Props {
   onClick: () => void;
 }
 
-export const JobSmallCard: React.FC<Props> = ({ className, job, onClick }) => {
+export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
   const { selectedJobs, handleJobSelect } = useJobSearch();
 
   return (

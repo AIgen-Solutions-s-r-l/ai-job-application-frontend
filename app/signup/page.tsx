@@ -10,7 +10,6 @@ import { fetchUserData, register } from "@/libs/api/auth"; // Importa la funció
 import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
 import { isResumeExits } from "@/libs/api/resume";
-import React from "react";
 
 const Signup = () => {
   const [username, setUsername] = useState(""); // Nuevo campo para username

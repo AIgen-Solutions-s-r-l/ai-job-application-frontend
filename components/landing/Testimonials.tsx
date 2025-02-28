@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { LandingContainer } from './LandingContainer';
 import { Carousel } from './Carousel';
 import Heart from './Heart';
-export const Testimonials: React.FC = () => {
+export const Testimonials: FC = () => {
   return (
     <section className='bg-primary-light-purple pt-[100px] md:pt-[140px] 2xl:pt-[166px]'>
       <LandingContainer className='xl:px-[10vw] 2xl:px-[10vw]'>

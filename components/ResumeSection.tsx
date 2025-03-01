@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 
 interface Props {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-export const ResumeSection: React.FC<Props> = ({ title, children }) => {
+export const ResumeSection: FC<Props> = ({ title, children }) => {
   return (
     <div className="flex gap-6">
       <div className="flex-none w-[240px] p-5">

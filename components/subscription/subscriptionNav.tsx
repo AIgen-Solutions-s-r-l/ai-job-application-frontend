@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const Tab = ({ active, text, setTab, tab }: { active: boolean | null, setTab: (tab: number) => void, text: string, tab: number }) => {
     return (

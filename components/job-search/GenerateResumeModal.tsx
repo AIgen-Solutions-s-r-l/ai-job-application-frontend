@@ -9,22 +9,22 @@ import Template2 from '../svgs/template2.svg';
 import Template3 from '../svgs/template3.svg';
 import Template4 from '../svgs/template4.svg';
 import ResumeUpload from '../svgs/ResumeUpload.svg';
-import React from "react";
+import { Dispatch, SetStateAction, DragEvent, ChangeEvent } from "react";
 import ToggleSwitch from "../common/ToggleSwitch";
 import TemplateCard from "./TemplateCard";
 import { AiFillFilePdf } from "react-icons/ai";
 
 interface ModalProps {
     isModalOpen: boolean;
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
     onConfirm: () => void;
     onCancel?: () => void;
     generateTemplate: boolean;
-    setGenerateTemplate: React.Dispatch<React.SetStateAction<boolean>>;
+    setGenerateTemplate: Dispatch<SetStateAction<boolean>>;
     selectedTemplate: number;
-    setSelectedTemplate: React.Dispatch<React.SetStateAction<number>>;
+    setSelectedTemplate: Dispatch<SetStateAction<number>>;
     cvFile: File | null;
-    setCVFile: React.Dispatch<React.SetStateAction<File | null>>;
+    setCVFile: Dispatch<SetStateAction<File | null>>;
 }
 
 // A reusable confirmation modal with a message and two buttons: Cancel and Confirm
@@ -53,7 +53,7 @@ const GenerateResumeModal = ({
         setSelectedTemplate(templateNumber === selectedTemplate ? selectedTemplate : templateNumber);
     };
 
-    const handleDragOver = (e: React.DragEvent) => {
+    const handleDragOver = (e: DragEvent) => {
         e.preventDefault();
         setIsDragging(true);
     };
@@ -62,7 +62,7 @@ const GenerateResumeModal = ({
         setIsDragging(false);
     };
 
-    const handleDrop = (e: React.DragEvent) => {
+    const handleDrop = (e: DragEvent) => {
         e.preventDefault();
         setIsDragging(false);
         const file = e.dataTransfer.files[0];
@@ -71,7 +71,7 @@ const GenerateResumeModal = ({
         }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setCVFile(file);

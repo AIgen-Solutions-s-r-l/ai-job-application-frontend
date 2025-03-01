@@ -24,8 +24,8 @@ export const Automate: React.FC = () => {
     offset: ["start center", "center end"]
   });
 
-  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['0%', '96%', '96%', '-4%', '-4%', '45%', '45%']);
-  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], [-20, -20, 120, 120, 220, 220, 300]);
+  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['5%', '96%', '96%', '-4%', '-4%', '45%', '45%']);
+  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], [-10, -10, 85, 85, 160, 160, 210]);
 
   const calculateEyePosition = () => {
     if (!eyeBall.current || !eyeContainer.current) return { x: 0, y: 0 };
@@ -60,7 +60,7 @@ export const Automate: React.FC = () => {
     <section ref={sectionRef} className='bg-my-neutral-2 font-montserrat pt-[80px] md:pt-[120px] xl:pt-[150px] pb-[270px] md:pb-[340px]'>
       <LandingContainer>
         <div className='w-full max-w-[1236px] mx-auto flex flex-col items-center'>
-          <h2 className="w-full text-3xl md:text-[40px] 2xl:text-[50px] leading-none text-my-neutral-6 mb-[15px] xl:mb-[25px] tracking-tight">Automate your job hunt and save hours & days by</h2>
+          <h2 className="w-full text-3xl md:text-[40px] 2xl:text-[35px] leading-none text-my-neutral-6 mb-[15px] xl:mb-[25px] tracking-tight">Automate your job hunt and save hours & days by</h2>
 
           <div className="relative">
             <Image src={Automate1} alt='Automate1' />
@@ -71,7 +71,7 @@ export const Automate: React.FC = () => {
                 top: pathY,
               }}
             >
-              <Image src={LaboroSmiley} alt='laboro-smiley' />
+              <Image src={LaboroSmiley} alt='laboro-smiley' width={70} />
             </motion.div>
           </div>
 
@@ -84,7 +84,7 @@ export const Automate: React.FC = () => {
 
           <Image src={Automate2} alt='Automate2' />
 
-          <p className="w-full text-3xl md:text-[38px] 2xl:text-[40px] leading-none text-my-neutral-6 tracking-tight my-[25px] xl:my-[50px]">
+          <p className="w-full text-3xl md:text-[38px] 2xl:text-[35px] leading-none text-my-neutral-6 tracking-tight my-[25px] xl:my-[50px]">
             Fully Automated job hunting process, <br />
             from <span className='font-semibold'>search</span> to <span className='font-semibold'>resume-editing</span> & <span className='font-semibold'>cover letter <br />
               creation</span>, to <span className='font-semibold'>submitting job applications</span>.
@@ -94,24 +94,24 @@ export const Automate: React.FC = () => {
             <Image src={Automate3} alt='Automate3' width={638} height={170} className='w-[200px] md:w-[340px] lg:w-[460px] xl:w-[638px] h-auto ml-2 md:ml-5' />
           </div>
 
-          <p className="text-3xl md:text-[40px] 2xl:text-[45px] font-semibold text-my-neutral-6 tracking-tight leading-none text-center mt-[18px] mb-[88px] xl:mt-[33px] xl:mb-[122px]">So you can enjoy your time.</p>
-          <div className="md:w-[505px] relative mx-auto">
+          <p className="text-3xl md:text-[40px] 2xl:text-[40px] font-semibold text-my-neutral-6 tracking-tight leading-none text-center mt-[18px] mb-[88px] xl:mt-[33px] xl:mb-[122px]">So you can enjoy your time.</p>
+          <div className="md:w-[405px] relative mx-auto">
             <div className="w-max relative mx-auto">
-              <Image src={AutomateEyeBase} alt="automate-eye-base" />
+              <Image src={AutomateEyeBase} alt="automate-eye-base" width={280} />
               <div
                 ref={eyeContainer}
-                className="w-[138px] h-[138px] rounded-full bg-my-neutral-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                className="w-[118px] h-[118px] rounded-full bg-my-neutral-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               >
                 <div
                   ref={eyeBall}
-                  className="w-[72px] h-[72px] rounded-full bg-white absolute top-1/2 left-1/2"
+                  className="w-[60px] h-[60px] rounded-full bg-white absolute top-1/2 left-1/2"
                   style={{
                     transform: `translate(calc(-50% + ${eyePosition.x}px), calc(-50% + ${eyePosition.y}px))`
                   }}
                 ></div>
               </div>
             </div>
-            <Image src='/landing/automate-laptop.png' alt="automate-laptop" width={505} height={339} className='absolute top-[100px]' />
+            <Image src='/landing/automate-laptop.png' alt="automate-laptop" width={405} height={339} className='absolute top-[100px]' />
           </div>
         </div>
       </LandingContainer>
@@ -123,10 +123,10 @@ const AutomateItem: React.FC<{ text: string, featured?: boolean }> = ({ text, fe
   return (
     <div className="w-full flex text-white">
       <div className={`flex items-center justify-between flex-grow px-[16px] md:px-[24px] xl:px-[60px] py-[18px] md:py-[22px] xl:py-[24px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
-        <h4 className="text-[18px] md:text-[20px] xl:text-[32px] tracking-tight leading-none">{text}</h4>
+        <h4 className="text-[18px] md:text-[20px] xl:text-[25px] tracking-tight leading-none">{text}</h4>
         <Image src={AutomateItemArrow} alt='automate-item-arrow' className='hidden md:block' />
       </div>
-      <div className={`flex items-center justify-center shrink-0 w-[60px] h-[60px] md:w-[70px] md:h-[70px] xl:w-[80px] xl:h-[80px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
+      <div className={`flex items-center justify-center shrink-0 w-[60px] h-[60px] md:w-[70px] md:h-[70px] xl:w-[70px] xl:h-[70px] rounded-full ${featured ? 'bg-splash-fucshia' : 'bg-primary-deep-purple'}`}>
         <CheckmarkIcon classname='w-[30px] xl:w-[40px] h-auto' />
       </div>
     </div>

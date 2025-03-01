@@ -1,11 +1,11 @@
 import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
-import React from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 type FormData = Pick<JobProfile, "personalInfo">
 
-export const ProfilePersonalInformation: React.FC = () => {
+export const ProfilePersonalInformation: FC = () => {
   const { register, formState: { errors } } = useFormContext<FormData>();
 
   return (

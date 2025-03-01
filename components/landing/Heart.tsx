@@ -1,6 +1,6 @@
 import Image from "next/image";
 import HeartImage from '../svgs/Heart.svg';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, RefObject } from 'react';
 
 function Heart() {
     const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
@@ -34,7 +34,7 @@ function Heart() {
         };
     }, []);
 
-    const getEyePosition = (eyeBall: React.RefObject<HTMLDivElement>, eyeContainer: React.RefObject<HTMLDivElement>) => {
+    const getEyePosition = (eyeBall: RefObject<HTMLDivElement>, eyeContainer: RefObject<HTMLDivElement>) => {
         if (!eyeBall.current || !eyeContainer.current) return { x: 0, y: 0 };
         return calculateEyePosition(eyeBall.current, eyeContainer.current);
     };

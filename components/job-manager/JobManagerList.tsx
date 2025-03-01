@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { JobManagerCard } from './JobManagerCard';
 import { useJobManager } from '@/contexts/job-manager-context';
+import { Container } from '../Container';
 
 export const JobManagerList: React.FC = () => {
   const { applications } = useJobManager();
@@ -17,12 +18,12 @@ export const JobManagerList: React.FC = () => {
   }
 
   return (
-    <div className='w-full h-full gap-5 bg-base-100 mb-20 pt-16 pb-5'>
-      <div className="w-[1440px] mx-auto grid grid-cols-3 gap-5">
+    <div className='w-full h-full gap-5 pt-16'>
+      <Container className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-[100px]">
         {Object.entries(applications).map(([key, value]) => (
           <JobManagerCard key={key} id={key} job={value} onClick={() => setFocusedJobId(key)} className={focusedJobId === key ? "outline outline-1 outline-primary" : ""} />
         ))}
-      </div>
+      </Container>
     </div>
   );
 };

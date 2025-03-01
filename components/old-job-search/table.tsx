@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import { FC } from 'react';
 import { JobSearchBar } from './job-search-bar';
 import { JobFeedList } from './job-feed-list';
 import { MatchingJob } from '@/libs/definitions';
@@ -10,7 +10,7 @@ interface Props {
   jobs: MatchingJob[];
 }
 
-export const JobTable: React.FC<Props> = ({ jobs }) => {
+export const JobTable: FC<Props> = ({ jobs }) => {
   const router = useRouter();
 
   const handleSearch = async (keywords: string, location: string) => {

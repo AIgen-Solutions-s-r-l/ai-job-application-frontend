@@ -37,7 +37,7 @@ export default async function JobFeed() {
   //   );
 
   return (
-    <div className='h-full font-light flex flex-col gap-5 rounded-2xl'>
+    <div className='font-light flex flex-col gap-5 rounded-2xl'>
       <h1 className='text-3xl font-semibold'>Job Application History</h1>
 
       {/* todo (new disign in figma), is need redo? */}

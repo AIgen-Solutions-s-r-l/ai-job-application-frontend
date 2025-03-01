@@ -3,7 +3,7 @@
 import { useJobManager } from '@/contexts/job-manager-context';
 import { applySelectedApplicationsAction } from '@/libs/actions';
 import { useRouter } from 'next/navigation';
-import React, { useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ButtonApply } from '@/components/ButtonAppy';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
@@ -11,9 +11,14 @@ import { ButtonUnderline } from '@/components/ButtonUnderline';
 import LaboroSmiley from '@/public/LaboroSmiley.svg';
 import Image from 'next/image';
 
-export const JobManagerBottomSheet: React.FC = () => {
+export const JobManagerBottomSheet: FC = () => {
   const { selectedApplications } = useJobManager();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleApply = useCallback(() => {
     applySelectedApplicationsAction(selectedApplications)
@@ -31,8 +36,8 @@ export const JobManagerBottomSheet: React.FC = () => {
   }, [router, selectedApplications]);
 
   return (
-    <JobButtomSheet className='justify-between items-center'>
-      <div className='flex items-center gap-3'>
+    <JobButtomSheet className='justify-between gap-[50px] items-center'>
+      <div className='flex items-center gap-2 md:gap-8 lg:gap-10'>
         <ButtonUnderline
           title='Back to Search'
           handleClick={() => router.back()}
@@ -47,11 +52,11 @@ export const JobManagerBottomSheet: React.FC = () => {
             300 Applications
           </p>
         </div>
-        <p className='text-[20px] font-normal text-white font-montserrat'>
-          You’re applying to{' '}
-          <span className='font-bold'>{selectedApplications.length} jobs</span>{' '}
-          instantly
-        </p>
+        {mounted && (
+          <p className='text-sm md:text-base xl:text-[18px] font-normal text-white font-montserrat text-right'>
+            You’re applying to&nbsp;<span className='font-bold'>{selectedApplications.length} jobs</span>&nbsp;instantly
+          </p>
+        )}
         <ButtonApply
           title='Submit Applications'
           handleApply={handleApply}

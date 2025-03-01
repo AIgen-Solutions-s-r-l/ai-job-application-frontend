@@ -1,6 +1,4 @@
-import { MatchingJob } from "@/libs/definitions";
-
-const JobSearchMockData: MatchingJob[] = [
+[
     {
         "id": "871446eb-c847-482e-8975-0fd5ed46ac1e",
         "job_id": "871446eb-c847-482e-8975-0fd5ed46ac1e",
@@ -1552,5 +1550,3 @@ const JobSearchMockData: MatchingJob[] = [
         "sparse_embeddings": null
     }
 ]
-
-export default JobSearchMockData;

@@ -326,9 +326,9 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
     <div className="flex flex-col gap-5">
       <ProjectsNestedFieldArray />
 
-      <CertificationsNestedFieldArray />
-
       <LanguageNestedFieldArray />
+
+      <CertificationsNestedFieldArray />
 
       <InputWrapper>
         <FormInput

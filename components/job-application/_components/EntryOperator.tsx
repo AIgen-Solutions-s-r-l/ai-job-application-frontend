@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { Plus, Trash2 } from 'lucide-react';
 
@@ -8,10 +8,10 @@ interface Props {
   itemsLength: number;
   className?: string;
   small?: boolean
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
-export const EntryOperator: React.FC<Props> = ({ onAdd, onRemove, itemsLength, className, children, small = false }) => {
+export const EntryOperator: FC<Props> = ({ onAdd, onRemove, itemsLength, className, children, small = false }) => {
   return (
     <div className={cn("absolute w-max h-[40px] rounded-full flex overflow-hidden -top-[40px] left-1/2 -translate-x-1/2 bottom-0 right-0 bg-white z-30 cursor-pointer", className)}>
       <div

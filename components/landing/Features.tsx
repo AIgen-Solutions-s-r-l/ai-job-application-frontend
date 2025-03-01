@@ -1,11 +1,11 @@
 'use client';
 
-import React from "react";
+import { FC, useRef, memo } from "react";
 import { motion, useTransform, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 import { useWindowSize } from "@/lib/hooks";
 
-const MobileFeatures: React.FC = () => {
+const MobileFeatures: FC = () => {
   return (
     <section className="py-12 px-4">
       {/* Header */}
@@ -100,8 +100,8 @@ const MobileFeatures: React.FC = () => {
   );
 };
 
-export const DesktopFeatures: React.FC = () => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
+export const DesktopFeatures: FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollXProgress } = useScroll({
     container: containerRef,
   });
@@ -122,6 +122,11 @@ export const DesktopFeatures: React.FC = () => {
     return 2;
   });
 
+  // Pre-calculate opacity transformations for each dot
+  const dotOpacity0 = useTransform(activeDot, (active) => active === 0 ? 1 : 0.5);
+  const dotOpacity1 = useTransform(activeDot, (active) => active === 1 ? 1 : 0.5);
+  const dotOpacity2 = useTransform(activeDot, (active) => active === 2 ? 1 : 0.5);
+
   const scrollToSection = (index: number) => {
     if (containerRef.current) {
       const scrollWidth = containerRef.current.scrollWidth - containerRef.current.clientWidth;
@@ -137,15 +142,15 @@ export const DesktopFeatures: React.FC = () => {
     <section className="flex flex-col relative px-12 pb-[200px]">
       <div className="flex flex-col gap-[100px] 2xl:gap-[150px] pt-[80px] 2xl:pt-[100px]">
 
-        <div className="overflow-x-auto scrollbar-hide" ref={containerRef}>
+        <div className="overflow-x-auto scrollbar-hide no-scrollbar" ref={containerRef}>
           <motion.div
-            className="flex flex-row gap-4 w-[100%] h-[35vh]"
+            className="flex flex-row gap-4 w-[100%] h-[33vh]"
             style={{ x: translateX }}
           >
             <div
               className="features-slide justify-end font-montserra"
             >
-              <Image src='/landing/feature-1.png' alt='feature-1' width={405} height={100} />
+              <Image src='/landing/feature-1.png' alt='feature-1' width={305} height={100} />
 
               <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">300K+ Followers</p>
 
@@ -155,16 +160,16 @@ export const DesktopFeatures: React.FC = () => {
             <div
               className="features-slide justify-end relative overflow-visible font-k2d"
             >
-              <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[15px] left-0 z-20' />
+              <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[20px] left-0 z-20' />
 
               <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]">1- Upload your resume</p>
               <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]">2- Find matching jobs</p>
-              <p className="text-[20px] 2xl:text-[25px] font-semibold text-white leading-[1.2]">3- Laboro creates a set of resume and cover letter for each job application</p>
-              <p className="text-[20px] 2xl:text-[25px] font-semibold text-splash-green leading-[1.2]">4- Auto-apply to many jobs at once!</p>
+              <p className="text-[20px] 2xl:text-[24px] font-semibold text-white leading-[1.2]">3- Laboro creates a set of resume and cover letter for each job application</p>
+              <p className="text-[20px] 2xl:text-[24px] font-semibold text-splash-green leading-[1.2]">4- Auto-apply to many jobs at once!</p>
             </div>
 
             <div
-              className="features-slide font-k2d justify-start"
+              className="flex items-center features-slide font-k2d justify-start"
             >
               <p className="text-[35px] 2xl:text-[40px] leading-[1.1] font-thin text-white">
                 We currently have<br />
@@ -200,28 +205,41 @@ export const DesktopFeatures: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center items-center gap-4 mt-8">
-        {[0, 1, 2].map((index) => (
-          <motion.span
-            key={index}
-            className="w-2 h-2 rounded-full cursor-pointer"
-            style={{
-              backgroundColor: 'black',
-              opacity: useTransform(activeDot, (active) => active === index ? 1 : 0.5)
-            }}
-            onClick={() => scrollToSection(index)}
-          />
-        ))}
+        <motion.span
+          className="w-2 h-2 rounded-full cursor-pointer"
+          style={{
+            backgroundColor: 'black',
+            opacity: dotOpacity0
+          }}
+          onClick={() => scrollToSection(0)}
+        />
+        <motion.span
+          className="w-2 h-2 rounded-full cursor-pointer"
+          style={{
+            backgroundColor: 'black',
+            opacity: dotOpacity1
+          }}
+          onClick={() => scrollToSection(1)}
+        />
+        <motion.span
+          className="w-2 h-2 rounded-full cursor-pointer"
+          style={{
+            backgroundColor: 'black',
+            opacity: dotOpacity2
+          }}
+          onClick={() => scrollToSection(2)}
+        />
       </div>
     </section>
   );
 };
 
-export const Features: React.FC = () => {
+export const Features: FC = () => {
   const { width } = useWindowSize();
   const isMobile = width <= 1024;
 
-  const MemoizedMobileFeatures = React.memo(MobileFeatures);
-  const MemoizedDesktopFeatures = React.memo(DesktopFeatures);
+  const MemoizedMobileFeatures = memo(MobileFeatures);
+  const MemoizedDesktopFeatures = memo(DesktopFeatures);
 
   if (!width) {
     return (

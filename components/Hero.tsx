@@ -1,8 +1,6 @@
-import React from "react";
 import Image from "next/image";
 import TestimonialsAvatars from "./TestimonialsAvatars";
 import ButtonLead from "@/components/ButtonLead";  // Asegúrate de importar el componente ButtonLead
-import config from "@/config";
 
 const Hero = () => {
   return (
@@ -13,19 +11,19 @@ const Hero = () => {
         <h1 className="font-extrabold text-4xl lg:text-6xl tracking-tight md:-mb-4">
           Automate your job search and easily get hired
         </h1>
-        
+
         {/* Supporting headline explaining the how */}
         <p className="text-lg opacity-80 leading-relaxed">
           laboro streamlines your LinkedIn applications with AI, personalizes them, and helps you apply to more jobs in less time.
         </p>
-        
+
         {/* Call to action */}
-        <ButtonLead/>
+        <ButtonLead />
 
         {/* Social proof with testimonials */}
         <TestimonialsAvatars priority={true} />
       </div>
-      
+
       {/* Right side: Image (like a YouTube thumbnail, easy to understand) */}
       <div className="lg:w-full">
         <Image

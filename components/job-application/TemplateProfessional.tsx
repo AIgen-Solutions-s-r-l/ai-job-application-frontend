@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { ResumePersonal } from './_components/ResumePersonal';
 import { ResumeEducation } from './_components/ResumeEducation';
 import { ResumeExperience } from './_components/ResumeExperience';
@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
-import { ButtonApplication } from '@/components/ButtonApplication';
+import { ButtonUnderline } from '../ButtonUnderline';
 
 interface Props {
   id: string;
@@ -23,7 +23,7 @@ interface Props {
   goBack?: () => void;
 }
 
-export const TemplateProfessional: React.FC<Props> = ({
+export const TemplateProfessional: FC<Props> = ({
   id,
   resume,
   goBack,
@@ -88,9 +88,9 @@ export const TemplateProfessional: React.FC<Props> = ({
         </div>
       </FormProvider>
       <JobButtomSheet className='flex-none items-center justify-between'>
-        <ButtonApplication title='Go Back' handleClick={goBack} />
+        <ButtonUnderline title='Go Back' handleClick={goBack} />
         <div className='flex items-center gap-10'>
-          <p className='text-lg text-white font-semibold'>
+          <p className='text-[20px] text-white font-montserrat'>
             You’re editing the Resume
           </p>
           <ButtonSubmit

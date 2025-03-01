@@ -1,7 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useEffect, JSX, FC, useRef } from "react";
-import { useTheme } from "next-themes";
+import { JSX, FC } from "react";
 import Image from 'next/image';
 
 type Props = {
@@ -28,7 +27,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
     <div
       role="navigation"
       aria-label="Navbar"
-      className="flex items-center justify-between pt-[55px] pb-[25px] px-4 md:px-0"
+      className="flex items-center justify-between pt-2 pb-1 lg:pt-[55px] lg:pb-[25px]"
     >
       <Image src="/laboro.png" alt="Logo" width={214} height={58} />
 

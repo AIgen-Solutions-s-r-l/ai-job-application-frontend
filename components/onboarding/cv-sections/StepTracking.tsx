@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface Props {
   currentStep: number;
@@ -32,7 +32,7 @@ const StepArrow = () => {
   );
 }
 
-export const StepTracking: React.FC<Props> = ({ currentStep }) => {
+export const StepTracking: FC<Props> = ({ currentStep }) => {
   return (
     <ul className="w-full flex items-center justify-between">
       <StepBox step={1} title="Personal Information" currentStep={currentStep} />

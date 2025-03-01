@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils';
-import React from 'react';
+import { FC } from 'react';
 
 interface Props {
   className?: string;
 }
 
-export const JobFilters: React.FC<Props> = ({ className }) => {
+export const JobFilters: FC<Props> = ({ className }) => {
   return (
     <div className={cn('', className)}>
 

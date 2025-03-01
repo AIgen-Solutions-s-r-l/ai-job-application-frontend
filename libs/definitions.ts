@@ -170,17 +170,31 @@ export interface UploadFile {
 }
 
 export interface MatchingJob {
-  id: number;
-  title: string;
-  is_remote?: boolean;
-  workplace_type?: string;
-  posted_date?: string;
-  job_state?: string;
-  description?: string;
-  apply_link?: string;
-  company?: string;
-  location?: string;
-  portal?: string;
+  id:                    string;
+  job_id:                string;
+  title:                 string;
+  workplace_type:        string;
+  posted_date:           string;
+  job_state:             string;
+  description:           string;
+  apply_link:            string;
+  company:               string;
+  logo:                  string;
+  location:              string;
+  city:                  string;
+  country:               string;
+  portal:                string;
+  company_id:            string;
+  location_id:           string;
+  cluster_id:            string;
+  embedding:             string;
+  short_description:     string;
+  processed_description: string;
+  field:                 string;
+  experience:            string;
+  score:                 number;
+  skills_required:       string[];
+  sparse_embeddings:     string;
 }
 
 export type PendingApplicationRecord = Record<string, PendingApplication>;

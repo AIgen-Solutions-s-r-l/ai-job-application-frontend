@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
-
 const ButtonGradient = ({
   title = "Gradient Button",
-  onClick = () => {},
+  onClick = () => { },
 }: {
   title?: string;
   onClick?: () => void;

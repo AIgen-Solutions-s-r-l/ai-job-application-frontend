@@ -88,21 +88,21 @@ const highlightText = (text: string) => {
 export const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [direction, setDirection] = useState(0); 
+  const [direction, setDirection] = useState(0);
   const { width } = useWindowSize();
 
   useEffect(() => {
-    if (width < 768) { 
+    if (width < 768) {
       setItemsPerPage(1);
-    } else if (width < 1280) { 
+    } else if (width < 1280) {
       setItemsPerPage(2);
-    } else if (width < 1536) { 
+    } else if (width < 1536) {
       setItemsPerPage(3);
-    } else { 
+    } else {
       setItemsPerPage(4);
     }
   }, [width]);
-  
+
   const maxIndex = items.length - itemsPerPage;
 
   const movePrev = () => {
@@ -156,9 +156,57 @@ export const Carousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full relative">
-      <div className="absolute -top-[100px] md:-top-[120px] xl:-top-[140px] right-0 flex gap-4">
-        <motion.button 
+    <div className="w-full relative flex justify-center flex-col items-center">
+      <motion.div
+        className="w-full h-[527px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-3 lg:gap-4 xl:gap-5 2xl:gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
+        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+          {visibleItems.map((item) => (
+            <motion.div
+              key={item.id}
+              custom={direction}
+              variants={itemVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              className="flex flex-col justify-between flex-none snap-start h-[457px] rounded-[25px] bg-my-neutral-2 p-10"
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+            >
+              <div className="">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                >
+                  <Image src={item.image} alt='carousel-image' width={100} height={100} className='rounded-full' />
+                </motion.div>
+
+                <motion.p
+                  className="mt-[31px] text-[14px] leading-[1.2] text-my-neutral-7"
+                  dangerouslySetInnerHTML={{ __html: highlightText(item.text) }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                />
+              </div>
+
+              <motion.p
+                className="font-italianno text-[20px] leading-[1.2] text-my-neutral-7"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                {item.name}
+              </motion.p>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+      <div className="flex gap-4 -mt-[50px]">
+        <motion.button
           onClick={movePrev}
           className="testimonials-button disabled:opacity-50"
           disabled={currentIndex === 0}
@@ -179,7 +227,7 @@ export const Carousel: React.FC = () => {
             />
           </svg>
         </motion.button>
-        <motion.button 
+        <motion.button
           onClick={moveNext}
           className="testimonials-button disabled:opacity-50"
           disabled={currentIndex >= maxIndex}
@@ -201,55 +249,6 @@ export const Carousel: React.FC = () => {
           </svg>
         </motion.button>
       </div>
-      
-      <motion.div 
-        className="w-full h-[527px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-3 lg:gap-4 xl:gap-5 2xl:gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
-        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-          {visibleItems.map((item) => (
-            <motion.div
-              key={item.id}
-              custom={direction}
-              variants={itemVariants}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-              className="flex flex-col justify-between flex-none snap-start h-[527px] rounded-[25px] bg-my-neutral-2 p-10"
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            >
-              <div className="">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                >
-                  <Image src={item.image} alt='carousel-image' width={150} height={150} className='rounded-full' />
-                </motion.div>
-
-                <motion.p 
-                  className="mt-[31px] text-[20px] leading-[1.2] text-my-neutral-7"
-                  dangerouslySetInnerHTML={{ __html: highlightText(item.text) }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                />
-              </div>
-
-              <motion.p 
-                className="font-italianno text-[24px] leading-[1.2] text-my-neutral-7"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                {item.name}
-              </motion.p>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
     </div>
   );
 };

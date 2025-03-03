@@ -22,7 +22,7 @@ export const ApplicationJobInfo: FC<Props> = ({
     <>
       <div
         className={cn(
-          'w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]',
+          'w-full lg:w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]',
           className
         )}
       >

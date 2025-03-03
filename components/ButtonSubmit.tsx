@@ -12,13 +12,13 @@ type Props = {
 
 export const ButtonSubmit: FC<Props> = ({ title, disabled, isSubmitting }) => (
   <button
-    className='my-btn-green gap-[30px] font-semibold text-lg font-jura'
+    className='my-btn-green gap-[30px] font-semibold text-sm md:text-[18px] font-jura'
     form='my-form'
     type='submit'
     disabled={disabled}
   >
     {isSubmitting && <FaSpinner className='animate-spin' />}
     <p>{title}</p>
-    <Check size={24} />
+    <Check size={24} className='hidden md:block' />
   </button>
 );

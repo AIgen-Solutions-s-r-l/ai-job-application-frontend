@@ -66,7 +66,7 @@ export const TemplateProfessional: FC<Props> = ({
       </select> */}
       <FormProvider {...methods}>
         <div className={cn(
-          'w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px]',
+          'w-full lg:w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px]',
           activeSection ? 'bg-black/20' : (template.background ?? 'bg-white'))}>
           <form
             id='my-form'
@@ -89,8 +89,8 @@ export const TemplateProfessional: FC<Props> = ({
       </FormProvider>
       <JobButtomSheet className='flex-none items-center justify-between'>
         <ButtonUnderline title='Go Back' handleClick={goBack} />
-        <div className='flex items-center gap-10'>
-          <p className='text-[20px] text-white font-montserrat'>
+        <div className='flex items-center gap-2 md:gap-8 lg:gap-10'>
+          <p className='text-sm md:text-base xl:text-[20px] text-white font-montserrat text-right'>
             You’re editing the Resume
           </p>
           <ButtonSubmit

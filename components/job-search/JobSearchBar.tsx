@@ -179,11 +179,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
         </form>
 
-        <div className='flex items-center pb-3 mt-3 md:pb-5 md:mt-5 gap-16'>
+        <div className='flex items-center mt-3 md:pb-1 md:mt-5 gap-16'>
           <p className='hidden md:block text-[20px] font-montserrat'>
             <span className='font-bold'>{jobs.length} jobs</span> found.
           </p>
-          <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
+          {/* <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
             <select
               className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
               defaultValue='fullTime'
@@ -212,7 +212,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               </option>
               <option value='russian'>Russian</option>
             </select>
-          </div>
+          </div> */}
         </div>
       </div>
     </Container>

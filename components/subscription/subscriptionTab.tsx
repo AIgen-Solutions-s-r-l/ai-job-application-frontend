@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Credits from '../svgs/Credits.svg';
 import Image from 'next/image';
 import SliderInput from './sliderInput';
@@ -6,16 +6,19 @@ import Arrow from '../svgs/ArrowPurple.svg';
 import MasterCard from '../svgs/MasterCard.svg';
 import ThreeWayToggleSwitch from '../common/ThreeWayToggleSwitch';
 import Cart from '../svgs/Cart.svg';
-import config from "@/config";
-import { getUserInfo } from '@/libs/api/auth';
+import { getUserInfo, addCredits } from '@/libs/api/auth';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 function SubscriptionTab() {
     const [sliderValue, setSliderValue] = useState(0);
-    const currentApplications = 300;
+    const [currentApplications, setCurrentApplications] = useState(300);
     const pricePerApplication = 0.02;
     const [paymentPlan, setPaymentPlan] = useState<'monthly' | 'yearly' | 'onetime'>('monthly');
-    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     const values = [
         { value: '100' },
@@ -24,6 +27,58 @@ function SubscriptionTab() {
         { value: '700' },
         { value: '1000' }
     ];
+
+    useEffect(() => {
+        // Handle transaction success or failure status
+        const success = searchParams.get('success');
+        const credits = searchParams.get('credits');
+        const sessionId = searchParams.get('session_id');
+        
+        // Prevent processing the payment more than once
+        if (success && !isProcessingPayment) {
+            setIsProcessingPayment(true);
+            
+            if (success === 'true' && sessionId && credits) {
+                // Add credits to user account and update local state
+                const creditsAmount = parseInt(credits);
+                
+                // Call the API to add credits
+                addCredits(
+                    creditsAmount,
+                    sessionId,
+                    `Added ${creditsAmount} applications via Stripe payment`
+                )
+                .then(() => {
+                    // Update local applications count
+                    setCurrentApplications(prev => prev + creditsAmount);
+                    
+                    // Show success message
+                    toast.success(`Payment successful! ${creditsAmount} applications have been added to your account.`);
+                })
+                .catch(error => {
+                    console.error("Failed to add credits:", error);
+                    toast.error("Payment was successful, but we couldn't update your balance. Please contact support.");
+                })
+                .finally(() => {
+                    // Clean URL parameters
+                    cleanUrlParams();
+                });
+            } else if (success === 'false') {
+                toast.error('Payment process was cancelled or could not be completed.');
+                cleanUrlParams();
+            }
+        }
+    }, [searchParams, isProcessingPayment]);
+    
+    // Function to clean URL parameters
+    const cleanUrlParams = () => {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('success');
+        url.searchParams.delete('credits');
+        url.searchParams.delete('session_id');
+        router.replace(url.pathname);
+        setIsProcessingPayment(false);
+    };
 
     const getSavingsPercentage = () => {
         switch (paymentPlan) {
@@ -48,45 +103,77 @@ function SubscriptionTab() {
         };
     };
 
+    
     const handlePurchase = async () => {
+        setIsLoading(true);
         try {
-            setIsLoading(true);
-            
-            const userInfo = await getUserInfo();
-            
-            let selectedPlan = config.stripe.plans.find((plan) =>
-                plan.name.toLowerCase().includes(paymentPlan === "monthly" ? "monthly" : 
-                                              paymentPlan === "yearly" ? "yearly" : "one-time")
-            );
+            // 1. Get the list of Stripe prices from your API
+            const res = await fetch("/api/stripe/prices");
+            if (!res.ok) {
+                throw new Error("Could not retrieve Stripe prices.");
+            }
+            const data = await res.json();
+            const stripePrices = data.data; // Array of Price objects
 
-            if (!selectedPlan) {
-                throw new Error("No plan found");
+            // 2. Determine the combination of applications and plan
+            const numberOfApps = values[sliderValue].value; // For example, "100", "300", etc.
+            let planLabel = "";
+            switch (paymentPlan) {
+                case "monthly":
+                    planLabel = "monthly";
+                    break;
+                case "yearly":
+                    planLabel = "yearly";
+                    break;
+                default:
+                    planLabel = "one-time payment";
             }
 
+            // 3. Search the price list for a match with the desired combination
+            //    Assuming that in Stripe the product name is something like "100 Applications - Monthly"
+            const matchedPrice = stripePrices.find((price: any) => {
+                if (!price.product || typeof price.product !== "object") return false;
+                const productName = price.product.name.toLowerCase();
+                return (
+                    productName.includes(numberOfApps) && 
+                    productName.includes(planLabel)
+                );
+            });
+
+            if (!matchedPrice) {
+                throw new Error(`Could not find a price for ${numberOfApps} applications with ${planLabel} plan`);
+            }
+
+            // 4. Get user info (id and email) to pass to Checkout
+            const userInfo = await getUserInfo();
             const mode = paymentPlan === "onetime" ? "payment" : "subscription";
 
+            // 5. Create Checkout session with the dynamic price found
             const response = await fetch("/api/stripe/create-checkout", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    priceId: selectedPlan.priceId,
+                    priceId: matchedPrice.id, // Here we use the dynamic ID
                     mode,
-                    successUrl: window.location.origin + "/success",
-                    cancelUrl: window.location.origin + "/dashboard/subscription",
+                    successUrl:
+                        window.location.origin +
+                        `/dashboard/subscription?success=true&credits=${numberOfApps}&session_id={CHECKOUT_SESSION_ID}`,
+                    cancelUrl: window.location.origin + "/dashboard/subscription?success=false",
                     userId: userInfo.id,
-                    userEmail: userInfo.email
+                    userEmail: userInfo.email,
                 }),
             });
 
-            const data = await response.json();
-
-            if (data.url) {
-                window.location.assign(data.url);
-            } else {
-                throw new Error(data.error || "Failed to create checkout session");
+            const checkoutData = await response.json();
+            if (!response.ok || !checkoutData.url) {
+                throw new Error(checkoutData.error || "Could not create Checkout session.");
             }
-        } catch (error) {
+
+            // 6. Redirect the user to Stripe checkout
+            window.location.assign(checkoutData.url);
+        } catch (error: any) {
             console.error("Error:", error);
+            toast.error("Could not initiate payment process. Please try again later.");
         } finally {
             setIsLoading(false);
         }
@@ -96,6 +183,8 @@ function SubscriptionTab() {
 
     return (
         <div className='flex flex-col gap-8 px-12 py-8 bg-white'>
+            {/* We could add a visual alert here based on URL parameters */}
+            
             <div className='flex items-center gap-6'>
                 <div className='font-montserrat font-semibold text-[20px]'>
                     Job Applications

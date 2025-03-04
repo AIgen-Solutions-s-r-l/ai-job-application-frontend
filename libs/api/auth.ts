@@ -242,3 +242,31 @@ export async function getUserInfo(): Promise<UserInfo> {
     throw new Error("Failed to get user information");
   }
 }
+
+/**
+ * Adds credits to the user's account
+ * @param amount Number of credits to add
+ * @param referenceId Reference ID for the transaction (e.g. Stripe session ID)
+ * @param description Description of the transaction
+ * @returns Response from the API
+ */
+export async function addCredits(amount: number, referenceId: string, description: string): Promise<any> {
+  try {
+    const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add`, {
+      amount,
+      reference_id: referenceId,
+      description
+    });
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error adding credits:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}

@@ -12,7 +12,7 @@ import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
 
 const Login = () => {
-  const [username, setUsername] = useState<string>(""); // Cambiado de email a username
+  const [email, setEmail] = useState<string>(""); // Cambiado de email a username
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setUser } = useUserContext();
@@ -23,10 +23,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const result  = await login(username, password);
+      const result = await login(email, password);
 
       if (result.success && result.value?.access_token) {
-        localStorage.setItem("username", username);
         toast.success("Logged in successfully!");
         try {
           const [exists, me] = await Promise.all([
@@ -83,11 +82,11 @@ const Login = () => {
           <div className="form-control">
             <input
               type="text" // Cambiado de "email" a "text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)} // Cambiado a setUsername
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} // Cambiado a setEmail
               required
               className="input input-bordered w-full"
-              placeholder="Username" // Cambiado de "Email address" a "Username"
+              placeholder="Email address" // Cambiado de "Email address" a "Email"
             />
           </div>
           <div className="form-control">

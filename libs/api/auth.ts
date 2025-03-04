@@ -6,14 +6,14 @@ import { setServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 
-export const login = createServerAction(async (username: string, password: string) => {
-  if (!username || !password) {
+export const login = createServerAction(async (email: string, password: string) => {
+  if (!email || !password) {
     throw new ServerActionError("Username and password are required");
   }
 
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Usar la URL desde config
-      username,
+      email,
       password,
     });
 

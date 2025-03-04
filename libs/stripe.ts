@@ -123,3 +123,18 @@ export const findCheckoutSession = async (sessionId: string) => {
     return null;
   }
 };
+
+export async function listStripePrices() {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: "2023-08-16",
+    typescript: true,
+  });
+
+  const prices = await stripe.prices.list({
+    active: true,
+    limit: 100,
+    expand: ["data.product"], // expand product data if you need product details
+  });
+
+  return prices.data; // returns an array of Price objects
+}

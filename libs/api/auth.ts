@@ -208,9 +208,9 @@ export async function resetPassword(new_password: string, token: string): Promis
   }
 }
 
-export async function changePassword(username: string, current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
+export async function changePassword(current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/password`, {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/password`, {
       current_password,
       new_password,
     });

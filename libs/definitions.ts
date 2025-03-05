@@ -170,44 +170,47 @@ export interface UploadFile {
 }
 
 export interface MatchingJob {
-  id:                    string;
-  job_id:                string;
-  title:                 string;
-  workplace_type:        string;
-  posted_date:           string;
-  job_state:             string;
-  description:           string;
-  apply_link:            string;
-  company:               string;
-  logo:                  string;
-  location:              string;
-  city:                  string;
-  country:               string;
-  portal:                string;
-  company_id:            string;
-  location_id:           string;
-  cluster_id:            string;
-  embedding:             string;
-  short_description:     string;
-  processed_description: string;
-  field:                 string;
-  experience:            string;
-  score:                 number;
-  skills_required:       string[];
-  sparse_embeddings:     string;
+  id: string
+  title: string
+  workplace_type: string
+  posted_date: string
+  job_state: string
+  description: string
+  apply_link: string
+  company_name: string
+  company_logo?: string
+  location: string
+  city: string
+  country: string
+  portal: string
+  short_description: string
+  field: string
+  experience: string
+  score: number
+  skills_required: string[]
 }
 
 export type PendingApplicationRecord = Record<string, PendingApplication>;
 
 export interface PendingApplication {
-  job_id: number;
-  title: string;
-  description: string;
-  portal: string;
-  company: string;
-  location: string;
-  workplace_type: string;
-  sent: boolean;
+  id: string
+  portal: string
+  title: string
+  workplace_type: string
+  posted_date: string
+  job_state: string
+  description: string
+  apply_link: string
+  company_name: string
+  location: string
+  short_description: string
+  field: string
+  company_logo: string
+  experience: string
+  skills_required: string
+  style: string
+  sent: boolean
+  gen_cv: string
 }
 
 export interface DetailedPendingApplication {

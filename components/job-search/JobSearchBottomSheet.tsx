@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { ButtonApply } from '@/components/ButtonAppy';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { addJobsToManager } from '@/libs/actions';
+import { templateStyleByIndex } from '../job-application/_components/resumeTemplates';
 
 export const JobSearchBottomSheet: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -17,20 +18,35 @@ export const JobSearchBottomSheet: React.FC = () => {
   const router = useRouter();
   const [cvFile, setCVFile] = useState<File | null>(null);
 
-  const handleApply = async () => {
+  const handleApply = async () => {    
     if (selectedJobs.length > 0) {
-      router.push('/manager');
-      // try {
-      //   const response = await addJobsToManager(selectedJobs, generateTemplate ? null : cvFile);
-      //   if (response.success) {
-      //     toast.success("Application submitted!");
-      //     router.push('/manager')
-      //   } else {
-      //     toast.error("Failed to sumbit application.");
-      //   }
-      // } catch (error) {
-      //   console.error("Error submitting profile:", error);
-      // }
+      const jobData = {
+        "jobs": selectedJobs,
+      }
+  
+      const formData = new FormData();
+      formData.append('jobs', JSON.stringify(jobData));
+  
+      if (generateTemplate) {
+        formData.append('style', templateStyleByIndex[selectedTemplate]);
+      } else {
+        formData.append('cv', cvFile);
+      }
+      
+      for (const pair of formData.entries()) {
+        console.log("Form Data: ", pair[0], pair[1]);
+      }
+      
+      try {
+        const response = await addJobsToManager(formData);
+        if (response.success) {
+          toast.success("Application submitted!");
+          router.push('/manager')
+        } 
+      } catch (error) { 
+        console.error("Error submitting profile:", error);
+        toast.error("Failed to submit application.");
+      }
     }
   };
 

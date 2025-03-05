@@ -139,31 +139,16 @@ export const updateJobProfile = async (profileData: JobProfile): Promise<{
   }
 }
 
-export const addJobsToManager = async (jobs: MatchingJob[], cv: File): Promise<{
-  success: boolean;
-  error?: string
+export const addJobsToManager = async (formData: FormData): Promise<{
+  success: boolean
 }> => {
   try {
-    const jobItems = jobs.map((job) => ({
-      job_id: job.id,
-      title: job.title,
-      description: job.description,
-      portal: job.portal
-    }))
-
-    const response = await createJobApplication(jobItems, cv);
-
-    if (!response.success) {
-      return {
-        success: false,
-        error: `Server returned ${response.error}`,
-      };
-    }
+    await createJobApplication(formData);
 
     return { success: true };
   } catch (error) {
     console.error("Error when adding jobs to jobs manager:", error);
-    return { success: false, error: error.message };
+    throw error; 
   }
 }
 

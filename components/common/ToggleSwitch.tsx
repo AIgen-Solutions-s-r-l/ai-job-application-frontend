@@ -7,7 +7,7 @@ interface ToggleSwitchProps {
 const ToggleSwitch = ({ value, onChange, label }: ToggleSwitchProps) => {
     return (
         <section onClick={() => onChange(!value)}
-            className="flex items-center bg-primary relative w-[330px] border py-[10px] flex items-center justify-between rounded-[8px]">
+            className="bg-primary relative w-[330px] border py-[10px] flex items-center justify-between rounded-[8px]">
             <label className={`${value ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[999] font-jura font-semibold`}>
                 {label}
             </label>

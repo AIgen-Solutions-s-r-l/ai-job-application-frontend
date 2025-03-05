@@ -12,7 +12,7 @@ import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
 
 const Login = () => {
-  const [email, setEmail] = useState<string>(""); // Cambiado de email a username
+  const [email, setEmail] = useState<string>(""); // Cambiado de email
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setUser } = useUserContext();

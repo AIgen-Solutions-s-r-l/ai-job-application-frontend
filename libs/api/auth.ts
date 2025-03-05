@@ -106,14 +106,13 @@ export async function fetchUserData(): Promise<any> {
   }
 }
 
-export const register = createServerAction(async (username: string, email: string, password: string) => {
-  if (!username || !email || !password) {
-    throw new ServerActionError("Username, email, and password are required");
+export const register = createServerAction(async (email: string, password: string) => {
+  if (!email || !password) {
+    throw new ServerActionError("Email and password are required");
   }
 
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/register`, {
-      username,
       email,
       password,
     });

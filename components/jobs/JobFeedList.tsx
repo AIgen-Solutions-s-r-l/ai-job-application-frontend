@@ -42,21 +42,6 @@ export const JobFeedList: React.FC<Props> = ({
 
     const failed = Object.keys(failedJobs).map((key) => failedJobs[key]);
 
-    //todo: is there a need to sort by year?
-    // const sortedJobs: Record<string, JobsList[]> = {};
-    // //todo: need add filtering by alphabetically
-    // jobs.forEach((e) => {
-    //   const year = new Date(e.latest).getFullYear();
-    //   if (!sortedJobs[year]) {
-    //     sortedJobs[year] = [];
-    //   }
-    //   sortedJobs[year].push(e);
-    // });
-    // for (const i of Object.keys(sortedJobs)) {
-    //   sortedJobs[i] = sortArrayByDate(sortedJobs[i], sortBy, 'desc');
-    // }
-    // return sortedJobs;
-
     return {
       pending:
         sortBy === 'latest'

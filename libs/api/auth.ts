@@ -6,14 +6,14 @@ import { setServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 
-export const login = createServerAction(async (username: string, password: string) => {
-  if (!username || !password) {
+export const login = createServerAction(async (email: string, password: string) => {
+  if (!email || !password) {
     throw new ServerActionError("Username and password are required");
   }
 
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Usar la URL desde config
-      username,
+      email,
       password,
     });
 
@@ -106,14 +106,13 @@ export async function fetchUserData(): Promise<any> {
   }
 }
 
-export const register = createServerAction(async (username: string, email: string, password: string) => {
-  if (!username || !email || !password) {
-    throw new ServerActionError("Username, email, and password are required");
+export const register = createServerAction(async (email: string, password: string) => {
+  if (!email || !password) {
+    throw new ServerActionError("Email and password are required");
   }
 
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/register`, {
-      username,
       email,
       password,
     });
@@ -209,9 +208,9 @@ export async function resetPassword(new_password: string, token: string): Promis
   }
 }
 
-export async function changePassword(username: string, current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
+export async function changePassword(current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/password`, {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/password`, {
       current_password,
       new_password,
     });

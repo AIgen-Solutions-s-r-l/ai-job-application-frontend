@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import Image from 'next/image';
+import { useUserContext } from '@/contexts/user-context';
 import { LandingContainer } from './LandingContainer';
 import navLeftArrow from '@/public/landing/nav-left-arrow.svg';
 import navRightArrow from '@/public/landing/nav-right-arrow.svg';
 import Link from 'next/link';
 
 export const Header: FC = () => {
+  const { user } = useUserContext();
+
   return (
     <header className='bg-primary-light-purple font-montserrat pt-4 md:pt-[30px] 2xl:pt-[50px]'>
       <LandingContainer className='flex gap-10 px-[5vw] md:px-[10vw] xl:px-[10vw] 2xl:px-[10vw] justify-between'>
@@ -22,8 +25,8 @@ export const Header: FC = () => {
             <Image src={navLeftArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
             <p className='text-[14px] 2xl:text-[18px] font-light text-white leading-none'>Employers</p>
           </Link>
-          <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green rounded-[8px] md:rounded-[20px] gap-2' href='/signin'>
-            <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>Sign in</p>
+          <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green rounded-[8px] md:rounded-[20px] gap-2' href={user ? '/dashboard' : '/signin'}>
+            <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>{user && user.email ? user.email.split('@')[0] : 'Sign in'}</p>
             <Image src={navRightArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
           </Link>
         </div>

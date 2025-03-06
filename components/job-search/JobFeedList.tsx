@@ -6,16 +6,17 @@ import { Check } from 'lucide-react';
 import { JobSmallCard } from './JobSmallCard';
 import { JobLargeCard } from './JobLargeCard';
 import { useJobSearch } from '@/contexts/job-search-context';
+import { Container } from '../Container';
 
 export const JobFeedList: React.FC = () => {
   const { jobs, isAllSelected, handleSelectAll } = useJobSearch();
   const [focusedJob, setFocusedJob] = useState<MatchingJob | undefined>();
 
   useEffect(() => {
-    if (jobs.length && !focusedJob) {
+    if (jobs.length) {
       setFocusedJob(jobs[0])
     }
-  }, [focusedJob, jobs])
+  }, [jobs])
 
   if (jobs.length === 0) {
     return (
@@ -26,11 +27,11 @@ export const JobFeedList: React.FC = () => {
   }
 
   return (
-    <div className="w-full gap-5 bg-base-100 mb-20 py-5">
-      <div className="w-[1440px] mx-auto flex gap-5">
-        <div className="w-[430px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0">
+    <div className="w-full gap-5 bg-base-100 mb-20 py-3 lg:py-5">
+      <Container className="flex gap-5">
+        <div className="w-full lg:w-[430px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0">
           <div className="h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
-            <p>Select All</p>
+            <p className='font-jura font-semibold text-[18px]'>Select All</p>
             <div className="h-10 w-10 border border-base-content rounded-md flex items-center justify-center cursor-pointer bg-black" onClick={handleSelectAll}>
               {isAllSelected() && <Check className='text-white' size={24} />}
             </div>
@@ -41,7 +42,7 @@ export const JobFeedList: React.FC = () => {
         </div>
 
         <JobLargeCard job={focusedJob} />
-      </div>
+      </Container>
     </div>
   );
 };

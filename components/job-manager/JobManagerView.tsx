@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { FC } from 'react';
 import { JobManagerHeader } from './JobManagerHeader';
 import { JobManagerList } from './JobManagerList';
 import { JobManagerBottomSheet } from './JobManagerBottomSheet';
@@ -11,7 +11,7 @@ interface Props {
   applications: PendingApplicationRecord;
 }
 
-export const JobManagerView: React.FC<Props> = ({ applications }) => {
+export const JobManagerView: FC<Props> = ({ applications }) => {
   applications = {
     "30302425-44ca-466a-ae37-87a5039d73ee": {
       "job_id": 9999,
@@ -24,6 +24,26 @@ export const JobManagerView: React.FC<Props> = ({ applications }) => {
       "sent": true
     },
     "e162ec6e-75c2-4cf7-b858-5e4edd7e9b0c": {
+      "job_id": 8888,
+      "title": "Frontend Developer",
+      "description": "Frontend developer for creative interfaces",
+      "portal": "sium",
+      "company": 'Backend Gurus',
+      "location": 'Turin, Italy',
+      "workplace_type": 'Remote',
+      "sent": true
+    },
+    "30302425-44ca-466a-ae37-87a5039d73e1": {
+      "job_id": 9999,
+      "title": "Mobile Developer",
+      "description": "Mobile developer for creative apps in Flutter",
+      "portal": "my_portal",
+      "company": 'Backend Gurus',
+      "location": 'Turin, Italy',
+      "workplace_type": 'Remote',
+      "sent": true
+    },
+    "e162ec6e-75c2-4cf7-b858-5e4edd7e9b02": {
       "job_id": 8888,
       "title": "Frontend Developer",
       "description": "Frontend developer for creative interfaces",

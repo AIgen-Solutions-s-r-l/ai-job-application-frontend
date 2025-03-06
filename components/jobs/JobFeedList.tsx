@@ -60,19 +60,20 @@ export const JobFeedList: React.FC<Props> = ({
     return {
       pending:
         sortBy === 'latest'
+          ? sortArrayByDate(failed, 'posted_date', 'desc')
+          : failed.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
+      applied:
+        sortBy === 'latest'
           ? sortArrayByDate(applied, 'posted_date', 'desc')
           : applied.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
-      applied,
-      failed,
     } satisfies {
       pending: JobDetail[];
       applied: JobDetail[];
-      failed: JobDetail[];
     };
-  }, [appliedJobs, sortBy]);
+  }, [appliedJobs, failedJobs, sortBy]);
 
   return (
-    <div className='h-full relative flex flex-col'>
+    <div className='relative flex flex-col'>
       <div className='absolute top-0 left-[200px] h-[50px] flex items-center gap-1 z-10'>
         Sort by:
         <button onClick={() => setSortBy('latest')}>
@@ -84,7 +85,7 @@ export const JobFeedList: React.FC<Props> = ({
         </button>
       </div>
 
-      <Tabs.Root className='h-full' defaultValue='pending'>
+      <Tabs.Root defaultValue='pending'>
         <Tabs.List
           className={`${typography.tabs.list} h-[50px] w-96`}
           aria-label='Pending jobs list'
@@ -100,12 +101,6 @@ export const JobFeedList: React.FC<Props> = ({
             <div className='w-[28px] h-[28px] flex justify-center items-center shrink-0'>
               <Check height={24} width={24} />
             </div>
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            className={`${typography.tabs.trigger} grow`}
-            value='failed'
-          >
-            Failed
           </Tabs.Trigger>
         </Tabs.List>
 
@@ -131,19 +126,6 @@ export const JobFeedList: React.FC<Props> = ({
             </>
           ) : (
             jobs.applied.map((job, key) => (
-              <JobCard job={job} status='Applied' key={key} />
-            ))
-          )}
-        </Tabs.Content>
-        <Tabs.Content className={typography.tabs.content} value='failed'>
-          {isLoading ? (
-            <>
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-            </>
-          ) : (
-            jobs.failed.map((job, key) => (
               <JobCard job={job} status='Applied' key={key} />
             ))
           )}

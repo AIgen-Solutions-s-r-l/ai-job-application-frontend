@@ -11,14 +11,14 @@ interface UserInfo {
   email: string;
 }
 
-export const login = createServerAction(async (username: string, password: string) => {
-  if (!username || !password) {
-    throw new ServerActionError("Username and password are required");
+export const login = createServerAction(async (email: string, password: string) => {
+  if (!email || !password) {
+    throw new ServerActionError("Email and password are required");
   }
 
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Usar la URL desde config
-      username,
+      email,
       password,
     });
 
@@ -112,14 +112,13 @@ export async function fetchUserData(): Promise<any> {
   }
 }
 
-export const register = createServerAction(async (username: string, email: string, password: string) => {
-  if (!username || !email || !password) {
-    throw new ServerActionError("Username, email, and password are required");
+export const register = createServerAction(async (email: string, password: string) => {
+  if (!email || !password) {
+    throw new ServerActionError("Email and password are required");
   }
 
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/register`, {
-      username,
       email,
       password,
     });
@@ -215,6 +214,92 @@ export async function resetPassword(new_password: string, token: string): Promis
   }
 }
 
+export async function changePassword(current_password: string, new_password: string,): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/password`, {
+      current_password,
+      new_password,
+    });
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    switch (error.response?.status) {
+      case 401:
+        return {
+          success: false,
+          error: 'Invalid current password',
+        };
+      case 404:
+        return {
+          success: false,
+          error: 'User not found',
+        };
+      case 422: {
+        return {
+          success: false,
+          error: 'Validation Error',
+        };
+      }
+      default: {
+        console.error(`Error when updating password`, error);
+        return { success: false, error: error.message };
+      }
+    }
+  }
+}
+
+export async function changeEmail(username: string, current_password: string, new_email: string,): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/email`, {
+      current_password,
+      new_email,
+    });
+
+    if (response.status !== 200) {
+      return {
+        success: false,
+        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    switch (error.response?.status) {
+      case 400:
+        return {
+          success: false,
+          error: 'Email already registered',
+        };
+      case 401:
+        return {
+          success: false,
+          error: 'Invalid password or unauthorized',
+        };
+      case 404:
+        return {
+          success: false,
+          error: 'User not found',
+        };
+      case 422: {
+        return {
+          success: false,
+          error: 'Validation Error',
+        };
+      }
+      default: {
+        console.error(`Error when updating password`, error);
+        return { success: false, error: error.message };
+      }
+    }
+  }
+}
 export async function getUserInfo(): Promise<UserInfo> {
   const accessToken = await getServerCookie('accessToken');
   if (!accessToken) {

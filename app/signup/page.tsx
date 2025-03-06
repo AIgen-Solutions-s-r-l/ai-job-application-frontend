@@ -10,10 +10,8 @@ import { fetchUserData, register } from "@/libs/api/auth"; // Importa la funció
 import RequireLogout from "@/permissions/requireLogout";
 import { useUserContext } from "@/contexts/user-context";
 import { isResumeExits } from "@/libs/api/resume";
-import React from "react";
 
 const Signup = () => {
-  const [username, setUsername] = useState(""); // Nuevo campo para username
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -38,10 +36,9 @@ const Signup = () => {
     }
 
     try {
-      const result = await register(username, email, password);
+      const result = await register(email, password);
 
       if (result.success) {
-        localStorage.setItem('username', username);
         toast.success('Logged in successfully!');
         try {
           const [exists, me] = await Promise.all([
@@ -74,17 +71,6 @@ const Signup = () => {
         </div>
 
         <form className="space-y-4 font-jura" onSubmit={handleSignup}>
-          <div className="form-control">
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="input input-bordered w-full"
-              placeholder="Enter your username"
-            />
-          </div>
           <div className="form-control">
             <input
               type="email"

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useEffect } from "react";
 import { deleteServerCookie } from "@/libs/cookies";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,7 +12,6 @@ const LogoutAndRedirect = () => {
   useEffect(() => {
     const handleSignOut = async () => {
       await deleteServerCookie("accessToken");
-      localStorage.removeItem("username");
       router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
     };
     handleSignOut();

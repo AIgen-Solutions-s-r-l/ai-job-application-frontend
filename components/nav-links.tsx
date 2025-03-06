@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
 
 // Mapa de enlaces con los íconos solicitados
 const links = [
@@ -33,11 +32,10 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className={`flex items-center gap-2 p-2 mx-2 rounded-md ${
-              pathname === link.href
+            className={`flex items-center gap-2 p-2 mx-2 rounded-md ${pathname === link.href
                 ? 'bg-neutral text-white'
                 : 'hover:bg-base-300'
-            }`}
+              }`}
           >
             <LinkIcon className='w-6 h-6' />
             <span>{link.name}</span>

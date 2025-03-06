@@ -1,8 +1,8 @@
-import React from 'react';
+import { ChangeEvent } from 'react';
 
 function SliderInput({ values, sliderValue, setSliderValue }: { values: { value: string }[], sliderValue: number, setSliderValue: (value: number) => void }) {
 
-    const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSliderValue(Number(e.target.value));
     };
     return (

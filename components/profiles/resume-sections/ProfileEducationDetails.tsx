@@ -1,12 +1,12 @@
 import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
 import { ArrowRight, Plus } from 'lucide-react';
-import React from 'react';
+import { FC } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 type FormData = Pick<JobProfile, "educationDetails">
 
-export const ProfileEducationDetails: React.FC = () => {
+export const ProfileEducationDetails: FC = () => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: "educationDetails", rules: { required: 'At least one education is required' } });
 

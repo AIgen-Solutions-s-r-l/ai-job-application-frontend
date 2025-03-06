@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useEffect } from "react";
 import { deleteServerCookie } from "@/libs/cookies";
 import { usePathname, useRouter } from "next/navigation";

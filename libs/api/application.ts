@@ -40,7 +40,7 @@ export async function createJobApplication(formData: FormData): Promise<{ succes
   }
 }
 
-export async function getAppliedJobApplications(): Promise<JobsList> {
+export async function getAppliedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
     console.log('getJobApplications', response.data);
@@ -48,14 +48,11 @@ export async function getAppliedJobApplications(): Promise<JobsList> {
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting job applications', error);
-
-    //todo: mock
-    await delay(1000)
-    return jobsMockData;
+    return [];
   }
 }
 
-export async function getFailedJobApplications(): Promise<JobsList> {
+export async function getFailedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/fail_applied`)
     console.log('getFailedJobApplications', response.data);
@@ -63,9 +60,6 @@ export async function getFailedJobApplications(): Promise<JobsList> {
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting failed job applications', error);
-
-    //todo: mock
-    await delay(1000)
-    return failedJobsMockData;
+    return [];
   }
 }

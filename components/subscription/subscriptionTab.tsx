@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSidenavContext } from '@/contexts/sidenav-context';
 import Credits from '../svgs/Credits.svg';
 import Image from 'next/image';
 import SliderInput from './sliderInput';
@@ -6,33 +7,37 @@ import Arrow from '../svgs/ArrowPurple.svg';
 import MasterCard from '../svgs/MasterCard.svg';
 import ThreeWayToggleSwitch from '../common/ThreeWayToggleSwitch';
 import Cart from '../svgs/Cart.svg';
+import { ApplicationsPill } from './ApplicationsPill';
+
+const values = [
+    { value: '100' },
+    { value: '300' },
+    { value: '500' },
+    { value: '700' },
+    { value: '1000' },
+];
 
 function SubscriptionTab() {
     const [sliderValue, setSliderValue] = useState(0);
     const currentApplications = 300;
     const pricePerApplication = 0.02;
-    const [paymentPlan, setPaymentPlan] = useState<'monthly' | 'yearly' | 'onetime'>('monthly');
+    const [paymentPlan, setPaymentPlan] = useState<
+    'monthly' | 'yearly' | 'onetime'
+    >('monthly');
+    const { setSlots } = useSidenavContext();
 
-    const values = [
-        { value: '100' },
-        { value: '300' },
-        { value: '500' },
-        { value: '700' },
-        { value: '1000' }
-    ];
+    const getSavingsPercentage = useCallback(() => {
+    switch (paymentPlan) {
+        case 'monthly':
+        return 0.2;
+        case 'yearly':
+        return 0.35;
+        case 'onetime':
+        return 0;
+    }
+    }, []);
 
-    const getSavingsPercentage = () => {
-        switch (paymentPlan) {
-            case 'monthly':
-                return 0.20;
-            case 'yearly':
-                return 0.35;
-            case 'onetime':
-                return 0;
-        }
-    };
-
-    const calculateTotal = () => {
+    const totals = useMemo(() => {
         const newApplications = parseInt(values[sliderValue].value);
         const totalApplications = currentApplications + newApplications;
         const basePrice = newApplications * pricePerApplication;
@@ -40,11 +45,24 @@ function SubscriptionTab() {
 
         return {
             totalApplications,
-            price: priceWithSavings.toFixed(2)
+            price: priceWithSavings.toFixed(2),
         };
-    };
+    }, [sliderValue]);
 
-    const totals = calculateTotal();
+    useEffect(() => {
+        // add ApplicationsPill to Sidenav
+        setSlots((slots) => ({
+            ...slots,
+            JobApplications: <ApplicationsPill count={currentApplications} />,
+        }));
+
+        // remove addition menu from Sidenav on remove component
+        return () =>
+            setSlots((slots) => {
+                const { JobApplications, ...oldSlots } = slots;
+                return oldSlots;
+            });
+    }, [setSlots]);
 
     return (
         <div className='flex flex-col gap-8 px-12 py-8 bg-white'>
@@ -52,12 +70,7 @@ function SubscriptionTab() {
                 <div className='font-montserrat font-semibold text-[20px]'>
                     Job Applications
                 </div>
-                <div className='flex items-center bg-primary-deep-purple font-jura text-white gap-6 pl-2 pr-5 py-[6px] rounded-full'>
-                    <Image src={Credits} alt='credits' />
-                    <span className='font-jura font-normal text-[16px]'>
-                        {currentApplications} Applications
-                    </span>
-                </div>
+                <ApplicationsPill count={currentApplications} />
             </div>
             <div className=' flex flex-col gap-4'>
                 <p className='font-jura font-semibold text-[16px]'>

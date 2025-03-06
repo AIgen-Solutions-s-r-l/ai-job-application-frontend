@@ -4,8 +4,9 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Search, Users, CircleCheck, CreditCard, Settings } from 'lucide-react';
+import { Search, Users, CircleCheck, CreditCard, Settings, Briefcase } from 'lucide-react';
 import { useWindowSize } from '@/lib/hooks';
+import { useSidenavContext } from '@/contexts/sidenav-context';
 import Magnifer from '@/components/svgs/Magnifier.svg';
 import jobAppIcon from '@/components/svgs/JobApp.svg';
 import profileIcon from '@/components/svgs/Profile.svg';
@@ -13,6 +14,7 @@ import accountIcon from '@/components/svgs/Account.svg';
 import ArrowLeft from '@/components/svgs/ArrowLeft.svg';
 
 type NavLink = {
+  id: string; // for detecting slot position
   title: string;
   icon?: any;
   links: {
@@ -32,6 +34,7 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { width } = useWindowSize();
+  const { slots } = useSidenavContext();
 
   const classMenuButton =
     'grow font-semibold text-sm md:text-[18px] my-1 mx-5 md:mx-0 font-jura';
@@ -50,6 +53,7 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
 
   const navLinks: NavLink[] = [
     {
+      id: 'JobApplications',
       title: 'Job Applications',
       icon: jobAppIcon,
       links: [
@@ -68,17 +72,19 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
         {
           name: 'Review & Apply',
           href: '/manager',
-          icon: Search,
+          icon: Briefcase,
           className: 'text-red',
         },
       ],
     },
     {
+      id: 'Profile',
       title: 'Profile',
       icon: profileIcon,
       links: [{ name: 'My Resume', href: '/dashboard/profiles', icon: Users }],
     },
     {
+      id: 'Account',
       title: 'Account',
       icon: accountIcon,
       links: [
@@ -98,6 +104,7 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
   ];
 
   return collapsed && width > 767 ? (
+    // compact version menu's on small screen
     <nav className='flex flex-col md:gap-3'>
       {navLinks.map(({ title, links }) => (
         <ul key={title} className='flex flex-col gap-3'>
@@ -122,8 +129,9 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
       ))}
     </nav>
   ) : (
+    // full version menu's
     <nav className='flex flex-col md:gap-3-'>
-      {navLinks.map(({ title, icon, links }) => (
+      {navLinks.map(({ id, title, icon, links }) => (
         <div
           key={title}
           className='flex flex-col gap-2 md:gap-2 py-1 md:py-5 border-t-2 border-neutral-content'
@@ -132,9 +140,7 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
             {icon && (
               <Image
                 src={icon}
-                height={0}
-                width={0}
-                style={{ height: 'auto' }}
+                // style={{ height: 'auto', width: 'revert-layer' }}
                 alt={`${title} icon`}
               />
             )}
@@ -143,6 +149,9 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
             </h2>
           </span>
           <ul className='flex flex-col md:gap-2'>
+            {/* addition slots for any JSX from SidenavContext*/}
+            {slots[id] && slots[id]}
+
             {links.map(({ href, name, className, jsx }) => (
               <li key={name} className='flex'>
                 {jsx ? (

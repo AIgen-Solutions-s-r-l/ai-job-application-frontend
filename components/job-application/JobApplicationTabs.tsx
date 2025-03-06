@@ -10,6 +10,7 @@ import { ApplicationJobInfo } from './ApplicationJobInfo';
 import CVTemplateProvider from '../../contexts/cv-template-context';
 import { JobApplicationHeader } from './JobApplicationHeader';
 import { useRouter } from 'next/navigation';
+import { Container } from '../Container';
 
 interface Props {
     id: string;
@@ -17,6 +18,15 @@ interface Props {
 }
 
 type Tab = "jobInfo" | "resume" | "coverLetter";
+
+const ButtonTab = ({ text, isActive, onClick }: { text: string, isActive: boolean, onClick: () => void }) => {
+    return (
+        <button 
+            className={`rounded-t-md grow md:grow-0 md:w-[160px] h-10 flex items-center justify-center text-sm md:text-base font-light ${isActive ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} 
+            onClick={onClick}
+        >{text}</button>
+    )
+}
 
 export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) => {
     const mockApplicationDetails: DetailedPendingApplication = {
@@ -214,12 +224,14 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
         <>
             <JobApplicationHeader job={jobInfo} />
             <ActiveSectionProvider>
-                <div className="w-full grow flex flex-col bg-base-100">
-                    <div className="w-[940px] mx-auto flex gap-2 pt-5 font-kanit">
-                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "resume" ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} onClick={() => setActiveTab("resume")}>Resume</button>
-                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "coverLetter" ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} onClick={() => setActiveTab("coverLetter")}>Cover Letter</button>
-                        <button className={`rounded-t-md w-[160px] h-10 flex items-center justify-center text-base font-light ${activeTab === "jobInfo" ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}`} onClick={() => setActiveTab("jobInfo")}>Job Description</button>
-                    </div>
+                <div className="w-full grow flex flex-col">
+                    <Container>
+                        <div className="w-full lg:w-[940px] mx-auto flex gap-2 pt-5 font-kanit">
+                            <ButtonTab text="Resume" isActive={activeTab === "resume"} onClick={() => setActiveTab("resume")} />
+                            <ButtonTab text="Cover Letter" isActive={activeTab === "coverLetter"} onClick={() => setActiveTab("coverLetter")} />
+                            <ButtonTab text="Job Description" isActive={activeTab === "jobInfo"} onClick={() => setActiveTab("jobInfo")} />
+                        </div>
+                    </Container>
                     <div className="pb-5">
                         {activeTab === "resume" && (
                             <CVTemplateProvider>

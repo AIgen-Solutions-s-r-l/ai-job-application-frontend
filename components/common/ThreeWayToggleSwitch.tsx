@@ -8,8 +8,6 @@ const ThreeWayToggleSwitch = ({ value, onChange }: ThreeWayToggleSwitchProps) =>
         switch (value) {
             case 'monthly':
                 return 'left-[2px]';
-            case 'yearly':
-                return 'left-[calc(33.33%-2px)]';
             case 'onetime':
                 return 'left-[calc(66.66%-2px)]';
         }
@@ -23,13 +21,6 @@ const ThreeWayToggleSwitch = ({ value, onChange }: ThreeWayToggleSwitchProps) =>
             >
                 Monthly
                 <span className="block text-sm">20% off</span>
-            </label>
-            <label
-                onClick={() => onChange('yearly')}
-                className={`flex items-center justify-center gap-2 ${value === 'yearly' ? 'text-black' : 'text-white'} cursor-pointer text-center flex-grow z-[2] font-jura font-semibold whitespace-nowrap`}
-            >
-                Yearly
-                <span className="block text-sm">35% off</span>
             </label>
             <label
                 onClick={() => onChange('onetime')}

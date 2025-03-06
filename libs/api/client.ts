@@ -3,9 +3,12 @@ import axios from 'axios';
 import { redirect } from 'next/navigation';
 import { refreshToken } from './auth';
 
+const API_KEY = 'lab0!3425t3s';
+
 const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
+    "apikey": API_KEY
   },
   timeout: 5000,
 });
@@ -13,6 +16,7 @@ const apiClient = axios.create({
 const apiClientJwt = axios.create({
   headers: {
     "Content-Type": "application/json",
+    "apikey": API_KEY
   },
   timeout: 5000,
 });

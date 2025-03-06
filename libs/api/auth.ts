@@ -22,6 +22,7 @@ export const login = createServerAction(async (username: string, password: strin
       password,
     });
 
+    console.log(response)
     if (!response || !response.data) {
       throw new ServerActionError("No data received from API.");
     }

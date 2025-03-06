@@ -9,7 +9,7 @@ type Props = {
 
 export const ButtonUnderline: FC<Props> = ({ title, handleClick }) => (
   <button
-    className='text-white text-[18px] font-semibold underline font-jura cursor-pointer hover:text-my-neutral-5'
+    className='text-white text-sm md:text-base lg:text-[18px] font-medium lg:font-semibold underline font-jura cursor-pointer hover:text-my-neutral-5 text-left'
     type='button'
     onClick={handleClick}
   >

@@ -2,11 +2,11 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface ModalProps {
   isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   title?: string;
   message: string;
   onConfirm: () => void;

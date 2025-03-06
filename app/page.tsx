@@ -20,13 +20,13 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
+        <Automate />
         <Clouds />
         <Spotlight />
-        <Automate />
         <Testimonials />
         <FAQ />
         <GetHired />
-        <Contacts />
+        {/* <Contacts /> */}
       </main>
       <Footer />
     </>

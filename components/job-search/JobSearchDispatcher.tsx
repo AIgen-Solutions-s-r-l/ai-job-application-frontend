@@ -9,11 +9,12 @@ export const JobSearchDispatcher = async ({
 }) => {
   // eslint-disable-next-line no-unused-vars
   const { q, location, ...jobSearchParams } = searchParams;
-  const par = {
-    ...jobSearchParams,
-    keywords: q?.split(' '), // type field must be 'strtng[]'
-  };
-  const jobs: MatchingJob[] = await getMatchingJobsData(par);
+
+  if (q) {
+    jobSearchParams.keywords = q.split(' ');
+  }
+
+  const jobs: MatchingJob[] = await getMatchingJobsData(jobSearchParams);
 
   return <JobSearchView initialJobs={jobs} searchParams={searchParams} />;
 };

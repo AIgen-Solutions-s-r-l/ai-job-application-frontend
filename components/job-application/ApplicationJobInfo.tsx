@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { JobInfo } from '@/libs/types/application.types';
@@ -11,7 +11,7 @@ interface Props {
   goBack?: () => void;
 }
 
-export const ApplicationJobInfo: React.FC<Props> = ({
+export const ApplicationJobInfo: FC<Props> = ({
   className,
   job,
   goBack,
@@ -22,7 +22,7 @@ export const ApplicationJobInfo: React.FC<Props> = ({
     <>
       <div
         className={cn(
-          'w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]',
+          'w-full lg:w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]',
           className
         )}
       >

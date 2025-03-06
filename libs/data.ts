@@ -6,7 +6,6 @@ import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
 import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
 import { DetailedPendingApplication } from "./types/response-application.types";
-import JobSearchMockData from "@/components/job-search/JobSearchMockData";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -252,13 +251,24 @@ export async function fetchPassesData() {
 
 export async function getMatchingJobsData(params?: JobSearchParams): Promise<MatchingJob[]> {
   try {
-    const matchings = await fetchMatchingJobs(params);
+    const queryString = Object.entries(params)
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return value.map((v) => `${key}=${encodeURIComponent(v)}`).join('&');
+        } else {
+          return `${key}=${encodeURIComponent(value)}`;
+        }
+      })
+      .join('&');
+
+    const matchings = await fetchMatchingJobs(queryString);
+
     const matchingJobs: MatchingJob[] = matchings || [];
+
     return matchingJobs;
   } catch (error) {
     console.error("Error fetching matching jobs from API:", error);
-
-    return JobSearchMockData;
+    return [];
   }
 }
 

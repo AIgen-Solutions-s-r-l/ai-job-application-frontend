@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useActiveSectionContext } from '../../contexts/active-section-context';
 import {
   CoverLetter,
@@ -19,7 +19,7 @@ interface Props {
   goBack?: () => void;
 }
 
-export const ApplicationCoverLetter: React.FC<Props> = ({
+export const ApplicationCoverLetter: FC<Props> = ({
   id,
   letter,
   goBack,
@@ -56,9 +56,8 @@ export const ApplicationCoverLetter: React.FC<Props> = ({
   return (
     <>
       <div
-        className={`w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${
-          activeSection ? 'bg-black/20' : 'bg-white'
-        }`}
+        className={`w-full lg:w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${activeSection ? 'bg-black/20' : 'bg-white'
+          }`}
       >
         <form
           id='my-form'
@@ -72,7 +71,7 @@ export const ApplicationCoverLetter: React.FC<Props> = ({
         >
           <div
             id='letter-sections'
-            className='w-full h-full flex flex-col gap-4 px-10 py-8 text-base'
+            className='w-full h-full flex flex-col px-4 gap-4 md:px-10 py-8 text-base'
           >
             {/* Header */}
             <div className=''>
@@ -157,8 +156,8 @@ export const ApplicationCoverLetter: React.FC<Props> = ({
       <JobButtomSheet className='flex-none items-center justify-between'>
         <ButtonUnderline title='Go Back' handleClick={goBack} />
 
-        <div className='flex items-center gap-10'>
-          <p className='text-[20px] text-white font-montserrat'>
+        <div className='flex items-center gap-2 md:gap-8 lg:gap-10'>
+          <p className='text-sm md:text-base xl:text-[20px] text-white font-montserrat text-right'>
             You’re editing the Cover Letter
           </p>
           <ButtonSubmit

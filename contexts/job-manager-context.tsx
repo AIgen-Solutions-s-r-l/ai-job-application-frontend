@@ -20,13 +20,18 @@ const JobManagerContext = createContext<JobManagerContextType | null>(null);
 
 export default function JobManagerProvider({ children, initialApplications }: JobManagerProviderProps) {
   const [selectedApplications, setSelectedApplications] = useState<string[]>(() => {
-    let stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) {
-      const initialApplicationKeys = Object.keys(initialApplications);
-      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(initialApplicationKeys));
-      stored = JSON.stringify(initialApplicationKeys);
+    if (typeof window !== 'undefined') {
+      let stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
+
+      if (!stored) {
+        const initialApplicationKeys = Object.keys(initialApplications);
+        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(initialApplicationKeys));
+        stored = JSON.stringify(initialApplicationKeys);
+      }
+
+      return stored ? JSON.parse(stored) : [];
     }
-    return stored ? JSON.parse(stored) : [];
+    return [];
   });
 
   useEffect(() => {
@@ -35,7 +40,12 @@ export default function JobManagerProvider({ children, initialApplications }: Jo
 
 
   const applicationKeys = Object.keys(initialApplications);
-  const isAllSelected = () => applicationKeys.every(app => selectedApplications.includes(app));
+  const isAllSelected = () => {
+    if (typeof window !== 'undefined') {
+      return applicationKeys.every(app => selectedApplications.includes(app));
+    }
+    return false;
+  } 
 
   const handleSelectAll = () => {
     if (isAllSelected()) {

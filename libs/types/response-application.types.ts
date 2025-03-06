@@ -1,19 +1,7 @@
 export interface DetailedPendingApplication {
     resume_optimized: ResumeOptimized;
     cover_letter:     CoverLetter;
-    title?: string
-    is_remote?: string
-    workplace_type?: string
-    posted_date?: string
-    job_state?: string
-    description?: string
-    apply_link?: string
-    company_name?: string
-    location?: string
-    id?: string
-    job_id?: number
-    portal?: string
-    gen_cv?: string
+    job_info:         JobInfo;
 }
 
 export interface ResumeOptimized {
@@ -33,6 +21,22 @@ interface ResumeBody {
     achievements?:       Achievements;
     certifications?:     Certifications;
     additional_skills?:  AdditionalSkills;
+}
+
+interface JobInfo {
+    id: string
+    title: string
+    is_remote: string
+    workplace_type: string
+    posted_date: string
+    job_state: string
+    description: string
+    apply_link: string
+    company_name: string
+    location: string
+    job_id: number
+    portal: string
+    gen_cv: string
 }
 
 interface ProjectDetails {

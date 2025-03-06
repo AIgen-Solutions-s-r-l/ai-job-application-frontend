@@ -1,33 +1,35 @@
-import { JobInfo, ResumeAdditionalInfo } from "../types/application.types";
+import { ResumeAdditionalInfo } from "../types/application.types";
 import { Resume } from "../types/application.types";
 import { EducationDetail } from "../types/response-application.types";
 
 export function toResumeType(resumeData: any): Resume {
+  if (!resumeData) {
+    return null;
+  }
+  
   const { 
-    resume_optimized: {
-      resume: {
-        header: { personal_information }, 
-        body: {
-          education_details: {
-            education_details
-          },
-          experience_details: {
-            experience_details
-          },
-          side_projects,
-          achievements: {
-            achievements
-          },
-          certifications: {
-            certifications
-          },
-          additional_skills: {
-            additional_skills,
-            languages,
-            interests
-          },
-        }, 
-      }
+    resume: {
+      header: { personal_information }, 
+      body: {
+        education_details: {
+          education_details
+        },
+        experience_details: {
+          experience_details
+        },
+        side_projects,
+        achievements: {
+          achievements
+        },
+        certifications: {
+          certifications
+        },
+        additional_skills: {
+          additional_skills,
+          languages,
+          interests
+        },
+      }, 
     }
   } = resumeData;
 
@@ -112,36 +114,3 @@ export function fromResumeType(resumeData: Resume): any {
   };
 }
 
-export function toJobInfoType(applicationData: any): JobInfo {
-  const { 
-    title,
-    is_remote,
-    workplace_type,
-    posted_date,
-    job_state,
-    description,
-    apply_link,
-    company_name,
-    location,
-    id,
-    job_id,
-    portal,
-    gen_cv,
-  } = applicationData;
-
-  return {
-    title,
-    is_remote,
-    workplace_type,
-    posted_date,
-    job_state,
-    description,
-    apply_link,
-    company_name,
-    location,
-    id,
-    job_id,
-    portal,
-    gen_cv,
-  };
-}

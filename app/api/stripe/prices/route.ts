@@ -4,7 +4,6 @@ import { listStripePrices } from "@/libs/stripe"; // your server-side function
 export async function GET(req: NextRequest) {
   try {
     const prices = await listStripePrices();
-    console.log("Prices:", prices);
     return NextResponse.json({ data: prices }, { status: 200 });
   } catch (error: any) {
     console.error("Error listing Stripe prices:", error);

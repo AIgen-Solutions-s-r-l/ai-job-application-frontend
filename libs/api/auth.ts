@@ -300,28 +300,25 @@ export async function changeEmail(username: string, current_password: string, ne
     }
   }
 }
+
 export async function getUserInfo(): Promise<UserInfo> {
-  const accessToken = await getServerCookie('accessToken');
-  if (!accessToken) {
-    throw new Error("No access token found in cookies");
-  }
-
-  const decoded: any = jwtDecode(accessToken);
-  
-  const userId = decoded?.id;
-  if (!userId) {
-    throw new Error("Unable to extract user ID from token");
-  }
-
   try {
-    const userData = await fetchUserData();
-    if (!userData?.email) {
-      throw new Error("Unable to retrieve user email");
+    const accessToken = await getServerCookie('accessToken');
+    if (!accessToken) {
+      throw new Error("No access token found in cookies");
+    }
+
+    const decoded: any = jwtDecode(accessToken);
+    
+    const userId = decoded?.id;
+    const userEmail = decoded?.sub;
+    if (!userId) {
+      throw new Error("Unable to extract user ID from token");
     }
 
     return {
       id: userId,
-      email: userData.email
+      email: userEmail
     };
   } catch (error) {
     console.error("Error fetching user data:", error);

@@ -23,9 +23,7 @@ export const ChangePassword: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const username = localStorage.getItem('username');
       const response = await changePassword(
-        username,
         data.password,
         data.newPassword
       );

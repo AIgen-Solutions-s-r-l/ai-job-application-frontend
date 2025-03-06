@@ -12,58 +12,108 @@ interface Props {
 }
 
 export const JobManagerView: FC<Props> = ({ applications }) => {
-  // applications = {
-  //   "30302425-44ca-466a-ae37-87a5039d73ee": {
-  //     "job_id": 9999,
-  //     "title": "Mobile Developer",
-  //     "description": "Mobile developer for creative apps in Flutter",
-  //     "portal": "my_portal",
-  //     "company": 'Backend Gurus',
-  //     "location": 'Turin, Italy',
-  //     "workplace_type": 'Remote',
-  //     "sent": true
-  //   },
-  //   "e162ec6e-75c2-4cf7-b858-5e4edd7e9b0c": {
-  //     "job_id": 8888,
-  //     "title": "Frontend Developer",
-  //     "description": "Frontend developer for creative interfaces",
-  //     "portal": "sium",
-  //     "company": 'Backend Gurus',
-  //     "location": 'Turin, Italy',
-  //     "workplace_type": 'Remote',
-  //     "sent": true
-  //   },
-  //   "30302425-44ca-466a-ae37-87a5039d73e1": {
-  //     "job_id": 9999,
-  //     "title": "Mobile Developer",
-  //     "description": "Mobile developer for creative apps in Flutter",
-  //     "portal": "my_portal",
-  //     "company": 'Backend Gurus',
-  //     "location": 'Turin, Italy',
-  //     "workplace_type": 'Remote',
-  //     "sent": true
-  //   },
-  //   "e162ec6e-75c2-4cf7-b858-5e4edd7e9b02": {
-  //     "job_id": 8888,
-  //     "title": "Frontend Developer",
-  //     "description": "Frontend developer for creative interfaces",
-  //     "portal": "sium",
-  //     "company": 'Backend Gurus',
-  //     "location": 'Turin, Italy',
-  //     "workplace_type": 'Remote',
-  //     "sent": true
-  //   },
-  //   "315eb9e4-fb8c-4229-b986-01d9b0d70a6e": {
-  //     "job_id": 7777,
-  //     "title": "Backend Developer",
-  //     "description": "Backend developer with a focus on APIs",
-  //     "portal": "test_portal",
-  //     "company": 'Backend Gurus',
-  //     "location": 'Turin, Italy',
-  //     "workplace_type": 'Remote',
-  //     "sent": true
-  //   }
-  // }
+  applications = {
+        "ab586298-ab35-4591-94c9-266881002d41": {
+            "id": null,
+            "portal": "example",
+            "title": "FP&A manager",
+            "workplace_type": null,
+            "posted_date": null,
+            "job_state": null,
+            "description": "Boh",
+            "apply_link": null,
+            "company_name": null,
+            "location": null,
+            "short_description": null,
+            "field": null,
+            "company_logo": null,
+            "experience": null,
+            "skills_required": null,
+            "style": null,
+            "sent": false,
+            "gen_cv": null
+        },
+        "1aed2d05-d011-43cc-bf0a-77dc9f15253a": {
+            "id": null,
+            "portal": "example",
+            "title": "FP&A manager",
+            "workplace_type": null,
+            "posted_date": null,
+            "job_state": null,
+            "description": "Boh",
+            "apply_link": null,
+            "company_name": null,
+            "location": null,
+            "short_description": null,
+            "field": null,
+            "company_logo": null,
+            "experience": null,
+            "skills_required": null,
+            "style": "samudum_bold",
+            "sent": false,
+            "gen_cv": null
+        },
+        "6f1b0483-0136-4a91-a5d3-a6f57e461949": {
+            "id": null,
+            "portal": "example",
+            "title": "FP&A manager",
+            "workplace_type": null,
+            "posted_date": null,
+            "job_state": null,
+            "description": "Boh",
+            "apply_link": null,
+            "company_name": null,
+            "location": null,
+            "short_description": null,
+            "field": null,
+            "company_logo": null,
+            "experience": null,
+            "skills_required": null,
+            "style": "samudum_bold",
+            "sent": false,
+            "gen_cv": null
+        },
+        "15af2b58-d155-4210-9758-856a9b0401aa": {
+            "id": null,
+            "portal": "example",
+            "title": "FP&A manager",
+            "workplace_type": null,
+            "posted_date": null,
+            "job_state": null,
+            "description": "Boh",
+            "apply_link": null,
+            "company_name": null,
+            "location": null,
+            "short_description": null,
+            "field": null,
+            "company_logo": null,
+            "experience": null,
+            "skills_required": null,
+            "style": null,
+            "sent": false,
+            "gen_cv": null
+        },
+        "bad6bd9e-d346-4a60-883b-8ef2134ccc24": {
+            "id": null,
+            "portal": "example",
+            "title": "FP&A manager",
+            "workplace_type": null,
+            "posted_date": null,
+            "job_state": null,
+            "description": "Boh",
+            "apply_link": null,
+            "company_name": null,
+            "location": null,
+            "short_description": null,
+            "field": null,
+            "company_logo": null,
+            "experience": null,
+            "skills_required": null,
+            "style": null,
+            "sent": false,
+            "gen_cv": null
+        }
+    }
 
   return (
     <JobManagerProvider initialApplications={applications}>

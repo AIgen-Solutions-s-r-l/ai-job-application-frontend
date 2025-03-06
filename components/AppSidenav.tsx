@@ -6,7 +6,7 @@ import { SquareChevronRight, SquareChevronLeft, Menu } from 'lucide-react';
 import AppNavLinks from './AppNavLinks';
 import { useSidenavCollapse } from '@/libs/hooks';
 
-const minWidth = 230;
+const minWidth = 298;
 
 export default function AppSidenav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +48,7 @@ export default function AppSidenav() {
           className={`hidden p-1 rounded-md hover:bg-base-300 ${
             isCollapse
               ? 'md:flex flex-col items-center py-4'
-              : 'md:block absolute right-0 top-4'
+              : 'md:block absolute right-0 top-0'
           }`}
           onClick={toggleCollapse}
         >
@@ -57,15 +57,15 @@ export default function AppSidenav() {
 
         {!isCollapse && (
           <Link
-            className={`text-3xl mt-5 mb-[25px] pr-[3rem] pl-5 lg:pl-0`}
+            className='mb-[25px] pr-[3rem] text-[28px] font-semibold text-primary-deep-purple font-montserrat'
             href='/dashboard'
           >
-            Dashboard
+            Dashboard /
           </Link>
         )}
 
         {/* Nav Links */}
-        <div className={'flex grow flex-col space-y-2'}>
+        <div className={'flex grow flex-col space-y-2 font-jura'}>
           <AppNavLinks collapsed={isCollapse as boolean} />
         </div>
       </div>

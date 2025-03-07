@@ -16,8 +16,6 @@ export const ApplicationJobInfo: FC<Props> = ({
   job,
   goBack,
 }) => {
-  const router = useRouter();
-
   return (
     <>
       <div

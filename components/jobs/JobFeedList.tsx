@@ -112,9 +112,17 @@ export const JobFeedList: React.FC<Props> = ({
               <JobCardSkeleton />
             </>
           ) : (
-            jobs.pending.map((job, key) => (
-              <JobCard job={job} status='Pending...' key={key} />
-            ))
+             jobs.pending.length
+              ? (
+                jobs.pending.map((job, key) => (
+                  <JobCard job={job} status='Pending...' key={key} />
+                ))
+              )
+              : (
+                <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
+                  <p className='font-montserrat font-medium text-base xl:text-lg'>You don&apos;t have any pending applications</p>
+                </div>
+              )
           )}
         </Tabs.Content>
         <Tabs.Content className={typography.tabs.content} value='applied'>
@@ -125,9 +133,17 @@ export const JobFeedList: React.FC<Props> = ({
               <JobCardSkeleton />
             </>
           ) : (
-            jobs.applied.map((job, key) => (
-              <JobCard job={job} status='Applied' key={key} />
-            ))
+            jobs.applied.length
+              ? (
+                jobs.applied.map((job, key) => (
+                  <JobCard job={job} status='Applied' key={key} />
+                ))
+              )
+              : (
+                <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
+                  <p className='font-montserrat font-medium text-base xl:text-lg'>You don&apos;t have any applied applications</p>
+                </div>
+              )
           )}
         </Tabs.Content>
       </Tabs.Root>

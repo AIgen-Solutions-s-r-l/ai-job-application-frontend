@@ -11,7 +11,7 @@ export const JobManagerList: React.FC = () => {
 
   if (!applications) {
     return (
-      <div className={'w-[1440px] h-full mx-auto text-4xl pt-16'}>
+      <div className={'w-[1440px] h-full mx-auto font-montserrat font-semibold text-xl xl:text-2xl pt-16'}>
         No applications found
       </div>
     );
@@ -21,7 +21,13 @@ export const JobManagerList: React.FC = () => {
     <div className='w-full h-full gap-5 pt-16'>
       <Container className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-[100px]">
         {Object.entries(applications).map(([key, value]) => (
-          <JobManagerCard key={key} id={key} job={value} onClick={() => setFocusedJobId(key)} className={focusedJobId === key ? "outline outline-1 outline-primary" : ""} />
+          <JobManagerCard 
+            key={key} 
+            id={key} 
+            job={value} 
+            onClick={() => setFocusedJobId(key)} 
+            className={focusedJobId === key ? "outline outline-1 outline-primary" : ""} 
+          />
         ))}
       </Container>
     </div>

@@ -25,7 +25,6 @@ export const ApplicationCoverLetter: FC<Props> = ({
   goBack,
 }) => {
   const { activeSection } = useActiveSectionContext();
-  const router = useRouter();
 
   const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>(
     {

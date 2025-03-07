@@ -2,7 +2,7 @@
 
 import { JobsList } from "../definitions";
 import { delay } from "../time";
-import { apiClientJwt } from "./client";
+import { apiClientJwt, apiClientMultipart } from "./client";
 import API_BASE_URLS from "./config";
 import { failedJobsMockData, jobsMockData } from "@/components/jobs/jobsMockData";
 
@@ -21,38 +21,26 @@ export async function fetchAppliedJobs(): Promise<any> {
   }
 }
 
-export async function createJobApplication(jobs: any[], cv: File): Promise<{ success: boolean; error?: string }> {
+export async function createJobApplication(formData: FormData): Promise<{ success: boolean }> {
   try {
-    const data = {
-      "jobs": jobs,
-      "cv": cv ? cv : null
-    }
-
-    const response = await apiClientJwt.post(`${API_BASE_URLS.application}/applications`, data, {
-      headers: {
-        Accept: "application/json",
-      },
-    })
+    const response = await apiClientMultipart.post(`${API_BASE_URLS.application}/applications`, formData)
 
     if (response.status !== 200) {
-      return {
-        success: false,
-        error: `Server returned ${response.status}: ${response.data?.error || response.statusText}`,
-      };
+      throw new Error(`Server returned ${response.status}: ${response.data?.error || response.statusText}`);
     }
 
     if (!response.data) {
-      return { success: false, error: "Application failed" };
+      throw new Error("Application failed");
     }
 
     return { success: true };
   } catch (error) {
     console.error("Error creating job application:", error);
-    return { success: false, error: error.message };
+    throw error; 
   }
 }
 
-export async function getAppliedJobApplications(): Promise<JobsList> {
+export async function getAppliedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
     console.log('getJobApplications', response.data);
@@ -60,14 +48,11 @@ export async function getAppliedJobApplications(): Promise<JobsList> {
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting job applications', error);
-
-    //todo: mock
-    await delay(1000)
-    return jobsMockData;
+    return [];
   }
 }
 
-export async function getFailedJobApplications(): Promise<JobsList> {
+export async function getFailedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/fail_applied`)
     console.log('getFailedJobApplications', response.data);
@@ -75,9 +60,6 @@ export async function getFailedJobApplications(): Promise<JobsList> {
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting failed job applications', error);
-
-    //todo: mock
-    await delay(1000)
-    return failedJobsMockData;
+    return [];
   }
 }

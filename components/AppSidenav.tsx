@@ -57,7 +57,7 @@ export default function AppSidenav() {
 
         {!isCollapse && (
           <Link
-            className='mb-[25px] pr-[3rem] text-[28px] font-semibold text-primary-deep-purple font-montserrat'
+            className='page-header mb-[25px] pr-[3rem]'
             href='/dashboard'
           >
             Dashboard /

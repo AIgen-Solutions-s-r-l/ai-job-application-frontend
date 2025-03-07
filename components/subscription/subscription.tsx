@@ -11,6 +11,7 @@ function Subscription() {
 
     return (
         <>
+            <p className='page-header mb-[50px]'>Manage your Subscription</p>
             <SubscriptionNav
                 tab={tab}
                 setTab={setTab}

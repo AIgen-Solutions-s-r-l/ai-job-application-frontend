@@ -334,12 +334,24 @@ export async function getUserInfo(): Promise<UserInfo> {
  * @returns Response from the API
  */
 export async function addCredits(amount: number, referenceId: string, description: string): Promise<any> {
+  // Validar los datos de entrada
+  if (!amount || amount <= 0) {
+    throw new Error("Invalid credit amount");
+  }
+  
+  if (!referenceId) {
+    throw new Error("Reference ID is required");
+  }
+  
   try {
-    const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add`, {
-      amount,
-      reference_id: referenceId,
-      description
-    });
+    const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add`, 
+      {
+        amount,
+        reference_id: referenceId,
+        description
+      },
+      { timeout: 15000 } // mayor timeout para esta operación
+    );
 
     if (!response || !response.data) {
       throw new Error("No data received from API.");
@@ -348,6 +360,13 @@ export async function addCredits(amount: number, referenceId: string, descriptio
     return response.data;
   } catch (error: any) {
     console.error("Error adding credits:", error);
+    
+    if (error.response?.status === 422 && 
+        error.response?.data?.detail?.includes("already processed")) {
+      console.log("Transaction was already processed, returning success");
+      return { success: true, message: "Transaction already processed" };
+    }
+    
     const status = error.response?.status;
     const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
     throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);

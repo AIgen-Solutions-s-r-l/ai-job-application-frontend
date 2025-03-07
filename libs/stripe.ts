@@ -27,10 +27,15 @@ export const createCheckout = async ({
   cancelUrl,
   priceId,
   couponId,
-}: CreateCheckoutParams): Promise<string> => {
+}: CreateCheckoutParams): Promise<string | null> => {
+  if (!priceId || !successUrl || !cancelUrl) {
+    console.error("Missing required parameters for createCheckout");
+    return null;
+  }
+  
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2023-08-16", // TODO: update this when Stripe updates their API
+      apiVersion: "2023-08-16", 
       typescript: true,
     });
 
@@ -80,9 +85,14 @@ export const createCheckout = async ({
       ...extraParams,
     });
 
+    if (!stripeSession?.url) {
+      console.error("No URL returned from Stripe session creation");
+      return null;
+    }
+
     return stripeSession.url;
   } catch (e) {
-    console.error(e);
+    console.error("Error in createCheckout:", e);
     return null;
   }
 };

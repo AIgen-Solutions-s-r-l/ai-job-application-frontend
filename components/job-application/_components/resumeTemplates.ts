@@ -337,6 +337,13 @@ export const templateStyles = {
   cloyola: cloyolaTemplate,
 } as const;
 
+export const templateStyleByIndex: Record<number, string> = {
+  1: 'samudum_bold',
+  2: 'josylad_grey',
+  3: 'josylad_blue',
+  4: 'cloyola'
+};
+
 export type TemplateType = keyof typeof templateStyles;
 
 export interface TemplateStyle {

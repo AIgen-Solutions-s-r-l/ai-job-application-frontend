@@ -17,6 +17,13 @@ const apiClientJwt = axios.create({
   timeout: 5000,
 });
 
+const apiClientMultipart = axios.create({
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+  timeout: 5000,
+});
+
 let accessToken: string | null = null;
 
 apiClientJwt.interceptors.request.use(
@@ -34,6 +41,26 @@ apiClientJwt.interceptors.request.use(
   },
   (error) => {
     // console.error("Request Error:", error.message);
+    return Promise.reject(error);
+  }
+);
+
+apiClientMultipart.interceptors.request.use(
+  async (config) => {
+    if (typeof window === 'undefined') { // Check if running on the server
+      const cookies = require('next/headers').cookies;
+      const cookieStore = cookies();
+      accessToken = cookieStore.get('accessToken')?.value;
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+    }
+
+    console.log('Request Headers:', config.headers);
+    return config;
+  },
+  (error) => {
+    console.error("Request Error:", error.message);
     return Promise.reject(error);
   }
 );
@@ -61,5 +88,6 @@ const errorInterceptor = async (error: any) => {
 
 apiClient.interceptors.response.use(responseInterceptor, errorInterceptor);
 apiClientJwt.interceptors.response.use(responseInterceptor, errorInterceptor);
+apiClientMultipart.interceptors.response.use(responseInterceptor, errorInterceptor);
 
-export { apiClient, apiClientJwt };
+export { apiClient, apiClientJwt, apiClientMultipart };

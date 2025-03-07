@@ -20,7 +20,7 @@ export const JobFeedList: React.FC = () => {
 
   if (jobs.length === 0) {
     return (
-      <div className={'w-[1440px] h-full mx-auto text-4xl'}>
+      <div className={'w-[1440px] h-full mx-auto font-montserrat font-semibold text-xl xl:text-2xl'}>
         No jobs found
       </div>
     );

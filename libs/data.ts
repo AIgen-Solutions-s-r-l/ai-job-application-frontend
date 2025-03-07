@@ -274,7 +274,10 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
 
 export async function getPendingApplicationsData(): Promise<PendingApplicationRecord | null> {
   try {
-    const pendingApplications: PendingApplicationRecord = await fetchPendingApplications();
+    const pending = await fetchPendingApplications();
+
+    const pendingApplications: PendingApplicationRecord = pending.jobs || null;
+
     return pendingApplications;
   } catch (error) {
     console.error("Error fetching pending applications from API:", error);

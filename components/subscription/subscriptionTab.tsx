@@ -39,52 +39,79 @@ function SubscriptionTab() {
     { value: "1000" },
   ];
 
+  // Añadimos un estado para rastrear las transacciones ya procesadas
+  const [processedTransactions, setProcessedTransactions] = useState<Set<string>>(new Set());
+
   // Check Stripe checkout result
   useEffect(() => {
     const success = searchParams.get("success");
     const credits = searchParams.get("credits");
     const sessionId = searchParams.get("session_id");
 
-    if (success && !isProcessingPayment) {
-      setIsProcessingPayment(true);
-
-      if (success === "true" && sessionId && credits) {
-        const creditsAmount = parseInt(credits);
-        addCredits(
-          creditsAmount,
-          sessionId,
-          `Added ${creditsAmount} applications via Stripe payment`
-        )
-          .then(() => {
-            setCurrentApplications((prev) => prev + creditsAmount);
-            toast.success(
-              `Payment successful! ${creditsAmount} applications have been added to your account.`
-            );
-          })
-          .catch((error) => {
-            console.error("Failed to add credits:", error);
-            toast.error(
-              "Payment was successful, but we couldn't update your balance. Please contact support."
-            );
-          })
-          .finally(() => {
-            cleanUrlParams();
-          });
-      } else if (success === "false") {
-        toast.error("Payment process was cancelled or could not be completed.");
-        cleanUrlParams();
-      }
+    // Evitar procesar si no hay parámetros o si ya se está procesando
+    if (!success || !credits || !sessionId || isProcessingPayment) {
+      return;
     }
-  }, [searchParams, isProcessingPayment]);
+    
+    // Verificar si esta transacción ya fue procesada para evitar duplicados
+    if (processedTransactions.has(sessionId)) {
+      // Ya procesamos esta transacción, solo limpiamos la URL
+      cleanUrlParams();
+      return;
+    }
 
-  // Clean URL params
+    setIsProcessingPayment(true);
+
+    if (success === "true") {
+      const creditsAmount = parseInt(credits);
+      
+      // Registrar esta transacción como procesada
+      setProcessedTransactions(prev => new Set(prev).add(sessionId));
+      
+      addCredits(
+        creditsAmount,
+        sessionId,
+        `Added ${creditsAmount} applications via Stripe payment`
+      )
+        .then(() => {
+          setCurrentApplications((prev) => prev + creditsAmount);
+          toast.success(
+            `Payment successful! ${creditsAmount} applications have been added to your account.`,
+            { id: `payment-success-${sessionId}` } // ID único para el toast
+          );
+        })
+        .catch((error) => {
+          console.error("Failed to add credits:", error);
+          toast.error(
+            "Payment was successful, but we couldn't update your balance. Please contact support.",
+            { id: `payment-error-${sessionId}` } // ID único para el toast
+          );
+        })
+        .finally(() => {
+          cleanUrlParams();
+          setTimeout(() => {
+            setIsProcessingPayment(false);
+          }, 1000);
+        });
+    } else if (success === "false") {
+      toast.error("Payment process was cancelled or could not be completed.", 
+        { id: "payment-cancelled" });
+      cleanUrlParams();
+      setIsProcessingPayment(false);
+    }
+  }, [searchParams, processedTransactions]);
+
+  // Clean URL params - mejorado para ser más robusto
   const cleanUrlParams = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("success");
-    url.searchParams.delete("credits");
-    url.searchParams.delete("session_id");
-    router.replace(url.pathname);
-    setIsProcessingPayment(false);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("success");
+      url.searchParams.delete("credits");
+      url.searchParams.delete("session_id");
+      
+      // Usar replace state directamente para evitar problemas con router.replace
+      window.history.replaceState({}, document.title, url.pathname);
+    }
   };
 
   // 20% discount for monthly, 0% for one-time

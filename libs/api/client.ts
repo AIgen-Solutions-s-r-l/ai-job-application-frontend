@@ -7,21 +7,21 @@ const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 5000,
+   timeout: 200000,
 });
 
 const apiClientJwt = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 5000,
+   timeout: 200000,
 });
 
 const apiClientMultipart = axios.create({
   headers: {
     'Content-Type': 'multipart/form-data',
   },
-  timeout: 5000,
+   timeout: 200000,
 });
 
 let accessToken: string | null = null;

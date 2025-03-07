@@ -86,6 +86,10 @@ progress::-webkit-progress-value {
     @apply text-sm md:text-base leading-none text-center text-white px-4 py-[3px] lg:px-6 lg:py-[4px] bg-primary rounded-full font-jura font-semibold whitespace-nowrap
   }
   
+  .page-header {
+    @apply text-[28px] font-semibold text-primary-deep-purple font-montserrat
+  }
+  
   @media (width <= 767px) {
     .my-collapse-plus > .collapse-title:after {
       position: absolute;

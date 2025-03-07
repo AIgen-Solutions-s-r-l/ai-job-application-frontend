@@ -12,7 +12,6 @@ const LogoutAndRedirect = () => {
   useEffect(() => {
     const handleSignOut = async () => {
       await deleteServerCookie("accessToken");
-      localStorage.removeItem("username");
       router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
     };
     handleSignOut();

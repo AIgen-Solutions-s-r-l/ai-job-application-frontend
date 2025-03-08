@@ -17,12 +17,17 @@ export const JobCard: FC<Props> = ({ job, status }) => {
 
   return (
     <article className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
-      <div className='text-xl'>
-        <p>{job.company_name}</p>
-        <p>{job.title}</p>
+      <div className='flex justify-between'>
+        <div className='text-xl'>
+          <p>{job.company_name}</p>
+          <p>{job.title}</p>
+        </div>
+        <div className='flex items-start gap-3'>
+          <div className='pill'>Remote</div>
+          <div className='pill'>Full-time</div>
+          <div className='pill'>English</div>
+        </div>
       </div>
-
-      {/* todo add pills (see figma) div>{job.workplace_type} Full-time English</div> */}
 
       <div className='flex gap-3'>
         <div className='flex flex-col justify-between text-sm shrink-0 grow-0 w-[100px]'>

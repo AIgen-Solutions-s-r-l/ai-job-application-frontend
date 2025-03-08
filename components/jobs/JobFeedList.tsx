@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import Image from 'next/image';
 import * as Tabs from '@radix-ui/react-tabs';
 import { JobDetail, JobsList } from '@/libs/definitions';
 import { Check } from 'lucide-react';
 import { JobCard } from './JobCard';
 import { sortArrayByDate } from '@/libs/utils';
 import { JobCardSkeleton } from './JobCardSkeleton';
-import { typography } from '../typography';
-
-/*
-  todo: what need to fill Pending tab?
-*/
+import { typography } from '@/components/typography';
+import { Alert } from '@/components/Alert';
+import CongratsEmoji from '@/components/svgs/CongratsEmoji.svg';
 
 interface Props {
   appliedJobs: JobsList;
@@ -28,6 +27,7 @@ export const JobFeedList: React.FC<Props> = ({
   isLoading,
 }) => {
   const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
+  const [showCongarts, setShowCongarts] = useState<boolean>(true);
 
   const jobs = useMemo(() => {
     const nullDate = new Date();
@@ -41,21 +41,6 @@ export const JobFeedList: React.FC<Props> = ({
       );
 
     const failed = Object.keys(failedJobs).map((key) => failedJobs[key]);
-
-    //todo: is there a need to sort by year?
-    // const sortedJobs: Record<string, JobsList[]> = {};
-    // //todo: need add filtering by alphabetically
-    // jobs.forEach((e) => {
-    //   const year = new Date(e.latest).getFullYear();
-    //   if (!sortedJobs[year]) {
-    //     sortedJobs[year] = [];
-    //   }
-    //   sortedJobs[year].push(e);
-    // });
-    // for (const i of Object.keys(sortedJobs)) {
-    //   sortedJobs[i] = sortArrayByDate(sortedJobs[i], sortBy, 'desc');
-    // }
-    // return sortedJobs;
 
     return {
       pending:
@@ -73,25 +58,39 @@ export const JobFeedList: React.FC<Props> = ({
   }, [appliedJobs, failedJobs, sortBy]);
 
   return (
-    <div className='relative flex flex-col'>
-      <div className='absolute top-0 left-[200px] h-[50px] flex items-center gap-1 z-10'>
-        Sort by:
-        <button onClick={() => setSortBy('latest')}>
-          {underlineOrParagraph('Latest', sortBy === 'alphabetically')}
-        </button>
-        |
-        <button onClick={() => setSortBy('alphabetically')}>
-          {underlineOrParagraph('Alphabetically', sortBy === 'latest')}
-        </button>
-      </div>
+    <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
+      <p className='page-header'>Job Application History</p>
+
+      {showCongarts && !isLoading && (
+        <Alert
+          onClose={() => {
+            setShowCongarts(false);
+          }}
+        >
+          <div className='flex items-center gap-5 font-normal font-montserrat'>
+            <Image src={CongratsEmoji} alt='CongratsEmoji' />
+            <span className='ext-primary-deep-purple text-xl'>
+              Congratulations!
+            </span>
+            <div>
+              <span className='text-white text-lg'>
+                Your applications are being submitted to{' '}
+              </span>
+              <span className='text-white text-xl'>
+                {Object.keys(appliedJobs).length} companies.
+              </span>
+            </div>
+          </div>
+        </Alert>
+      )}
 
       <Tabs.Root defaultValue='pending'>
         <Tabs.List
-          className={`${typography.tabs.list} h-[50px] w-96`}
+          className={`${typography.tabs.list} h-[50px]`}
           aria-label='Pending jobs list'
         >
           <Tabs.Trigger
-            className={`${typography.tabs.trigger} w-[500px]`}
+            className={`${typography.tabs.trigger} grow`}
             value='pending'
           >
             Pending...
@@ -103,6 +102,17 @@ export const JobFeedList: React.FC<Props> = ({
             </div>
           </Tabs.Trigger>
         </Tabs.List>
+
+        <div className='px-5 pt-5 flex justify-end items-center gap-1 z-10 bg-white'>
+          Sort by:
+          <button onClick={() => setSortBy('latest')}>
+            {underlineOrParagraph('Latest', sortBy === 'alphabetically')}
+          </button>
+          |
+          <button onClick={() => setSortBy('alphabetically')}>
+            {underlineOrParagraph('Alphabetically', sortBy === 'latest')}
+          </button>
+        </div>
 
         <Tabs.Content className={typography.tabs.content} value='pending'>
           {isLoading ? (

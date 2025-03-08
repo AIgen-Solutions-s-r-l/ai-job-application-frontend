@@ -6,7 +6,7 @@ import API_BASE_URLS from "@/libs/api/config";
 export async function fetchMatchingJobs(queryString: string): Promise<any> {
   try {
     const response = await apiClientJwt.get(
-      `${API_BASE_URLS.matching}/jobs/match?${queryString}`,
+      `${API_BASE_URLS.matching}/jobs/match/legacy?${queryString}`,
       {
         headers: {
           Accept: 'application/json',

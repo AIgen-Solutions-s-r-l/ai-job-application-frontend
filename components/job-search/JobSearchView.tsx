@@ -6,7 +6,6 @@ import { JobSearchBar } from './JobSearchBar';
 import { JobFeedList } from './JobFeedList';
 import { JobSearchBottomSheet } from './JobSearchBottomSheet';
 import JobSearchProvider from '@/contexts/job-search-context';
-import JobSearchMockData from './JobSearchMockData';
 
 type JobSearchViewProps = {
   initialJobs: MatchingJob[];
@@ -18,7 +17,7 @@ export const JobSearchView: FC<JobSearchViewProps> = ({
   searchParams,
 }) => {
   return (
-    <JobSearchProvider initialJobs={initialJobs.length ? initialJobs : JobSearchMockData}>
+    <JobSearchProvider initialJobs={initialJobs}>
       <div className='w-full flex flex-col items-center'>
         <JobSearchBar searchParams={searchParams} />
         <JobFeedList />

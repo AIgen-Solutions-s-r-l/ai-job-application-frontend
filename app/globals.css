@@ -46,6 +46,10 @@ progress::-webkit-progress-value {
     @apply h-[56px] px-2 md:px-5 flex items-center justify-between bg-splash-green rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
   }
 
+  .my-btn-clear {
+    @apply h-[56px] px-2 md:px-5 flex items-center justify-between border border-my-neutral-7 rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
+  }
+
   .my-btn-clay {
     @apply h-[56px] px-2 md:px-5 flex items-center justify-between bg-my-neutral-6 rounded-[20px] hover:hover:bg-my-neutral-5 transition-all ease-in duration-300;
   }
@@ -78,6 +82,14 @@ progress::-webkit-progress-value {
     @apply !pb-[34px]
   }
 
+  .pill {
+    @apply text-sm md:text-base leading-none text-center text-white px-4 py-[3px] lg:px-6 lg:py-[4px] bg-primary rounded-full font-jura font-semibold whitespace-nowrap
+  }
+  
+  .page-header {
+    @apply text-[28px] font-semibold text-primary-deep-purple font-montserrat
+  }
+  
   @media (width <= 767px) {
     .my-collapse-plus > .collapse-title:after {
       position: absolute;

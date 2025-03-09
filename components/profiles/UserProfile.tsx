@@ -40,7 +40,7 @@ export const UserProfile: FC<Props> = ({ profile }) => {
     <div className='w-full'>
       {/* Header Section */}
       <div className="mb-5">
-        <h1 className="text-3xl font-bold mb-2">My Profile</h1>
+        <p className="page-header mb-2">My Profile</p>
         <p className="text-gray-500">Manage your personal and professional information</p>
       </div>
 

@@ -40,5 +40,4 @@ const Layout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default Layout;
-// export default RequireLogin(Layout);
+export default RequireLogin(Layout);

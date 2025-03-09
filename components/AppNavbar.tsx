@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { JSX, FC } from "react";
+import { JSX, FC } from 'react';
 import Image from 'next/image';
 
 type Props = {
-  slot?: JSX.Element
-}
+  slot?: JSX.Element;
+};
 
 const AppNavbar: FC<Props> = ({ slot }) => {
   // const { setTheme, theme } = useTheme();
@@ -25,11 +25,11 @@ const AppNavbar: FC<Props> = ({ slot }) => {
 
   return (
     <div
-      role="navigation"
-      aria-label="Navbar"
-      className="flex items-center justify-between pt-2 pb-1 lg:pt-[55px] lg:pb-[25px]"
+      role='navigation'
+      aria-label='Navbar'
+      className='flex items-center justify-between pt-2 pb-1 lg:pt-[55px] lg:pb-[25px]'
     >
-      <Image src="/laboro.png" alt="Logo" width={214} height={58} />
+      <Image src='/laboro.png' alt='Logo' width={214} height={58} />
 
       {slot}
     </div>

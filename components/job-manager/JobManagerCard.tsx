@@ -36,13 +36,13 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
         <p className="text-xs font-jura font-semibold">95% Match</p>
         <Info size={18} />
       </div>
-      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company}</h3>
+      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company_name}</h3>
       <h3 className="font-montserrat font-normal text-base md:text-xl">{job.title}</h3>
       <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {job.location} | {job.workplace_type}</p>
       <div className='flex gap-2 md:gap-4 my-1 lg:my-4'>
-        <div className='text-sm md:text-base leading-none text-center text-white px-4 py-[3px] lg:px-6 lg:py-[4px] bg-primary rounded-full font-jura font-semibold'>Remote</div>
-        <div className='text-sm md:text-base leading-none text-center text-white px-4 py-[3px] lg:px-6 lg:py-[4px] bg-primary rounded-full font-jura font-semibold'>Full-time</div>
-        <div className='text-sm md:text-base leading-none text-center text-white px-4 py-[3px] lg:px-6 lg:py-[4px] bg-primary rounded-full font-jura font-semibold'>English</div>
+        <div className='pill'>Remote</div>
+        <div className='pill'>Full-time</div>
+        <div className='pill'>English</div>
       </div>
       <p className="line-clamp-4 font-jura text-[16px] font-semibold leading-[110%] tracking-[-0.352px] mt-2 lg:mt-0">{job.description}</p>
       <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>

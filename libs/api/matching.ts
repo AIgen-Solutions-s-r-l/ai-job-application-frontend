@@ -11,7 +11,7 @@ export async function fetchMatchingJobs(queryString: string): Promise<any> {
         headers: {
           Accept: 'application/json',
         },
-        timeout: 30000,
+        timeout: 200000,
       }
     );
 

@@ -8,8 +8,10 @@ import RequireLogin from '@/permissions/requireLogin';
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className='lg:px-[80px] h-screen min-w-80 flex flex-col overflow-auto md:overflow-hidden'>
-      <AppNavbar />
-      <div className='flex gap-12 md:overflow-hidden'>
+      <div className=' pl-5'>
+        <AppNavbar />
+      </div>
+      <div className='flex gap-10 md:overflow-hidden ml-0 md:ml-5'>
         <AppSidenav />
         <div className='md:overflow-auto grow rounded-xl bg-base-100'>
           {children}

@@ -3,9 +3,12 @@ import axios from 'axios';
 import { redirect } from 'next/navigation';
 import { refreshToken } from './auth';
 
+const API_KEY = 'lab0!3425t3s';
+
 const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
+    "apiKey": API_KEY,
   },
    timeout: 200000,
 });
@@ -13,6 +16,7 @@ const apiClient = axios.create({
 const apiClientJwt = axios.create({
   headers: {
     "Content-Type": "application/json",
+    "apiKey": API_KEY,
   },
    timeout: 200000,
 });
@@ -20,6 +24,7 @@ const apiClientJwt = axios.create({
 const apiClientMultipart = axios.create({
   headers: {
     'Content-Type': 'multipart/form-data',
+    "apiKey": API_KEY,
   },
    timeout: 200000,
 });

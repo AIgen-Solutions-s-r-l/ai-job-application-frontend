@@ -36,7 +36,7 @@ export async function createJobApplication(formData: FormData): Promise<{ succes
     return { success: true };
   } catch (error) {
     console.error("Error creating job application:", error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -61,5 +61,20 @@ export async function getFailedJobApplications(): Promise<JobsList | any> {
   } catch (error) {
     console.error('Error getting failed job applications', error);
     return [];
+  }
+}
+
+export async function getAppliedPendingApplications(): Promise<JobsList | any> {
+  try {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.pending}/pending_application`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    return response.data as JobsList;
+  } catch (error) {
+    console.error("Error fetching pending applications:", error);
+    throw new Error("Unable to fetch pending applications. Please try again later.");
   }
 }

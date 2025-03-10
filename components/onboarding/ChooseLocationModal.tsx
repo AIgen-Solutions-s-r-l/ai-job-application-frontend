@@ -9,16 +9,16 @@ import { ArrowRightIcon } from "../AppIcons";
 import { useRouter } from "next/navigation";
 
 interface MyLocation {
-  city?: string
-  country?: string
-  latitude?: number
-  longitude?: number
-  location?: string
+    city?: string
+    country?: string
+    latitude?: number
+    longitude?: number
+    location?: string
 }
 
 interface ModalProps {
-  isModalOpen: boolean;
-  defaultLocation: string;
+    isModalOpen: boolean;
+    defaultLocation: string;
 }
 
 const ChoseLocationModal = ({
@@ -39,22 +39,21 @@ const ChoseLocationModal = ({
 
     const onLocationChange = useCallback(
         async (e: React.ChangeEvent<HTMLInputElement>) => {
-          if (searchTimeout) {
-            clearTimeout(searchTimeout);
-          }
-    
-          setShowSuggestions(true);
-          if (e.target.value.length > 3) {
-            const timeoutId = setTimeout(async () => {
-              const response = await locationQuery(e.target.value);
-    
-              setDataArray(response);
-              console.log("response is: ", response);
-            }, 200);
-            setSearchTimeout(timeoutId);
-          } else {
-            setDataArray([]);
-          }
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+
+            setShowSuggestions(true);
+            if (e.target.value.length > 3) {
+                const timeoutId = setTimeout(async () => {
+                    const response = await locationQuery(e.target.value);
+
+                    setDataArray(response);
+                }, 200);
+                setSearchTimeout(timeoutId);
+            } else {
+                setDataArray([]);
+            }
         },
         [searchTimeout]
     );
@@ -86,7 +85,7 @@ const ChoseLocationModal = ({
             <Dialog
                 as="div"
                 className="relative z-50"
-                onClose={() => {}}
+                onClose={() => { }}
             >
                 <Transition.Child
                     as={Fragment}
@@ -115,30 +114,30 @@ const ChoseLocationModal = ({
                                     Where do you want to apply for a job? <br />
                                     *You can select a city or a country
                                 </p>
-                                
+
                                 <form
                                     id='location-choose'
                                     onSubmit={handleSubmit(onSubmit)}
                                     className='w-full h-[350px] bg-my-neutral-1 p-[30px]'
                                 >
-                                        <label htmlFor='location' className='text-base font-semibold leading-[20px]'>
-                                            Location
-                                        </label>
-                                        <div className='w-full mt-3 h-12 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
-                                            <input
-                                                type='text'
-                                                id='location'
-                                                placeholder='City, state, or remote'
-                                                {...register('location', {
-                                                    onChange: onLocationChange,
-                                                })}
-                                                autoComplete="off"
-                                                className='block w-full bg-transparent focus:outline focus:outline-0 text-base font-semibold leading-[20px]'
-                                            />
-                                        </div>
-                                        {dataArray.length > 0 && showSuggestions && (
-                                            <div className='w-full box-border bg-white py-3 border border-1 border-neutral max-h-[200px] mt-2 flex flex-col gap-1 rounded-md overflow-auto px-5'>
-                                                {dataArray.map((data, index) => (
+                                    <label htmlFor='location' className='text-base font-semibold leading-[20px]'>
+                                        Location
+                                    </label>
+                                    <div className='w-full mt-3 h-12 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
+                                        <input
+                                            type='text'
+                                            id='location'
+                                            placeholder='City, state, or remote'
+                                            {...register('location', {
+                                                onChange: onLocationChange,
+                                            })}
+                                            autoComplete="off"
+                                            className='block w-full bg-transparent focus:outline focus:outline-0 text-base font-semibold leading-[20px]'
+                                        />
+                                    </div>
+                                    {dataArray.length > 0 && showSuggestions && (
+                                        <div className='w-full box-border bg-white py-3 border border-1 border-neutral max-h-[200px] mt-2 flex flex-col gap-1 rounded-md overflow-auto px-5'>
+                                            {dataArray.map((data, index) => (
                                                 <div
                                                     key={index}
                                                     onClick={() => handleLocationSelect(data)}
@@ -146,9 +145,9 @@ const ChoseLocationModal = ({
                                                 >
                                                     {data.display_name}
                                                 </div>
-                                                ))}
-                                            </div>
-                                        )}
+                                            ))}
+                                        </div>
+                                    )}
                                 </form>
 
                                 <button

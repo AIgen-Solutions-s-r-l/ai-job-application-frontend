@@ -275,7 +275,6 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
 export async function getPendingApplicationsData(): Promise<PendingApplicationRecord | null> {
   try {
     const pending = await fetchPendingApplications();
-
     const pendingApplications: PendingApplicationRecord = pending.jobs || null;
 
     return pendingApplications;

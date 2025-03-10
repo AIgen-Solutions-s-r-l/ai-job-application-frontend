@@ -225,6 +225,7 @@ export interface DetailedPendingApplication {
 
 export interface JobDetail {
   id: number
+  status: string
   portal: string
   title: string
   workplace_type: string

@@ -66,7 +66,7 @@ export async function getFailedJobApplications(): Promise<JobsList | any> {
 
 export async function getAppliedPendingApplications(): Promise<JobsList | any> {
   try {
-    const response = await apiClientJwt.get(`${API_BASE_URLS.pending}/pending_application`, {
+    const response = await apiClientJwt.get(`${API_BASE_URLS.pending}/pending_content`, {
       headers: {
         Accept: "application/json",
       },

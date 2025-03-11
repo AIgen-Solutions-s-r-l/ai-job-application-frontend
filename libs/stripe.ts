@@ -18,84 +18,105 @@ interface CreateCustomerPortalParams {
   returnUrl: string;
 }
 
-// This is used to create a Stripe Checkout for one-time payments. It's usually triggered with the <ButtonCheckout /> component. Webhooks are used to update the user's state in the database.
-export const createCheckout = async ({
-  user,
-  mode,
-  clientReferenceId,
-  successUrl,
-  cancelUrl,
-  priceId,
-  couponId,
-}: CreateCheckoutParams): Promise<string | null> => {
-  if (!priceId || !successUrl || !cancelUrl) {
-    console.error("Missing required parameters for createCheckout");
-    return null;
-  }
-  
+// Inicializar Stripe con la clave secreta
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2023-10-16", // Usa la versión más reciente disponible
+});
+
+export interface CheckoutData {
+  priceId: string;
+  mode: string;
+  successUrl: string;
+  cancelUrl: string;
+  clientReferenceId: string;
+  user: {
+    email: string;
+  };
+}
+
+export async function createCheckout(data: CheckoutData): Promise<string | null> {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2023-08-16", 
-      typescript: true,
-    });
+    // Configurar el objeto de metadatos para incluir en la sesión
+    const metadata = {
+      userId: data.clientReferenceId,
+    };
 
-    const extraParams: {
-      customer?: string;
-      customer_creation?: "always";
-      customer_email?: string;
-      invoice_creation?: { enabled: boolean };
-      payment_intent_data?: { setup_future_usage: "on_session" };
-      tax_id_collection?: { enabled: boolean };
-    } = {};
-
-    if (user?.customerId) {
-      extraParams.customer = user.customerId;
-    } else {
-      if (mode === "payment") {
-        extraParams.customer_creation = "always";
-        // The option below costs 0.4% (up to $2) per invoice. Alternatively, you can use https://zenvoice.io/ to create unlimited invoices automatically.
-        // extraParams.invoice_creation = { enabled: true };
-        extraParams.payment_intent_data = { setup_future_usage: "on_session" };
-      }
-      if (user?.email) {
-        extraParams.customer_email = user.email;
-      }
-      extraParams.tax_id_collection = { enabled: true };
-    }
-
-    const stripeSession = await stripe.checkout.sessions.create({
-      mode,
-      allow_promotion_codes: true,
-      client_reference_id: clientReferenceId,
+    // Crear la sesión de checkout
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
       line_items: [
         {
-          price: priceId,
+          price: data.priceId,
           quantity: 1,
         },
       ],
-      discounts: couponId
-        ? [
-            {
-              coupon: couponId,
-            },
-          ]
-        : [],
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      ...extraParams,
+      mode: data.mode as "subscription" | "payment",
+      success_url: data.successUrl,
+      cancel_url: data.cancelUrl,
+      client_reference_id: data.clientReferenceId,
+      customer_email: data.user.email,
+      metadata: metadata,
+      // Solicitar explícitamente que se expanda el objeto payment_intent
+      expand: ["payment_intent"],
     });
 
-    if (!stripeSession?.url) {
-      console.error("No URL returned from Stripe session creation");
-      return null;
+    // Si es modo "payment", el payment_intent estará disponible inmediatamente
+    if (session.payment_intent && typeof session.payment_intent !== 'string') {
+      // Añadir el ID del payment_intent a los metadatos de la sesión
+      await stripe.checkout.sessions.update(session.id, {
+        metadata: {
+          ...metadata,
+          payment_intent_id: session.payment_intent.id,
+        },
+      });
     }
 
-    return stripeSession.url;
-  } catch (e) {
-    console.error("Error in createCheckout:", e);
+    return session.url;
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
     return null;
   }
-};
+}
+
+// Nueva función para obtener el transaction ID (Payment Intent ID) a partir del Session ID
+export async function getTransactionIdFromSession(sessionId: string): Promise<string | null> {
+  try {
+    // Recuperar la sesión con el payment_intent expandido
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["payment_intent"],
+    });
+
+    // Para pagos únicos (mode: payment)
+    if (session.payment_intent) {
+      if (typeof session.payment_intent === "string") {
+        return session.payment_intent;
+      } else {
+        return session.payment_intent.id;
+      }
+    }
+    
+    // Para suscripciones (mode: subscription)
+    else if (session.subscription) {
+      // Obtener la última factura de la suscripción
+      const subscriptionId = typeof session.subscription === "string" 
+        ? session.subscription 
+        : session.subscription.id;
+        
+      const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
+        expand: ["latest_invoice"],
+      });
+      
+      if (subscription.latest_invoice && typeof subscription.latest_invoice !== "string") {
+        return subscription.latest_invoice.payment_intent as string;
+      }
+    }
+    
+    return null;
+  } catch (error) {
+    console.error("Error getting transaction ID:", error);
+    return null;
+  }
+}
 
 // This is used to create Customer Portal sessions, so users can manage their subscriptions (payment methods, cancel, etc..)
 export const createCustomerPortal = async ({

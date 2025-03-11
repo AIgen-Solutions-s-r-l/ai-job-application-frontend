@@ -14,6 +14,9 @@ import TwoWayToggleSwitch from "../common/TwoWayToggleSwitch";
 // Auth / API logic
 import { getUserInfo, addCredits } from "@/libs/api/auth";
 
+// Importamos la configuración central
+import config from "@/config";
+
 function SubscriptionTab() {
   const [sliderValue, setSliderValue] = useState(2); // Default at index 2 (500 credits)
   const [currentApplications, setCurrentApplications] = useState(300);
@@ -27,17 +30,17 @@ function SubscriptionTab() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Price per application
-  const pricePerApplication = 0.02;
-
   // Slider steps
   const values = [
     { value: "100" },
+    { value: "200" },
     { value: "300" },
     { value: "500" },
-    { value: "700" },
     { value: "1000" },
   ];
+
+  // Utilizando la configuración de precios desde config.ts
+  const pricing = config.stripe.pricing;
 
   // Añadimos un estado para rastrear las transacciones ya procesadas
   const [processedTransactions, setProcessedTransactions] = useState<Set<string>>(new Set());
@@ -68,11 +71,24 @@ function SubscriptionTab() {
       // Registrar esta transacción como procesada
       setProcessedTransactions(prev => new Set(prev).add(sessionId));
       
-      addCredits(
-        creditsAmount,
-        sessionId,
-        `Added ${creditsAmount} applications via Stripe payment`
-      )
+      // Nuevo código: obtener el Transaction ID antes de añadir créditos
+      fetch(`/api/stripe/get-transaction-id?session_id=${sessionId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to get transaction ID");
+          }
+          return response.json();
+        })
+        .then(data => {
+          const transactionId = data.transactionId;
+          
+          // Usar el Transaction ID en lugar del Session ID
+          return addCredits(
+            creditsAmount,
+            transactionId, // Aquí pasamos el Transaction ID en lugar del Session ID
+            `Added ${creditsAmount} applications via Stripe payment (Transaction: ${transactionId})`
+          );
+        })
         .then(() => {
           setCurrentApplications((prev) => prev + creditsAmount);
           toast.success(
@@ -81,7 +97,7 @@ function SubscriptionTab() {
           );
         })
         .catch((error) => {
-          console.error("Failed to add credits:", error);
+          console.error("Failed to process payment completion:", error);
           toast.error(
             "Payment was successful, but we couldn't update your balance. Please contact support.",
             { id: `payment-error-${sessionId}` } // ID único para el toast
@@ -114,68 +130,53 @@ function SubscriptionTab() {
     }
   };
 
-  // 20% discount for monthly, 0% for one-time
-  const getSavingsPercentage = () => (paymentPlan === "monthly" ? 0.2 : 0);
-
   // Calculate cost based on slider
   const calculateTotal = () => {
     const newApplications = parseInt(values[sliderValue].value);
-    const basePrice = newApplications * pricePerApplication;
-    const discountedPrice = basePrice * (1 - getSavingsPercentage());
+    const priceType = paymentPlan === "monthly" ? "monthly" : "onetime";
+    const price = pricing[priceType][newApplications.toString()].amount;
 
     return {
       newApplications,
-      price: discountedPrice.toFixed(2),
+      price: price.toFixed(2),
       totalApplications: currentApplications + newApplications,
     };
   };
 
   const totals = calculateTotal();
 
+  // Calculate price per application
+  const getPricePerApplication = () => {
+    const newApplications = parseInt(values[sliderValue].value);
+    const priceType = paymentPlan === "monthly" ? "monthly" : "onetime";
+    const price = pricing[priceType][newApplications.toString()].amount;
+    
+    return (price / newApplications).toFixed(2);
+  };
+
   // Handle purchase
   const handlePurchase = async () => {
     setIsLoading(true);
     try {
-      // 1. Fetch Stripe prices
-      const res = await fetch("/api/stripe/prices");
-      if (!res.ok) {
-        throw new Error("Could not retrieve Stripe prices.");
-      }
-      const data = await res.json();
-      const stripePrices = data.data; // array of Price objects
-
-      // 2. Determine the credits and plan type from your UI
-      const numberOfApps = values[sliderValue].value; // e.g. "100", "300", "500", etc.
-      // We'll match your monthly => "subscription" and onetime => "one_time"
-      const planType = paymentPlan === "monthly" ? "subscription" : "one_time";
-
-      // 3. Find the matching price by metadata instead of product name
-      const matchedPrice = stripePrices.find((price: any) => {
-        if (!price.metadata) return false;
-        return (
-          price.metadata.credits === numberOfApps &&
-          price.metadata.price_type === planType
-        );
-      });
-
-      if (!matchedPrice) {
-        throw new Error(
-          `No matching price found for ${numberOfApps} credits with planType='${planType}'.`
-        );
-      }
-
-      // 4. Get user info
+      // Get user info
       const userInfo = await getUserInfo();
-      // Convert planType => Stripe mode
-      // "subscription" => "subscription", "one_time" => "payment"
-      const mode = planType === "subscription" ? "subscription" : "payment";
+      
+      // Determine the credits and plan type from your UI
+      const numberOfApps = values[sliderValue].value;
+      const planType = paymentPlan;
+      
+      // Get price ID based on selection
+      const priceId = pricing[planType][numberOfApps].id;
+      
+      // Determine checkout mode
+      const mode = planType === "monthly" ? "subscription" : "payment";
 
-      // 5. Create checkout session
+      // Create checkout session
       const response = await fetch("/api/stripe/create-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          priceId: matchedPrice.id,
+          priceId,
           mode,
           successUrl:
             window.location.origin +
@@ -192,7 +193,7 @@ function SubscriptionTab() {
         throw new Error(checkoutData.error || "Could not create Checkout session.");
       }
 
-      // 6. Redirect user to Stripe
+      // Redirect user to Stripe
       window.location.assign(checkoutData.url);
     } catch (error: any) {
       console.error("Error:", error);
@@ -240,7 +241,7 @@ function SubscriptionTab() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-2">
           {/* Left: 1 Credit = ... */}
           <div className="text-my-neutral-5 text-sm font-jura leading-5">
-            1 Credit = $0.02 <br />
+            1 Credit = €{getPricePerApplication()} <br />
             1 Credit = 1 Job Application
           </div>
 
@@ -248,8 +249,8 @@ function SubscriptionTab() {
           <div className="flex flex-col items-start md:items-end gap-2">
             <p className="font-montserrat text-2xl font-bold text-black">
               {paymentPlan === "monthly"
-                ? `$${totals.price} / mo`
-                : `$${totals.price} (one-time)`}
+                ? `€${totals.price} / mo`
+                : `€${totals.price} (one-time)`}
             </p>
             <button
               onClick={handlePurchase}

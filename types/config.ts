@@ -28,20 +28,25 @@ export interface ConfigProps {
   appDescription: string;
   domainName: string;
   crisp: {
-    id?: string;
+    id: string;
     onlyShowOnRoutes?: string[];
   };
   stripe: {
+    pricing: {
+      monthly: {
+        [key: string]: { id: string; amount: number }
+      };
+      onetime: {
+        [key: string]: { id: string; amount: number }
+      };
+    };
     plans: {
-      isFeatured?: boolean;
       priceId: string;
       name: string;
-      description?: string;
+      description: string;
       price: number;
-      priceAnchor?: number;
-      features: {
-        name: string;
-      }[];
+      priceAnchor: number | null;
+      features: { name: string }[];
     }[];
   };
   aws?: {

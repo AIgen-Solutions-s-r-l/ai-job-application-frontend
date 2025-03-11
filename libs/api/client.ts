@@ -3,30 +3,34 @@ import axios from 'axios';
 import { redirect } from 'next/navigation';
 import { refreshToken } from './auth';
 
-const API_KEY = 'lab0!3425t3s';
+const API_KEY = process.env.API_KEY || '';
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+const getHeaders = (contentType: string) => {
+  const headers: Record<string, string> = {
+    "Content-Type": contentType,
+  };
+  
+  if (isDevelopment && API_KEY) {
+    headers["apikey"] = API_KEY;
+  }
+  
+  return headers;
+};
 
 const apiClient = axios.create({
-  headers: {
-    "Content-Type": "application/json",
-    "apiKey": API_KEY,
-  },
-   timeout: 200000,
+  headers: getHeaders("application/json"),
+  timeout: 200000,
 });
 
 const apiClientJwt = axios.create({
-  headers: {
-    "Content-Type": "application/json",
-    "apiKey": API_KEY,
-  },
-   timeout: 200000,
+  headers: getHeaders("application/json"),
+  timeout: 200000,
 });
 
 const apiClientMultipart = axios.create({
-  headers: {
-    'Content-Type': 'multipart/form-data',
-    "apiKey": API_KEY,
-  },
-   timeout: 200000,
+  headers: getHeaders('multipart/form-data'),
+  timeout: 200000,
 });
 
 let accessToken: string | null = null;

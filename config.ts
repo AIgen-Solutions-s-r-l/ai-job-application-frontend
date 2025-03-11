@@ -16,64 +16,83 @@ const config = {
     onlyShowOnRoutes: ["/"],
   },
   stripe: {
-    // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
+    // Configuración central de precios para todas las opciones disponibles
+    pricing: {
+      monthly: {
+        "100": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG", 
+          amount: 39.00 
+        },
+        "200": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QwoUbRwjs1Ksbvt2GTzE3Ec" : "price_1R0iVcRwjs1KsbvtK3hFIzVG", 
+          amount: 59.00 
+        },
+        "300": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QwoV4Rwjs1KsbvtpCV0OIfU" : "price_1R0iXjRwjs1KsbvtlrGsjlq8", 
+          amount: 74.00 
+        },
+        "500": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QwoVSRwjs1KsbvtHfSnJvv4" : "price_1R0iYuRwjs1Ksbvt04IxJfpM", 
+          amount: 105.00 
+        },
+        "1000": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QwoVuRwjs1Ksbvtmpxx2KgP" : "price_1R0iZkRwjs1Ksbvttrg1BoLb", 
+          amount: 160.00 
+        }
+      },
+      onetime: {
+        "100": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QyZ11Rwjs1KsbvtHsJnKlAP" : "price_1R0iaERwjs1KsbvtLR7ZGywu", 
+          amount: 49.00 
+        },
+        "200": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QyZ2mRwjs1KsbvtHs6pHIXs" : "price_1R0ibbRwjs1KsbvtUaTwEjYy", 
+          amount: 74.00 
+        },
+        "300": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QyZ3yRwjs1KsbvtAUS7hrhr" : "price_1R0icBRwjs1KsbvtxxGqqdao", 
+          amount: 89.00 
+        },
+        "500": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QyZAERwjs1KsbvtqSj1yIvw" : "price_1R0ienRwjs1KsbvtTd6n0k06", 
+          amount: 115.00 
+        },
+        "1000": { 
+          id: process.env.NODE_ENV === 'production' ? "price_1QyZBlRwjs1Ksbvt4T4t3pOd" : "price_1R0j22Rwjs1KsbvtAltBEhzf", 
+          amount: 199.00 
+        }
+      }
+    },
+    // Planes mostrados en la página de precios
     plans: [
       {
-        // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_dev_example_123"
-            : "price_prod_example_456",
-        //  REQUIRED - Name of the plan, displayed on the pricing page
-        name: "Free Plan",
-        // A friendly description of the plan, displayed on the pricing page
-        description: "Try the essential features of laboro for free",
-        // The price you want to display, the one user will be charged on Stripe
-        price: 0,
-        // No priceAnchor because this is a free plan
+        // Monthly plan for 100 applications
+        priceId: process.env.NODE_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG",
+        name: "100 Applications - Monthly",
+        description:
+          "Get 100 applications per month with our Career Boost Package.",
+        price: 39.00,
         priceAnchor: null,
-        features: [
-          { name: "Unlimited applications (shared bot)" },
-          { name: "AI Cover letters" },
-          { name: "AI Specific questions" },
-          { name: "Community support" },
-        ],
+        features: [{ name: "100 Applications" }],
       },
       {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_dev_example_789"
-            : "price_prod_example_012",
-        // This plan will look different on the pricing page, it will be highlighted. You can only have one plan with isFeatured: true
-        isFeatured: true,
-        name: "Intermediate Plan",
-        description: "Access advanced features with higher accuracy and exclusivity",
-        price: 30,
-        priceAnchor: 50,
-        features: [
-          { name: "Up to 300 applications" },
-          { name: "AI Cover letters" },
-          { name: "AI Specific questions" },
-          { name: "Exclusive bot access" },
-          { name: "Email support" },
-        ],
+        // Monthly plan for 500 applications
+        priceId: process.env.NODE_ENV === 'production' ? "price_1QwoVSRwjs1KsbvtHfSnJvv4" : "price_1R0iYuRwjs1Ksbvt04IxJfpM",
+        name: "500 Applications - Monthly",
+        description:
+          "Get 500 applications per month with our Elite Package.",
+        price: 105.00,
+        priceAnchor: null,
+        features: [{ name: "500 Applications" }],
       },
       {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_dev_example_345"
-            : "price_prod_example_678",
-        name: "Premium Plan",
-        description: "High volume applications with multiple bots running simultaneously",
-        price: 60,
-        priceAnchor: 100,
-        features: [
-          { name: "Up to 1,000 applications" },
-          { name: "AI Cover letters" },
-          { name: "AI Specific questions" },
-          { name: "Up to 3 bots (exclusive)" },
-          { name: "Priority support" },
-        ],
+        // One-time payment plan for 100 applications
+        priceId: process.env.NODE_ENV === 'production' ? "price_1QyZ11Rwjs1KsbvtHsJnKlAP" : "price_1R0iaERwjs1KsbvtLR7ZGywu",
+        name: "100 Applications - One-Time Payment",
+        description: "One-time purchase for 100 applications.",
+        price: 49.00,
+        priceAnchor: null,
+        features: [{ name: "100 Applications" }],
       },
     ],
   },

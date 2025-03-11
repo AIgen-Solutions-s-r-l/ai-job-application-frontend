@@ -16,7 +16,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <LandingContainer className=' mb:px-[20vw]'>
+    <LandingContainer className='mb:px-[20vw]'>
       <section className='flex flex-col items-center gap-[20px] md:gap-[25px] 2xl:gap-[35px] font-montserrat pt-[50px] 2xl:pt-[45px]'>
         <h1 className="text-heading">Auto-apply fast with AI.<br /> Get your dream job while sleeping</h1>
         <div className="relative w-[100%] md:w-[68%] max-w-[1204px]">

@@ -34,21 +34,21 @@ export const JobFeedList: React.FC<Props> = ({
 
     // Combine and process all jobs into a single array with status
     const allJobs = [
-      ...Object.keys(pendingJobs).map(key => ({
+      ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
         ...pendingJobs[key],
         posted_date: (pendingJobs[key].posted_date ?? nullDate).toString(),
         status: 'Pending...' as const
-      })),
-      ...Object.keys(appliedJobs).map(key => ({
+      })) : []),
+      ...(appliedJobs ? Object.keys(appliedJobs).map(key => ({
         ...appliedJobs[key],
         posted_date: (appliedJobs[key].posted_date ?? nullDate).toString(),
         status: 'Applied' as const
-      })),
-      ...Object.keys(failedJobs).map(key => ({
+      })) : []),
+      ...(failedJobs ? Object.keys(failedJobs).map(key => ({
         ...failedJobs[key],
         posted_date: (failedJobs[key].posted_date ?? nullDate).toString(),
         status: 'Failed' as const
-      }))
+      })) : [])
     ];
 
     // Sort the combined array

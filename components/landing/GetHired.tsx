@@ -8,15 +8,27 @@ import ContactsArrow from '@/public/landing/contacts-arrow.svg';
 
 export const GetHired: FC = () => {
   const sectionRef = useRef(null);
+  const buttonRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end center"]
   });
+
+  const { scrollYProgress: buttonScrollProgress } = useScroll({
+    target: buttonRef,
+    offset: ["start 100%", "start 70%"]
+  });
+
   const pathY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const pathYSpring = useSpring(pathY, { stiffness: 50, damping: 20, restDelta: 0.01 });
   const rotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const rotationSpring = useSpring(rotation, { stiffness: 50, damping: 20, restDelta: 0.01 });
 
+  const backgroundColor = useTransform(
+    buttonScrollProgress,
+    [0, 1],
+    ['#B9FF5E"', '#EE3449']
+  );
 
   return (
     <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[140px] xl:pt-[191px] pb-[150px]'>
@@ -38,9 +50,11 @@ export const GetHired: FC = () => {
         </motion.div>
       </div>
 
-      <Link
+      <motion.a
+        ref={buttonRef}
         href="/signup"
-        className="mt-20 h-[60px] md:h-[65px] px-[30px] flex items-center justify-between bg-splash-green rounded-[20px] gap-[50px]"
+        className="mt-20 h-[60px] md:h-[65px] px-[30px] flex items-center justify-between rounded-[20px] gap-[50px]"
+        style={{ backgroundColor }}
       >
         <p className="text-[27px] md:text-[32px] font-light font-k2d text-my-neutral-7 leading-none">Sign up</p>
         <div className='hidden lg:block md:block'>
@@ -50,7 +64,7 @@ export const GetHired: FC = () => {
             className="mt-1"
           />
         </div>
-      </Link>
+      </motion.a>
     </section>
   );
 };

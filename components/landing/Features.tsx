@@ -112,7 +112,7 @@ export const DesktopFeatures: FC = () => {
     stiffness: 400
   });
 
-  // Transform the content based on scroll
+  // Transform the content based on scroll21
   const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-50%']);
 
   // Calculate active dot based on scroll progress

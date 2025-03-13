@@ -5,8 +5,82 @@ import { FormInput, InputWrapper } from "@/components/ui/form-input";
 
 type FormData = Pick<JobProfile, "additionalInfo">
 
-export const ProjectsNestedFieldArray: FC = (): ReactElement => {
+const LanguageNestedFieldArray: FC = (): ReactElement => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
+  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.languages` });
+
+  return (
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
+      <div className="flex gap-2 mb-3">
+        <div className="w-10"></div>
+        <div className="w-full grid grid-cols-2 gap-form">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
+            Language <span className="text-error ml-1">*</span>
+          </label>
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
+            Proficiency <span className="text-error ml-1">*</span>
+          </label>
+        </div>
+      </div>
+
+      {fields.map((language, index) => (
+        <div key={language.id} className="flex-col w-full">
+          <div className="flex gap-2 mb-2">
+            <button
+              type="button"
+              disabled={fields.length === 1}
+              className="remove-nested"
+              onClick={() => remove(index)}
+            >
+              <span className="text-base">−</span>
+            </button>
+            <div className="w-full grid grid-cols-2 gap-form">
+              <div className="w-full">
+                <input
+                  {...register(`additionalInfo.languages.${index}.language`, { required: 'Language is required' })}
+                  placeholder="e.g., English"
+                  className={
+                    `my-input
+                    ${errors.additionalInfo?.languages?.[index]?.language && "placeholder-shown:border-error"}`
+                  }
+                />
+                {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].language.message}</p>}
+              </div>
+              <div className="w-full">
+                <select
+                  {...register(`additionalInfo.languages.${index}.proficiency`, { required: 'Proficiency is required' })}
+                  // className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary-light-purple px-[10px] rounded-md text-base"
+                  className={
+                    `w-full h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base
+                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-my-neutral-4"}`
+                  }
+                >
+                  <option value="" disabled>Select Proficiency</option>
+                  <option value="Native">Native or Bilingual</option>
+                  <option value="Fluent">Fluent</option>
+                  <option value="Beginner">Beginner</option>
+                </select>
+                {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        className="add-nested"
+        onClick={() => append({ language: '', proficiency: '' })}
+      >
+        <span className="text-2xl">+</span>
+        <p className="text-base">Add Language</p>
+      </button>
+    </div>
+  )
+}
+
+export const ProjectsNestedFieldArray: FC = (): ReactElement => {
+  const { control, register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.projects` });
 
   return (
@@ -17,7 +91,7 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
             <button
               type="button"
               disabled={fields.length === 1}
-              className="remove-nested mt-[28px]"
+              className="remove-nested mt-[36px]"
               onClick={() => remove(index)}
             >
               <span className="text-base">−</span>
@@ -26,40 +100,29 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
               <div className="grid grid-cols-2 gap-form w-full">
                 <FormInput
                   title={'Project Name'}
-                  {...register(`additionalInfo.projects.${index}.name`, { required: 'Project Name is required' })}
+                  {...register(`additionalInfo.projects.${index}.name`)}
+                  required={false}
                   placeholder="Project Name"
-                  error={!!errors.additionalInfo?.projects?.[index]?.name}
-                  errorMessage={errors.additionalInfo?.projects?.[index]?.name?.message}
                   className='w-full'
                 />
                 <FormInput
                   title={'Project Link'}
-                  {...register(`additionalInfo.projects.${index}.link`, {
-                    required: 'Project link is required',
-                    pattern: {
-                      value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
-                      message: 'Invalid URL format',
-                    },
-                  })}
+                  {...register(`additionalInfo.projects.${index}.link`)}
+                  required={false}
                   placeholder="Project Link"
-                  error={!!errors.additionalInfo?.projects?.[index]?.link}
-                  errorMessage={errors.additionalInfo?.projects?.[index]?.link?.message}
                   className='w-full'
                 />
               </div>
               <div className="w-full">
                 <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-jura font-semibold">
-                  Project Description <span className="text-error ml-1">*</span>
+                  Project Description
                 </label>
                 <textarea
-                  {...register(`additionalInfo.projects.${index}.description`, { required: 'Project Description is required' })}
+                  {...register(`additionalInfo.projects.${index}.description`)}
                   placeholder="Project Description"
-                  className={`w-full bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple placeholder:text-base h-20 px-[10px] pt-3 rounded-md text-[18px] font-jura ${errors.additionalInfo?.projects?.[index]?.description ? 'placeholder-shown:border-error' : 'placeholder-shown:border-my-neutral-4'
+                  className={`w-full bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple placeholder:text-base h-20 px-[10px] pt-3 rounded-md text-[18px] font-jura placeholder-shown:border-my-neutral-4'
                     }`}
                 />
-                {errors.additionalInfo?.projects?.[index]?.description &&
-                  <p className="text-error mt-1 text-xs leading-none">{errors.additionalInfo?.projects[index].description.message}</p>
-                }
               </div>
             </div>
           </div>
@@ -134,80 +197,6 @@ export const CertificationsNestedFieldArray: FC = (): ReactElement => {
       >
         <span className="text-2xl">+</span>
         <p className="text-base">Add Certification</p>
-      </button>
-    </div>
-  )
-}
-
-const LanguageNestedFieldArray: FC = (): ReactElement => {
-  const { control, register, formState: { errors } } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.languages` });
-
-  return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-white">
-      <div className="flex gap-2 mb-3">
-        <div className="w-10"></div>
-        <div className="w-full grid grid-cols-2 gap-form">
-          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
-            Language <span className="text-error ml-1">*</span>
-          </label>
-          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
-            Proficiency <span className="text-error ml-1">*</span>
-          </label>
-        </div>
-      </div>
-
-      {fields.map((language, index) => (
-        <div key={language.id} className="flex-col w-full">
-          <div className="flex gap-2 mb-2">
-            <button
-              type="button"
-              disabled={fields.length === 1}
-              className="remove-nested"
-              onClick={() => remove(index)}
-            >
-              <span className="text-base">−</span>
-            </button>
-            <div className="w-full grid grid-cols-2 gap-form">
-              <div className="w-full">
-                <input
-                  {...register(`additionalInfo.languages.${index}.language`, { required: 'Language is required' })}
-                  placeholder="e.g., English"
-                  className={
-                    `my-input
-                    ${errors.additionalInfo?.languages?.[index]?.language && "placeholder-shown:border-error"}`
-                  }
-                />
-                {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].language.message}</p>}
-              </div>
-              <div className="w-full">
-                <select
-                  {...register(`additionalInfo.languages.${index}.proficiency`, { required: 'Proficiency is required' })}
-                  // className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary-light-purple px-[10px] rounded-md text-base"
-                  className={
-                    `w-full h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base
-                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-my-neutral-4"}`
-                  }
-                >
-                  <option value="" disabled>Select Proficiency</option>
-                  <option value="Native">Native or Bilingual</option>
-                  <option value="Fluent">Fluent</option>
-                  <option value="Beginner">Beginner</option>
-                </select>
-                {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-
-      <button
-        type="button"
-        className="add-nested"
-        onClick={() => append({ language: '', proficiency: '' })}
-      >
-        <span className="text-2xl">+</span>
-        <p className="text-base">Add Language</p>
       </button>
     </div>
   )
@@ -319,14 +308,14 @@ const InterestsFieldArray: FC = (): ReactElement => {
 export const AdditionalInfoOnboarding: FC = (): ReactElement => {
   const { register, getValues } = useFormContext<FormData>();
 
-  const legalAuthorizations: LegalAuthorization = getValues('additionalInfo.legal_authorization');
-  const workPreferences: WorkPreferences = getValues('additionalInfo.work_preferences');
+  // const legalAuthorizations: LegalAuthorization = getValues('additionalInfo.legal_authorization');
+  // const workPreferences: WorkPreferences = getValues('additionalInfo.work_preferences');
 
   return (
     <div className="flex flex-col gap-5">
-      <ProjectsNestedFieldArray />
-
       <LanguageNestedFieldArray />
+
+      <ProjectsNestedFieldArray />
 
       <CertificationsNestedFieldArray />
 
@@ -372,7 +361,8 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
 
       <InterestsFieldArray />
 
-      <div className="w-full p-10 rounded-[22px] bg-white">
+      {/* Specific Details */}
+      {/* <div className="w-full p-10 rounded-[22px] bg-white">
         <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Specific Details
         </label>
@@ -396,10 +386,10 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
             <span className="span">Disability</span>
           </label>
         </div>
-      </div>
+      </div> */}
 
       {/* Legal Authorization */}
-      <div className="w-full p-10 rounded-[22px] bg-white">
+      {/* <div className="w-full p-10 rounded-[22px] bg-white">
         <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Legal Authorization
         </label>
@@ -417,10 +407,10 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
               </label>
             ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Work Preferences */}
-      <div className="w-full p-10 rounded-[22px] bg-white">
+      {/* <div className="w-full p-10 rounded-[22px] bg-white">
         <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Work Preferences
         </label>
@@ -438,7 +428,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
               </label>
             ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

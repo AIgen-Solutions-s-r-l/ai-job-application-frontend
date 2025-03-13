@@ -27,18 +27,15 @@ const Login = () => {
 
       if (result.success && result.value?.access_token) {
         toast.success("Logged in successfully!");
-        try {
-          const [exists, me] = await Promise.all([
-            isResumeExits(),
-            fetchUserData()
-          ]);
+        const [exists, me] = await Promise.all([
+          isResumeExits(),
+          fetchUserData()
+        ]);
 
-          setUser({ ...exists, ...me });
-          router.replace(exists.exists ? "/dashboard" : "/onboarding");
-        } catch (error) {
-          router.replace("/onboarding");
-        }
-      } else if (result.success == false) {
+        setUser({ ...exists, ...me });
+        router.replace(exists.exists ? "/dashboard" : "/onboarding");
+        
+      } else if (result.success === false) {
         toast.error(result.error || "Failed to login.");
       } else {
         throw new Error("Access token not received.");

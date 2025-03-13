@@ -6,12 +6,27 @@ import { FC, useEffect, useState } from 'react';
 import { Container } from '../Container';
 
 export const JobManagerHeader: FC = () => {
-  const { isAllSelected, handleSelectAll } = useJobManager();
+  const { isAllSelected, handleSelectAll, applications } = useJobManager();
   const [mounted, setMounted] = useState(false);
+
+  const isReady = Object.keys(applications).length > 0;
     
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  if (!isReady) {
+    return (
+      <Container className="flex flex-col gap-2 xl:gap-4 pt-2 xl:pt-4">
+        <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Apply</h1>
+        <h2 className='font-montserrat font-normal text-[18px]'>
+          Your applications will appear here after we generate resume and cover letter for them.
+          <br/>
+          Please wait for a while and refresh the page.
+        </h2>
+      </Container>
+    );
+  }
 
   return (
     <Container className="flex flex-col gap-2 xl:gap-4 pt-2 xl:pt-4">

@@ -33,7 +33,7 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
       </div>
       {fields.map((responsibility, respIndex) => (
         <div key={responsibility.id} className="flex-col w-full">
-          <div className="flex gap-2">
+          <div className="flex gap-2 mb-2">
             <button
               type="button"
               disabled={fields.length === 1}

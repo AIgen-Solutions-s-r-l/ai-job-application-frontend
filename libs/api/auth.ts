@@ -5,6 +5,7 @@ import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
 import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
+import { createClient } from "@/libs/supabase/server";
 
 interface UserInfo {
   id: string;
@@ -309,7 +310,7 @@ export async function getUserInfo(): Promise<UserInfo> {
     }
 
     const decoded: any = jwtDecode(accessToken);
-    
+
     const userId = decoded?.id;
     const userEmail = decoded?.sub;
     if (!userId) {
@@ -335,22 +336,31 @@ export async function getUserInfo(): Promise<UserInfo> {
  */
 export async function addCredits(amount: number, referenceId: string, description: string): Promise<any> {
   // Validar los datos de entrada
+
+  let accessToken: string | null = null;
+  const cookies = require('next/headers').cookies;
+  const cookieStore = cookies();
+  accessToken = cookieStore.get('accessToken')?.value;
+
+
+  const decoded: any = jwtDecode(accessToken);
+
   if (!amount || amount <= 0) {
     throw new Error("Invalid credit amount");
   }
-  
+
   if (!referenceId) {
     throw new Error("Reference ID is required");
   }
-  
+
   try {
-    const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add`, 
+    const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add?user_id=${decoded.id}`,
       {
-        amount,
+        amount: amount,
         reference_id: referenceId,
         description
       },
-      { timeout: 15000 } // mayor timeout para esta operación
+      { timeout: 15000 }
     );
 
     if (!response || !response.data) {
@@ -360,13 +370,13 @@ export async function addCredits(amount: number, referenceId: string, descriptio
     return response.data;
   } catch (error: any) {
     console.error("Error adding credits:", error);
-    
-    if (error.response?.status === 422 && 
-        error.response?.data?.detail?.includes("already processed")) {
+
+    if (error.response?.status === 422 &&
+      error.response?.data?.detail?.includes("already processed")) {
       console.log("Transaction was already processed, returning success");
       return { success: true, message: "Transaction already processed" };
     }
-    
+
     const status = error.response?.status;
     const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
     throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);

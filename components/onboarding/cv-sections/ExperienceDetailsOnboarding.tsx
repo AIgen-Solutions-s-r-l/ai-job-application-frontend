@@ -55,7 +55,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         onClick={() => append("")}
       >
         <span className="text-2xl">+</span> 
-        <p className="text-base">Add Exam</p>
+        <p className="text-base">Add Responsibility</p>
       </button>
     </>
   )
@@ -108,7 +108,7 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
 }
 
 export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
-  const { control, register, setValue, formState: { errors } } = useFormContext<FormData>();
+  const { control, register, formState: { errors } } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control, name: "experienceDetails", rules: {
       required: 'At least one experience is required',

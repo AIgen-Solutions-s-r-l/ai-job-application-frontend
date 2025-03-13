@@ -9,14 +9,6 @@ export const JobManagerList: React.FC = () => {
   const { applications } = useJobManager();
   const [focusedJobId, setFocusedJobId] = useState<string>('');
 
-  if (!applications) {
-    return (
-      <div className={'w-[1440px] h-full mx-auto font-montserrat font-semibold text-xl xl:text-2xl pt-16'}>
-        No applications found
-      </div>
-    );
-  }
-
   return (
     <div className='w-full h-full gap-5 pt-16'>
       <Container className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-[100px]">

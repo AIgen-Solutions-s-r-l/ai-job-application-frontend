@@ -39,7 +39,7 @@ export const UserProfile: FC<Props> = ({ profile }) => {
   return (
     <div className='w-full'>
       {/* Header Section */}
-      <div className="mb-5">
+      <div className="mb-5 font-montserrat">
         <p className="page-header mb-2">My Profile</p>
         <p className="text-gray-500">Manage your personal and professional information</p>
       </div>
@@ -59,7 +59,7 @@ export const UserProfile: FC<Props> = ({ profile }) => {
           <ProfileExperienceDetails />
           <ProfileAdditionalInfo />
 
-          <button type="submit" className="btn btn-primary w-[200px] self-end mt-5">Save Changes</button>
+          <button type="submit" className="btn btn-primary text-white w-[200px] self-end mt-5">Save Changes</button>
         </form>
       </FormProvider>
     </div>

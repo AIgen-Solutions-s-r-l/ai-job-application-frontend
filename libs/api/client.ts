@@ -65,11 +65,9 @@ apiClientMultipart.interceptors.request.use(
       }
     }
 
-    console.log('Request Headers:', config.headers);
     return config;
   },
   (error) => {
-    console.error("Request Error:", error.message);
     return Promise.reject(error);
   }
 );

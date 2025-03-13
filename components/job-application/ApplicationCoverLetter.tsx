@@ -33,7 +33,6 @@ export const ApplicationCoverLetter: FC<Props> = ({
   );
 
   const handleLetterSubmit = async (data: CoverLetterCoverLetter) => {
-    // console.log(JSON.stringify((data)));
     try {
       const response = await updateApplicationLetterAction(id, data);
 

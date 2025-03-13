@@ -145,6 +145,8 @@ export const addJobsToManager = async (formData: FormData): Promise<{
   try {
     await createJobApplication(formData);
 
+    revalidatePath(`/manager`);
+
     return { success: true };
   } catch (error) {
     console.error("Error when adding jobs to jobs manager:", error);
@@ -198,12 +200,16 @@ export const updateApplicationResumeAction = async (id: string, resumeData: Resu
   }
 }
 
-export const updateApplicationLetterAction = async (id: string, resumeData: CoverLetterCoverLetter): Promise<{
+export const updateApplicationLetterAction = async (id: string, letterData: CoverLetterCoverLetter): Promise<{
   success: boolean;
   error?: string;
 }> => {
   try {
-    const response = await updateApplicationLetter(id, resumeData);
+    const coverLetter = {
+      cover_letter: letterData
+    }
+    
+    const response = await updateApplicationLetter(id, coverLetter);
 
     if (!response.success) {
       return {

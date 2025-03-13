@@ -7,6 +7,7 @@ import { getServerCookie } from '@/libs/cookies';
 import { refreshToken } from '@/libs/api/auth';
 
 interface User {
+    id: string;
     username: string;
     email: string;
     exists: boolean;

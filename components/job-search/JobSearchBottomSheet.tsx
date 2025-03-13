@@ -40,7 +40,9 @@ export const JobSearchBottomSheet: React.FC = () => {
       try {
         const response = await addJobsToManager(formData);
         if (response.success) {
-          toast.success("Application submitted!");
+          toast.success("Application submitted!\nIt will be added to job manager soon.", {
+            duration: 10000,
+          });
           router.push('/manager')
         } 
       } catch (error) { 

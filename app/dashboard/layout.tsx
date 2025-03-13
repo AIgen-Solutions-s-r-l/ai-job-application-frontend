@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </div>
       <div className='flex gap-10 md:overflow-hidden ml-0 md:ml-5'>
         <AppSidenav />
-        <div className='md:overflow-auto grow rounded-xl bg-base-100'>
+        <div className='md:scrollable grow rounded-xl bg-base-100'>
           {children}
         </div>
       </div>

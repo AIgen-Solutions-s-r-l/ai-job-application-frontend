@@ -16,12 +16,12 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
         <div className="w-full xl:w-[680px]">
           <h1 className='text-[21px] md:text-[24px] lg:text-[28px] font-semibold leading-[30px] mb-[8px] md:mb-[15px] xl:mb-[30px]'>Edit Resume & Cover Letter</h1>
           <p className="text-[14px] md:text-[16px] lg:text-[18px] leading-[22px]">
-            You can select text on your resume and cover letter to edit the style.You can also change the template of your resume.
+            You can select text on your resume and cover letter to edit the style. You can also change the template of your resume.
           </p>
         </div>
 
         <div
-          className="hidden xl:flex w-[493px] h-[235px] -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white"
+          className="hidden xl:flex w-[493px]  -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white"
         >
           <div className="flex gap-[8px] items-center">
             <p className='text-[40px] leading-[44px] font-medium'>{job.company_name ?? 'Company Name'}</p>

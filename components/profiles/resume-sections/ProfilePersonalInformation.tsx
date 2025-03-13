@@ -9,13 +9,13 @@ export const ProfilePersonalInformation: FC = () => {
   const { register, formState: { errors } } = useFormContext<FormData>();
 
   return (
-    <div className="collapse collapse-arrow bg-white group rounded-none">
+    <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" defaultChecked />
-      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Personal Information
+      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Personal Information
         {errors.personalInfo && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content">
-        <div className="flex flex-col gap-5">
+      <div className="collapse-content !p-0 bg-base-100 mb-5">
+        <div className="w-full flex flex-col gap-5">
           {/* Name */}
           <InputWrapper>
             <FormInput
@@ -68,7 +68,6 @@ export const ProfilePersonalInformation: FC = () => {
               title={'State / Province'}
               // {...register('personalInfo.state')}
               placeholder="N/A"
-              required={false}
               // error={!!errors.personalInfo?.state}
               // errorMessage={errors.personalInfo?.state?.message}
               className='w-[149px]'
@@ -76,7 +75,6 @@ export const ProfilePersonalInformation: FC = () => {
             <FormInput
               title={'Zip / Postal'}
               {...register('personalInfo.zip_code')}
-              required={false}
               placeholder="N/A"
               className='w-[149px]'
             />
@@ -113,7 +111,7 @@ export const ProfilePersonalInformation: FC = () => {
               {...register('personalInfo.email', {
                 required: 'Email is required',
                 pattern: {
-                  value: /^[a-zA-Z0-9.]{8,}@[a-zA-Z0-9]{3,}\.[a-zA-Z0-9]+$/,
+                  value: /^[a-zA-Z0-9.]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
                   message: 'Invalid email address',
                 },
               })}
@@ -121,7 +119,7 @@ export const ProfilePersonalInformation: FC = () => {
               placeholder="e.g., john.doe@example.com"
               error={!!errors.personalInfo?.email}
               errorMessage={errors.personalInfo?.email?.message}
-              className='w-[579px]'
+              className='grow lg:w-[579px]'
             />
           </InputWrapper>
 
@@ -141,7 +139,7 @@ export const ProfilePersonalInformation: FC = () => {
               placeholder="e.g., https://github.com/johndoe"
               error={!!errors.personalInfo?.github}
               errorMessage={errors.personalInfo?.github?.message}
-              className='w-[402px]'
+              className='grow lg:w-[402px]'
             />
             <FormInput
               title={'Linkedin'}
@@ -157,7 +155,7 @@ export const ProfilePersonalInformation: FC = () => {
               placeholder="e.g., https://linkedin.com/in/johndoe"
               error={!!errors.personalInfo?.linkedin}
               errorMessage={errors.personalInfo?.linkedin?.message}
-              className='w-[579px]'
+              className='grow lg:w-[579px]'
             />
           </InputWrapper>
         </div>

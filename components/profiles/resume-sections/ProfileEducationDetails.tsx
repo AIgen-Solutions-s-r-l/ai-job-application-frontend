@@ -1,10 +1,78 @@
 import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
 import { ArrowRight, Plus } from 'lucide-react';
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 type FormData = Pick<JobProfile, "educationDetails">
+
+const ExamNestedFieldArray: FC<{ index: number; }> = ({
+  index,
+}: {
+  index: number;
+}): ReactElement => {
+  const { register } = useFormContext<FormData>();
+  const { fields, append, remove } = useFieldArray({
+    name: `educationDetails.${index}.exam`
+  })
+
+  if (!fields.length) return null;
+
+  return (
+    <div className="flex flex-col p-10 rounded-[22px] bg-white">
+      <div className="flex gap-2 mb-3">
+        <div className="w-10"></div>
+        <div className="w-full grid grid-cols-2 gap-form">
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
+            Exam Subject
+          </label>
+          <label className="w-full flex justify-start text-[14px] md:text-base leading-none font-semibold">
+            Exam Grade
+          </label>
+        </div>
+      </div>
+      {fields.map((responsibility, respIndex) => (
+        <div key={responsibility.id} className="flex-col w-full">
+          <div className="flex gap-2 mb-2">
+            <button
+              type="button"
+              disabled={fields.length === 1}
+              className="w-10 h-10 flex items-center justify-center bg-my-neutral-2 outline-none border border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+              onClick={() => remove(index)}
+            >
+              <span className="text-base">−</span>
+            </button>
+            <div className="w-full grid grid-cols-2 gap-form">
+              <div className="w-full">
+                <input
+                  {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
+                  placeholder="e.g., Certification Name"
+                  className="my-input"
+                />
+              </div>
+              <div className="w-full">
+                <input
+                  {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
+                  placeholder="e.g., Certification Description"
+                  className="my-input"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        className="w-max px-6 h-10 font-jura font-semibold mt-4 bg-my-neutral-2 rounded-md flex items-center justify-center gap-2 text-base-content hover:bg-primary-light-purple transition-all ease-in duration-100 hover:text-white"
+        onClick={() => append({ subject: "", grade: "" })}
+      >
+        <span className="text-2xl">+</span>
+        <p className="text-base">Add Exam</p>
+      </button>
+    </div>
+  )
+}
 
 export const ProfileEducationDetails: FC = () => {
   const { control, register, formState: { errors } } = useFormContext<FormData>();
@@ -19,16 +87,21 @@ export const ProfileEducationDetails: FC = () => {
       year_of_completion: "",
       start_date: "",
       location: "",
-      exam: []
+      exam: [
+        {
+          subject: "",
+          grade: "",
+        }
+      ],
     });
 
   return (
-    <div className="collapse collapse-arrow bg-base-200 group rounded-none">
+    <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Education Details
+      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Education Details
         {errors.educationDetails && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content bg-white">
+      <div className="collapse-content !p-0 bg-base-100">
         {fields.map((education, index) => (
           <div key={education.id} className="flex flex-col gap-5 mt-5">
             <div className="flex items-center gap-10">
@@ -43,7 +116,7 @@ export const ProfileEducationDetails: FC = () => {
                 <p className='underline text-base leading-none'>Remove</p>
               </button>}
             </div>
-
+  
             {/* Institution */}
             <InputWrapper>
               <FormInput
@@ -68,10 +141,10 @@ export const ProfileEducationDetails: FC = () => {
                 placeholder="e.g., Computer Science"
                 error={!!errors.educationDetails?.[index]?.field_of_study}
                 errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
-                className='w-[429px]'
+                className='grow lg:w-[429px]'
               />
             </InputWrapper>
-
+  
             {/* Dates */}
             <InputWrapper>
               <FormInput
@@ -98,17 +171,27 @@ export const ProfileEducationDetails: FC = () => {
                 errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
                 className='w-[149px]'
               />
+              {/* <FormInput
+                title={'Location'}
+                {...register(`educationDetails.${index}.location`, { required: 'Location is required' })}
+                placeholder="e.g., Italy"
+                error={!!errors.educationDetails?.[index]?.location}
+                errorMessage={errors.educationDetails?.[index]?.location?.message}
+                className='w-[182px]'
+              /> */}
             </InputWrapper>
+  
+            <ExamNestedFieldArray index={index} />
           </div>
         ))}
-
+  
         <div className="flex items-center gap-4 my-5">
           <div
-            className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
+            className="w-[240px] h-[50px] font-jura hover:text-white text-black rounded-[20px] flex items-center justify-between pl-[25px] pr-[20px] bg-white cursor-pointer hover:bg-my-neutral-5 group transition-all ease-in duration-100"
             onClick={addEducation}
           >
-            <p className='text-lg text-base-100'>Add Education</p>
-            <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3} />
+            <p className='text-lg font-semibold'>Add Education</p>
+            <Plus className='font-bold text-black group-hover:text-white' size={32} strokeWidth={3} />
           </div>
         </div>
       </div>

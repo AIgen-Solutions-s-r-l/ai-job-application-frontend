@@ -89,6 +89,16 @@ progress::-webkit-progress-value {
   .page-header {
     @apply text-[28px] font-semibold text-primary-deep-purple font-montserrat
   }
+
+  .scrollable {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+  }
+
+  .scrollable::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
   
   @media (width <= 767px) {
     .my-collapse-plus > .collapse-title:after {

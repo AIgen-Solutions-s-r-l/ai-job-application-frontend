@@ -272,11 +272,11 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
   }
 }
 
-export async function getPendingApplicationsData(): Promise<PendingApplicationRecord | null> {
+export async function getPendingApplicationsData(): Promise<PendingApplicationRecord> {
   try {
     const pending = await fetchPendingApplications();
 
-    const pendingApplications: PendingApplicationRecord = pending.jobs || null;
+    const pendingApplications: PendingApplicationRecord = pending.jobs || {};
 
     return pendingApplications;
   } catch (error) {

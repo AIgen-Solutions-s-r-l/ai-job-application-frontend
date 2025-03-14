@@ -1,8 +1,15 @@
-import { JobManagerView } from "@/components/job-manager/JobManagerView";
-import { getPendingApplicationsData } from "@/libs/data";
+import { JobManagerDispatcher } from "@/components/job-manager/JobManagerDispatcher";
+import { JobManagerSkeleton } from "@/components/job-manager/JobManagerSkeleton";
+import { Suspense } from "react";
 
 export default async function JobManagerPage() {
-  const applications = await getPendingApplicationsData();
-  
-  return <JobManagerView applications={applications} />;
+  return (
+      <Suspense
+        fallback={
+          <JobManagerSkeleton />
+        }
+      >
+        <JobManagerDispatcher />
+      </Suspense>
+    );
 }

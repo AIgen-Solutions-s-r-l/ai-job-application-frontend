@@ -52,11 +52,13 @@ export const login = createServerAction(async (email: string, password: string) 
         errorMessage = error.response?.data?.detail?.message || "Unexpected error occurred.";
         throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
       case 422:
-        const validationErrors = error.response?.data?.details || [];
-        const errorMessages = validationErrors
-          .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
-          .join(", ");
-        throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        {
+          const validationErrors = error.response?.data?.details || [];
+          const errorMessages = validationErrors
+            .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
+            .join(", ");
+          throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        }
 
       default:
         errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
@@ -194,11 +196,13 @@ export const verifyEmail = createServerAction(async (token: string) => {
         errorMessage = error.response?.data?.detail?.message || "Invalid verification token";
         throw new ServerActionError(errorMessage);
       case 422:
-        const validationErrors = error.response?.data?.details || [];
-        const errorMessages = validationErrors
-          .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
-          .join(", ");
-        throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        {
+          const validationErrors = error.response?.data?.details || [];
+          const errorMessages = validationErrors
+            .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
+            .join(", ");
+          throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        }
 
       default:
         errorMessage = error.response?.data?.detail || "Unexpected error occurred.";

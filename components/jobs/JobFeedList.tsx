@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
 import * as Tabs from '@radix-ui/react-tabs';
 import { JobDetail, JobsList } from '@/libs/definitions';
@@ -21,7 +21,7 @@ interface Props {
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
   isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
-export const JobFeedList: React.FC<Props> = ({
+export const JobFeedList: FC<Props> = ({
   appliedJobs,
   failedJobs,
   isLoading,

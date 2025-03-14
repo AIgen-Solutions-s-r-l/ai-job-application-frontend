@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useParams, useRouter } from 'next/navigation'; // Importa el router
+import { useRouter } from 'next/navigation'; // Importa el router
 import config from '@/config';
 import Image from 'next/image';
 import { fetchUserData, verifyEmail } from '@/libs/api/auth'; // Importa la función register
@@ -11,8 +11,6 @@ import { useUserContext } from '@/contexts/user-context';
 
 const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const params = useParams();
-  const token = searchParams.token;
   const { setUser } = useUserContext();
   const router = useRouter();
 
@@ -44,6 +42,7 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
 
   useEffect(() => {
     verify();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

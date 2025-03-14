@@ -281,7 +281,7 @@ export async function getPendingApplicationsData(): Promise<PendingApplicationRe
     return pendingApplications;
   } catch (error) {
     console.error("Error fetching pending applications from API:", error);
-    return null;
+    return {};
   }
 }
 

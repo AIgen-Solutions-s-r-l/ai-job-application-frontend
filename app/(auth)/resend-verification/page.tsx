@@ -1,15 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useParams, useRouter } from 'next/navigation'; // Importa el router
 import config from '@/config';
 import Image from 'next/image';
-import { fetchUserData, register, resendVerification } from '@/libs/api/auth'; // Importa la función register
-import RequireLogout from '@/permissions/requireLogout';
-import { useUserContext } from '@/contexts/user-context';
-import { isResumeExits } from '@/libs/api/resume';
+import { resendVerification } from '@/libs/api/auth'; // Importa la función register
 import { useForm } from 'react-hook-form';
 import { FormField } from '@/components/ui/FormField';
 
@@ -19,8 +15,6 @@ type FormValues = {
 
 const ResendVerification = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const params = useParams();
-  const token = params.token;
 
   const {
     register,
@@ -33,7 +27,6 @@ const ResendVerification = () => {
 
     try {
       const result = await resendVerification(email);
-      console.log({ result });
 
       if (result.success) {
         toast.success(result.value || 'Request in successfully!');
@@ -71,7 +64,7 @@ const ResendVerification = () => {
                 })}
               />
             </FormField>
-            
+
             <button
               type='submit'
               className='auth-form-submit'

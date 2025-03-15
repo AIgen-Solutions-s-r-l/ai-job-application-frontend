@@ -26,7 +26,7 @@ function PaymentHistory() {
     });
 
     return (
-        <div className='flex flex-col gap-5 px-7 py-5 bg-white'>
+        <div className='flex flex-col gap-5 px-1 md:px-7 py-5 bg-white'>
             <div className='flex justify-end'>
                 <div className="flex items-center gap-2 px-4">
                     <span className="font-jura text-sm">Sort by</span>

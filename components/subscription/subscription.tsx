@@ -7,7 +7,6 @@ import PaymentHistory from './PaymentHistory';
 
 function Subscription() {
     const [tab, setTab] = useState<number | null>(0);
-    const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
     return (
         <>
@@ -15,11 +14,9 @@ function Subscription() {
             <SubscriptionNav
                 tab={tab}
                 setTab={setTab}
-                sortOrder={sortOrder}
-                setSortOrder={setSortOrder}
             />
             {tab === 0 && <SubscriptionTab />}
-            {tab === 1 && <PaymentHistory sortOrder={sortOrder} />}
+            {tab === 1 && <PaymentHistory />}
         </>
     )
 }

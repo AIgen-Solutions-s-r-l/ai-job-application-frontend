@@ -34,6 +34,7 @@ export async function locationQuery(query: string): Promise<any> {
         "Accept-Language": "en"
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("API Error", error);

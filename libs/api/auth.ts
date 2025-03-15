@@ -1,7 +1,7 @@
 "use server";
 
 import { apiClient, apiClientJwt } from "@/libs/api/client";
-import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
+import API_BASE_URLS from "@/libs/api/config"; // Import base URLs
 import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
@@ -18,7 +18,7 @@ export const login = createServerAction(async (email: string, password: string) 
   }
 
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Usar la URL desde config
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Use URL from config
       email,
       password,
     });
@@ -382,3 +382,28 @@ export async function addCredits(amount: number, referenceId: string, descriptio
     throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
   }
 }
+
+/**
+ * Gets the redirect URL for Google authentication
+ * @param redirectUri URI to redirect after successful authentication
+ * @returns Authentication URL to start the Google OAuth flow
+ */
+export async function getGoogleOAuthURL(redirectUri: string) {
+  try {
+    // Include the redirect_uri parameter in the request
+    const response = await apiClient.get(
+      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`
+    );
+    console.log(response);
+
+    if (!response || !response.data || !response.data.auth_url) {
+      throw new ServerActionError("No authentication URL received from the API");
+    }
+
+    return response.data.auth_url;
+  } catch (error: any) {
+    console.error("Error getting Google OAuth URL:", error);
+    const errorMessage = error.response?.data?.detail || "Error processing Google authentication request.";
+    throw new ServerActionError(errorMessage);
+  }
+};

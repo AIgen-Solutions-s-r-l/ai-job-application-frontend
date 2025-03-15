@@ -16,6 +16,7 @@ export const JobFeedList: React.FC = () => {
     if (jobs.length) {
       setFocusedJob(jobs[0])
     }
+    console.log(jobs)
   }, [jobs])
 
   if (jobs.length === 0) {

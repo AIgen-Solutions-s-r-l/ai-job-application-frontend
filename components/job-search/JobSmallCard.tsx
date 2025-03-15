@@ -22,7 +22,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
     >
       <div className="absolute top-0 right-0 w-full h-full lg:hidden" onClick={() => window.open('https://google.com', 'blank')}></div>
       <div className="flex gap-2 items-center md:mb-2">
-        <p className="text-xs font-jura font-semibold">95% Match</p>
+        <p className="text-xs font-jura font-semibold">{job.score}% Match</p>
         <Info size={18} />
       </div>
       <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company}</h3>

@@ -4,7 +4,14 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Search, Users, CircleCheck, CreditCard, Settings, Briefcase } from 'lucide-react';
+import {
+  Search,
+  Users,
+  CircleCheck,
+  CreditCard,
+  Settings,
+  Briefcase,
+} from 'lucide-react';
 import { useWindowSize } from '@/lib/hooks';
 import { useSidenavContext } from '@/contexts/sidenav-context';
 import Magnifer from '@/components/svgs/Magnifier.svg';
@@ -28,16 +35,17 @@ type NavLink = {
 
 type Props = {
   collapsed?: boolean;
+  onClick: () => void;
 };
 
-const AppNavLinks: FC<Props> = ({ collapsed }) => {
+const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { width } = useWindowSize();
   const { slots } = useSidenavContext();
 
   const classMenuButton =
-    'grow font-semibold text-sm md:text-[18px] my-1 mx-5 md:mx-0 font-jura';
+    'grow font-semibold text-lg md:text-[18px] my-1 font-jura';
 
   const JobSearchElement = (
     <button
@@ -159,14 +167,14 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
                 ) : (
                   <Link
                     href={href}
-                    className={`grow pl-3 py-2 font-semibold text-base underline ${
-                      pathname === href &&
-                      'no-underline flex bg-neutral-content rounded-md'
-                    } ${className}`}
+                    className={`grow pl-3 py-2 font-semibold text-base underline hover:text-primary-deep-purple ${
+                      pathname === href
+                        ? 'no-underline flex bg-neutral-content rounded-md'
+                        : ''
+                    } ${className ? className : ''}`}
+                    onClick={onClick}
                   >
-                    <span /* className={bold && 'font-extrabold'} */>
-                      {name}
-                    </span>
+                    <span>{name}</span>
                   </Link>
                 )}
               </li>

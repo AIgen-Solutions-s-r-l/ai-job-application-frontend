@@ -67,7 +67,7 @@ export const JobFeedList: FC<Props> = ({
             setShowCongarts(false);
           }}
         >
-          <div className='flex items-center gap-5 font-normal font-montserrat'>
+          <div className='flex items-top gap-5 font-normal font-montserrat'>
             <Image src={CongratsEmoji} alt='CongratsEmoji' />
             <span className='ext-primary-deep-purple text-xl'>
               Congratulations!

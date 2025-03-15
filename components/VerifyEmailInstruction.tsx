@@ -8,7 +8,9 @@ export const VerifyEmailInstruction = () => (
       <h2>A email has been sent to you!</h2>
       <p>To complete registration, follow the link we sent you in an email.</p>
       <span>
-        <Link href='/'>to main page</Link>
+        <Link href='/' className='text-primary'>
+          to main page
+        </Link>
       </span>
     </div>
   </div>

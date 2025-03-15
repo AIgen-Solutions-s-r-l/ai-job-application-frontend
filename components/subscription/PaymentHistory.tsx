@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import CheckMark from '../svgs/CheckMarkPurple.svg'
 
-function PaymentHistory({ sortOrder = 'newest' }: { sortOrder?: 'newest' | 'oldest' }) {
+function PaymentHistory() {
+    const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
     // DUMY DATA
     const paymentData = [
@@ -24,7 +26,25 @@ function PaymentHistory({ sortOrder = 'newest' }: { sortOrder?: 'newest' | 'olde
     });
 
     return (
-        <div className='flex flex-col gap-8 px-12 py-8 bg-white'>
+        <div className='flex flex-col gap-5 px-1 md:px-7 py-5 bg-white'>
+            <div className='flex justify-end'>
+                <div className="flex items-center gap-2 px-4">
+                    <span className="font-jura text-sm">Sort by</span>
+                    <button
+                        onClick={() => setSortOrder('newest')}
+                        className={`font-jura text-sm ${sortOrder === 'newest' ? 'font-bold' : ''}`}
+                    >
+                        Newest
+                    </button>
+                    <span>|</span>
+                    <button
+                        onClick={() => setSortOrder('oldest')}
+                        className={`font-jura text-sm ${sortOrder === 'oldest' ? 'font-bold' : ''}`}
+                    >
+                        Oldest
+                    </button>
+                </div>
+            </div>
             <table className="w-full">
                 <thead>
                     <tr className="border-b font-jura font-semibold text-[18px]">

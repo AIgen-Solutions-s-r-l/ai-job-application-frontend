@@ -21,9 +21,7 @@ export const JobFeedList: React.FC = () => {
 
   if (jobs.length === 0) {
     return (
-      <Container className={'h-full font-montserrat font-semibold text-xl xl:text-2xl'}>
-        No jobs found
-      </Container>
+      <></>
     );
   }
 

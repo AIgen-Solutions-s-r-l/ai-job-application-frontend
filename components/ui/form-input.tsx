@@ -34,7 +34,7 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
 FormInput.displayName = "FormInput"
 
 const InputWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return <div className="flex flex-col lg:flex-row gap-form p-10 rounded-[22px] bg-white">
+  return <div className="flex flex-col xl:flex-row gap-form p-10 rounded-[22px] bg-white">
     {children}
   </div>
 }

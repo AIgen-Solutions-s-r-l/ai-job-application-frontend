@@ -12,7 +12,7 @@ import LaboroSmiley from '@/public/LaboroSmiley.svg';
 import Image from 'next/image';
 
 export const JobManagerBottomSheet: FC = () => {
-  const { selectedApplications } = useJobManager();
+  const { applications, selectedApplications } = useJobManager();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
@@ -37,7 +37,7 @@ export const JobManagerBottomSheet: FC = () => {
 
   return (
     <JobButtomSheet className='justify-between gap-[50px] items-center'>
-      <div className='flex items-center gap-2 md:gap-8 lg:gap-10'>
+      <div className='flex items-center gap-2 md:gap-4 lg:gap-6'>
         <ButtonUnderline
           title='Back to Search'
           handleClick={() => router.back()}
@@ -46,10 +46,10 @@ export const JobManagerBottomSheet: FC = () => {
         <ButtonUnderline title='Cancel' handleClick={() => router.back()} />
       </div>
       <div className='flex items-center gap-5'>
-        <div className='flex items-center gap-5 bg-primary-deep-purple rounded-full pl-[2px] pr-[25px] py-[3px]'>
+        <div className='hidden xl:flex items-center gap-5 bg-primary-deep-purple rounded-full pl-[2px] pr-[25px] py-[3px]'>
           <Image src={LaboroSmiley} alt='LaboroSmiley' width={40} height={40} />
           <p className='text-white text-right font-jura text-xl font-semibold leading-6 tracking-tight'>
-            300 Applications
+            {applications && Object.keys(applications).length} Applications
           </p>
         </div>
         {mounted && (

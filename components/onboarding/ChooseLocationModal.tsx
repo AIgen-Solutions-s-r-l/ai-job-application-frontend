@@ -75,7 +75,6 @@ const ChoseLocationModal = ({
     };
 
     const onSubmit = () => {
-        // TODO set location and navigate
         const { country, city, location } = getValues()
         router.push(`/search?country=${country ?? defaultLocation}${city ? `&city=${city}` : ''}&location=${location ?? defaultLocation}`)
     };

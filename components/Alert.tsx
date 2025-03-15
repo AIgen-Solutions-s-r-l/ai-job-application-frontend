@@ -14,6 +14,6 @@ export const Alert: FC<Props> = ({ children, onClose }) => (
     <button className='outline-none absolute top-4 right-4' onClick={onClose}>
       <Image src={CloseButton} width={14} height={14} alt='close button' />
     </button>
-    {children}
+    <div className='pr-4'>{children}</div>
   </div>
 );

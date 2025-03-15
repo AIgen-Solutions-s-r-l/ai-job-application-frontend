@@ -35,9 +35,10 @@ type NavLink = {
 
 type Props = {
   collapsed?: boolean;
+  onClick: () => void;
 };
 
-const AppNavLinks: FC<Props> = ({ collapsed }) => {
+const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { width } = useWindowSize();
@@ -171,10 +172,9 @@ const AppNavLinks: FC<Props> = ({ collapsed }) => {
                         ? 'no-underline flex bg-neutral-content rounded-md'
                         : ''
                     } ${className ? className : ''}`}
+                    onClick={onClick}
                   >
-                    <span>
-                      {name}
-                    </span>
+                    <span>{name}</span>
                   </Link>
                 )}
               </li>

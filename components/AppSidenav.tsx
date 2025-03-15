@@ -56,14 +56,22 @@ export default function AppSidenav() {
         </button>
 
         {!isCollapse && (
-          <Link className='page-header mb-[25px] pr-[3rem] p-3 md:p-0' href='/dashboard'>
+          <Link
+            className='page-header mb-[25px] pr-[3rem] p-3 md:p-0'
+            href='/dashboard'
+          >
             Dashboard /
           </Link>
         )}
 
         {/* Nav Links */}
         <div className={'flex grow flex-col space-y-2 font-jura p-3 md:p-0'}>
-          <AppNavLinks collapsed={isCollapse as boolean} />
+          <AppNavLinks
+            collapsed={isCollapse as boolean}
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          />
         </div>
       </div>
 

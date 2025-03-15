@@ -28,7 +28,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const { jobs } = useJobSearch();
 
   const router = useRouter();
-  
+
   const onSearch = (searchProps: JobSearchProps) => {
     const params = new URLSearchParams();
 
@@ -41,25 +41,25 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
   const onSubmit = () => {
     const { q, location, country, city, latitude, longitude } = getValues();
-  
+
     const cleanParams: JobSearchProps = {
       q,
       location
     };
-    
+
     if (country) {
       cleanParams.country = country;
     }
-    
+
     if (city && city !== 'undefined') {
       cleanParams.city = city;
-      
+
       if (latitude && longitude) {
         cleanParams.latitude = latitude;
         cleanParams.longitude = longitude;
       }
     }
-    
+
     onSearch(cleanParams);
   };
 
@@ -145,7 +145,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               <input
                 type='text'
                 id='location'
-                placeholder='City, state, or remote'
+                placeholder='City or Country'
                 {...register('location', {
                   onChange: onLocationChange,
                 })}

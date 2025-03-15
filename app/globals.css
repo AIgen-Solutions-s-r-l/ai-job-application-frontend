@@ -83,11 +83,26 @@ progress::-webkit-progress-value {
   }
 
   .pill {
-    @apply text-sm md:text-base leading-none text-center text-white px-4 py-[3px] lg:px-6 lg:py-[4px] bg-primary rounded-full font-jura font-semibold whitespace-nowrap
+    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary rounded-full font-jura font-semibold whitespace-nowrap
   }
   
+  .pill-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+  }
+
   .page-header {
     @apply text-[28px] font-semibold text-primary-deep-purple font-montserrat
+  }
+
+  .scrollable {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+  }
+
+  .scrollable::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
   }
   
   @media (width <= 767px) {

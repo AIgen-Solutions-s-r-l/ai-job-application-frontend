@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { JobsList } from '@/libs/definitions';
 import { JobCard } from './JobCard';
@@ -20,7 +20,7 @@ interface Props {
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
   isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
-export const JobFeedList: React.FC<Props> = ({
+export const JobFeedList: FC<Props> = ({
   appliedJobs,
   failedJobs,
   isLoading,
@@ -69,7 +69,7 @@ export const JobFeedList: React.FC<Props> = ({
             setShowCongarts(false);
           }}
         >
-          <div className='flex items-center gap-5 font-normal font-montserrat'>
+          <div className='flex items-top gap-5 font-normal font-montserrat'>
             <Image src={CongratsEmoji} alt='CongratsEmoji' />
             <span className='ext-primary-deep-purple text-xl'>
               Congratulations!

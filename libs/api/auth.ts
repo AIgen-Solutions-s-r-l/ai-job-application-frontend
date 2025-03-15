@@ -1,22 +1,28 @@
 "use server";
 
 import { apiClient, apiClientJwt } from "@/libs/api/client";
-import API_BASE_URLS from "@/libs/api/config"; // Importar las URLs base
-import { setServerCookie } from "../cookies";
+import API_BASE_URLS from "@/libs/api/config"; // Import base URLs
+import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 
+interface UserInfo {
+  id: string;
+  email: string;
+}
+
 export const login = createServerAction(async (email: string, password: string) => {
   if (!email || !password) {
-    throw new ServerActionError("Username and password are required");
+    throw new ServerActionError("Email and password are required");
   }
 
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Usar la URL desde config
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login`, { // Use URL from config
       email,
       password,
     });
 
+    console.log(response)
     if (!response || !response.data) {
       throw new ServerActionError("No data received from API.");
     }
@@ -294,3 +300,99 @@ export async function changeEmail(username: string, current_password: string, ne
     }
   }
 }
+
+export async function getUserInfo(): Promise<UserInfo> {
+  try {
+    const accessToken = await getServerCookie('accessToken');
+    if (!accessToken) {
+      throw new Error("No access token found in cookies");
+    }
+
+    const decoded: any = jwtDecode(accessToken);
+    
+    const userId = decoded?.id;
+    const userEmail = decoded?.sub;
+    if (!userId) {
+      throw new Error("Unable to extract user ID from token");
+    }
+
+    return {
+      id: userId,
+      email: userEmail
+    };
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw new Error("Failed to get user information");
+  }
+}
+
+/**
+ * Adds credits to the user's account
+ * @param amount Number of credits to add
+ * @param referenceId Reference ID for the transaction (e.g. Stripe session ID)
+ * @param description Description of the transaction
+ * @returns Response from the API
+ */
+export async function addCredits(amount: number, referenceId: string, description: string): Promise<any> {
+  if (!amount || amount <= 0) {
+    throw new Error("Invalid credit amount");
+  }
+  
+  if (!referenceId) {
+    throw new Error("Reference ID is required");
+  }
+  
+  try {
+    const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add`, 
+      {
+        amount,
+        reference_id: referenceId,
+        description
+      },
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error adding credits:", error);
+    
+    if (error.response?.status === 422 && 
+        error.response?.data?.detail?.includes("already processed")) {
+      console.log("Transaction was already processed, returning success");
+      return { success: true, message: "Transaction already processed" };
+    }
+    
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
+/**
+ * Gets the redirect URL for Google authentication
+ * @param redirectUri URI to redirect after successful authentication
+ * @returns Authentication URL to start the Google OAuth flow
+ */
+export async function getGoogleOAuthURL (redirectUri: string ) {
+  try {
+    // Include the redirect_uri parameter in the request
+    const response = await apiClient.get(
+      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`
+    );
+    console.log(response);
+    
+    if (!response || !response.data || !response.data.auth_url) {
+      throw new ServerActionError("No authentication URL received from the API");
+    }
+    
+    return response.data.auth_url;
+  } catch (error: any) {
+    console.error("Error getting Google OAuth URL:", error);
+    const errorMessage = error.response?.data?.detail || "Error processing Google authentication request.";
+    throw new ServerActionError(errorMessage);
+  }
+};

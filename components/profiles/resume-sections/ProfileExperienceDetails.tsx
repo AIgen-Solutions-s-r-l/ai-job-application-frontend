@@ -27,11 +27,11 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   return (
     <>
       {fields.map((responsibility, respIndex) => (
-        <div key={responsibility.id} className="flex items-center gap-2 mb-2">
+        <div key={responsibility.id} className="flex items-center gap-2 mb-2 bg-white">
           <button
             type="button"
             disabled={fields.length === 1}
-            className="w-10 h-10 flex items-center justify-center bg-base-200 outline-none border-[1px] border-base-content hover:bg-base-content text-base-content hover:text-base-100 disabled:cursor-not-allowed rounded-md"
+            className="remove-nested"
             onClick={() => remove(respIndex)}
           >
             <span className="text-base">−</span>
@@ -42,8 +42,8 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
             })}
             placeholder="e.g., Led a team of developers to build scalable applications"
             className={
-              `w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder:text-sm h-10 px-[10px] rounded-md text-base
-              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "placeholder-shown:border-error" : "placeholder-shown:border-secondary"}`
+              `my-input
+              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] && "placeholder-shown:border-error"}`
             }
           />
         </div>
@@ -51,10 +51,10 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
       {fields.length === 1 && errors.experienceDetails?.[index]?.key_responsibilities?.[0] && <p className="text-error mt-[2px] text-xs">At least one responsibility is required</p>}
       <button
         type="button"
-        className="bg-base-200 rounded-md h-10 flex items-center gap-2 px-3 mt-4 text-base-content hover:bg-secondary hover:text-white"
+        className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-base">+</span>
+        <span className="text-2xl">+</span> 
         <p className="text-base">Add Responsibility</p>
       </button>
     </>
@@ -93,14 +93,14 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   return (
     <div className="flex p-10 rounded-[22px] bg-white">
       <div className="w-full">
-        <label className="flex justify-start text-base leading-none mb-2">
+        <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
           Skills
         </label>
         <textarea
           onChange={(e) => debouncedHandleSkillsChange(index, e.target.value)} // Use the debounced function
           defaultValue={skills ? skills.join(', ') : ''}
           placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
-          className="w-full bg-base-100 outline-none border-[1px] border-secondary focus:border-primary placeholder-shown:border-secondary placeholder:text-sm h-20 px-[10px] pt-3 rounded-md text-base"
+          className="w-full bg-white outline-none border border-my-neutral-4 focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base h-20 px-[10px] pt-3 rounded-md text-[18px] font-jura"
         />
       </div>
     </div>
@@ -128,12 +128,12 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
     );
 
   return (
-    <div className="collapse collapse-arrow bg-base-200 group rounded-none">
+    <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title text-xl font-medium bg-white group-has-[input:checked]:bg-white">Experience Details
+      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Experience Details
         {errors.experienceDetails && <p className="text-error text-xs">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content bg-white">
+      <div className="collapse-content !p-0 bg-base-100">
         {fields.map((experience, index) => (
           <div key={experience.id} className="flex flex-col gap-5 mt-5">
             <div className="flex items-center gap-10">
@@ -148,7 +148,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 <p className='underline text-base leading-none'>Remove</p>
               </button>}
             </div>
-
+  
             <InputWrapper>
               <FormInput
                 title={'Company'}
@@ -192,28 +192,27 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 className='w-[164px]'
               />
             </InputWrapper>
-
+  
             <div className="flex p-10 rounded-[22px] bg-white">
               <div className="w-full">
-                <label className="flex justify-start text-base leading-none mb-2">
+                <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
                   Key Responsibilities <span className="text-error ml-1">*</span>
                 </label>
                 <ResponsibilityNestedFieldArray index={index} />
               </div>
             </div>
-
+  
             <SkillsNestedFieldArray index={index} />
           </div>
-
         ))}
-
+  
         <div className="flex items-center gap-4 my-5">
           <div
-            className="w-[240px] h-[50px] rounded-[20px] flex items-center justify-between px-[15px] bg-neutral hover:bg-secondary group transition-all ease-in duration-100"
+            className="w-[240px] h-[50px] font-jura hover:text-white text-black rounded-[20px] flex items-center justify-between pl-[25px] pr-[20px] bg-white cursor-pointer hover:bg-my-neutral-5 group transition-all ease-in duration-100"
             onClick={handleAddExperience}
           >
-            <p className='text-lg text-base-100'>Add Experience</p>
-            <Plus className='font-bold text-secondary group-hover:text-base-100' size={32} strokeWidth={3} />
+            <p className='text-lg font-semibold'>Add Experience</p>
+            <Plus className='font-bold text-black group-hover:text-white' size={32} strokeWidth={3} />
           </div>
         </div>
       </div>

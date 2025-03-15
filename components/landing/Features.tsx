@@ -137,6 +137,22 @@ export const DesktopFeatures: FC = () => {
           </div>
 
           <div
+            className="features-slide flex-row bg-primary-deep-purple items-center justify-center gap-[15px] font-montserrat"
+          >
+            <div className="w-[335px]">
+              <p className="text-[18px] 2xl:text-[20px] leading-[1.1] text-primary-light-purple-gray">
+                Your chance to<br />
+                <span className="text-splash-orange">get hired</span> with<br />
+                our <span className="text-splash-green">AI-automated</span><br />
+                job application<br />
+                system is <span className='text-splash-orange'>higher</span>, since you can apply to many jobs with <span className="text-white">perfectly matching resume & cover letters.</span>
+              </p>
+            </div>
+
+            <Image src='/landing/feature-5.png' alt='feature-5' width={200} height={277} />
+          </div>
+
+          <div
             className="features-slide justify-end relative overflow-visible font-k2d"
           >
             <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[20px] left-0 z-20' />
@@ -163,22 +179,6 @@ export const DesktopFeatures: FC = () => {
             <p className="text-white text-[22px] 2xl:text-[28px] leading-none">Companies hiring now</p>
 
             <Image src='/landing/feature-4.png' alt='feature-4' width={350} height={264} />
-          </div>
-
-          <div
-            className="features-slide flex-row bg-primary-deep-purple items-center justify-center gap-[15px] font-montserrat"
-          >
-            <div className="w-[335px]">
-              <p className="text-[18px] 2xl:text-[20px] leading-[1.1] text-primary-light-purple-gray">
-                Your chance to<br />
-                <span className="text-splash-orange">get hired</span> with<br />
-                our <span className="text-splash-green">AI-automated</span><br />
-                job application<br />
-                system is <span className='text-splash-orange'>higher</span>, since you can apply to many jobs with <span className="text-white">perfectly matching resume & cover letters.</span>
-              </p>
-            </div>
-
-            <Image src='/landing/feature-5.png' alt='feature-5' width={200} height={277} />
           </div>
         </div>
       </motion.div>

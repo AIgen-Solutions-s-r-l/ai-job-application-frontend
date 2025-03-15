@@ -19,13 +19,13 @@ type FormValues = {
 };
 
 const Login = () => {
+  const [emailMotVerified, setEmailMotVerified] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setUser } = useUserContext();
   const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -49,7 +49,15 @@ const Login = () => {
           router.replace('/onboarding');
         }
       } else if (result.success == false) {
-        toast.error(result.error || 'Failed to login.');
+        if (
+          result.error ===
+          'Error 403: Email not verified. Please check your email for verification instructions.'
+        ) {
+          setEmailMotVerified(true);
+          toast.error('Need verify account. Usee link in email or re-send link.');
+        } else {
+          toast.error(result.error || 'Failed to login.');
+        }
       } else {
         throw new Error('Access token not received.');
       }
@@ -137,6 +145,14 @@ const Login = () => {
         </form>
 
         <div className='auth-form-footer'>
+          {emailMotVerified && (
+            <Link
+              href='/resend-verification'
+              className='font-medium text-primary'
+            >
+              Re-send link for activate email
+            </Link>
+          )}
           <div className='flex justify-between text-xs md:text-sm'>
             <Link href='/forgot-password' className='font-medium text-primary'>
               Forgot password?

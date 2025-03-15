@@ -37,10 +37,10 @@ export default function AppSidenav() {
 
       {/* Drawer */}
       <div
-        className={`drawer-menu h-full shrink-0 fixed top-0 z-10 md:relative flex flex-col bg-base-100 z-40 transform ${
+        className={`drawer-menu h-full shrink-0 fixed top-0 left-0- z-10 md:relative flex flex-col bg-base-100 z-40 transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out md:translate-x-0 overflow-y-auto ${
-          isOpen && 'min-h-screen'
+          isOpen ? 'min-h-screen' : ''
         } ${!isCollapse && `w-[${minWidth}px]`}`}
       >
         {/* Collapse button */}
@@ -56,16 +56,13 @@ export default function AppSidenav() {
         </button>
 
         {!isCollapse && (
-          <Link
-            className='page-header mb-[25px] pr-[3rem]'
-            href='/dashboard'
-          >
+          <Link className='page-header mb-[25px] pr-[3rem] p-3 md:p-0' href='/dashboard'>
             Dashboard /
           </Link>
         )}
 
         {/* Nav Links */}
-        <div className={'flex grow flex-col space-y-2 font-jura'}>
+        <div className={'flex grow flex-col space-y-2 font-jura p-3 md:p-0'}>
           <AppNavLinks collapsed={isCollapse as boolean} />
         </div>
       </div>

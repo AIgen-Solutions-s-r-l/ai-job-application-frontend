@@ -16,13 +16,12 @@ export const JobFeedList: React.FC = () => {
     if (jobs.length) {
       setFocusedJob(jobs[0])
     }
+    console.log(jobs)
   }, [jobs])
 
   if (jobs.length === 0) {
     return (
-      <Container className={'h-full font-montserrat font-semibold text-xl xl:text-2xl'}>
-        No jobs found
-      </Container>
+      <></>
     );
   }
 

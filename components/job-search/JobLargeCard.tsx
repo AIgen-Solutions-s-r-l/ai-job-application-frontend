@@ -21,15 +21,15 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           <h3 className="text-[20px] xl:text-[32px] leading-[1.1] font-montserrat font-semibold">{job.company_name}</h3>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>
-                <img 
-                  src={job.company_logo} 
-                  alt='Logo' 
-                  className='w-full h-full object-contain' 
-                />
+              <img
+                src={job.company_logo}
+                alt='Logo'
+                className='w-full h-full object-contain'
+              />
             </div>
           )}
         </div>
-          
+
         <h3 className="text-[20px] font-montserrat font-normal">{job.title}</h3>
         <div className="flex items-center justify-between gap-3 leading-none">
           <p className="flex items-center gap-3 text-[18px] font-jura font-semibold"><Image src={Pin} alt='Pin' />{job.location} | {job.workplace_type}</p>
@@ -41,10 +41,16 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
         </div>
       </div>
       <div className="mt-5 grow overflow-y-auto">
-        <p className="font-jura text-[18px] font-normal">{job.description}</p>
+        <div className="font-jura text-[18px] font-normal">
+          {job.description.split('\n').map((line, index) => (
+            line.trim() ? (
+              <p key={index} className="mb-2">{line}</p>
+            ) : null
+          ))}
+        </div>
       </div>
-      <Link 
-        href={job.apply_link} 
+      <Link
+        href={job.apply_link}
         target='_blank'
         className='font-jura text-sm xl:text-[18px] leading-none px-3 py-2 xl:px-6 xl:py-4 border border-neutral-cold-1 bg-white rounded-[20px] hover:bg-primary hover:text-white transition-colors ease-in duration-200'
       >

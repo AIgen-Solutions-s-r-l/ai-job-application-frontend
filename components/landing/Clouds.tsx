@@ -41,9 +41,12 @@ export const Clouds: FC = () => {
       </motion.div>
 
       <LandingContainer>
-        <div className="mt-[100%] lg:mt-[50%] md:mt-[80%]">
-          <p className="text-[30px] font-medium leading-[1.1] text-center text-white lg:text-[40px]">
-            Spotlight on Our Founders:<br /> Media&apos;s Fascination with Their Journey
+        <div className="mt-[100%] lg:mt-[50%] md:mt-[80%] text-[30px] font-medium leading-[1.1] text-center text-white lg:text-[40px]">
+          <p>
+            As Seen In Leading Publications
+          </p>
+          <p className='text-[30px] lg:text-[30px] mt-[25px]'>
+            Our hiring transformation journey has been<br /> featured in major media.
           </p>
         </div>
       </LandingContainer>

@@ -36,7 +36,7 @@ export async function createJobApplication(formData: FormData): Promise<{ succes
     return { success: true };
   } catch (error) {
     console.error("Error creating job application:", error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -48,7 +48,7 @@ export async function getAppliedJobApplications(): Promise<JobsList | any> {
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting job applications', error);
-    return [];
+    return {};
   }
 }
 
@@ -60,6 +60,6 @@ export async function getFailedJobApplications(): Promise<JobsList | any> {
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting failed job applications', error);
-    return [];
+    return {};
   }
 }

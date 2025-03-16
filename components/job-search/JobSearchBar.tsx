@@ -73,7 +73,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       if (e.target.value.length > 3) {
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
-
           setDataArray(response);
         }, 200);
         setSearchTimeout(timeoutId);
@@ -161,7 +160,22 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                     onClick={() => handleLocationSelect(data)}
                     className='w-full box-border flex items-center px-10 py-1 hover:text-blue-500 cursor-pointer'
                   >
-                    {data.display_name}
+                    {(() => {
+                      const location = data.address.city
+                        ? `, ${data.address.city}`
+                        : data.address.village
+                          ? `, ${data.address.village}`
+                          : data.address.town
+                            ? `, ${data.address.town}`
+                            : '';
+                      return (
+                        <>
+                          <span className="text-neutral-500 text-sm ml-2">
+                            {`${data.address.country}${location}`}
+                          </span>
+                        </>
+                      );
+                    })()}
                   </div>
                 ))}
               </div>

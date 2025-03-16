@@ -55,7 +55,7 @@ function SubscriptionTab() {
     if (!success || !credits || !sessionId || isProcessingPayment) {
       return;
     }
-    
+
     // Verificar si esta transacción ya fue procesada para evitar duplicados
     if (processedTransactions.has(sessionId)) {
       // Ya procesamos esta transacción, solo limpiamos la URL
@@ -67,10 +67,10 @@ function SubscriptionTab() {
 
     if (success === "true") {
       const creditsAmount = parseInt(credits);
-      
+
       // Registrar esta transacción como procesada
       setProcessedTransactions(prev => new Set(prev).add(sessionId));
-      
+
       // Nuevo código: obtener el Transaction ID antes de añadir créditos
       fetch(`/api/stripe/get-transaction-id?session_id=${sessionId}`)
         .then(response => {
@@ -81,7 +81,7 @@ function SubscriptionTab() {
         })
         .then(data => {
           const transactionId = data.transactionId;
-          
+
           // Usar el Transaction ID en lugar del Session ID
           return addCredits(
             creditsAmount,
@@ -110,7 +110,7 @@ function SubscriptionTab() {
           }, 1000);
         });
     } else if (success === "false") {
-      toast.error("Payment process was cancelled or could not be completed.", 
+      toast.error("Payment process was cancelled or could not be completed.",
         { id: "payment-cancelled" });
       cleanUrlParams();
       setIsProcessingPayment(false);
@@ -124,7 +124,7 @@ function SubscriptionTab() {
       url.searchParams.delete("success");
       url.searchParams.delete("credits");
       url.searchParams.delete("session_id");
-      
+
       // Usar replace state directamente para evitar problemas con router.replace
       window.history.replaceState({}, document.title, url.pathname);
     }
@@ -150,7 +150,7 @@ function SubscriptionTab() {
     const newApplications = parseInt(values[sliderValue].value);
     const priceType = paymentPlan === "monthly" ? "monthly" : "onetime";
     const price = pricing[priceType][newApplications.toString()].amount;
-    
+
     return (price / newApplications).toFixed(2);
   };
 
@@ -160,14 +160,14 @@ function SubscriptionTab() {
     try {
       // Get user info
       const userInfo = await getUserInfo();
-      
+
       // Determine the credits and plan type from your UI
       const numberOfApps = values[sliderValue].value;
       const planType = paymentPlan;
-      
+
       // Get price ID based on selection
       const priceId = pricing[planType][numberOfApps].id;
-      
+
       // Determine checkout mode
       const mode = planType === "monthly" ? "subscription" : "payment";
 

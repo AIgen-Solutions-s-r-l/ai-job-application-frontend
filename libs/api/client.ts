@@ -4,17 +4,19 @@ import { redirect } from 'next/navigation';
 import { refreshToken } from './auth';
 
 const API_KEY = process.env.API_KEY || '';
+const API_KEY2 = process.env.API_KEY2 || '';
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const getHeaders = (contentType: string) => {
   const headers: Record<string, string> = {
     "Content-Type": contentType,
   };
-  
+
   if (isDevelopment && API_KEY) {
     headers["apikey"] = API_KEY;
+    headers["api-key"] = API_KEY2;
   }
-  
+
   return headers;
 };
 

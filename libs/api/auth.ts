@@ -44,18 +44,26 @@ export const login = createServerAction(async (email: string, password: string) 
     return response.data;
   } catch (error: any) {
     const status = error.response?.status;
+    let errorMessage;
 
-    if (status === 401) {
-      throw new ServerActionError("Invalid credentials. Please check your username and password.");
-    } else if (status === 422) {
-      const validationErrors = error.response?.data?.detail || [];
-      const errorMessages = validationErrors
-        .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
-        .join(", ");
-      throw new ServerActionError(`Validation Error: ${errorMessages}`);
-    } else {
-      const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
-      throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+    switch (status) {
+      case 401:
+        throw new ServerActionError("Invalid credentials. Please check your username and password.");
+      case 403:
+        errorMessage = error.response?.data?.detail?.message || "Unexpected error occurred.";
+        throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+      case 422:
+        {
+          const validationErrors = error.response?.data?.details || [];
+          const errorMessages = validationErrors
+            .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
+            .join(", ");
+          throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        }
+
+      default:
+        errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+        throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
     }
   }
 });
@@ -128,19 +136,20 @@ export const register = createServerAction(async (email: string, password: strin
       throw new ServerActionError("No data received from API.");
     }
 
-    setServerCookie("accessToken", response.data.access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-    });
+    // setServerCookie("accessToken", response.data.access_token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: 'lax',
+    // });
 
     return response.data;
   } catch (error: any) {
     const status = error.response?.status;
+    console.log({ status, error })
 
     switch (status) {
       case 400:
-        throw new ServerActionError("Invalid data. Please check your inputs.");
+        throw new ServerActionError(error.response?.data?.detail?.message);
       case 422: {
         const validationErrors = error.response?.data?.details || [];
         const errorMessages = validationErrors
@@ -155,6 +164,68 @@ export const register = createServerAction(async (email: string, password: strin
         throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
       }
     }
+  }
+});
+
+export const verifyEmail = createServerAction(async (token: string) => {
+  try {
+    const response = await apiClient.get(`${API_BASE_URLS.auth}/auth/verify-email?token=${token}`);
+
+    if (!response || !response.data || !response.data.is_verified) {
+      throw new ServerActionError("No data received from API.");
+    }
+
+    const decoded = jwtDecode(response.data.access_token);
+    const expirationDate = new Date(decoded.exp * 1000);
+
+
+    setServerCookie("accessToken", response.data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      expires: expirationDate
+    });
+
+    return response.data;
+  } catch (error: any) {
+    const status = error.response?.status;
+    console.log({ status, error })
+    let errorMessage;
+
+    switch (status) {
+      case 400:
+        errorMessage = error.response?.data?.detail?.message || "Invalid verification token";
+        throw new ServerActionError(errorMessage);
+      case 422:
+        {
+          const validationErrors = error.response?.data?.details || [];
+          const errorMessages = validationErrors
+            .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
+            .join(", ");
+          throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        }
+
+      default:
+        errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+        throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+    }
+  }
+});
+
+export const resendVerification = createServerAction(async (email: string) => {
+  try {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/resend-verification`, { email });
+
+    if (!response || !response.data) {
+      throw new ServerActionError("No data received from API.");
+    }
+
+    return response.data.message;
+  } catch (error: any) {
+    const status = error.response?.status;
+    console.log({ status, error })
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
   }
 });
 
@@ -310,6 +381,7 @@ export async function getUserInfo(): Promise<UserInfo> {
     }
 
     const decoded: any = jwtDecode(accessToken);
+
 
     const userId = decoded?.id;
     const userEmail = decoded?.sub;

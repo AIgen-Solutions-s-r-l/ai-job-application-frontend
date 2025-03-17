@@ -10,7 +10,7 @@ export const JobManagerHeader: FC = () => {
   const [mounted, setMounted] = useState(false);
 
   const isReady = Object.keys(applications).length > 0;
-    
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -18,10 +18,10 @@ export const JobManagerHeader: FC = () => {
   if (!isReady) {
     return (
       <Container className="flex flex-col gap-2 xl:gap-4 pt-2 xl:pt-4">
-        <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Apply</h1>
+        <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Submit Your Applications</h1>
         <h2 className='font-montserrat font-normal text-[18px]'>
           Your applications will appear here after we generate resume and cover letter for them.
-          <br/>
+          <br />
           Please wait for a while and refresh the page.
         </h2>
       </Container>
@@ -30,9 +30,9 @@ export const JobManagerHeader: FC = () => {
 
   return (
     <Container className="flex flex-col gap-2 xl:gap-4 pt-2 xl:pt-4">
-      <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Apply</h1>
-      <h2 className='font-montserrat font-normal text-[18px]'>Your resumes are updated. Your cover letters are created.
-        You can send all your applications now or go into each job’s detail and tweak your materials before sending out. Good luck ;)
+      <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Submit Your Applications</h1>
+      <h2 className='font-montserrat font-normal text-[18px]'>Your resumes have been personalized for each job application,
+        and your cover letters are ready. You can submit all your applications now or review each job to make final tweaks before sending. Good luck!
       </h2>
       <div className="flex gap-5 mt-2 xl:mt-4 -mb-10">
         <div className="w-full lg:w-[430px] h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">

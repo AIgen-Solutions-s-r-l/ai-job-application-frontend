@@ -66,11 +66,6 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
       icon: jobAppIcon,
       links: [
         {
-          name: 'Job Application History',
-          href: '/dashboard',
-          icon: CircleCheck,
-        },
-        {
           name: 'Job Search',
           href: '/search',
           icon: Search,
@@ -78,7 +73,12 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           jsx: JobSearchElement,
         },
         {
-          name: 'Review & Apply',
+          name: 'Applications History',
+          href: '/dashboard',
+          icon: CircleCheck,
+        },
+        {
+          name: 'Review & Submit Your Applications',
           href: '/manager',
           icon: Briefcase,
           className: 'text-red',
@@ -122,11 +122,10 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
               <li key={name}>
                 <Link
                   href={href}
-                  className={`flex items-center gap-2 p-2 mx-2 rounded-md ${
-                    pathname === href
-                      ? 'bg-neutral text-white'
-                      : 'hover:bg-base-300'
-                  }`}
+                  className={`flex items-center gap-2 p-2 mx-2 rounded-md ${pathname === href
+                    ? 'bg-neutral text-white'
+                    : 'hover:bg-base-300'
+                    }`}
                 >
                   <LinkIcon className='w-6 h-6' />
                 </Link>
@@ -167,11 +166,10 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
                 ) : (
                   <Link
                     href={href}
-                    className={`grow pl-3 py-2 font-semibold text-base underline hover:text-primary-deep-purple ${
-                      pathname === href
-                        ? 'no-underline flex bg-neutral-content rounded-md'
-                        : ''
-                    } ${className ? className : ''}`}
+                    className={`grow pl-3 py-2 font-semibold text-base underline hover:text-primary-deep-purple ${pathname === href
+                      ? 'no-underline flex bg-neutral-content rounded-md'
+                      : ''
+                      } ${className ? className : ''}`}
                     onClick={onClick}
                   >
                     <span>{name}</span>

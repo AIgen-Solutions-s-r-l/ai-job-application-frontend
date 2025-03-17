@@ -23,7 +23,7 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
             }
             if (user) {
                 if (user.exists && !Resume) {
-                    router.replace("/dashboard");
+                    router.replace("/search");
                 } else if (!user.exists && Resume) {
                     router.replace("/onboarding");
                 }

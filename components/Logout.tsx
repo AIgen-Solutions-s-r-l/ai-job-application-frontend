@@ -3,14 +3,17 @@
 import { useEffect } from "react";
 import { deleteServerCookie } from "@/libs/cookies";
 import { usePathname, useRouter } from "next/navigation";
+import { useUserContext } from "@/contexts/user-context";
 
 const Logout = () => {
+  const { setUser } = useUserContext();
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
     const handleSignOut = async () => {
       await deleteServerCookie("accessToken");
+      setUser(null);
       router.replace("/");
     };
     handleSignOut();

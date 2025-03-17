@@ -26,7 +26,6 @@ export default function UserContextProvider({ children }: { children: ReactNode 
     const getUserData = async () => {
         const accessToken = await getServerCookie('accessToken');
         if (accessToken) {
-
             try {
                 const [exists, me] = await Promise.all([
                     isResumeExits(),
@@ -34,6 +33,7 @@ export default function UserContextProvider({ children }: { children: ReactNode 
                 ]);
 
                 setUser({ ...exists, ...me });
+                console.log('this is me', user)
             } catch (error) {
                 console.error('Error fetching resume existence:', error);
             }

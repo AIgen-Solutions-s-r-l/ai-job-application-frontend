@@ -19,7 +19,7 @@ interface Props {
 }
 
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
-  isUnderline ? <u>{str}</u> : <p>{str}</p>;
+  !isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
 export const JobFeedList: FC<Props> = ({
   appliedJobs,

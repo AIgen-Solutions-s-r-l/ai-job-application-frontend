@@ -1,8 +1,8 @@
 export interface Resume {
-    personalInfo: ResumePersonalInformation;
-    educationDetails: ResumeEducationDetail[];
-    experienceDetails: ResumeExperienceDetail[];
-    additionalInfo: ResumeAdditionalInfo;
+  personalInfo: ResumePersonalInformation;
+  educationDetails: ResumeEducationDetail[];
+  experienceDetails: ResumeExperienceDetail[];
+  additionalInfo: ResumeAdditionalInfo;
 }
 
 export interface ResumePersonalInformation {
@@ -39,26 +39,26 @@ export interface Exam {
 export interface ResumeExperienceDetail {
   position: string;
   company: string;
-  employment_period: string; 
+  employment_period: string;
   location: string;
   industry: string;
-  key_responsibilities: string[]; 
-  skills_acquired: string[]; 
+  key_responsibilities: string[];
+  skills_acquired: string[];
 }
 
 export interface ResumeAdditionalInfo {
-  side_projects:        ResumeProjectDetails[];
-  achievements:         ResumeAchievement[];
-  certifications:       ResumeCertification[];
-  languages:            ResumeLanguage[];
-  interests:            string[];
-  additional_skills:    string[];
+  side_projects: ResumeProjectDetails[];
+  achievements: ResumeAchievement[];
+  certifications: ResumeCertification[];
+  languages: ResumeLanguage[];
+  interests: string[];
+  additional_skills: string[];
 }
 
 export interface ResumeProjectDetails {
   name: string;
   description: string;
-  link: string; 
+  link: string;
 }
 
 export interface ResumeAchievement {
@@ -78,6 +78,7 @@ export interface ResumeLanguage {
 
 export interface JobInfo {
   title: string
+  company_logo: string
   is_remote: string
   workplace_type: string
   posted_date: string

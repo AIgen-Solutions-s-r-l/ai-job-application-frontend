@@ -21,7 +21,7 @@ export const JobSearchBottomSheet: React.FC = () => {
   const handleApply = async () => {
     if (selectedJobs.length > 0) {
       const jobData = {
-        "jobs": selectedJobs,
+        "jobs": selectedJobs.map(job => job.id),
       }
 
       const formData = new FormData();

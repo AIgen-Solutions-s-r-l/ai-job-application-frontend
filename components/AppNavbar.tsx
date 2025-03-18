@@ -2,6 +2,7 @@
 
 import { JSX, FC } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Props = {
   slot?: JSX.Element;
@@ -29,8 +30,9 @@ const AppNavbar: FC<Props> = ({ slot }) => {
       aria-label='Navbar'
       className='flex items-center justify-between pt-2 pb-1 lg:pt-[55px] lg:pb-[25px]'
     >
-      <Image src='/laboro.png' alt='Logo' width={214} height={58} />
-
+      <Link href='/' >
+        <Image src='/laboro.png' alt='Logo' width={214} height={58} />
+      </Link>
       {slot}
     </div>
   );

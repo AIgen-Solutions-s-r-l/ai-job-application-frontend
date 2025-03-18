@@ -45,7 +45,7 @@ const Login = () => {
           ]);
 
           setUser({ ...exists, ...me });
-          router.replace(exists.exists ? '/dashboard' : '/onboarding');
+          router.replace(exists.exists ? '/search' : '/onboarding');
         } catch (error) {
           router.replace('/onboarding');
         }

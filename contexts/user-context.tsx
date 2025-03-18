@@ -22,11 +22,12 @@ const UserContext = createContext<UserContextType | null>(null);
 
 export default function UserContextProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(null);
 
     const getUserData = async () => {
-        const accessToken = await getServerCookie('accessToken');
-        if (accessToken) {
-
+        const token = await getServerCookie('accessToken');
+        setAccessToken(token);
+        if (token) {
             try {
                 const [exists, me] = await Promise.all([
                     isResumeExits(),
@@ -34,15 +35,18 @@ export default function UserContextProvider({ children }: { children: ReactNode 
                 ]);
 
                 setUser({ ...exists, ...me });
+                console.log('this is me', user)
             } catch (error) {
                 console.error('Error fetching resume existence:', error);
             }
+        } else {
+            setUser(null);
         }
     };
 
     useEffect(() => {
         getUserData();
-    }, []);
+    }, [accessToken]);
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

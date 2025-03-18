@@ -37,19 +37,16 @@ export default function AppSidenav() {
 
       {/* Drawer */}
       <div
-        className={`drawer-menu h-full shrink-0 fixed top-0 left-0- z-10 md:relative flex flex-col bg-base-100 z-40 transform ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out md:translate-x-0 overflow-y-auto ${
-          isOpen ? 'min-h-screen' : ''
-        } ${!isCollapse && `w-[${minWidth}px]`}`}
+        className={`drawer-menu h-full shrink-0 fixed top-0 left-0- z-10 md:relative flex flex-col bg-base-100 z-40 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } transition-transform duration-300 ease-in-out md:translate-x-0 overflow-y-auto ${isOpen ? 'min-h-screen' : ''
+          } ${!isCollapse && `w-[${minWidth}px]`}`}
       >
         {/* Collapse button */}
         <button
-          className={`hidden p-1 rounded-md hover:bg-base-300 ${
-            isCollapse
+          className={`hidden p-1 rounded-md hover:bg-base-300 ${isCollapse
               ? 'md:flex flex-col items-center py-4'
               : 'md:block absolute right-0 top-0'
-          }`}
+            }`}
           onClick={toggleCollapse}
         >
           {isCollapse ? <SquareChevronRight /> : <SquareChevronLeft />}
@@ -60,7 +57,7 @@ export default function AppSidenav() {
             className='page-header mb-[25px] pr-[3rem] p-3 md:p-0'
             href='/dashboard'
           >
-            Dashboard /
+            Dashboard
           </Link>
         )}
 

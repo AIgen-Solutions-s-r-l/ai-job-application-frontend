@@ -19,7 +19,7 @@ interface Props {
 }
 
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
-  isUnderline ? <u>{str}</u> : <p>{str}</p>;
+  !isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
 export const JobFeedList: FC<Props> = ({
   appliedJobs,
@@ -74,7 +74,7 @@ export const JobFeedList: FC<Props> = ({
             </span>
             <div>
               <span className='text-white text-lg'>
-                Your applications are being submitted to{' '}
+                Your applications successfully submitted to{' '}
               </span>
               <span className='text-white text-xl'>
                 {Object.keys(appliedJobs).length} companies.

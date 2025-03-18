@@ -13,6 +13,7 @@ export const Footer: FC = () => {
             <Link href='/' className='footer-link' >About Us</Link>
             <Link href='/' className='footer-link' >Our Team</Link>
             <Link href='/' className='footer-link' >Legal Center</Link>
+            <p className="font-jura font-bold">P.IVA: 04284191204</p>
           </div>
           <div className="col-span-1 md:col-span-2 xl:col-span-2 py-[12px] xl:py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >How it works</Link>

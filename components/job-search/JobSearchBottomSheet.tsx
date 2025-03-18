@@ -19,13 +19,11 @@ export const JobSearchBottomSheet: React.FC = () => {
   const [cvFile, setCVFile] = useState<File | null>(null);
 
   const handleApply = async () => {
+
     if (selectedJobs.length > 0) {
-      const jobData = {
-        "jobs": selectedJobs.map(job => job.id),
-      }
 
       const formData = new FormData();
-      formData.append('jobs', JSON.stringify(jobData));
+      formData.append('job_ids', JSON.stringify(selectedJobs.map(job => job.id)));
 
       if (generateTemplate) {
         formData.append('style', templateStyleByIndex[selectedTemplate]);

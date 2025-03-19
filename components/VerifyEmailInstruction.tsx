@@ -16,7 +16,7 @@ export const VerifyEmailInstruction = () => (
       </div>
 
       <div className='auth-form-footer'>
-        <Link href='/' className='text-primary'>
+        <Link href='/' className='btn text-primary'>
           to main page
         </Link>
       </div>

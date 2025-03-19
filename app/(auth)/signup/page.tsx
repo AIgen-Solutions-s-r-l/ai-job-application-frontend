@@ -38,7 +38,7 @@ const Signup = () => {
       const result = await sendRegister(email, password);
 
       if (result.success) {
-        toast.success('Logged in successfully!');
+        toast.success('Account created successfully! Please check your email to verify your account.');
         setRegistered(true);
       } else if (result.success == false) {
         toast.error(result.error || 'Failed to create account.');

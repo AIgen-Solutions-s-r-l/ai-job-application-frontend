@@ -27,11 +27,11 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       </div>
       <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company_name}</h3>
       <h3 className="font-montserrat font-normal text-base md:text-xl">{job.title}</h3>
-      <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {job.location} | {job.workplace_type}</p>
+      <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {`${job.city}, ${job.country}`} | {job.workplace_type}</p>
       <div className='flex gap-2 md:gap-4 my-1 lg:my-4'>
-        <div className='pill'>Remote</div>
-        <div className='pill'>Full-time</div>
-        <div className='pill'>English</div>
+        <div className='pill'>{job.skills_required[0]}</div>
+        <div className='pill'>{job.skills_required[1]}</div>
+        <div className='pill'>{job.skills_required[2]}</div>
       </div>
       <div
         className="line-clamp-5 text-sm md:text-base text-gray-600"

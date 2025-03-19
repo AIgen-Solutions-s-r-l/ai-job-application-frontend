@@ -93,9 +93,17 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const handleLocationSelect = (data: any) => {
     // get only params needs for JobSearchParams
     const { city, country } = data.address;
-    const { display_name, lat: latitude, lon: longitude } = data;
+    const { lat: latitude, lon: longitude } = data;
     // eslint-disable-next-line no-unused-vars
     const { location, ...searchParams } = getValues();
+
+    const county = data.address.city
+      ? `${data.address.city}, `
+      : data.address.village
+        ? `${data.address.village}, `
+        : data.address.town
+          ? `${data.address.town}, `
+          : '';
 
     reset({
       ...searchParams,
@@ -103,7 +111,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       country,
       latitude,
       longitude,
-      location: display_name,
+      location: `${county}${country}`
+      ,
     });
 
     setShowSuggestions(false);
@@ -162,16 +171,16 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                   >
                     {(() => {
                       const location = data.address.city
-                        ? `, ${data.address.city}`
+                        ? `${data.address.city}, `
                         : data.address.village
-                          ? `, ${data.address.village}`
+                          ? `${data.address.village}, `
                           : data.address.town
-                            ? `, ${data.address.town}`
+                            ? `${data.address.town}, `
                             : '';
                       return (
                         <>
                           <span className="text-neutral-500 text-sm ml-2">
-                            {`${data.address.country}${location}`}
+                            {`${location}${data.address.country}`}
                           </span>
                         </>
                       );

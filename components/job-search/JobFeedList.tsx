@@ -27,7 +27,7 @@ export const JobFeedList: React.FC = () => {
 
   return (
     <div className="w-full gap-5 bg-base-100 mb-20 py-3 lg:py-5">
-      <Container className="flex gap-5">
+      <Container className="flex gap-8">
         <div className="w-full lg:w-[430px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0">
           <div className="h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
             <p className='font-jura font-semibold text-[18px]'>Select All</p>

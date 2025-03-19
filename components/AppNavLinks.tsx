@@ -45,7 +45,7 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   const { slots } = useSidenavContext();
 
   const classMenuButton =
-    'grow font-semibold text-lg md:text-[18px] my-1 font-jura';
+    'grow font-semibold text-lg md:text-[18px] my-1 font-jura w-full';
 
   const JobSearchElement = (
     <button
@@ -65,13 +65,6 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
       title: 'Job Applications',
       icon: jobAppIcon,
       links: [
-        {
-          name: 'Job Search',
-          href: '/search',
-          icon: Search,
-          className: 'text-splash-green',
-          jsx: JobSearchElement,
-        },
         {
           name: 'Applications History',
           href: '/dashboard',
@@ -114,6 +107,15 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   return collapsed && width > 767 ? (
     // compact version menu's on small screen
     <nav className='flex flex-col md:gap-3'>
+      <div className="mb-3">
+        <Link
+          href="/search"
+          className={`flex items-center gap-2 p-2 mx-2 rounded-md ${pathname === '/search' ? 'bg-neutral text-white' : 'hover:bg-base-300'
+            }`}
+        >
+          <Search className='w-6 h-6' />
+        </Link>
+      </div>
       {navLinks.map(({ title, links }) => (
         <ul key={title} className='flex flex-col gap-3'>
           {links.map(({ href, icon, name }) => {
@@ -138,6 +140,9 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   ) : (
     // full version menu's
     <nav className='flex flex-col md:gap-3-'>
+      <div className="mb-3">
+        {JobSearchElement}
+      </div>
       {navLinks.map(({ id, title, icon, links }) => (
         <div
           key={title}

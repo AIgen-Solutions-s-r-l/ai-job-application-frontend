@@ -11,6 +11,7 @@ import {
   CreditCard,
   Settings,
   Briefcase,
+  LogOut,
 } from 'lucide-react';
 import { useWindowSize } from '@/lib/hooks';
 import { useSidenavContext } from '@/contexts/sidenav-context';
@@ -59,6 +60,18 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
     </button>
   );
 
+  const SignOutElement = (
+    <button
+      className={`my-btn-clear ${classMenuButton}`}
+      onClick={() => {
+        router.push('/logout');
+      }}
+    >
+      <Image src={ArrowLeft} alt='Arrow' />
+      <p>Sign Out</p>
+    </button>
+  );
+
   const navLinks: NavLink[] = [
     {
       id: 'JobApplications',
@@ -74,7 +87,6 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           name: 'Review & Submit Your Applications',
           href: '/manager',
           icon: Briefcase,
-          className: 'text-red',
         },
       ],
     },
@@ -89,7 +101,6 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
       title: 'Account',
       icon: accountIcon,
       links: [
-        // { name: 'Payment History', href: '#', icon: WalletCards },
         {
           name: 'Subscription',
           href: '/dashboard/subscription',
@@ -99,6 +110,18 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           name: 'Account Information',
           href: '/dashboard/settings',
           icon: Settings,
+        },
+      ],
+    },
+    {
+      id: 'SignOut',
+      title: null,
+      links: [
+        {
+          name: 'Sign Out',
+          href: '/signout',
+          icon: LogOut,
+          jsx: SignOutElement,
         },
       ],
     },
@@ -125,8 +148,8 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
                 <Link
                   href={href}
                   className={`flex items-center gap-2 p-2 mx-2 rounded-md ${pathname === href
-                    ? 'bg-neutral text-white'
-                    : 'hover:bg-base-300'
+                      ? 'bg-neutral text-white'
+                      : 'hover:bg-base-300'
                     }`}
                 >
                   <LinkIcon className='w-6 h-6' />
@@ -172,9 +195,9 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
                   <Link
                     href={href}
                     className={`grow pl-3 py-2 font-semibold text-base underline hover:text-primary-deep-purple ${pathname === href
-                      ? 'no-underline flex bg-neutral-content rounded-md'
-                      : ''
-                      } ${className ? className : ''}`}
+                        ? 'no-underline flex bg-neutral-content rounded-md'
+                        : ''
+                      }`}
                     onClick={onClick}
                   >
                     <span>{name}</span>
@@ -185,18 +208,6 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           </ul>
         </div>
       ))}
-
-      <div className='flex flex-col lg:px-0 py-1 md:pt-[30px] border-t-2 border-neutral-content'>
-        <button
-          className={`my-btn-clear ${classMenuButton}`}
-          onClick={() => {
-            router.push('/logout');
-          }}
-        >
-          <Image src={ArrowLeft} alt='Arrow' />
-          <p>Sign Out</p>
-        </button>
-      </div>
     </nav>
   );
 };

@@ -106,11 +106,11 @@ export const JobFeedList: FC<Props> = ({
         <div className='px-5 pt-5 flex justify-end items-center gap-1 z-10 bg-white'>
           Sort by:
           <button onClick={() => setSortBy('latest')}>
-            {underlineOrParagraph('Latest', sortBy === 'alphabetically')}
+            {underlineOrParagraph('Latest', sortBy === 'latest')}
           </button>
           |
           <button onClick={() => setSortBy('alphabetically')}>
-            {underlineOrParagraph('Alphabetically', sortBy === 'latest')}
+            {underlineOrParagraph('Alphabetically', sortBy === 'alphabetically')}
           </button>
         </div>
 

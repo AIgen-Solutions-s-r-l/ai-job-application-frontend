@@ -25,8 +25,8 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
         <p className="text-xs font-jura font-semibold">{job.score}% Match</p>
         <Info size={18} />
       </div>
-      <h3 className="font-montserrat font-normal text-base md:text-xl font-semibold">{job.company_name}</h3>
-      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.title}</h3>
+      <h3 className="font-montserrat font-normal text-base md:text-xl font-semibold">{job.title}</h3>
+      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company_name}</h3>
       <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {`${job.city}, ${job.country}`} | {job.workplace_type}</p>
       <div className='flex gap-2 md:gap-4 my-1 lg:my-4 flex-wrap'>
         {job.skills_required.length &&

@@ -16,16 +16,23 @@ import { Container } from '../Container';
 import { ButtonUnderline } from '../ButtonUnderline';
 import { ArrowLeftIcon, ArrowRightIcon } from '../AppIcons';
 import ChoseLocationModal from './ChooseLocationModal';
+import { useRouter } from 'next/navigation';
+import { fetchUserData } from '@/libs/api/auth';
+import { isResumeExits } from '@/libs/api/resume';
+import { useUserContext } from '@/contexts/user-context';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const { CVData, setCVData } = useCVDataContext();
   const [currentStep, setCurrentStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [defaultLocation, setDefaultLocation] = useState<string>('');
-  
+
   const methods = useForm({
     defaultValues: CVData,
   });
+
+  const router = useRouter();
+  const { setUser } = useUserContext();
 
   const validateStep = useCallback(async () => {
     let validateFields: any = [];
@@ -56,6 +63,11 @@ export const CreateResumeOnboarding: React.FC = () => {
 
       if (response.success) {
         toast.success("Profile saved successfully!");
+        const [exists, me] = await Promise.all([
+          isResumeExits(),
+          fetchUserData(),
+        ]);
+        setUser({ ...exists, ...me });
         setDefaultLocation(jobProfile.personalInfo.country)
         setIsModalOpen(true);
       } else {
@@ -123,9 +135,9 @@ export const CreateResumeOnboarding: React.FC = () => {
                 <ArrowRightIcon classname='fill-black' />
               </button>
             ) : (
-              <button 
-                className="my-btn-green gap-10 font-semibold text-[18px] font-jura" 
-                form='my-form' 
+              <button
+                className="my-btn-green gap-10 font-semibold text-[18px] font-jura"
+                form='my-form'
                 type="submit"
                 disabled={methods.formState.isSubmitting}
               >

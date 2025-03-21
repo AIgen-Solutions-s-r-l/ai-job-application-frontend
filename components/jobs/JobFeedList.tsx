@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import * as Tabs from '@radix-ui/react-tabs';
 import { JobDetail, JobsList } from '@/libs/definitions';
@@ -27,7 +27,29 @@ export const JobFeedList: FC<Props> = ({
   isLoading,
 }) => {
   const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
-  const [showCongarts, setShowCongarts] = useState<boolean>(true);
+  const [showCongarts, setShowCongarts] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    const nullDate = new Date();
+    // make array and fix null dates
+    const applied: JobDetail[] = Object.keys(appliedJobs)
+      .map((key) => appliedJobs[key])
+      .map(
+        (job) =>
+          ({ ...job, posted_date: job.posted_date ?? nullDate } as JobDetail)
+      );
+    const lastApplied = sortArrayByDate(applied, 'posted_date', 'desc').pop();
+    const lastAppliedDateSecond = Number(
+      lastApplied ? new Date(lastApplied.posted_date) : Date.now()
+    );
+    const lastCongratsDateSecond: number = Number(
+      localStorage.getItem('apply_congrats_date') ?? 0
+    );
+
+    setShowCongarts(lastCongratsDateSecond < lastAppliedDateSecond);
+  }, []);
 
   const jobs = useMemo(() => {
     const nullDate = new Date();
@@ -64,6 +86,7 @@ export const JobFeedList: FC<Props> = ({
       {!isLoading && showCongarts && !!Object.keys(appliedJobs).length && (
         <Alert
           onClose={() => {
+            localStorage.setItem('apply_congrats_date', String(Date.now()));
             setShowCongarts(false);
           }}
         >
@@ -110,7 +133,10 @@ export const JobFeedList: FC<Props> = ({
           </button>
           |
           <button onClick={() => setSortBy('alphabetically')}>
-            {underlineOrParagraph('Alphabetically', sortBy === 'alphabetically')}
+            {underlineOrParagraph(
+              'Alphabetically',
+              sortBy === 'alphabetically'
+            )}
           </button>
         </div>
 

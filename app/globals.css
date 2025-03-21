@@ -83,7 +83,7 @@ progress::-webkit-progress-value {
   }
 
   .pill {
-    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary rounded-full font-jura font-semibold whitespace-nowrap
+    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary rounded-full font-jura font-semibold grow
   }
   
   .pill-container {
@@ -191,6 +191,34 @@ progress::-webkit-progress-value {
     .drawer-menu.collapsed a > span {
       display: none;
     }
+  }
+
+  .auth-form-main {
+    @apply flex items-center justify-center min-h-screen bg-base-100 md:bg-base-200 font-montserrat
+  }
+
+  .auth-form-container {
+    @apply w-full md:max-w-lg px-4 md:p-10 space-y-6 card bg-base-100 border-none md:border-2
+  }
+
+  .auth-form-header {
+    @apply text-xl md:text-2xl font-semibold
+  }
+
+  .auth-form-form {
+    @apply space-y-4 font-jura
+  }
+
+  .auth-form-input {
+    @apply input input-bordered w-full
+  }
+
+  .auth-form-submit {
+    @apply btn btn-primary w-full text-white font-medium text-base
+  }
+
+  .auth-form-footer {
+    @apply flex flex-col space-y-2 text-xs md:text-sm mt-4
   }
 
   /* :root {

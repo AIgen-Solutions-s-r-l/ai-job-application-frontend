@@ -33,7 +33,7 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
 
   const handleJobSelect = (job: MatchingJob, e: React.MouseEvent) => {
     e.stopPropagation();
-    
+
     setSelectedJobs((prevSelected) => {
       if (prevSelected.some((j) => j.id === job.id)) {
         // Job is already selected, remove it
@@ -58,7 +58,7 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
       {children}
     </JobSearchContext.Provider>
   );
-} 
+}
 
 export function useJobSearch() {
   const context = useContext(JobSearchContext);

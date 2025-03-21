@@ -4,7 +4,6 @@ import { JobsList } from "../definitions";
 import { delay } from "../time";
 import { apiClientJwt, apiClientMultipart } from "./client";
 import API_BASE_URLS from "./config";
-import { failedJobsMockData, jobsMockData } from "@/components/jobs/jobsMockData";
 
 export async function fetchAppliedJobs(): Promise<any> {
   try {
@@ -43,36 +42,27 @@ export async function createJobApplication(formData: FormData): Promise<{ succes
 export async function getAppliedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
-    console.log('getJobApplications', response.data);
-
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting job applications', error);
-    return [];
+    return {};
   }
 }
 
 export async function getFailedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/fail_applied`)
-    console.log('getFailedJobApplications', response.data);
-
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting failed job applications', error);
-    return [];
+    return {};
   }
 }
 
 export async function getAppliedPendingApplications(): Promise<JobsList | any> {
   try {
-    const response = await apiClientJwt.get(`${API_BASE_URLS.pending}/pending_content`, {
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    return response.data as JobsList;
+    const response = await apiClientJwt.get(`${API_BASE_URLS.pending}/pending_content`);
+    return response.data.jobs as JobsList;
   } catch (error) {
     console.error("Error fetching pending applications:", error);
     throw new Error("Unable to fetch pending applications. Please try again later.");

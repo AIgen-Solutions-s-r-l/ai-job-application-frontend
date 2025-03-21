@@ -22,7 +22,7 @@ const Login = () => {
   const [emailMotVerified, setEmailMotVerified] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
-  const { setUser } = useUserContext();
+  const { setUser, setAccessToken } = useUserContext();
   const router = useRouter();
   const {
     register,
@@ -45,6 +45,7 @@ const Login = () => {
           ]);
 
           setUser({ ...exists, ...me });
+          setAccessToken(result.value.access_token);
           router.replace(exists.exists ? '/search' : '/onboarding');
         } catch (error) {
           router.replace('/onboarding');

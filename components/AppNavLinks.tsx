@@ -125,7 +125,7 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
       links: [
         {
           name: 'Sign Out',
-          href: '/signout',
+          href: '/logout',
           icon: LogOut,
           jsx: SignOutElement,
         },

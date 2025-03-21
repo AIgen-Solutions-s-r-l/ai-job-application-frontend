@@ -65,6 +65,5 @@ export async function getAppliedPendingApplications(): Promise<JobsList | any> {
     return response.data.jobs as JobsList;
   } catch (error) {
     console.error("Error fetching pending applications:", error);
-    throw new Error("Unable to fetch pending applications. Please try again later.");
   }
 }

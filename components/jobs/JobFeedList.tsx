@@ -17,6 +17,7 @@ interface Props {
   isLoading?: boolean;
 }
 
+
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
   isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
@@ -28,9 +29,9 @@ export const JobFeedList: FC<Props> = ({
 }) => {
   const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
   const [showCongarts, setShowCongarts] = useState<boolean>(true);
+
   const jobs = useMemo(() => {
     const nullDate = new Date();
-
     // Combine and process all jobs into a single array with status
     const allJobs = [
       ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({

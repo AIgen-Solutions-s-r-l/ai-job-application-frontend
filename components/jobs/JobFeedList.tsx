@@ -45,7 +45,7 @@ export const JobFeedList: FC<Props> = ({
       lastApplied ? new Date(lastApplied.posted_date) : Date.now()
     );
     const lastCongratsDateSecond: number = Number(
-      localStorage.getItem('apply_congrats_date') ?? 0
+      localStorage.getItem('last_congrats_datestamp') ?? 0
     );
 
     setShowCongarts(lastCongratsDateSecond < lastAppliedDateSecond);
@@ -86,7 +86,7 @@ export const JobFeedList: FC<Props> = ({
       {!isLoading && showCongarts && !!Object.keys(appliedJobs).length && (
         <Alert
           onClose={() => {
-            localStorage.setItem('apply_congrats_date', String(Date.now()));
+            localStorage.setItem('last_congrats_datestamp', String(Date.now()));
             setShowCongarts(false);
           }}
         >

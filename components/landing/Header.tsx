@@ -25,7 +25,7 @@ export const Header: FC = () => {
             <Image src={navLeftArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
             <p className='text-[14px] 2xl:text-[18px] font-light text-white leading-none'>Employers</p>
           </Link>
-          <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green rounded-[8px] md:rounded-[20px] gap-2' href={user ? '/dashboard' : '/signin'}>
+          <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green rounded-[8px] md:rounded-[20px] gap-2' href={user ? '/search' : '/signin'}>
             <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>{user && user.email ? user.email.split('@')[0] : 'Sign in'}</p>
             <Image src={navRightArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
           </Link>

@@ -53,6 +53,8 @@ module.exports = {
         popup: "popup 0.25s ease-in-out",
         shimmer: "shimmer 3s ease-out infinite alternate",
         float: 'float 3s ease-in-out infinite, rotate 3s ease-in-out infinite',
+        fadeIn: 'fadeIn 1s ease-out forwards',
+        scaleIn: 'scaleIn 1s ease-out forwards',
       },
       gap: {
         'form': '30px',
@@ -101,6 +103,14 @@ module.exports = {
         rotate: {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: ' rotate(180deg)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
         },
       },
     },

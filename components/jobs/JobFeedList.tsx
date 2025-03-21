@@ -28,7 +28,6 @@ export const JobFeedList: FC<Props> = ({
 }) => {
   const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
   const [showCongarts, setShowCongarts] = useState<boolean>(true);
-
   const jobs = useMemo(() => {
     const nullDate = new Date();
 
@@ -36,26 +35,26 @@ export const JobFeedList: FC<Props> = ({
     const allJobs = [
       ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
         ...pendingJobs[key],
-        posted_date: (pendingJobs[key].posted_date ?? nullDate).toString(),
-        status: 'Pending...' as const
+        posted_date: pendingJobs[key].posted_date || nullDate.toString(),
+        status: 'Pending'
       })) : []),
       ...(appliedJobs ? Object.keys(appliedJobs).map(key => ({
         ...appliedJobs[key],
-        posted_date: (appliedJobs[key].posted_date ?? nullDate).toString(),
-        status: 'Applied' as const
+        posted_date: appliedJobs[key].posted_date || nullDate.toString(),
+        status: 'Applied'
       })) : []),
       ...(failedJobs ? Object.keys(failedJobs).map(key => ({
         ...failedJobs[key],
-        posted_date: (failedJobs[key].posted_date ?? nullDate).toString(),
-        status: 'Failed' as const
+        posted_date: failedJobs[key].posted_date || nullDate.toString(),
+        status: 'Failed'
       })) : [])
     ];
 
     // Sort the combined array
     return {
       all: sortBy === 'latest'
-        ? sortArrayByDate(allJobs.filter(job => job.status === 'Pending...'), 'posted_date', 'desc')
-        : allJobs.filter(job => job.status === 'Pending...').toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
+        ? sortArrayByDate(allJobs, 'posted_date', 'desc')
+        : allJobs.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
     };
   }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
 
@@ -63,7 +62,7 @@ export const JobFeedList: FC<Props> = ({
     <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
       <p className='page-header'>Job Application History</p>
 
-      {showCongarts && !isLoading && (
+      {!isLoading && showCongarts && !!Object.keys(appliedJobs).length && (
         <Alert
           onClose={() => {
             setShowCongarts(false);
@@ -76,7 +75,7 @@ export const JobFeedList: FC<Props> = ({
             </span>
             <div>
               <span className='text-white text-lg'>
-                Your applications are being submitted to{' '}
+                Your applications successfully submitted to{' '}
               </span>
               <span className='text-white text-xl'>
                 {Object.keys(appliedJobs).length} companies.
@@ -86,37 +85,39 @@ export const JobFeedList: FC<Props> = ({
         </Alert>
       )}
 
-      <div className='px-5 pt-5 flex justify-end items-center gap-1 z-10 bg-white'>
-        Sort by:
-        <button onClick={() => setSortBy('latest')}>
-          {underlineOrParagraph('Latest', sortBy === 'alphabetically')}
-        </button>
-        |
-        <button onClick={() => setSortBy('alphabetically')}>
-          {underlineOrParagraph('Alphabetically', sortBy === 'latest')}
-        </button>
-      </div>
+      <div>
+        <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white'>
+          Sort by:
+          <button onClick={() => setSortBy('latest')}>
+            {underlineOrParagraph('Latest', sortBy === 'latest')}
+          </button>
+          |
+          <button onClick={() => setSortBy('alphabetically')}>
+            {underlineOrParagraph('Alphabetically', sortBy === 'alphabetically')}
+          </button>
+        </div>
 
-      <div className={typography.tabs.content}>
-        {isLoading ? (
-          <>
-            <JobCardSkeleton />
-            <JobCardSkeleton />
-            <JobCardSkeleton />
-          </>
-        ) : (
-          jobs.all.length ? (
-            jobs.all.map((job, key) => (
-              <JobCard job={job} status={job.status} key={key} />
-            ))
+        <div className={typography.tabs.content}>
+          {isLoading ? (
+            <>
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+            </>
           ) : (
-            <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
-              <p className='font-montserrat font-medium text-base xl:text-lg'>
-                You don&apos;t have any applications
-              </p>
-            </div>
-          )
-        )}
+            jobs.all.length ? (
+              jobs.all.map((job, key) => (
+                <JobCard job={job} status={job.status} key={key} />
+              ))
+            ) : (
+              <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
+                <p className='font-montserrat font-medium text-base xl:text-lg'>
+                  You don&apos;t have any applications
+                </p>
+              </div>
+            )
+          )}
+        </div>
       </div>
     </div>
   );

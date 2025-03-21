@@ -28,7 +28,7 @@ const AppButtonAccount = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const pathname = usePathname();
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   useEffect(() => {
     if (user) {
@@ -38,7 +38,7 @@ const AppButtonAccount = () => {
 
   const handleSignOut = async () => {
     await deleteServerCookie("accessToken");
-    localStorage.removeItem("email"); // Eliminar también el email al cerrar sesión
+    setUser(null);
     window.location.href = "/";
   };
 

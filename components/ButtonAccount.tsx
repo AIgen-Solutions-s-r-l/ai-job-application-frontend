@@ -27,7 +27,7 @@ const ButtonAccount = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(null);
   const pathname = usePathname();
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   useEffect(() => {
     if (user) {
@@ -37,7 +37,8 @@ const ButtonAccount = () => {
 
   const handleSignOut = async () => {
     await deleteServerCookie("accessToken");
-    localStorage.removeItem("username"); // Eliminar también el username al cerrar sesión
+    setUsername(null);
+    setUser(null);
     window.location.href = "/";
   };
 

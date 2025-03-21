@@ -24,8 +24,8 @@ export const Automate: React.FC = () => {
     offset: ["start center", "center end"]
   });
 
-  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['5%', '96%', '96%', '-4%', '-4%', '45%', '45%']);
-  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], [-10, -10, 85, 85, 160, 160, 210]);
+  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['5%', '96%', '96%', '-3%', '-3%', '46%', '46%']);
+  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['0%', '0%', '30%', '30%', '55%', '55%', '75%']);
 
   const calculateEyePosition = () => {
     if (!eyeBall.current || !eyeContainer.current) return { x: 0, y: 0 };

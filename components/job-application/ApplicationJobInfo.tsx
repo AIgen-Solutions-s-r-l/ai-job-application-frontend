@@ -16,6 +16,8 @@ export const ApplicationJobInfo: FC<Props> = ({
   job,
   goBack,
 }) => {
+
+  console.log(job);
   return (
     <>
       <div
@@ -28,14 +30,25 @@ export const ApplicationJobInfo: FC<Props> = ({
           <div className='flex flex-col gap-3 leading-none'>
             <h3 className='text-[22px] font-medium'>{job.title}</h3>
             <p className='text-md'>{job.portal}</p>
-            <p className='text-md'>{job.apply_link}</p>
           </div>
-          <div className='w-[144px] h-[60px] bg-neutral-content flex items-center justify-center'>
-            Logo
-          </div>
+          {job.company_logo && (
+            <div className='w-[160px] h-[80px]'>
+              <img
+                src={job.company_logo}
+                alt='Logo'
+                className='w-full h-full object-contain'
+              />
+            </div>
+          )}
         </div>
         <div className='mt-5 flex-1 overflow-y-auto'>
-          <p className='text-md font-light'>{job.description}</p>
+          <p className='text-md font-light'>
+            {job.description.split('\n').map((line, index) => (
+              line.trim() ? (
+                <p key={index} className="mb-2">{line}</p>
+              ) : null
+            ))}
+          </p>
         </div>
       </div>
       <JobButtomSheet className='flex-none items-center justify-between'>

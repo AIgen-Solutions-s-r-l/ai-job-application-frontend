@@ -18,34 +18,32 @@ export const JobSearchBottomSheet: React.FC = () => {
   const router = useRouter();
   const [cvFile, setCVFile] = useState<File | null>(null);
 
-  const handleApply = async () => {    
+  const handleApply = async () => {
+
     if (selectedJobs.length > 0) {
-      const jobData = {
-        "jobs": selectedJobs,
-      }
-  
+
       const formData = new FormData();
-      formData.append('jobs', JSON.stringify(jobData));
-  
+      formData.append('job_ids', JSON.stringify(selectedJobs.map(job => job.id)));
+
       if (generateTemplate) {
         formData.append('style', templateStyleByIndex[selectedTemplate]);
       } else {
         formData.append('cv', cvFile);
       }
-      
+
       for (const pair of formData.entries()) {
         console.log("Form Data: ", pair[0], pair[1]);
       }
-      
+
       try {
         const response = await addJobsToManager(formData);
         if (response.success) {
-          toast.success("Application submitted!\nIt will be added to job manager soon.", {
+          toast.success("Your application will be added to job manager soon", {
             duration: 10000,
           });
           router.push('/manager')
-        } 
-      } catch (error) { 
+        }
+      } catch (error) {
         console.error("Error submitting profile:", error);
         toast.error("Failed to submit application.");
       }

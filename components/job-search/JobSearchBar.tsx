@@ -28,7 +28,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const { jobs } = useJobSearch();
 
   const router = useRouter();
-  
+
   const onSearch = (searchProps: JobSearchProps) => {
     const params = new URLSearchParams();
 
@@ -41,25 +41,25 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
   const onSubmit = () => {
     const { q, location, country, city, latitude, longitude } = getValues();
-  
+
     const cleanParams: JobSearchProps = {
       q,
       location
     };
-    
+
     if (country) {
       cleanParams.country = country;
     }
-    
+
     if (city && city !== 'undefined') {
       cleanParams.city = city;
-      
+
       if (latitude && longitude) {
         cleanParams.latitude = latitude;
         cleanParams.longitude = longitude;
       }
     }
-    
+
     onSearch(cleanParams);
   };
 
@@ -73,7 +73,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       if (e.target.value.length > 3) {
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
-
           setDataArray(response);
         }, 200);
         setSearchTimeout(timeoutId);
@@ -94,9 +93,17 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const handleLocationSelect = (data: any) => {
     // get only params needs for JobSearchParams
     const { city, country } = data.address;
-    const { display_name, lat: latitude, lon: longitude } = data;
+    const { lat: latitude, lon: longitude } = data;
     // eslint-disable-next-line no-unused-vars
     const { location, ...searchParams } = getValues();
+
+    const county = data.address.city
+      ? `${data.address.city}, `
+      : data.address.village
+        ? `${data.address.village}, `
+        : data.address.town
+          ? `${data.address.town}, `
+          : '';
 
     reset({
       ...searchParams,
@@ -104,7 +111,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       country,
       latitude,
       longitude,
-      location: display_name,
+      location: `${county}${country}`
+      ,
     });
 
     setShowSuggestions(false);
@@ -145,7 +153,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               <input
                 type='text'
                 id='location'
-                placeholder='City, state, or remote'
+                placeholder='City or Country'
                 {...register('location', {
                   onChange: onLocationChange,
                 })}
@@ -161,7 +169,22 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                     onClick={() => handleLocationSelect(data)}
                     className='w-full box-border flex items-center px-10 py-1 hover:text-blue-500 cursor-pointer'
                   >
-                    {data.display_name}
+                    {(() => {
+                      const location = data.address.city
+                        ? `${data.address.city}, `
+                        : data.address.village
+                          ? `${data.address.village}, `
+                          : data.address.town
+                            ? `${data.address.town}, `
+                            : '';
+                      return (
+                        <>
+                          <span className="text-neutral-500 text-sm ml-2">
+                            {`${location}${data.address.country}`}
+                          </span>
+                        </>
+                      );
+                    })()}
                   </div>
                 ))}
               </div>

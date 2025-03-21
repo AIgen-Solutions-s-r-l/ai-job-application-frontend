@@ -37,15 +37,9 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
           </>
         }
       </div>
-      <div
+      <p
         className="line-clamp-5 text-sm md:text-base text-gray-600"
-        dangerouslySetInnerHTML={{
-          __html: job.description
-            .replace(/\n\n+/g, '</p><p class="mb-2">')
-            .replace(/\n/g, '<br />')
-            .replace(/^(.+)$/, '<p class="mb-2">$1</p>')
-        }}
-      />
+      >{job.short_description}</p>
       <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleJobSelect(job, e)}>
         {selectedJobs.some((j) => j.id === job.id) && <Check size={24} />}
       </div>

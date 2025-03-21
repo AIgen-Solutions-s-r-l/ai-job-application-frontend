@@ -45,11 +45,7 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
         <div className='pill'>English</div>
       </div>
       <p className="line-clamp-4 font-jura text-[16px] font-semibold leading-[110%] tracking-[-0.352px] mt-2 lg:mt-0">
-        {job.description.split('\n').map((line, index) => (
-          line.trim() ? (
-            <p key={index} className="mb-2">{line}</p>
-          ) : null
-        ))}</p>
+        {job.short_description}</p>
       <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
         {mounted && isSelected && <Check size={24} />}
       </div>

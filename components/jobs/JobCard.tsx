@@ -44,7 +44,7 @@ export const JobCard: FC<Props> = ({ job, status }) => {
           )}
         </div>
         <p className='line-clamp-5 leading-tight border-l border-neutral-content px-8'>
-          {job.description}
+          {job.short_description}
         </p>
       </div>
     </article>

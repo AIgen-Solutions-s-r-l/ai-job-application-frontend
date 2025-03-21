@@ -49,16 +49,16 @@ export const JobCard: FC<Props> = ({ job, status }) => {
       <div className='flex gap-3'>
         <div className='flex flex-col justify-between text-sm shrink-0 grow-0 w-[100px]'>
           <p className={`px-2 py-1 rounded-md text-center ${getStatusColor(status)}`}>{status}</p>
-          {job.posted_date ? (
+          {/* {job.posted_date ? (
             <div>
               <p>Sent on</p>
               <p className='whitespace-nowrap'>
                 {date.toLocaleDateString(undefined, dateOptions)}
               </p>
             </div>
-          ) : (
-            <>&nbsp;</>
-          )}
+          ) : ( */}
+          <>&nbsp;</>
+          {/* )} */}
         </div>
         <p className='line-clamp-5 leading-tight border-l border-neutral-content px-8'>
           {job.short_description}

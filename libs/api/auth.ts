@@ -329,7 +329,7 @@ export async function changePassword(current_password: string, new_password: str
 
 export async function changeEmail(username: string, current_password: string, new_email: string,): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/email`, {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/change-email`, {
       current_password,
       new_email,
     });

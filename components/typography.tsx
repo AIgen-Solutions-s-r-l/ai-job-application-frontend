@@ -3,7 +3,7 @@ export const typography = {
     list: 'flex text-lg gap-2 w-full',
     trigger:
       'px-[30px] py-4 bg-neutral-content rounded-t-md data-[state=active]:bg-white flex justify-start items-center gap-1 last:grow',
-    content: 'px-5 py-6 bg-white flex flex-col gap-4',
+    content: 'px-5 py-6 bg-white flex flex-col gap-4 rounded-lg',
   },
   forms: {
     container: 'col-span-2 rounded-lg shadow bg-white p-6',

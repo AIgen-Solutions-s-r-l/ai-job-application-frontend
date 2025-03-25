@@ -1,4 +1,3 @@
-import { createClient } from "@/libs/supabase/server";
 import { CVType, JobProfile, MatchingJob, JobSearchParams, JobsList, PendingApplicationRecord } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./utils/job-profile-util";
@@ -6,6 +5,8 @@ import { fetchMatchingJobs } from "./api/matching";
 import { fetchAppliedJobs } from "./api/application";
 import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
 import { DetailedPendingApplication } from "./types/response-application.types";
+import { ServerActionResult } from "./action-utils";
+import { getBalance } from "./api/auth";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -303,5 +304,15 @@ export async function getAppliedJobsData(): Promise<JobsList> {
   } catch (error) {
     console.error("Error fetching applied jobs from API:", error);
     return {};
+  }
+}
+
+export const fetchBalanceData = async (): Promise<ServerActionResult<number>> => {
+  try {
+    const response = await getBalance();
+    return { success: true, value: response.balance };
+  } catch (error) {
+    console.error("Error fetching user balance:", error);
+    return { success: false, error: error.message };
   }
 }

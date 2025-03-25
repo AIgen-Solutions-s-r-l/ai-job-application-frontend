@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { LandingContainer } from './LandingContainer';
 import Link from 'next/link';
 import Image from 'next/image';
-import { InstagramIcon, LinkedinIcon, TwitterIcon } from '../AppIcons';
+import { InstagramIcon, LinkedinIcon } from '../AppIcons';
 
 export const Footer: FC = () => {
   return (
@@ -21,15 +21,11 @@ export const Footer: FC = () => {
           </div>
           <div className="col-span-2 md:col-span-1 xl:col-span-3 py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >Contact Us</Link>
-            <Link href='/' className='footer-link' >Join our Discord</Link>
-            <div className="flex gap-4 text-white">
-              <Link href='' className="footer-social-container">
-                <TwitterIcon classname='footer-social-icon' />
-              </Link>
-              <Link href='' className="footer-social-container">
+            <div className="flex xl:mt-[20px] gap-6 text-white">
+              <Link href='https://www.instagram.com/interview_scouter/' className="footer-social-container">
                 <InstagramIcon classname='footer-social-icon' />
               </Link>
-              <Link href='' className="footer-social-container">
+              <Link href='https://www.linkedin.com/company/joinlaboro/posts/' className="footer-social-container">
                 <LinkedinIcon classname='footer-social-icon' />
               </Link>
             </div>

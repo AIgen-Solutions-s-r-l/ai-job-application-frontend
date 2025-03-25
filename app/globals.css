@@ -83,7 +83,7 @@ progress::-webkit-progress-value {
   }
 
   .pill {
-    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary rounded-full font-jura font-semibold grow
+    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary rounded-full font-jura font-semibold
   }
   
   .pill-container {

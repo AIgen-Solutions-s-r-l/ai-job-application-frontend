@@ -63,7 +63,7 @@ export const JobFeedList: FC<Props> = ({
     <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
       <p className='page-header'>Job Application History</p>
 
-      {!isLoading && showCongarts && !!Object.keys(appliedJobs).length && (
+      {!isLoading && showCongarts && appliedJobs.length && (
         <Alert
           onClose={() => {
             setShowCongarts(false);
@@ -87,7 +87,7 @@ export const JobFeedList: FC<Props> = ({
       )}
 
       <div>
-        <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white'>
+        {/* <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
           Sort by:
           <button onClick={() => setSortBy('latest')}>
             {underlineOrParagraph('Latest', sortBy === 'latest')}
@@ -96,7 +96,7 @@ export const JobFeedList: FC<Props> = ({
           <button onClick={() => setSortBy('alphabetically')}>
             {underlineOrParagraph('Alphabetically', sortBy === 'alphabetically')}
           </button>
-        </div>
+        </div> */}
 
         <div className={typography.tabs.content}>
           {isLoading ? (

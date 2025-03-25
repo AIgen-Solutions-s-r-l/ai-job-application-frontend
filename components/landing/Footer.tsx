@@ -13,7 +13,6 @@ export const Footer: FC = () => {
             <Link href='/' className='footer-link' >About Us</Link>
             <Link href='/' className='footer-link' >Our Team</Link>
             <Link href='/' className='footer-link' >Legal Center</Link>
-            <p className="font-jura font-bold text-white">P.IVA: 04284191204</p>
           </div>
           <div className="col-span-1 md:col-span-2 xl:col-span-2 py-[12px] xl:py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >How it works</Link>
@@ -45,8 +44,9 @@ export const Footer: FC = () => {
             <p className="text-[16px] md:text-[20px] xl:text-[24px] font-medium text-white font-montserrat md:ml-[10px] xl:ml-[24px] mt-[12px] xl:mt-[22px]">AI-automated Job Applications</p>
           </div>
         </div>
-
-        <p className="mt-[40px] xl:mt-[104px] px-[12px] md:text-center font-jura text-[12px] font-semibold text-my-neutral-4">All Rights Reserved. Copyrights 2025</p>
+        <p className="mt-[40px] xl:mt-[80px] px-[12px] md:text-center font-jura text-[14px] font-semibold text-my-neutral-4">Via Guglielmo Marconi, 45, 40122 Bologna BO</p>
+        <p className="mt-[40px] xl:mt-[10px] px-[12px] md:text-center font-jura text-[14px] font-semibold text-my-neutral-4">P.IVA: 04284191204</p>
+        <p className="mt-[40px] xl:mt-[40px] px-[12px] md:text-center font-jura text-[12px] font-semibold text-my-neutral-4">All Rights Reserved. Copyrights 2025</p>
       </LandingContainer>
     </footer>
   );

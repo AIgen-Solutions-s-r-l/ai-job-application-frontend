@@ -85,7 +85,7 @@ export const FAQ: FC = () => {
         <div className="bg-my-neutral-2 border-t-[25px] border-b-[25px] border-primary-light-purple-gray rounded-xl">
           {accordionItems.map(item => (
             <div key={item.id} className="collapse my-collapse-plus border-t border-b rounded-none border-primary-light-purple-gray">
-              <input type="radio" name="my-accordion-3" defaultChecked={item.id == 1 ? true : false} />
+              <input type="radio" name="my-accordion-3" />
               <div className="collapse-title">{item.question}</div>
               <div className="collapse-content">
                 <p>{item.answer}</p>

@@ -63,7 +63,7 @@ export async function updateApplicationResume(id: string, data: any): Promise<{ 
   try {
     const response = await apiClientJwt.put(`${API_BASE_URLS.pending}/update_application/resume_optimized/${id}`, data, {
       headers: {
-      Accept: "application/json",
+        Accept: "application/json",
       }
     })
 
@@ -78,7 +78,7 @@ export async function updateApplicationResume(id: string, data: any): Promise<{ 
       return { success: false, error: "Resume creation failed" };
     }
 
-    return { success: true};
+    return { success: true };
   } catch (error) {
     console.error(`Error updating job profile: ${data}`, error);
     return { success: false, error: error.message };
@@ -89,7 +89,7 @@ export async function updateApplicationLetter(id: string, data: any): Promise<{ 
   try {
     const response = await apiClientJwt.put(`${API_BASE_URLS.pending}/update_application/cover_letter/${id}`, data, {
       headers: {
-      Accept: "application/json",
+        Accept: "application/json",
       }
     })
 
@@ -104,7 +104,7 @@ export async function updateApplicationLetter(id: string, data: any): Promise<{ 
       return { success: false, error: "Resume creation failed" };
     }
 
-    return { success: true};
+    return { success: true };
   } catch (error) {
     console.error(`Error updating job profile: ${data}`, error);
     return { success: false, error: error.message };

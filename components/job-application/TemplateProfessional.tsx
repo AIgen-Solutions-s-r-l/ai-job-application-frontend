@@ -58,9 +58,9 @@ export const TemplateProfessional: FC<Props> = ({
         <div className='w-full lg:w-[940px] mx-auto mt-5 mb-[80px] px-10'>
           <p className='font-montserrat text-base md:text-lg xl:text-xl font-medium text-black'>You have applied with your own resume</p>
         </div>
-      <JobButtomSheet className='flex-none items-center justify-between'>
-        <ButtonUnderline title='Go Back' handleClick={goBack} />
-      </JobButtomSheet>
+        <JobButtomSheet className='flex-none items-center justify-between'>
+          <ButtonUnderline title='Go Back' handleClick={goBack} />
+        </JobButtomSheet>
       </>
     )
   }

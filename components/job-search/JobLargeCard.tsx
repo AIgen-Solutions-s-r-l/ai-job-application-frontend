@@ -32,11 +32,15 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
 
         <h3 className="text-[20px] font-montserrat font-normal">{job.title}</h3>
         <div className="flex items-center justify-between gap-3 leading-none">
-          <p className="flex items-center gap-3 text-[18px] font-jura font-semibold"><Image src={Pin} alt='Pin' />{job.location} | {job.workplace_type}</p>
+          <p className="flex items-center gap-3 text-[18px] font-jura font-semibold"><Image src={Pin} alt='Pin' />{`${job.city}, ${job.country}`} | {job.workplace_type}</p>
           <div className='flex gap-4'>
-            <div className='text-center text-white px-3 py-[3px] xl:py-3 xl:px-5 flex-grow bg-primary rounded-[40px] font-jura font-semibold'>Remote</div>
-            <div className='text-center text-white px-3 py-[3px] xl:py-3 xl:px-5 flex-grow bg-primary rounded-[40px] font-jura font-semibold'>Full-time</div>
-            <div className='text-center text-white px-3 py-[3px] xl:py-3 xl:px-5 flex-grow bg-primary rounded-[40px] font-jura font-semibold'>English</div>
+            {job.skills_required.length &&
+              <>
+                <div className='pill'>{job.skills_required[0]}</div>
+                <div className='pill'>{job.skills_required[1]}</div>
+                <div className='pill'>{job.skills_required[2]}</div>
+              </>
+            }
           </div>
         </div>
       </div>
@@ -49,13 +53,13 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           ))}
         </div>
       </div>
-      <Link
+      {/* <Link
         href={job.apply_link}
         target='_blank'
         className='font-jura text-sm xl:text-[18px] leading-none px-3 py-2 xl:px-6 xl:py-4 border border-neutral-cold-1 bg-white rounded-[20px] hover:bg-primary hover:text-white transition-colors ease-in duration-200'
       >
         View Original Job Post
-      </Link>
+      </Link> */}
     </div>
   );
 };

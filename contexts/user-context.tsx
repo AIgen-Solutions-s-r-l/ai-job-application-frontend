@@ -41,21 +41,21 @@ export default function UserContextProvider({
 
     const handleStartInterval = async () => {
       const { exp } = await decodeToken(accessToken);
-      const TokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
+      const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
 
       timeout = setTimeout(async () => {
         const { access_token } = await refreshToken();
         setAccessToken(access_token);
 
-        //   console.log('token updated', new Date().toLocaleString(), {
-        //     accessToken,
-        //     interval: timeout,
-        //   });
-      }, (TokenValiditySeconds - 60) * 1000);
+        console.log('token updated', new Date().toLocaleString(), {
+          accessToken,
+          interval: timeout,
+        });
+      }, (tokenValiditySeconds - 60) * 1000);
 
       //   console.log(
       //     `timeout (${timeout}) started for refresh token after ${
-      //       TokenValiditySeconds - 60
+      //         tokenValiditySeconds - 60
       //     } sec`
       //   );
     };
@@ -86,7 +86,7 @@ export default function UserContextProvider({
         const newUserData = { ...exists, ...me };
         setUser(newUserData);
 
-        console.log('this is me', newUserData);
+        // console.log('this is me', newUserData);
       } catch (error) {
         console.error('Error fetching resume existence:', error);
       }

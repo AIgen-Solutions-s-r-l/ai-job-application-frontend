@@ -111,7 +111,7 @@ export const ProfilePersonalInformation: FC = () => {
               {...register('personalInfo.email', {
                 required: 'Email is required',
                 pattern: {
-                  value: /^[a-zA-Z0-9.]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+                  value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
                   message: 'Invalid email address',
                 },
               })}

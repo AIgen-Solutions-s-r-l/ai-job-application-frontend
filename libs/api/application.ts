@@ -43,7 +43,7 @@ export async function createJobApplication(formData: FormData): Promise<{ succes
 export async function getAppliedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/applied`)
-    console.log('getJobApplications', response.data);
+    // console.log('getJobApplications', response.data);
 
     return response.data as JobsList;
   } catch (error) {
@@ -55,7 +55,7 @@ export async function getAppliedJobApplications(): Promise<JobsList | any> {
 export async function getFailedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/fail_applied`)
-    console.log('getFailedJobApplications', response.data);
+    // console.log('getFailedJobApplications', response.data);
 
     return response.data as JobsList;
   } catch (error) {

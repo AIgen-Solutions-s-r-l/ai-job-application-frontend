@@ -250,7 +250,7 @@ export async function resetPasswordForEmail(email: string): Promise<{ success: b
 
 export async function resetPassword(new_password: string, token: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/reset-password`, {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/password-reset`, {
       token,
       new_password,
     });

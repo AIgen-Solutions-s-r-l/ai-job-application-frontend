@@ -12,7 +12,7 @@ type Props = {
 
 export const ButtonApply: FC<Props> = ({ title, handleApply, disabled }) => (
   <button
-    className='my-btn-green gap-8 font-semibold text-sm md:text-[18px] font-jura'
+    className='my-btn-green gap-8 font-semibold text-sm md:text-[18px] font-jura cursor-pointer'
     onClick={handleApply}
     disabled={disabled}
   >

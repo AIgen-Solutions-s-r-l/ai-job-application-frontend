@@ -35,7 +35,6 @@ export default function UserContextProvider({ children }: { children: ReactNode 
                 ]);
 
                 setUser({ ...exists, ...me });
-                console.log('this is me', user)
             } catch (error) {
                 console.error('Error fetching resume existence:', error);
             }

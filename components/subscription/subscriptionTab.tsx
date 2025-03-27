@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 // Icons and images
-import { CartIcon, MasterCardIcon } from "@/components/AppIcons";
+import { CartIcon } from "@/components/AppIcons";
 
 // Components
 import SliderInput from "./sliderInput";
@@ -14,6 +14,7 @@ import { getUserInfo, addCredits } from "@/libs/api/auth";
 
 // Importamos la configuración central
 import config from "@/config";
+import { MasterCardIcon } from "../AppIconsWithImages";
 
 function SubscriptionTab() {
   const [sliderValue, setSliderValue] = useState(2); // Default at index 2 (500 credits)

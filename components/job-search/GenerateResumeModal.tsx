@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import CloseButton from "../svgs/CloseBtn.svg";
+import { CloseButtonIcon } from "@/components/AppIcons";
 import Template1 from '../svgs/template1.svg';
 import Template2 from '../svgs/template2.svg';
 import Template3 from '../svgs/template3.svg';
@@ -113,7 +113,7 @@ const GenerateResumeModal = ({
                                         className="outline-none"
                                         onClick={handleCancel}
                                     >
-                                        <Image src={CloseButton} alt='close button' />
+                                        <CloseButtonIcon />
                                     </button>
                                 </div>
                                 <section className="pb-5 px-6">

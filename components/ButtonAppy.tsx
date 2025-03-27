@@ -1,8 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import Image from 'next/image';
-import Arrow from '@/components/svgs/Arrow.svg';
+import { ArrowRightIcon } from '@/components/AppIcons';
 
 type Props = {
   title: string;
@@ -17,6 +16,6 @@ export const ButtonApply: FC<Props> = ({ title, handleApply, disabled }) => (
     disabled={disabled}
   >
     <p>{title}</p>
-    <Image src={Arrow} alt='Arrow' className='hidden md:block' />
+    <ArrowRightIcon classname='fill-black hidden md:block' />
   </button>
 );

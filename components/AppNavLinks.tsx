@@ -1,9 +1,8 @@
 'use client';
 
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import {
   Search,
   Users,
@@ -13,18 +12,20 @@ import {
   Briefcase,
   LogOut,
 } from 'lucide-react';
+import {
+  AccountIcon,
+  ArrowLeftIcon,
+  JobAppIcon,
+  MagniferIcon,
+  ProfileIcon,
+} from '@/components/AppIcons';
 import { useWindowSize } from '@/lib/hooks';
 import { useSidenavContext } from '@/contexts/sidenav-context';
-import Magnifer from '@/components/svgs/Magnifier.svg';
-import jobAppIcon from '@/components/svgs/JobApp.svg';
-import profileIcon from '@/components/svgs/Profile.svg';
-import accountIcon from '@/components/svgs/Account.svg';
-import ArrowLeft from '@/components/svgs/ArrowLeft.svg';
 
 type NavLink = {
   id: string; // for detecting slot position
-  title: string;
-  icon?: any;
+  jsx?: React.JSX.Element;
+  className?: string;
   links: {
     name: string;
     href: string;
@@ -48,35 +49,41 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   const classMenuButton =
     'grow font-semibold text-lg md:text-[18px] my-1 font-jura w-full';
 
-  const JobSearchElement = (
-    <button
-      className={`my-btn-green ${classMenuButton}`}
-      onClick={() => {
-        router.push('/search');
-      }}
-    >
-      <p>Job Search</p>
-      <Image src={Magnifer} alt='Magnifer' />
-    </button>
-  );
-
-  const SignOutElement = (
-    <button
-      className={`my-btn-clear ${classMenuButton}`}
-      onClick={() => {
-        router.push('/logout');
-      }}
-    >
-      <Image src={ArrowLeft} alt='Arrow' />
-      <p>Sign Out</p>
-    </button>
-  );
+  const classBlockHeader = 'flex items-center gap-3 pl-3';
 
   const navLinks: NavLink[] = [
     {
+      id: 'JobSearch',
+      className: 'py-1 md:py-5',
+      links: [
+        {
+          name: 'Job Search',
+          href: '/search',
+          icon: Search,
+          jsx: (
+            <button
+              className={`my-btn-green ${classMenuButton}`}
+              onClick={() => {
+                router.push('/search');
+              }}
+            >
+              <p>Job Search</p>
+              <MagniferIcon />
+            </button>
+          ),
+        },
+      ],
+    },
+    {
       id: 'JobApplications',
-      title: 'Job Applications',
-      icon: jobAppIcon,
+      jsx: (
+        <span className={classBlockHeader}>
+          <JobAppIcon />
+          <h2 className='text-xl font-medium text-primary-deep-purple'>
+            Job Applications
+          </h2>
+        </span>
+      ),
       links: [
         {
           name: 'Applications History',
@@ -92,14 +99,26 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
     },
     {
       id: 'Profile',
-      title: 'Profile',
-      icon: profileIcon,
+      jsx: (
+        <span className={classBlockHeader}>
+          <ProfileIcon />
+          <h2 className='text-xl font-medium text-primary-deep-purple'>
+            Profile
+          </h2>
+        </span>
+      ),
       links: [{ name: 'My Resume', href: '/dashboard/profiles', icon: Users }],
     },
     {
       id: 'Account',
-      title: 'Account',
-      icon: accountIcon,
+      jsx: (
+        <span className={classBlockHeader}>
+          <AccountIcon />
+          <h2 className='text-xl font-medium text-primary-deep-purple'>
+            Account
+          </h2>
+        </span>
+      ),
       links: [
         {
           name: 'Subscription',
@@ -115,13 +134,22 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
     },
     {
       id: 'SignOut',
-      title: null,
       links: [
         {
           name: 'Sign Out',
           href: '/signout',
           icon: LogOut,
-          jsx: SignOutElement,
+          jsx: (
+            <button
+              className={`my-btn-clear ${classMenuButton}`}
+              onClick={() => {
+                router.push('/logout');
+              }}
+            >
+              <ArrowLeftIcon />
+              <p>Sign Out</p>
+            </button>
+          ),
         },
       ],
     },
@@ -130,27 +158,19 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   return collapsed && width > 767 ? (
     // compact version menu's on small screen
     <nav className='flex flex-col md:gap-3'>
-      <div className="mb-3">
-        <Link
-          href="/search"
-          className={`flex items-center gap-2 p-2 mx-2 rounded-md ${pathname === '/search' ? 'bg-neutral text-white' : 'hover:bg-base-300'
-            }`}
-        >
-          <Search className='w-6 h-6' />
-        </Link>
-      </div>
-      {navLinks.map(({ title, links }) => (
-        <ul key={title} className='flex flex-col gap-3'>
+      {navLinks.map(({ id, links }) => (
+        <ul key={id} className='flex flex-col gap-3'>
           {links.map(({ href, icon, name }) => {
             const LinkIcon = icon;
             return (
               <li key={name}>
                 <Link
                   href={href}
-                  className={`flex items-center gap-2 p-2 mx-2 rounded-md ${pathname === href
+                  className={`flex items-center gap-2 p-2 mx-2 rounded-md ${
+                    pathname === href
                       ? 'bg-neutral text-white'
                       : 'hover:bg-base-300'
-                    }`}
+                  }`}
                 >
                   <LinkIcon className='w-6 h-6' />
                 </Link>
@@ -163,41 +183,32 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
   ) : (
     // full version menu's
     <nav className='flex flex-col md:gap-3-'>
-      <div className="mb-3">
-        {JobSearchElement}
-      </div>
-      {navLinks.map(({ id, title, icon, links }) => (
+      {navLinks.map(({ id, jsx, className, links }) => (
         <div
-          key={title}
-          className='flex flex-col gap-2 md:gap-2 py-1 md:py-5 border-t-2 border-neutral-content'
+          key={id}
+          className={
+            className
+              ? className
+              : 'flex flex-col gap-2 md:gap-2 py-1 md:py-5 border-t-2 border-neutral-content'
+          }
         >
-          <span className='flex gap-3 pl-3'>
-            {icon && (
-              <Image
-                src={icon}
-                // style={{ height: 'auto', width: 'revert-layer' }}
-                alt={`${title} icon`}
-              />
-            )}
-            <h2 className='text-xl font-medium text-primary-deep-purple'>
-              {title}
-            </h2>
-          </span>
+          {jsx}
           <ul className='flex flex-col md:gap-2'>
             {/* addition slots for any JSX from SidenavContext*/}
             {slots[id] && slots[id]}
 
-            {links.map(({ href, name, className, jsx }) => (
+            {links.map(({ href, name, jsx }) => (
               <li key={name} className='flex'>
                 {jsx ? (
                   jsx
                 ) : (
                   <Link
                     href={href}
-                    className={`grow pl-3 py-2 font-semibold text-base underline hover:text-primary-deep-purple ${pathname === href
+                    className={`grow pl-3 py-2 font-semibold text-base underline hover:text-primary-deep-purple ${
+                      pathname === href
                         ? 'no-underline flex bg-neutral-content rounded-md'
                         : ''
-                      }`}
+                    }`}
                     onClick={onClick}
                   >
                     <span>{name}</span>

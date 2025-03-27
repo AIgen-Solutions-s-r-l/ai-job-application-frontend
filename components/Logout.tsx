@@ -1,23 +1,24 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { deleteServerCookie } from "@/libs/cookies";
-import { usePathname, useRouter } from "next/navigation";
-import { useUserContext } from "@/contexts/user-context";
+import { useEffect } from 'react';
+import { deleteServerCookie } from '@/libs/cookies';
+import { usePathname, useRouter } from 'next/navigation';
+import { useUserContext } from '@/contexts/user-context';
 
 const Logout = () => {
-  const { setUser } = useUserContext();
+  const { setUser, setAccessToken } = useUserContext();
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
     const handleSignOut = async () => {
-      await deleteServerCookie("accessToken");
+      await deleteServerCookie('accessToken');
       setUser(null);
-      router.replace("/");
+      setAccessToken(null);
+      router.replace('/');
     };
     handleSignOut();
-  }, [pathname, router]);
+  }, [pathname, router, setAccessToken, setUser]);
 
   return <>Redirecting to login ...</>;
 };

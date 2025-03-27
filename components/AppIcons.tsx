@@ -4,7 +4,7 @@ interface SvgIconProps {
   classname?: string;
 }
 
-const InstagramIcon: FC<SvgIconProps> = ({ classname }) => (
+export const InstagramIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg
     role="img"
     viewBox="0 0 24 24"
@@ -16,7 +16,7 @@ const InstagramIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-const TwitterIcon: FC<SvgIconProps> = ({ classname }) => (
+export const TwitterIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg
     role="img"
     viewBox="0 0 24 24"
@@ -28,7 +28,7 @@ const TwitterIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-const LinkedinIcon: FC<SvgIconProps> = ({ classname }) => (
+export const LinkedinIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg
     role="img"
     viewBox="0 0 1024 1024"
@@ -39,7 +39,7 @@ const LinkedinIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-const CheckmarkIcon: FC<SvgIconProps> = ({ classname }) => (
+export const CheckmarkIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg
     width="59"
     height="34"
@@ -52,7 +52,7 @@ const CheckmarkIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-const ArrowRightIcon: FC<SvgIconProps> = ({ classname }) => (
+export const ArrowRightIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg 
     width="52" 
     height="16" 
@@ -64,7 +64,7 @@ const ArrowRightIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 )
 
-const ArrowLeftIcon: FC<SvgIconProps> = ({ classname }) => (
+export const ArrowLeftIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg 
     width="52" 
     height="16" 
@@ -76,4 +76,215 @@ const ArrowLeftIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 )
 
-export { InstagramIcon, TwitterIcon, LinkedinIcon, CheckmarkIcon, ArrowRightIcon, ArrowLeftIcon };
+export const JobAppIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='16'
+    height='22'
+    viewBox='0 0 16 22'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <rect
+      x='1.17578'
+      y='1'
+      width='13.8313'
+      height='20'
+      rx='2'
+      stroke='#4420B2'
+      strokeWidth='2'
+    />
+    <line x1='4.83203' y1='4.5' x2='11.3508' y2='4.5' stroke='#4420B2' />
+    <line x1='4.83203' y1='7.5' x2='11.3508' y2='7.5' stroke='#4420B2' />
+    <line x1='4.83203' y1='10.5' x2='11.3508' y2='10.5' stroke='#4420B2' />
+    <line x1='4.83203' y1='13.5' x2='11.3508' y2='13.5' stroke='#4420B2' />
+    <line x1='4.83203' y1='16.5' x2='11.3508' y2='16.5' stroke='#4420B2' />
+  </svg>
+);
+
+export const ProfileIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='18'
+    height='20'
+    viewBox='0 0 18 20'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M16.0758 19C16.0758 16.2386 12.7403 14 8.62578 14C4.51126 14 1.17578 16.2386 1.17578 19M8.62578 11C6.05421 11 3.96953 8.76142 3.96953 6C3.96953 3.23858 6.05421 1 8.62578 1C11.1974 1 13.282 3.23858 13.282 6C13.282 8.76142 11.1974 11 8.62578 11Z'
+      stroke='#4420B2'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+export const AccountIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='26'
+    height='19'
+    viewBox='0 0 26 19'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M5.05599 17.9999C5.13832 18 5.22318 18 5.31067 18H12.8164M5.05599 17.9999C3.77776 17.9989 3.10727 17.9813 2.58791 17.6915C2.10118 17.4198 1.70573 16.9853 1.45773 16.4521C1.17578 15.8461 1.17578 15.0538 1.17578 13.4669V5.53361C1.17578 3.94679 1.17578 3.1528 1.45773 2.54671C1.70573 2.01359 2.10118 1.58046 2.58791 1.30881C3.14126 1 3.86618 1 5.31492 1H20.3184C21.7671 1 22.4905 1 23.0439 1.30881C23.5306 1.58046 23.9274 2.01359 24.1754 2.54671C24.457 3.1522 24.457 3.94524 24.457 5.52896V13.471C24.457 15.0548 24.457 15.8467 24.1754 16.4521C23.9274 16.9853 23.5306 17.4198 23.0439 17.6915C22.491 18 21.7681 18 20.3221 18H12.8164M5.05599 17.9999C5.05604 16.4352 6.79325 15.1667 8.9362 15.1667C11.0792 15.1667 12.8164 16.4352 12.8164 18M5.05599 17.9999C5.05599 18 5.05599 17.9999 5.05599 17.9999ZM20.5768 12.3333H15.4032M20.5768 8.08333H16.6966M8.9362 10.9167C7.50754 10.9167 6.34939 9.64814 6.34939 8.08333C6.34939 6.51853 7.50754 5.25 8.9362 5.25C10.3649 5.25 11.523 6.51853 11.523 8.08333C11.523 9.64814 10.3649 10.9167 8.9362 10.9167Z'
+      stroke='#4420B2'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+export const MagniferIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='28'
+    height='27'
+    viewBox='0 0 28 27'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M27 10C27 14.9251 22.7932 19 17.5 19C12.2068 19 8 14.9251 8 10C8 5.07485 12.2068 1 17.5 1C22.7932 1 27 5.07485 27 10Z'
+      stroke='#1F1D20'
+      strokeWidth='2'
+    />
+    <path
+      d='M0.93934 23.9393C0.353553 24.5251 0.353553 25.4749 0.93934 26.0607C1.52513 26.6464 2.47487 26.6464 3.06066 26.0607L0.93934 23.9393ZM7.93934 16.9393L0.93934 23.9393L3.06066 26.0607L10.0607 19.0607L7.93934 16.9393Z'
+      fill='black'
+    />
+  </svg>
+);
+
+export const CloseButtonIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='28'
+    height='28'
+    viewBox='0 0 28 28'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M1 1L27 27'
+      stroke='#1F1D20'
+      strokeWidth='2'
+      strokeLinecap='round'
+    />
+    <path
+      d='M27 1L1 27'
+      stroke='#1F1D20'
+      strokeWidth='2'
+      strokeLinecap='round'
+    />
+  </svg>
+);
+
+export const CartIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='26'
+    height='26'
+    viewBox='0 0 26 26'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      id='Vector'
+      d='M1 1H1.36325C2.00458 1 2.32581 1 2.58739 1.11397C2.81802 1.21446 3.0152 1.37623 3.15739 1.58138C3.3184 1.81367 3.37653 2.12386 3.49258 2.74303L6.41467 18.3334L20.5222 18.3333C21.1356 18.3333 21.4433 18.3333 21.6974 18.2266C21.9219 18.1322 22.1155 17.9795 22.2593 17.7853C22.4218 17.5656 22.4907 17.2716 22.6284 16.6841L22.6294 16.6799L24.7536 7.61328L24.754 7.61138C24.9628 6.72021 25.0675 6.27354 24.9526 5.92318C24.8517 5.61576 24.6396 5.35512 24.3581 5.18923C24.0371 5 23.5733 5 22.6432 5H4.38414M21.3048 25C20.5572 25 19.9512 24.403 19.9512 23.6667C19.9512 22.9303 20.5572 22.3333 21.3048 22.3333C22.0524 22.3333 22.6585 22.9303 22.6585 23.6667C22.6585 24.403 22.0524 25 21.3048 25ZM7.76828 25C7.02067 25 6.41462 24.403 6.41462 23.6667C6.41462 22.9303 7.02067 22.3333 7.76828 22.3333C8.51588 22.3333 9.12193 22.9303 9.12193 23.6667C9.12193 24.403 8.51588 25 7.76828 25Z'
+      stroke='#1F1D20'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+
+export const LaboroSmileyIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='29'
+    height='30'
+    viewBox='0 0 29 30'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M28.5 15C28.5 23.0242 22.2161 29.5 14.5 29.5C6.78386 29.5 0.5 23.0242 0.5 15C0.5 6.97576 6.78386 0.5 14.5 0.5C22.2161 0.5 28.5 6.97576 28.5 15Z'
+      fill='#FF832A'
+      stroke='#B9FF5E'
+    />
+    <path
+      d='M21.5 20.1367C21.5 20.1367 19.4013 23.6299 14.6043 23.6299C9.80733 23.6299 7.90851 20.1367 7.90851 20.1367'
+      stroke='white'
+      strokeWidth='2'
+      strokeLinecap='round'
+    />
+  </svg>
+);
+
+export const LaboroSmileyPurpleIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='55'
+    height='56'
+    viewBox='0 0 55 56'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M53.5 28C53.5 42.6611 41.834 54.5 27.5 54.5C13.166 54.5 1.5 42.6611 1.5 28C1.5 13.3389 13.166 1.5 27.5 1.5C41.834 1.5 53.5 13.3389 53.5 28Z'
+      fill='#4420B2'
+      stroke='white'
+      strokeWidth='3'
+    />
+    <path
+      d='M40.7773 37.5888C40.7773 37.5888 36.7971 44.1094 27.6993 44.1094C18.6016 44.1094 15.0004 37.5888 15.0004 37.5888'
+      stroke='#B9FF5E'
+      strokeWidth='3'
+      strokeLinecap='round'
+    />
+  </svg>
+);
+
+export const PinIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='16'
+    height='22'
+    viewBox='0 0 16 22'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <path
+      d='M14.9914 8.11874L13.9927 8.06795L13.9393 9.11874H14.9914V8.11874ZM1.0086 8.11874V9.11874H2.06075L2.00731 8.06795L1.0086 8.11874ZM1 8.11874V7.11874H0V8.11874H1ZM15 8.11874H16V7.11874H15V8.11874ZM14 7.77966C14 7.87642 13.9975 7.97253 13.9927 8.06795L15.9901 8.16953C15.9967 8.04029 16 7.91031 16 7.77966H14ZM8 2C11.3441 2 14 4.61755 14 7.77966H16C16 3.45317 12.3879 0 8 0V2ZM2 7.77966C2 4.61755 4.6559 2 8 2V0C3.61211 0 0 3.45317 0 7.77966H2ZM2.00731 8.06795C2.00246 7.97253 2 7.87641 2 7.77966H0C0 7.91031 0.00332078 8.04029 0.00989323 8.16953L2.00731 8.06795ZM1 9.11874H1.0086V7.11874H1V9.11874ZM8 20.0001C7.56673 20.0001 6.96661 19.757 6.25007 19.1055C5.54949 18.4686 4.83601 17.5272 4.19428 16.3644C2.9088 14.035 2 10.9794 2 8.11874H0C0 11.3597 1.0162 14.7448 2.44322 17.3307C3.15774 18.6255 3.99739 19.7605 4.90462 20.5853C5.79589 21.3957 6.85827 22.0001 8 22.0001V20.0001ZM14 8.11874C14 11.1548 13.0881 14.2077 11.8093 16.485C11.1704 17.6229 10.4602 18.5306 9.76361 19.141C9.05431 19.7626 8.4494 20.0001 8 20.0001V22.0001C9.1256 22.0001 10.1832 21.4326 11.0817 20.6452C11.9929 19.8467 12.8359 18.7417 13.5532 17.4643C14.9869 14.9111 16 11.5234 16 8.11874H14ZM14.9914 9.11874H15V7.11874H14.9914V9.11874Z'
+      fill='#1F1D20'
+    />
+    <ellipse cx='7.99922' cy='7.77949' rx='2.8' ry='2.71186' fill='#1F1D20' />
+  </svg>
+);
+
+export const DocumentIcon: FC<SvgIconProps> = ({ classname }) => (
+  <svg
+    width='25'
+    height='32'
+    viewBox='0 0 25 32'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={classname}
+  >
+    <rect x='0.5' y='0.5' width='24' height='31' rx='1.5' stroke='black' />
+    <path d='M5 26H19.8551' stroke='#1F1D20' stroke-linecap='round' />
+    <path d='M5 23H19.8551' stroke='#1F1D20' stroke-linecap='round' />
+    <path d='M5 20H19.8551' stroke='#1F1D20' stroke-linecap='round' />
+    <path d='M5 17H19.8551' stroke='#1F1D20' stroke-linecap='round' />
+    <path d='M5 14H19.8551' stroke='#1F1D20' stroke-linecap='round' />
+    <rect x='5.5' y='5.5' width='14' height='5' rx='0.5' stroke='#1F1D20' />
+  </svg>
+);

@@ -1,12 +1,13 @@
 'use client';
 
-import React, {
+import {
   createContext,
   useContext,
   useState,
   useEffect,
   ReactNode,
-  useRef,
+  Dispatch,
+  SetStateAction,
 } from 'react';
 import { isResumeExits } from '@/libs/api/resume';
 import { decodeToken, fetchUserData } from '@/libs/api/auth';
@@ -22,8 +23,8 @@ interface User {
 
 type UserContextType = {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
-  setAccessToken: React.Dispatch<React.SetStateAction<string>>;
+  setUser: Dispatch<SetStateAction<User>>;
+  setAccessToken: Dispatch<React.SetStateAction<string>>;
 };
 
 const UserContext = createContext<UserContextType | null>(null);

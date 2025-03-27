@@ -1,11 +1,9 @@
 "use client";
 
+import { Fragment, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import Image from "next/image";
-import CloseButton from "../svgs/CloseBtn.svg";
-import { Dispatch, SetStateAction } from "react";
-import SubscriptionTab from "../subscription/subscriptionTab";
+import { CloseButtonIcon } from "@/components/AppIcons";
+import SubscriptionTab from "@/components/subscription/subscriptionTab";
 
 interface ModalProps {
     isModalOpen: boolean;
@@ -62,7 +60,7 @@ const SubscriptionModal = ({
                                 className="outline-none"
                                 onClick={handleCancel}
                               >
-                                <Image src={CloseButton} alt='close button' />
+                                <CloseButtonIcon />
                               </button>
                             </div>
                             <SubscriptionTab />

@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import { JobsList } from '@/libs/definitions';
+import { JobDetail, JobsList } from '@/libs/definitions';
 import { JobCard } from './JobCard';
 import { sortArrayByDate } from '@/libs/utils';
 import { JobCardSkeleton } from './JobCardSkeleton';

@@ -7,8 +7,22 @@ import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 
 interface UserInfo {
-  id: string;
+  id: number;
   email: string;
+}
+
+export const decodeToken = async (token: string) => {
+  const decoded = await jwtDecode(token) satisfies {
+    sub: string,
+    id: number,
+    is_admin: boolean,
+    exp: number
+  };
+
+  return {
+    ...decoded,
+    expirationDate: new Date(decoded.exp * 1000)
+  };
 }
 
 export const login = createServerAction(async (email: string, password: string) => {
@@ -22,13 +36,12 @@ export const login = createServerAction(async (email: string, password: string) 
       password,
     });
 
-    console.log(response)
+    // console.log(response)
     if (!response || !response.data) {
       throw new ServerActionError("No data received from API.");
     }
 
-    const decoded = jwtDecode(response.data.access_token);
-    const expirationDate = new Date(decoded.exp * 1000);
+    const { expirationDate } = await decodeToken(response.data.access_token);
 
     // TODO: Uncomment - Backend api ends up in an infinite loop when the token expires.
     // expirationDate.setHours(expirationDate.getHours() + 1);
@@ -85,8 +98,7 @@ export async function refreshToken() {
       throw new Error("No data received from API.");
     }
 
-    const decoded = jwtDecode(response.data.access_token);
-    const expirationDate = new Date(decoded.exp * 1000);
+    const { expirationDate } = await decodeToken(response.data.access_token)
     expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
@@ -174,9 +186,7 @@ export const verifyEmail = createServerAction(async (token: string) => {
       throw new ServerActionError("No data received from API.");
     }
 
-    const decoded = jwtDecode(response.data.access_token);
-    const expirationDate = new Date(decoded.exp * 1000);
-
+    const { expirationDate } = await decodeToken(response.data.access_token);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
@@ -375,22 +385,20 @@ export async function changeEmail(username: string, current_password: string, ne
 export async function getUserInfo(): Promise<UserInfo> {
   try {
     const accessToken = await getServerCookie('accessToken');
+
     if (!accessToken) {
       throw new Error("No access token found in cookies");
     }
 
-    const decoded: any = jwtDecode(accessToken);
+    const { id, sub: email } = await decodeToken(accessToken);
 
-
-    const userId = decoded?.id;
-    const userEmail = decoded?.sub;
-    if (!userId) {
+    if (!id) {
       throw new Error("Unable to extract user ID from token");
     }
 
     return {
-      id: userId,
-      email: userEmail
+      id,
+      email
     };
   } catch (error) {
     console.error("Error fetching user data:", error);

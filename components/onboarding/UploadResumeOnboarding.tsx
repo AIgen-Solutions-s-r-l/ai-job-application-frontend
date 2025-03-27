@@ -1,14 +1,14 @@
 'use client';
 
 import React, { ChangeEvent, DragEvent, FormEvent, useState } from 'react';
+import Image from "next/image";
 import { useCVDataContext } from "@/contexts/cv-data-context";
 import { extractResume } from "@/libs/actions";
 import { defaultJobProfile } from "@/libs/utils/job-profile-util";
 import LaboroSmiley from '@/public/LaboroSmileyPurple.svg';
-import { Container } from "../Container";
-import Image from "next/image";
-import ArrowBlack from "@/public/vectors/arrow-black.svg";
+import { Container } from "@/components/Container";
 import { AiFillFilePdf } from "react-icons/ai";
+import { ArrowRightIcon } from '@/components/AppIcons';
 
 export const UploadResumeOnboarding: React.FC = () => {
   const [cvFile, setCVFile] = useState<File | null>(null);
@@ -108,7 +108,7 @@ export const UploadResumeOnboarding: React.FC = () => {
                 className="w-[273px] my-btn-green"
               >
                 <p className="text-xl">Create Resume</p>
-                <Image src={ArrowBlack} alt="ArrowBlack" />
+                <ArrowRightIcon />
               </button>
             </>
           ) : (
@@ -116,7 +116,7 @@ export const UploadResumeOnboarding: React.FC = () => {
               <p className="hidden md:inline-block font-montserrat text-[20px] leading-none mb-10">You can also drag & drop your resume here.</p>
               <label className="w-[273px] my-btn-green cursor-pointer">
                 <p className="font-jura text-[18px] font-semibold">Upload</p>
-                <Image src={ArrowBlack} alt="ArrowBlack" />
+                <ArrowRightIcon /> 
                 <input
                   type="file"
                   accept=".pdf"

@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Container } from './Container';
-import LaboroSmiley from '@/public/LaboroSmiley.svg';
+import { Container } from '@/components/Container';
+import { LaboroSmileyIcon } from '@/components/AppIcons';
 import { useUserCreditsContext } from '@/contexts/user-credits-context';
-import AppButtonAccount from './AppButtonAccount';
+import AppButtonAccount from '@/components/AppButtonAccount';
 
 export const JobNavbar = () => {
   const { credits } = useUserCreditsContext();
@@ -22,7 +22,7 @@ export const JobNavbar = () => {
         </Link>
         <div className='flex items-center gap-[30px] font-jura'>
           <div className='flex items-center gap-5 bg-primary-deep-purple rounded-full pl-[2px] pr-[25px] py-[3px]'>
-            <Image src={LaboroSmiley} alt='LaboroSmiley' width={40} height={40} />
+            <LaboroSmileyIcon />
             <p className='text-white text-right font-jura text-xl font-semibold leading-6 tracking-tight'>
               {credits} Credits
             </p>

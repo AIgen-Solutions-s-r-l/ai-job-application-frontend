@@ -1,5 +1,5 @@
 export type ServerActionResult<T> =
-  | { success: true; value: T }
+  | { success: true; value?: T }
   | { success: false; error: string };
  
 export class ServerActionError extends Error {

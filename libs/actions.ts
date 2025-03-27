@@ -2,7 +2,7 @@
 
 import { createClient } from "@/libs/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Bot, JobProfile, MatchingJob, UploadFile } from "./definitions";
+import { Bot, JobProfile, UploadFile } from "./definitions";
 import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess } from "zod";
@@ -14,6 +14,8 @@ import { applySelectedApplications, updateApplicationLetter, updateApplicationRe
 import { Resume } from "./types/application.types";
 import { fromResumeType } from "./utils/application.util";
 import { CoverLetterCoverLetter } from "./types/response-application.types";
+import { spendCredits } from "./api/auth";
+import { ServerActionResult } from "./action-utils";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -223,6 +225,16 @@ export const updateApplicationLetterAction = async (id: string, letterData: Cove
     return { success: true };
   } catch (error) {
     console.error("Error updating job profile:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const spendCreditsAction = async (amount: number): Promise<ServerActionResult<number>> => {
+  try {
+    const response = await spendCredits(amount);
+    return { success: true, value: response.new_balance };
+  } catch (error) {
+    console.error("Error fetching user balance:", error);
     return { success: false, error: error.message };
   }
 }

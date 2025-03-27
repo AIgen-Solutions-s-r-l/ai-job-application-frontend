@@ -5,7 +5,6 @@ import API_BASE_URLS from "@/libs/api/config"; // Import base URLs
 import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
-import { createClient } from "@/libs/supabase/server";
 
 interface UserInfo {
   id: number;
@@ -261,7 +260,7 @@ export async function resetPasswordForEmail(email: string): Promise<{ success: b
 
 export async function resetPassword(new_password: string, token: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/reset-password`, {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/password-reset`, {
       token,
       new_password,
     });
@@ -463,6 +462,54 @@ export async function addCredits(amount: number, referenceId: string, descriptio
   }
 }
 
+export async function getBalance(): Promise<any> {
+  let accessToken = await getServerCookie('accessToken');
+  const decoded: any = jwtDecode(accessToken);
+
+  try {
+    const response = await apiClientJwt.get(
+      `${API_BASE_URLS.auth}/credits/balance?user_id=${decoded.id}`,
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error checking credits:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
+export async function spendCredits(amount: number): Promise<any> {
+  let accessToken = await getServerCookie('accessToken');
+  const decoded: any = jwtDecode(accessToken);
+
+  try {
+    const response = await apiClientJwt.post(
+      `${API_BASE_URLS.auth}/credits/use?user_id=${decoded.id}`,{
+        amount,
+      },
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error using credits:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
 /**
  * Gets the redirect URL for Google authentication
  * @param redirectUri URI to redirect after successful authentication
@@ -472,7 +519,7 @@ export async function getGoogleOAuthURL(redirectUri: string) {
   try {
     // Include the redirect_uri parameter in the request
     const response = await apiClient.get(
-      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`
+      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`, 
     );
     console.log(response);
 

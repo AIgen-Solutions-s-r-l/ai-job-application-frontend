@@ -4,7 +4,7 @@ export async function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   const token = searchParams.get('token');
 
-  if (pathname === '/api/auth/reset-password' && token) {
+  if (pathname === '/api/auth/password-reset' && token) {
     return NextResponse.redirect(new URL(`/update-password?token=${token}`, request.url));
   }
 
@@ -25,7 +25,7 @@ export const config = {
      * Feel free to modify this pattern to include more paths.
      */
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-    '/api/auth/reset-password', 
+    '/api/auth/password-reset', 
     '/api/auth/verify-email',
   ],
 };

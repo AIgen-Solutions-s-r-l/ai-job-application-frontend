@@ -2,9 +2,7 @@
 
 import { FC, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import * as Tabs from '@radix-ui/react-tabs';
-import { JobDetail, JobsList } from '@/libs/definitions';
-import { Check } from 'lucide-react';
+import { JobsList } from '@/libs/definitions';
 import { JobCard } from './JobCard';
 import { sortArrayByDate } from '@/libs/utils';
 import { JobCardSkeleton } from './JobCardSkeleton';
@@ -15,16 +13,19 @@ import CongratsEmoji from '@/components/svgs/CongratsEmoji.svg';
 interface Props {
   appliedJobs: JobsList;
   failedJobs: JobsList;
+  pendingJobs: JobsList
   isLoading?: boolean;
 }
 
+
 const underlineOrParagraph = (str: string, isUnderline: boolean) =>
-  !isUnderline ? <u>{str}</u> : <p>{str}</p>;
+  isUnderline ? <u>{str}</u> : <p>{str}</p>;
 
 export const JobFeedList: FC<Props> = ({
   appliedJobs,
   failedJobs,
   isLoading,
+  pendingJobs
 }) => {
   const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
   const [showCongarts, setShowCongarts] = useState<boolean>(false);
@@ -53,37 +54,38 @@ export const JobFeedList: FC<Props> = ({
 
   const jobs = useMemo(() => {
     const nullDate = new Date();
+    // Combine and process all jobs into a single array with status
+    const allJobs = [
+      ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
+        ...pendingJobs[key],
+        posted_date: pendingJobs[key].posted_date || nullDate.toString(),
+        status: 'Pending'
+      })) : []),
+      ...(appliedJobs ? Object.keys(appliedJobs).map(key => ({
+        ...appliedJobs[key],
+        posted_date: appliedJobs[key].posted_date || nullDate.toString(),
+        status: 'Applied'
+      })) : []),
+      ...(failedJobs ? Object.keys(failedJobs).map(key => ({
+        ...failedJobs[key],
+        posted_date: failedJobs[key].posted_date || nullDate.toString(),
+        status: 'Failed'
+      })) : [])
+    ];
 
-    // make array and fix null dates
-    const applied: JobDetail[] = Object.keys(appliedJobs)
-      .map((key) => appliedJobs[key])
-      .map(
-        (job) =>
-          ({ ...job, posted_date: job.posted_date ?? nullDate } as JobDetail)
-      );
-
-    const failed = Object.keys(failedJobs).map((key) => failedJobs[key]);
-
+    // Sort the combined array
     return {
-      pending:
-        sortBy === 'latest'
-          ? sortArrayByDate(failed, 'posted_date', 'desc')
-          : failed.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
-      applied:
-        sortBy === 'latest'
-          ? sortArrayByDate(applied, 'posted_date', 'desc')
-          : applied.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
-    } satisfies {
-      pending: JobDetail[];
-      applied: JobDetail[];
+      all: sortBy === 'latest'
+        ? sortArrayByDate(allJobs, 'posted_date', 'desc')
+        : allJobs.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
     };
-  }, [appliedJobs, failedJobs, sortBy]);
+  }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
 
   return (
     <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
       <p className='page-header'>Job Application History</p>
 
-      {!isLoading && showCongarts && !!Object.keys(appliedJobs).length && (
+      {!isLoading && showCongarts && appliedJobs.length && (
         <Alert
           onClose={() => {
             localStorage.setItem('last_congrats_datestamp', String(Date.now()));
@@ -107,26 +109,8 @@ export const JobFeedList: FC<Props> = ({
         </Alert>
       )}
 
-      <Tabs.Root defaultValue='pending'>
-        <Tabs.List
-          className={`${typography.tabs.list} h-[50px]`}
-          aria-label='Pending jobs list'
-        >
-          <Tabs.Trigger
-            className={`${typography.tabs.trigger} grow`}
-            value='pending'
-          >
-            Pending...
-          </Tabs.Trigger>
-          <Tabs.Trigger className={typography.tabs.trigger} value='applied'>
-            Applied
-            <div className='w-[28px] h-[28px] flex justify-center items-center shrink-0'>
-              <Check height={24} width={24} />
-            </div>
-          </Tabs.Trigger>
-        </Tabs.List>
-
-        <div className='px-5 pt-5 flex justify-end items-center gap-1 z-10 bg-white'>
+      <div>
+        {/* <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
           Sort by:
           <button onClick={() => setSortBy('latest')}>
             {underlineOrParagraph('Latest', sortBy === 'latest')}
@@ -138,47 +122,30 @@ export const JobFeedList: FC<Props> = ({
               sortBy === 'alphabetically'
             )}
           </button>
-        </div>
+        </div> */}
 
-        <Tabs.Content className={typography.tabs.content} value='pending'>
+        <div className={typography.tabs.content}>
           {isLoading ? (
             <>
               <JobCardSkeleton />
               <JobCardSkeleton />
               <JobCardSkeleton />
             </>
-          ) : jobs.pending.length ? (
-            jobs.pending.map((job, key) => (
-              <JobCard job={job} status='Pending...' key={key} />
-            ))
           ) : (
-            <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
-              <p className='font-montserrat font-medium text-base xl:text-lg'>
-                You don&apos;t have any pending applications
-              </p>
-            </div>
+            jobs.all.length ? (
+              jobs.all.map((job, key) => (
+                <JobCard job={job} status={job.status} key={key} />
+              ))
+            ) : (
+              <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
+                <p className='font-montserrat font-medium text-base xl:text-lg'>
+                  You don&apos;t have any applications
+                </p>
+              </div>
+            )
           )}
-        </Tabs.Content>
-        <Tabs.Content className={typography.tabs.content} value='applied'>
-          {isLoading ? (
-            <>
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-            </>
-          ) : jobs.applied.length ? (
-            jobs.applied.map((job, key) => (
-              <JobCard job={job} status='Applied' key={key} />
-            ))
-          ) : (
-            <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
-              <p className='font-montserrat font-medium text-base xl:text-lg'>
-                You don&apos;t have any applied applications
-              </p>
-            </div>
-          )}
-        </Tabs.Content>
-      </Tabs.Root>
+        </div>
+      </div>
     </div>
   );
 };

@@ -221,6 +221,32 @@ progress::-webkit-progress-value {
     @apply flex flex-col space-y-2 text-xs md:text-sm mt-4
   }
 
+  .tooltip:before {
+    border-radius: 0.25rem /* 4px */;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    font-size: 0.875rem /* 14px */;
+    line-height: 1.25rem /* 20px */;
+    background-color: var(--tooltip-color);
+    color: var(--tooltip-text-color);
+    width: max-content;
+  }
+
+  @media (width <= 767px) {
+    .tooltip:before {
+      max-width: 180px !important;
+    }
+  }
+
+  @media (width > 767px) {
+    .tooltip:before {
+      max-width: 320px !important;
+    }
+  }
+
+
   /* :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;

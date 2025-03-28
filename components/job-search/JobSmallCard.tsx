@@ -12,6 +12,8 @@ interface Props {
   onClick: () => void;
 }
 
+const tooltipText = 'The match % shows how well your profile fits a job, using AI-driven machine learning. It compares your background to the role through similarity models that assess skills, education, and experience.'
+
 export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
   const { selectedJobs, handleJobSelect } = useJobSearch();
 
@@ -20,13 +22,14 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-12", className)}
       onClick={onClick}
     >
-      <div className="absolute top-0 right-0 w-full h-full lg:hidden" onClick={() => window.open('https://google.com', 'blank')}></div>
       <div className="flex gap-2 items-center md:mb-2">
         <p className="text-xs font-jura font-semibold">{job.score}% Match</p>
-        <Info size={18} />
+        <div className="tooltip tooltip-right" data-tip={tooltipText}>
+          <Info size={18} />
+        </div>
       </div>
-      <h3 className="font-montserrat text-base md:text-xl font-semibold">{job.title}</h3>
-      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company_name}</h3>
+      <h3 className="font-montserrat font-medium text-base md:text-xl">{job.company_name}</h3>
+      <h3 className="font-montserrat text-base md:text-xl font-normal">{job.title}</h3>
       <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {`${job.city}, ${job.country}`} | {job.workplace_type}</p>
       <div className='flex gap-x-2 gap-y-1 my-1 lg:my-2 flex-wrap overflow-hidden'>
         {!!job.skills_required.length && job.skills_required.map(
@@ -38,7 +41,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       <div
         className="line-clamp-5 text-sm md:text-base text-gray-600"
         dangerouslySetInnerHTML={{
-          __html: job.description
+          __html: job.short_description
             .replace(/\n\n+/g, '</p><p class="mb-2">')
             .replace(/\n/g, '<br />')
             .replace(/^(.+)$/, '<p class="mb-2">$1</p>')

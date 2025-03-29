@@ -17,7 +17,7 @@ import { AiFillFilePdf } from "react-icons/ai";
 interface ModalProps {
     isModalOpen: boolean;
     setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-    onConfirm: () => void;
+    onConfirm: () => Promise<void>;
     onCancel?: () => void;
     generateTemplate: boolean;
     setGenerateTemplate: Dispatch<SetStateAction<boolean>>;
@@ -41,8 +41,26 @@ const GenerateResumeModal = ({
     setCVFile,
 }: ModalProps) => {
     const [isDragging, setIsDragging] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+    const handleConfirm = async () => {
+        if (isSubmitting) return;
+
+        try {
+            setIsSubmitting(true);
+            await onConfirm();
+            setIsModalOpen(false);
+        } catch (error) {
+            console.error('Submission error:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
 
     const handleCancel = () => {
+        if (isSubmitting) return;
+
         if (onCancel) {
             onCancel();
         }
@@ -188,13 +206,11 @@ const GenerateResumeModal = ({
                                         Cancel
                                     </button>
                                     <button
-                                        className="btn outline-black bg-primary hover:bg-primary hover:text-white"
-                                        onClick={() => {
-                                            onConfirm();
-                                            setIsModalOpen(false);
-                                        }}
+                                        className='btn outline-black bg-primary hover:bg-primary hover:text-white text-black disabled:text-black disabled:cursor-not-allowed' 
+                                        onClick={handleConfirm}
+                                        disabled={isSubmitting}
                                     >
-                                        Confirm
+                                        {isSubmitting ? 'Submitting...' : 'Confirm'}
                                     </button>
                                 </div>
                             </Dialog.Panel>

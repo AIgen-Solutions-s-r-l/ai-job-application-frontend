@@ -7,6 +7,7 @@ import { locationQuery } from "@/libs/api/matching";
 import { useForm } from "react-hook-form";
 import { ArrowRightIcon } from "../AppIcons";
 import { useRouter } from "next/navigation";
+import { setServerCookie } from '@/libs/cookies';
 
 interface MyLocation {
     city?: string
@@ -77,6 +78,7 @@ const ChoseLocationModal = ({
     const onSubmit = () => {
         const { country, city, location } = getValues()
         router.push(`/search?country=${country ?? defaultLocation}${city ? `&city=${city}` : ''}&location=${location ?? defaultLocation}`)
+        setServerCookie('lastJobSearchLocation', country, {});
     };
 
     return (

@@ -152,7 +152,7 @@ export const addJobsToManager = async (formData: FormData): Promise<{
     return { success: true };
   } catch (error) {
     console.error("Error when adding jobs to jobs manager:", error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -212,7 +212,7 @@ export const updateApplicationLetterAction = async (id: string, letterData: Cove
     const coverLetter = {
       cover_letter: letterData
     }
-    
+
     const response = await updateApplicationLetter(id, coverLetter);
 
     if (!response.success) {
@@ -419,8 +419,10 @@ export const upsertJobProfile = async (
           .update({
             position: experience.position,
             company: experience.company,
-            employment_period: experience.employment_period,
-            location: experience.location,
+            employment_end_date: experience.employment_end_date,
+            employment_start_date: experience.employment_start_date,
+            country: experience.country,
+            city: experience.city,
             industry: experience.industry,
             key_responsibilities: experience.key_responsibilities, // JSON
             skills_acquired: experience.skills_acquired, // JSON
@@ -436,8 +438,10 @@ export const upsertJobProfile = async (
               personal_information_id: personalInformationId,
               position: experience.position,
               company: experience.company,
-              employment_period: experience.employment_period,
-              location: experience.location,
+              employment_end_date: experience.employment_end_date,
+              employment_start_date: experience.employment_start_date,
+              country: experience.country,
+              city: experience.city,
               industry: experience.industry,
               key_responsibilities: experience.key_responsibilities, // JSON
               skills_acquired: experience.skills_acquired, // JSON

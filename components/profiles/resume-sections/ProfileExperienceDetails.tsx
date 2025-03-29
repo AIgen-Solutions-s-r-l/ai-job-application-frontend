@@ -54,7 +54,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-2xl">+</span> 
+        <span className="text-2xl">+</span>
         <p className="text-base">Add Responsibility</p>
       </button>
     </>
@@ -119,8 +119,10 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
     append({
       position: "",
       company: "",
-      employment_period: "",
-      location: "",
+      employment_start_date: "",
+      employment_end_date: "",
+      country: "",
+      city: "",
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
@@ -148,7 +150,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 <p className='underline text-base leading-none'>Remove</p>
               </button>}
             </div>
-  
+
             <InputWrapper>
               <FormInput
                 title={'Company'}
@@ -167,19 +169,37 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 className='grow'
               />
               <FormInput
-                title={'Employment Period'}
-                {...register(`experienceDetails.${index}.employment_period`, { required: 'Employment Period is required' })}
+                title={'Start Date'}
+                type="date"
+                {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
                 placeholder="e.g., June 2020 - Present"
-                error={!!errors.experienceDetails?.[index]?.employment_period}
-                errorMessage={errors.experienceDetails?.[index]?.employment_period?.message}
+                error={!!errors.experienceDetails?.[index]?.employment_start_date}
+                errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
                 className='w-[238px]'
               />
               <FormInput
-                title={'Location'}
-                {...register(`experienceDetails.${index}.location`, { required: 'Location is required' })}
-                placeholder="e.g., San Francisco, CA"
-                error={!!errors.experienceDetails?.[index]?.location}
-                errorMessage={errors.experienceDetails?.[index]?.location?.message}
+                title={'End Date'}
+                type="date"
+                {...register(`experienceDetails.${index}.employment_end_date`, { required: 'End Date is required' })}
+                placeholder="e.g., June 2020 - Present"
+                error={!!errors.experienceDetails?.[index]?.employment_end_date}
+                errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
+                className='w-[238px]'
+              />
+              <FormInput
+                title={'Country'}
+                {...register(`experienceDetails.${index}.country`, { required: 'country is required' })}
+                placeholder="e.g., Italy"
+                error={!!errors.experienceDetails?.[index]?.country}
+                errorMessage={errors.experienceDetails?.[index]?.country?.message}
+                className='w-[164px]'
+              />
+              <FormInput
+                title={'City'}
+                {...register(`experienceDetails.${index}.city`, { required: 'City is required' })}
+                placeholder="e.g., Milan"
+                error={!!errors.experienceDetails?.[index]?.city}
+                errorMessage={errors.experienceDetails?.[index]?.city?.message}
                 className='w-[164px]'
               />
               <FormInput
@@ -192,7 +212,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 className='w-[164px]'
               />
             </InputWrapper>
-  
+
             <div className="flex p-10 rounded-[22px] bg-white">
               <div className="w-full">
                 <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
@@ -201,11 +221,11 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 <ResponsibilityNestedFieldArray index={index} />
               </div>
             </div>
-  
+
             <SkillsNestedFieldArray index={index} />
           </div>
         ))}
-  
+
         <div className="flex items-center gap-4 my-5">
           <div
             className="w-[240px] h-[50px] font-jura hover:text-white text-black rounded-[20px] flex items-center justify-between pl-[25px] pr-[20px] bg-white cursor-pointer hover:bg-my-neutral-5 group transition-all ease-in duration-100"

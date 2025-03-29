@@ -54,7 +54,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-2xl">+</span> 
+        <span className="text-2xl">+</span>
         <p className="text-base">Add Responsibility</p>
       </button>
     </>
@@ -119,8 +119,10 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
     append({
       position: "",
       company: "",
-      employment_period: "",
-      location: "",
+      employment_start_date: "",
+      employment_end_date: "",
+      country: "",
+      city: "",
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
@@ -164,19 +166,37 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               className='grow'
             />
             <FormInput
-              title={'Employment Period'}
-              {...register(`experienceDetails.${index}.employment_period`, { required: 'Employment Period is required' })}
-              placeholder="e.g., June 2020 - Present"
-              error={!!errors.experienceDetails?.[index]?.employment_period}
-              errorMessage={errors.experienceDetails?.[index]?.employment_period?.message}
+              title={'Start Date'}
+              type="date"
+              {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
+              placeholder="e.g., June 2020"
+              error={!!errors.experienceDetails?.[index]?.employment_start_date}
+              errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
               className='w-[238px]'
             />
             <FormInput
-              title={'Location'}
-              {...register(`experienceDetails.${index}.location`, { required: 'Location is required' })}
-              placeholder="e.g., San Francisco, CA"
-              error={!!errors.experienceDetails?.[index]?.location}
-              errorMessage={errors.experienceDetails?.[index]?.location?.message}
+              title={'End Date'}
+              type="date"
+              {...register(`experienceDetails.${index}.employment_end_date`, { required: 'End Date is required' })}
+              placeholder="e.g., June 2020"
+              error={!!errors.experienceDetails?.[index]?.employment_end_date}
+              errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
+              className='w-[238px]'
+            />
+            <FormInput
+              title={'Country'}
+              {...register(`experienceDetails.${index}.country`, { required: 'country is required' })}
+              placeholder="e.g., Italy"
+              error={!!errors.experienceDetails?.[index]?.country}
+              errorMessage={errors.experienceDetails?.[index]?.country?.message}
+              className='w-[164px]'
+            />
+            <FormInput
+              title={'City'}
+              {...register(`experienceDetails.${index}.city`, { required: 'City is required' })}
+              placeholder="e.g., Milan"
+              error={!!errors.experienceDetails?.[index]?.city}
+              errorMessage={errors.experienceDetails?.[index]?.city?.message}
               className='w-[164px]'
             />
             <FormInput

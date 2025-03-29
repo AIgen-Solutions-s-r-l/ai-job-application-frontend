@@ -74,6 +74,8 @@ export const UploadResumeOnboarding: React.FC = () => {
 
         const data = await extractResume(formData);
 
+        console.log(data);
+
         clearInterval(progressInternval);
         setProgress(100);
 
@@ -116,7 +118,7 @@ export const UploadResumeOnboarding: React.FC = () => {
               <p className="hidden md:inline-block font-montserrat text-[20px] leading-none mb-10">You can also drag & drop your resume here.</p>
               <label className="w-[273px] my-btn-green cursor-pointer">
                 <p className="font-jura text-[18px] font-semibold">Upload</p>
-                <ArrowRightIcon /> 
+                <ArrowRightIcon />
                 <input
                   type="file"
                   accept=".pdf"

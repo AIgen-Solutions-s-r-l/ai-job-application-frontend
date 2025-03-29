@@ -28,8 +28,10 @@ export interface PersonalInformation {
   name: string;
   surname: string;
   date_of_birth: string;
-  country: string;
-  city: string;
+  location: {
+    country: string;
+    city: string;
+  };
   zip_code?: string;
   address: string;
   phone_prefix: string;
@@ -47,8 +49,10 @@ export interface EducationDetails {
   final_evaluation_grade?: string; // Opcional
   year_of_completion: string;
   start_date: string;
-  country: string;
-  city: string;
+  location: {
+    country: string;
+    city: string;
+  };
   exam: Exam[]
 }
 
@@ -64,8 +68,10 @@ export interface ExperienceDetails {
   // employment_period: string; // Puede ser una fecha o rango de fechas
   employment_start_date: string;
   employment_end_date: string;
-  country: string;
-  city: string;
+  location: {
+    country: string;
+    city: string;
+  };
   industry: string;
   key_responsibilities: string[]; // Lista de responsabilidades
   skills_acquired: string[]; // Lista de habilidades adquiridas

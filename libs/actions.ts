@@ -357,8 +357,8 @@ export const upsertJobProfile = async (
               name: personalInfo.name,
               surname: personalInfo.surname,
               date_of_birth: personalInfo.date_of_birth,
-              country: personalInfo.country,
-              city: personalInfo.city,
+              country: personalInfo.location.country,
+              city: personalInfo.location.city,
               zip_code: personalInfo.zip_code,
               address: personalInfo.address,
               phone_prefix: personalInfo.phone_prefix,
@@ -421,8 +421,8 @@ export const upsertJobProfile = async (
             company: experience.company,
             employment_end_date: experience.employment_end_date,
             employment_start_date: experience.employment_start_date,
-            country: experience.country,
-            city: experience.city,
+            country: experience.location.country,
+            city: experience.location.city,
             industry: experience.industry,
             key_responsibilities: experience.key_responsibilities, // JSON
             skills_acquired: experience.skills_acquired, // JSON
@@ -440,8 +440,8 @@ export const upsertJobProfile = async (
               company: experience.company,
               employment_end_date: experience.employment_end_date,
               employment_start_date: experience.employment_start_date,
-              country: experience.country,
-              city: experience.city,
+              country: experience.location.country,
+              city: experience.location.city,
               industry: experience.industry,
               key_responsibilities: experience.key_responsibilities, // JSON
               skills_acquired: experience.skills_acquired, // JSON

@@ -21,13 +21,13 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
             else {
                 setIsAuthenticated(true);
             }
-            // if (user) {
-            //     if (user.exists && !Resume) {
-            //         router.replace("/search");
-            //     } else if (!user.exists && Resume) {
-            //         router.replace("/onboarding");
-            //     }
-            // }
+            if (user) {
+                if (user.exists && !Resume) {
+                    router.replace("/search");
+                } else if (!user.exists && Resume) {
+                    router.replace("/onboarding");
+                }
+            }
         }, [router, user]);
 
         useEffect(() => {

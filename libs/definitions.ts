@@ -174,15 +174,15 @@ export interface MatchingJob {
   title: string
   workplace_type: string
   posted_date: string
-  job_state: string
+  // job_state: string
   description: string
-  apply_link: string
+  // apply_link: string
   company_name: string
   company_logo?: string
   location: string
   city: string
   country: string
-  portal: string
+  // portal: string
   short_description: string
   field: string
   experience: string

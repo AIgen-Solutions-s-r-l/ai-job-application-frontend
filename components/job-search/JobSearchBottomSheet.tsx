@@ -34,9 +34,9 @@ export const JobSearchBottomSheet: React.FC = () => {
         formData.append('cv', cvFile);
       }
 
-      for (const pair of formData.entries()) {
-        console.log("Form Data: ", pair[0], pair[1]);
-      }
+      // for (const pair of formData.entries()) {
+      //   console.log("Form Data: ", pair[0], pair[1]);
+      // }
 
       try {
         const [job, credit] = await Promise.all([

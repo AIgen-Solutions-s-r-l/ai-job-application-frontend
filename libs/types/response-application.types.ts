@@ -90,8 +90,10 @@ export interface EducationDetail {
     final_evaluation_grade: string;
     start_date: number;
     year_of_completion: number;
-    country: string;
-    city: string;
+    location: {
+        country: string;
+        city: string;
+    }
     exam?: Exam;
 }
 
@@ -108,8 +110,10 @@ interface ExperienceDetail {
     company?: string;
     employment_start_date?: string;
     employment_end_date?: string;
-    country?: string;
-    city?: string;
+    location: {
+        country: string;
+        city: string;
+    }
     industry?: string;
     key_responsibilities?: string[];
     skills_acquired?: string[];

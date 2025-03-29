@@ -86,8 +86,10 @@ export const EducationDetailsOnboarding: FC = () => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
-      country: "",
-      city: "",
+      location: {
+        country: "",
+        city: "",
+      },
       exam: [
         {
           subject: "",
@@ -171,18 +173,18 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Country'}
-              {...register(`educationDetails.${index}.country`, { required: 'country is required' })}
+              {...register(`educationDetails.${index}.location.country`, { required: 'country is required' })}
               placeholder="e.g., Italy"
-              error={!!errors.educationDetails?.[index]?.country}
-              errorMessage={errors.educationDetails?.[index]?.country?.message}
+              error={!!errors.educationDetails?.[index]?.location?.country}
+              errorMessage={errors.educationDetails?.[index]?.location?.country?.message}
               className='w-[182px]'
             />
             <FormInput
               title={'City'}
-              {...register(`educationDetails.${index}.city`, { required: 'city is required' })}
+              {...register(`educationDetails.${index}.location.city`, { required: 'city is required' })}
               placeholder="e.g., Milan"
-              error={!!errors.educationDetails?.[index]?.city}
-              errorMessage={errors.educationDetails?.[index]?.city?.message}
+              error={!!errors.educationDetails?.[index]?.location?.city}
+              errorMessage={errors.educationDetails?.[index]?.location?.city?.message}
               className='w-[182px]'
             />
           </InputWrapper>

@@ -62,7 +62,8 @@ export function toJobProfile(resumeData: any): JobProfile {
         education_level: "",
         year_of_completion: "",
         final_evaluation_grade: "",
-        location: "",
+        country: "",
+        city: "",
         exam: [
           {
             subject: "",
@@ -75,7 +76,8 @@ export function toJobProfile(resumeData: any): JobProfile {
       {
         company: "",
         industry: "",
-        location: "",
+        country: "",
+        city: "",
         position: "",
         skills_acquired: [],
         employment_period: "",
@@ -218,7 +220,8 @@ export const defaultJobProfile: JobProfile = {
       education_level: "",
       year_of_completion: "",
       final_evaluation_grade: "",
-      location: "",
+      country: "",
+      city: "",
       exam: [
         {
           subject: "",
@@ -231,7 +234,8 @@ export const defaultJobProfile: JobProfile = {
     {
       company: "",
       industry: "",
-      location: "",
+      country: "",
+      city: "",
       position: "",
       skills_acquired: [],
       employment_start_date: "",

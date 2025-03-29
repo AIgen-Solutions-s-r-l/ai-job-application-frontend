@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { LandingContainer } from './LandingContainer';
 import Link from 'next/link';
 import Image from 'next/image';
-import { InstagramIcon, LinkedinIcon, TwitterIcon } from '../AppIcons';
+import { InstagramIcon, LinkedinIcon } from '../AppIcons';
 
 export const Footer: FC = () => {
   return (
@@ -13,7 +13,6 @@ export const Footer: FC = () => {
             <Link href='/' className='footer-link' >About Us</Link>
             <Link href='/' className='footer-link' >Our Team</Link>
             <Link href='/' className='footer-link' >Legal Center</Link>
-            <p className="font-jura font-bold text-white">P.IVA: 04284191204</p>
           </div>
           <div className="col-span-1 md:col-span-2 xl:col-span-2 py-[12px] xl:py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >How it works</Link>
@@ -22,15 +21,11 @@ export const Footer: FC = () => {
           </div>
           <div className="col-span-2 md:col-span-1 xl:col-span-3 py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >Contact Us</Link>
-            <Link href='/' className='footer-link' >Join our Discord</Link>
-            <div className="flex gap-4 text-white">
-              <Link href='' className="footer-social-container">
-                <TwitterIcon classname='footer-social-icon' />
-              </Link>
-              <Link href='' className="footer-social-container">
+            <div className="flex xl:mt-[20px] gap-6 text-white">
+              <Link href='https://www.instagram.com/interview_scouter/' className="footer-social-container">
                 <InstagramIcon classname='footer-social-icon' />
               </Link>
-              <Link href='' className="footer-social-container">
+              <Link href='https://www.linkedin.com/company/joinlaboro/posts/' className="footer-social-container">
                 <LinkedinIcon classname='footer-social-icon' />
               </Link>
             </div>
@@ -45,8 +40,9 @@ export const Footer: FC = () => {
             <p className="text-[16px] md:text-[20px] xl:text-[24px] font-medium text-white font-montserrat md:ml-[10px] xl:ml-[24px] mt-[12px] xl:mt-[22px]">AI-automated Job Applications</p>
           </div>
         </div>
-
-        <p className="mt-[40px] xl:mt-[104px] px-[12px] md:text-center font-jura text-[12px] font-semibold text-my-neutral-4">All Rights Reserved. Copyrights 2025</p>
+        <p className="mt-[40px] xl:mt-[80px] px-[12px] md:text-center font-jura text-[14px] font-semibold text-my-neutral-4">Via Guglielmo Marconi, 45, 40122 Bologna BO</p>
+        <p className="mt-[40px] xl:mt-[10px] px-[12px] md:text-center font-jura text-[14px] font-semibold text-my-neutral-4">P.IVA: 04284191204</p>
+        <p className="mt-[40px] xl:mt-[40px] px-[12px] md:text-center font-jura text-[12px] font-semibold text-my-neutral-4">All Rights Reserved. Copyrights 2025</p>
       </LandingContainer>
     </footer>
   );

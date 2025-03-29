@@ -11,6 +11,7 @@ import CVTemplateProvider from '../../contexts/cv-template-context';
 import { JobApplicationHeader } from './JobApplicationHeader';
 import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
+import { TemplateType } from './_components/resumeTemplates';
 
 interface Props {
     id: string;
@@ -220,7 +221,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //     }
     // }
 
-    const { resume_optimized, cover_letter, job_info } = applicationDetails;
+    const { resume_optimized, cover_letter, job_info, style } = applicationDetails;
 
     const router = useRouter();
     const converted = toResumeType(resume_optimized);
@@ -240,8 +241,12 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
                     </Container>
                     <div className="pb-5">
                         {activeTab === "resume" && (
-                            <CVTemplateProvider>
-                                <TemplateProfessional id={id} resume={converted} goBack={() => router.back()} />
+                            <CVTemplateProvider style={style as TemplateType}>
+                                <TemplateProfessional 
+                                    id={id} 
+                                    resume={converted} 
+                                    goBack={() => router.back()} 
+                                />
                             </CVTemplateProvider>
                         )}
                         {activeTab === "coverLetter" && (

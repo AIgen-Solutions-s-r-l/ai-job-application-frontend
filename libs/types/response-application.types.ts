@@ -2,6 +2,9 @@ export interface DetailedPendingApplication {
     resume_optimized: ResumeOptimized;
     cover_letter:     CoverLetter;
     job_info:         JobInfo;
+    style: string;
+    sent: boolean;
+    gen_cv: boolean;
 }
 
 export interface ResumeOptimized {
@@ -34,9 +37,12 @@ interface JobInfo {
     apply_link: string
     company_name: string
     location: string
-    job_id: number
+    short_description: string
+    field: string
+    company_logo: string
+    experience: string
+    skills_required: string[]
     portal: string
-    gen_cv: string
 }
 
 interface ProjectDetails {

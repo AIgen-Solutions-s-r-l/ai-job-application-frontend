@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Search } from 'lucide-react';
+import { AlertTriangle, Search } from 'lucide-react';
 import { useJobSearch } from '@/contexts/job-search-context';
 import { locationQuery } from '@/libs/api/matching';
 import { JobSearchProps } from '@/libs/definitions';
 import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
+import { setServerCookie } from '@/libs/cookies';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
@@ -21,6 +22,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
     null
   );
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   const { register, handleSubmit, getValues, reset } = useForm<JobSearchProps>({
     defaultValues: searchParams,
@@ -42,6 +44,12 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const onSubmit = () => {
     const { q, location, country, city, latitude, longitude } = getValues();
 
+    // Check if location is empty or not selected from dropdown
+    if (dataArray.length > 0 && showSuggestions) {
+      setLocationError('Please select a location from the dropdown');
+      return;
+    }
+
     const cleanParams: JobSearchProps = {
       q,
       location
@@ -49,6 +57,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     if (country) {
       cleanParams.country = country;
+      setServerCookie('lastJobSearchLocation', country, {});
     }
 
     if (city && city !== 'undefined') {
@@ -70,6 +79,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       }
 
       setShowSuggestions(true);
+      setLocationError(null);
+      
       if (e.target.value.length > 3) {
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
@@ -116,6 +127,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     });
 
     setShowSuggestions(false);
+    setLocationError(null);
   };
 
   return (
@@ -127,7 +139,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       <div className='w-full md:pt-5'>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='flex flex-col md:flex-row md:items-end md:gap-4 xl:gap-[30px] font-jura font-semibold'
+          className='flex flex-col md:flex-row md:items-end md:gap-4 xl:gap-6 font-jura font-semibold'
         >
           <div className='flex-1'>
             <label htmlFor='q' className='hidden md:block text-base leading-none'>
@@ -146,9 +158,17 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
 
           <div className='relative flex-1'>
-            <label htmlFor='location' className='hidden md:block text-base leading-none'>
-              Location
-            </label>
+            <div className="flex gap-2">
+              <label htmlFor='location' className='hidden md:block text-base leading-none'>
+                Location
+              </label>
+              {locationError && (
+                <div className='text-red-500 text-sm flex items-center'>
+                  <AlertTriangle size={16} className='mr-2' />
+                  {locationError}
+                </div>
+              )}
+            </div>
             <div className='mt-3 h-12 flex-1 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
               <input
                 type='text'
@@ -161,6 +181,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 className='block w-full bg-transparent focus:outline focus:outline-0'
               />
             </div>
+            
             {dataArray.length > 0 && showSuggestions && (
               <div className='absolute w-full bg-white box-border py-3 border border-1 border-neutral max-h-[200px] mt-2 z-10 flex flex-col gap-1 rounded-md overflow-auto'>
                 {dataArray.map((data, index) => (
@@ -203,9 +224,9 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
         </form>
 
         <div className='flex items-center mt-3 md:pb-1 md:mt-5 gap-16'>
-          <p className='hidden md:block text-[20px] font-montserrat'>
+          {/* <p className='hidden md:block text-[20px] font-montserrat'>
             <span className='font-bold'>{jobs.length} jobs</span> found.
-          </p>
+          </p> */}
           {/* <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
             <select
               className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'

@@ -5,6 +5,7 @@ import { TemplateStyle, TemplateType, templateStyles } from '../components/job-a
 
 type CVTemplateProviderProps = {
   children: React.ReactNode;
+  style: TemplateType;
 };
 
 type CVTemplateContextType = {
@@ -15,10 +16,10 @@ type CVTemplateContextType = {
 
 export const CVTemplateContext = createContext<CVTemplateContextType | null>(null);
 
-export default function CVTemplateProvider ({ children }: CVTemplateProviderProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>('default');
+export default function CVTemplateProvider ({ children, style }: CVTemplateProviderProps) {
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(style || 'default');
 
-  const template = templateStyles[selectedTemplate];
+  const template = templateStyles[selectedTemplate] || templateStyles['default'];
 
   return (
     <CVTemplateContext.Provider

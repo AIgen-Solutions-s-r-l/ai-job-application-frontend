@@ -47,7 +47,8 @@ export interface EducationDetails {
   final_evaluation_grade?: string; // Opcional
   year_of_completion: string;
   start_date: string;
-  location: string;
+  country: string;
+  city: string;
   exam: Exam[]
 }
 
@@ -60,8 +61,11 @@ export interface ExperienceDetails {
   id?: string;
   position: string;
   company: string;
-  employment_period: string; // Puede ser una fecha o rango de fechas
-  location: string;
+  // employment_period: string; // Puede ser una fecha o rango de fechas
+  employment_start_date: string;
+  employment_end_date: string;
+  country: string;
+  city: string;
   industry: string;
   key_responsibilities: string[]; // Lista de responsabilidades
   skills_acquired: string[]; // Lista de habilidades adquiridas
@@ -174,15 +178,15 @@ export interface MatchingJob {
   title: string
   workplace_type: string
   posted_date: string
-  job_state: string
+  // job_state: string
   description: string
-  apply_link: string
+  // apply_link: string
   company_name: string
   company_logo?: string
   location: string
   city: string
   country: string
-  portal: string
+  // portal: string
   short_description: string
   field: string
   experience: string
@@ -207,10 +211,10 @@ export interface PendingApplication {
   field: string
   company_logo: string
   experience: string
-  skills_required: string
+  skills_required: string[]
   style: string
   sent: boolean
-  gen_cv: string
+  gen_cv: boolean
 }
 
 export interface DetailedPendingApplication {
@@ -225,6 +229,7 @@ export interface DetailedPendingApplication {
 
 export interface JobDetail {
   id: number
+  status: string
   portal: string
   title: string
   workplace_type: string

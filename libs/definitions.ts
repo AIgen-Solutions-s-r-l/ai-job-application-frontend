@@ -207,10 +207,10 @@ export interface PendingApplication {
   field: string
   company_logo: string
   experience: string
-  skills_required: string
+  skills_required: string[]
   style: string
   sent: boolean
-  gen_cv: string
+  gen_cv: boolean
 }
 
 export interface DetailedPendingApplication {

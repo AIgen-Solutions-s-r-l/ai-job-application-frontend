@@ -29,7 +29,6 @@ export const ApplicationJobInfo: FC<Props> = ({
         <div className='flex justify-between flex-0'>
           <div className='flex flex-col gap-3 leading-none'>
             <h3 className='text-[22px] font-medium'>{job.title}</h3>
-            <p className='text-md'>{job.portal}</p>
           </div>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>

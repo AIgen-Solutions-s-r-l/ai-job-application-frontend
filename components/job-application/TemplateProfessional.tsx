@@ -8,15 +8,11 @@ import { Resume } from '../../libs/types/application.types';
 import { FormProvider, useForm } from 'react-hook-form';
 import { updateApplicationResumeAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
-import { useCVTemplateContext } from '../../contexts/cv-template-context';
-// import { TemplateType } from './_components/resumeTemplates';
-// import { fromResumeType } from '@/libs/utils/application.util';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
 import { ButtonUnderline } from '../ButtonUnderline';
-import { fromResumeType } from '@/libs/utils/application.util';
+import { useCVTemplateContext } from '@/contexts/cv-template-context';
 
 interface Props {
   id: string;
@@ -30,7 +26,7 @@ export const TemplateProfessional: FC<Props> = ({
   goBack,
 }) => {
   const { activeSection } = useActiveSectionContext();
-  const { template, setSelectedTemplate } = useCVTemplateContext();
+  const { template } = useCVTemplateContext();
 
   const methods = useForm({
     defaultValues: resume,

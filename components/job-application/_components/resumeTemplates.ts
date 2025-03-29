@@ -329,16 +329,16 @@ const cloyolaTemplate: TemplateStyle = {
 };
 
 export const templateStyles = {
-  default: defaultTemplate,
-  krishnavalliappan: krishnavalliappanTemplate,
-  samodumBold: samodumBoldTemplate,
-  josyladGrey: josyladGreyTemplate,
-  josyladBlue: josyladBlueTemplate,
-  cloyola: cloyolaTemplate,
+  'default': defaultTemplate,
+  'krishnavalliappan': krishnavalliappanTemplate,
+  'samodum_bold': samodumBoldTemplate,
+  'josylad_grey': josyladGreyTemplate,
+  'josylad_blue': josyladBlueTemplate,
+  'cloyola': cloyolaTemplate,
 } as const;
 
 export const templateStyleByIndex: Record<number, string> = {
-  1: 'samudum_bold',
+  1: 'samodum_bold',
   2: 'josylad_grey',
   3: 'josylad_blue',
   4: 'cloyola'

@@ -5,11 +5,24 @@ import API_BASE_URLS from "@/libs/api/config"; // Import base URLs
 import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
-import { createClient } from "@/libs/supabase/server";
 
 interface UserInfo {
-  id: string;
+  id: number;
   email: string;
+}
+
+export const decodeToken = async (token: string) => {
+  const decoded = await jwtDecode(token) satisfies {
+    sub: string,
+    id: number,
+    is_admin: boolean,
+    exp: number
+  };
+
+  return {
+    ...decoded,
+    expirationDate: new Date(decoded.exp * 1000)
+  };
 }
 
 export const login = createServerAction(async (email: string, password: string) => {
@@ -23,13 +36,12 @@ export const login = createServerAction(async (email: string, password: string) 
       password,
     });
 
-    console.log(response)
+    // console.log(response)
     if (!response || !response.data) {
       throw new ServerActionError("No data received from API.");
     }
 
-    const decoded = jwtDecode(response.data.access_token);
-    const expirationDate = new Date(decoded.exp * 1000);
+    const { expirationDate } = await decodeToken(response.data.access_token);
 
     // TODO: Uncomment - Backend api ends up in an infinite loop when the token expires.
     // expirationDate.setHours(expirationDate.getHours() + 1);
@@ -86,8 +98,7 @@ export async function refreshToken() {
       throw new Error("No data received from API.");
     }
 
-    const decoded = jwtDecode(response.data.access_token);
-    const expirationDate = new Date(decoded.exp * 1000);
+    const { expirationDate } = await decodeToken(response.data.access_token)
     expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
@@ -175,9 +186,7 @@ export const verifyEmail = createServerAction(async (token: string) => {
       throw new ServerActionError("No data received from API.");
     }
 
-    const decoded = jwtDecode(response.data.access_token);
-    const expirationDate = new Date(decoded.exp * 1000);
-
+    const { expirationDate } = await decodeToken(response.data.access_token);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,
@@ -251,7 +260,7 @@ export async function resetPasswordForEmail(email: string): Promise<{ success: b
 
 export async function resetPassword(new_password: string, token: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/reset-password`, {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/password-reset`, {
       token,
       new_password,
     });
@@ -329,7 +338,7 @@ export async function changePassword(current_password: string, new_password: str
 
 export async function changeEmail(username: string, current_password: string, new_email: string,): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/${username}/email`, {
+    const response = await apiClientJwt.put(`${API_BASE_URLS.auth}/auth/users/change-email`, {
       current_password,
       new_email,
     });
@@ -376,22 +385,20 @@ export async function changeEmail(username: string, current_password: string, ne
 export async function getUserInfo(): Promise<UserInfo> {
   try {
     const accessToken = await getServerCookie('accessToken');
+
     if (!accessToken) {
       throw new Error("No access token found in cookies");
     }
 
-    const decoded: any = jwtDecode(accessToken);
+    const { id, sub: email } = await decodeToken(accessToken);
 
-
-    const userId = decoded?.id;
-    const userEmail = decoded?.sub;
-    if (!userId) {
+    if (!id) {
       throw new Error("Unable to extract user ID from token");
     }
 
     return {
-      id: userId,
-      email: userEmail
+      id,
+      email
     };
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -455,6 +462,54 @@ export async function addCredits(amount: number, referenceId: string, descriptio
   }
 }
 
+export async function getBalance(): Promise<any> {
+  let accessToken = await getServerCookie('accessToken');
+  const decoded: any = jwtDecode(accessToken);
+
+  try {
+    const response = await apiClientJwt.get(
+      `${API_BASE_URLS.auth}/credits/balance?user_id=${decoded.id}`,
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error checking credits:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
+export async function spendCredits(amount: number): Promise<any> {
+  let accessToken = await getServerCookie('accessToken');
+  const decoded: any = jwtDecode(accessToken);
+
+  try {
+    const response = await apiClientJwt.post(
+      `${API_BASE_URLS.auth}/credits/use?user_id=${decoded.id}`,{
+        amount,
+      },
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error using credits:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
 /**
  * Gets the redirect URL for Google authentication
  * @param redirectUri URI to redirect after successful authentication
@@ -464,7 +519,7 @@ export async function getGoogleOAuthURL(redirectUri: string) {
   try {
     // Include the redirect_uri parameter in the request
     const response = await apiClient.get(
-      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`
+      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`, 
     );
     console.log(response);
 
@@ -478,4 +533,4 @@ export async function getGoogleOAuthURL(redirectUri: string) {
     const errorMessage = error.response?.data?.detail || "Error processing Google authentication request.";
     throw new ServerActionError(errorMessage);
   }
-};
+}

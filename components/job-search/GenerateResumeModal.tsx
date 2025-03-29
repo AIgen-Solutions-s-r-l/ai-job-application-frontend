@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import CloseButton from "../svgs/CloseBtn.svg";
+import { CloseButtonIcon } from "@/components/AppIcons";
 import Template1 from '../svgs/template1.svg';
 import Template2 from '../svgs/template2.svg';
 import Template3 from '../svgs/template3.svg';
@@ -17,7 +17,7 @@ import { AiFillFilePdf } from "react-icons/ai";
 interface ModalProps {
     isModalOpen: boolean;
     setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-    onConfirm: () => void;
+    onConfirm: () => Promise<void>;
     onCancel?: () => void;
     generateTemplate: boolean;
     setGenerateTemplate: Dispatch<SetStateAction<boolean>>;
@@ -41,8 +41,26 @@ const GenerateResumeModal = ({
     setCVFile,
 }: ModalProps) => {
     const [isDragging, setIsDragging] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+    const handleConfirm = async () => {
+        if (isSubmitting) return;
+
+        try {
+            setIsSubmitting(true);
+            await onConfirm();
+            setIsModalOpen(false);
+        } catch (error) {
+            console.error('Submission error:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
 
     const handleCancel = () => {
+        if (isSubmitting) return;
+
         if (onCancel) {
             onCancel();
         }
@@ -50,7 +68,7 @@ const GenerateResumeModal = ({
     };
 
     const handleTemplateSelect = (templateNumber: number) => {
-        setSelectedTemplate(templateNumber === selectedTemplate ? selectedTemplate : templateNumber);
+        // setSelectedTemplate(templateNumber === selectedTemplate ? selectedTemplate : templateNumber);
     };
 
     const handleDragOver = (e: DragEvent) => {
@@ -113,7 +131,7 @@ const GenerateResumeModal = ({
                                         className="outline-none"
                                         onClick={handleCancel}
                                     >
-                                        <Image src={CloseButton} alt='close button' />
+                                        <CloseButtonIcon />
                                     </button>
                                 </div>
                                 <section className="pb-5 px-6">
@@ -188,13 +206,11 @@ const GenerateResumeModal = ({
                                         Cancel
                                     </button>
                                     <button
-                                        className="btn outline-black bg-primary hover:bg-primary hover:text-white"
-                                        onClick={() => {
-                                            onConfirm();
-                                            setIsModalOpen(false);
-                                        }}
+                                        className='btn outline-black bg-primary hover:bg-primary hover:text-white text-black disabled:text-black disabled:cursor-not-allowed' 
+                                        onClick={handleConfirm}
+                                        disabled={isSubmitting}
                                     >
-                                        Confirm
+                                        {isSubmitting ? 'Submitting...' : 'Confirm'}
                                     </button>
                                 </div>
                             </Dialog.Panel>

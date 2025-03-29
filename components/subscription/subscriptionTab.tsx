@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 // Icons and images
-import Cart from "../svgs/Cart.svg";
-import MasterCard from "../svgs/MasterCard.svg";
+import { CartIcon } from "@/components/AppIcons";
 
 // Components
 import SliderInput from "./sliderInput";
@@ -16,6 +14,7 @@ import { getUserInfo, addCredits } from "@/libs/api/auth";
 
 // Importamos la configuración central
 import config from "@/config";
+import { MasterCardIcon } from "../AppIconsWithImages";
 
 function SubscriptionTab() {
   const [sliderValue, setSliderValue] = useState(2); // Default at index 2 (500 credits)
@@ -258,7 +257,7 @@ function SubscriptionTab() {
               className="flex items-center gap-2 bg-secondary rounded-xl px-5 py-2 font-jura font-semibold disabled:opacity-70"
             >
               {isLoading ? "Processing..." : "Purchase"}
-              <Image src={Cart} alt="cart" />
+              <CartIcon />
             </button>
           </div>
         </div>
@@ -286,7 +285,7 @@ function SubscriptionTab() {
               Credit Card Information
             </p>
             <div className="flex items-center gap-2">
-              <Image src={MasterCard} alt="mastercard" />
+              <MasterCardIcon />
               <p className="text-black font-montserrat font-semibold text-lg">
                 **** **** **** 9201
               </p>

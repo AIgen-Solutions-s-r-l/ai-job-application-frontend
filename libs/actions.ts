@@ -2,7 +2,7 @@
 
 import { createClient } from "@/libs/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Bot, JobProfile, MatchingJob, UploadFile } from "./definitions";
+import { Bot, JobProfile, UploadFile } from "./definitions";
 import crypto from "crypto";
 import { formDataToObject, resumeFileSchema } from "./utils";
 import { SafeParseError, SafeParseReturnType, SafeParseSuccess } from "zod";
@@ -14,6 +14,8 @@ import { applySelectedApplications, updateApplicationLetter, updateApplicationRe
 import { Resume } from "./types/application.types";
 import { fromResumeType } from "./utils/application.util";
 import { CoverLetterCoverLetter } from "./types/response-application.types";
+import { spendCredits } from "./api/auth";
+import { ServerActionResult } from "./action-utils";
 
 const supabase = createClient();
 const algorithm = "aes-256-ctr";
@@ -150,7 +152,7 @@ export const addJobsToManager = async (formData: FormData): Promise<{
     return { success: true };
   } catch (error) {
     console.error("Error when adding jobs to jobs manager:", error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -167,6 +169,8 @@ export const applySelectedApplicationsAction = async (applications: string[]): P
         error: `Server returned ${response.error}`,
       };
     }
+
+    revalidatePath(`/manager`);
 
     return { success: true };
   } catch (error) {
@@ -208,7 +212,7 @@ export const updateApplicationLetterAction = async (id: string, letterData: Cove
     const coverLetter = {
       cover_letter: letterData
     }
-    
+
     const response = await updateApplicationLetter(id, coverLetter);
 
     if (!response.success) {
@@ -223,6 +227,16 @@ export const updateApplicationLetterAction = async (id: string, letterData: Cove
     return { success: true };
   } catch (error) {
     console.error("Error updating job profile:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export const spendCreditsAction = async (amount: number): Promise<ServerActionResult<number>> => {
+  try {
+    const response = await spendCredits(amount);
+    return { success: true, value: response.new_balance };
+  } catch (error) {
+    console.error("Error fetching user balance:", error);
     return { success: false, error: error.message };
   }
 }
@@ -405,8 +419,10 @@ export const upsertJobProfile = async (
           .update({
             position: experience.position,
             company: experience.company,
-            employment_period: experience.employment_period,
-            location: experience.location,
+            employment_end_date: experience.employment_end_date,
+            employment_start_date: experience.employment_start_date,
+            country: experience.country,
+            city: experience.city,
             industry: experience.industry,
             key_responsibilities: experience.key_responsibilities, // JSON
             skills_acquired: experience.skills_acquired, // JSON
@@ -422,8 +438,10 @@ export const upsertJobProfile = async (
               personal_information_id: personalInformationId,
               position: experience.position,
               company: experience.company,
-              employment_period: experience.employment_period,
-              location: experience.location,
+              employment_end_date: experience.employment_end_date,
+              employment_start_date: experience.employment_start_date,
+              country: experience.country,
+              city: experience.city,
               industry: experience.industry,
               key_responsibilities: experience.key_responsibilities, // JSON
               skills_acquired: experience.skills_acquired, // JSON

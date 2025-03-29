@@ -74,8 +74,6 @@ export const UploadResumeOnboarding: React.FC = () => {
 
         const data = await extractResume(formData);
 
-        console.log(data);
-
         clearInterval(progressInternval);
         setProgress(100);
 

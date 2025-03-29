@@ -121,8 +121,10 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
       company: "",
       employment_start_date: "",
       employment_end_date: "",
-      country: "",
-      city: "",
+      location: {
+        country: "",
+        city: "",
+      },
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
@@ -188,18 +190,18 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
               />
               <FormInput
                 title={'Country'}
-                {...register(`experienceDetails.${index}.country`, { required: 'country is required' })}
+                {...register(`experienceDetails.${index}.location.country`, { required: 'country is required' })}
                 placeholder="e.g., Italy"
-                error={!!errors.experienceDetails?.[index]?.country}
-                errorMessage={errors.experienceDetails?.[index]?.country?.message}
+                error={!!errors.experienceDetails?.[index]?.location.country}
+                errorMessage={errors.experienceDetails?.[index]?.location.country?.message}
                 className='w-[164px]'
               />
               <FormInput
                 title={'City'}
-                {...register(`experienceDetails.${index}.city`, { required: 'City is required' })}
+                {...register(`experienceDetails.${index}.location.city`, { required: 'City is required' })}
                 placeholder="e.g., Milan"
-                error={!!errors.experienceDetails?.[index]?.city}
-                errorMessage={errors.experienceDetails?.[index]?.city?.message}
+                error={!!errors.experienceDetails?.[index]?.location.city}
+                errorMessage={errors.experienceDetails?.[index]?.location.city?.message}
                 className='w-[164px]'
               />
               <FormInput

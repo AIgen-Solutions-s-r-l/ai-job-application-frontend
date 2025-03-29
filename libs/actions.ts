@@ -170,6 +170,8 @@ export const applySelectedApplicationsAction = async (applications: string[]): P
       };
     }
 
+    revalidatePath(`/manager`);
+
     return { success: true };
   } catch (error) {
     console.error("Error when applying to selected jobs:", error);

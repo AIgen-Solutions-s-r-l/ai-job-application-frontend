@@ -24,24 +24,22 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
           className="hidden xl:flex w-[493px]  -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white"
         >
           <div className="flex gap-[8px] items-center">
-            <p className='text-[40px] leading-[44px] font-medium'>{job.company_name ?? 'Company Name'}</p>
+            <p className='text-[36px] leading-[40px] font-medium'>{job.company_name}</p>
           </div>
-          <p className='text-[20px] leading-none'>{job.title ?? 'UX Designer Tier II'}</p>
-          <div className="flex gap-[8px] items-end ">
-            <MapPin size={20} />
-            <p className='text-[18px] font-semibold font-jura leading-none'>{job.location ?? 'Santa Clara, USA'}</p>
-          </div>
-          <div className="flex gap-3 mt-2 font-jura">
-            <div className="flex items-center justify-center w-max h-[27px] px-[15px] rounded-full bg-primary text-white text-base">
-              {job.is_remote ? 'Remote' : 'On-site'}
+          <p className='text-[20px] leading-none'>{job.title}</p>
+          {job.location && (
+            <div className="flex gap-[8px] items-end ">
+              <MapPin size={20} />
+              <p className='text-[18px] font-semibold font-jura leading-none'>{job.location}</p>
             </div>
-            <div className="flex items-center justify-center w-max h-[27px] px-[15px] rounded-full bg-primary text-white text-base">
-              {job.workplace_type ?? 'Full-time'}
-            </div>
-            <div className="flex items-center justify-center w-max h-[27px] px-[15px] rounded-full bg-primary text-white text-base">
-              English
-            </div>
-          </div>
+          )}
+          {/* <div className='flex gap-x-2 gap-y-1 my-1 lg:my-2 flex-wrap overflow-hidden'>
+            {!!job.skills_required.length && job.skills_required.map(
+              (skill, index) => (
+                <div key={index} className='pill'>{skill}</div>
+              )
+            )}
+          </div> */}
         </div>
       </Container>
     </div>

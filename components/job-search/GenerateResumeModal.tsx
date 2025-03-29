@@ -50,7 +50,7 @@ const GenerateResumeModal = ({
     };
 
     const handleTemplateSelect = (templateNumber: number) => {
-        setSelectedTemplate(templateNumber === selectedTemplate ? selectedTemplate : templateNumber);
+        // setSelectedTemplate(templateNumber === selectedTemplate ? selectedTemplate : templateNumber);
     };
 
     const handleDragOver = (e: DragEvent) => {

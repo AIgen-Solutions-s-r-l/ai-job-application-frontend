@@ -60,7 +60,9 @@ export interface ExperienceDetails {
   id?: string;
   position: string;
   company: string;
-  employment_period: string; // Puede ser una fecha o rango de fechas
+  // employment_period: string; // Puede ser una fecha o rango de fechas
+  employment_start_date: string;
+  employment_end_date: string;
   location: string;
   industry: string;
   key_responsibilities: string[]; // Lista de responsabilidades

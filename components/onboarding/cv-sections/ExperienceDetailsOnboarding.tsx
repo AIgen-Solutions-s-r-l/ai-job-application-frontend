@@ -54,7 +54,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-2xl">+</span> 
+        <span className="text-2xl">+</span>
         <p className="text-base">Add Responsibility</p>
       </button>
     </>
@@ -119,7 +119,8 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
     append({
       position: "",
       company: "",
-      employment_period: "",
+      employment_start_date: "",
+      employment_end_date: "",
       location: "",
       industry: "",
       key_responsibilities: [],
@@ -164,11 +165,21 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               className='grow'
             />
             <FormInput
-              title={'Employment Period'}
-              {...register(`experienceDetails.${index}.employment_period`, { required: 'Employment Period is required' })}
+              title={'Start Date'}
+              type="date"
+              {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
               placeholder="e.g., June 2020 - Present"
-              error={!!errors.experienceDetails?.[index]?.employment_period}
-              errorMessage={errors.experienceDetails?.[index]?.employment_period?.message}
+              error={!!errors.experienceDetails?.[index]?.employment_start_date}
+              errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
+              className='w-[238px]'
+            />
+            <FormInput
+              title={'End Date'}
+              type="date"
+              {...register(`experienceDetails.${index}.employment_end_date`, { required: 'End Date is required' })}
+              placeholder="e.g., June 2020 - Present"
+              error={!!errors.experienceDetails?.[index]?.employment_end_date}
+              errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
               className='w-[238px]'
             />
             <FormInput

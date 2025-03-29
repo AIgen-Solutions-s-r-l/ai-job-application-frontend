@@ -121,7 +121,8 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
       company: "",
       employment_start_date: "",
       employment_end_date: "",
-      location: "",
+      country: "",
+      city: "",
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
@@ -186,11 +187,19 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 className='w-[238px]'
               />
               <FormInput
-                title={'Location'}
-                {...register(`experienceDetails.${index}.location`, { required: 'Location is required' })}
-                placeholder="e.g., San Francisco, CA"
-                error={!!errors.experienceDetails?.[index]?.location}
-                errorMessage={errors.experienceDetails?.[index]?.location?.message}
+                title={'Country'}
+                {...register(`experienceDetails.${index}.country`, { required: 'country is required' })}
+                placeholder="e.g., Italy"
+                error={!!errors.experienceDetails?.[index]?.country}
+                errorMessage={errors.experienceDetails?.[index]?.country?.message}
+                className='w-[164px]'
+              />
+              <FormInput
+                title={'City'}
+                {...register(`experienceDetails.${index}.city`, { required: 'City is required' })}
+                placeholder="e.g., Milan"
+                error={!!errors.experienceDetails?.[index]?.city}
+                errorMessage={errors.experienceDetails?.[index]?.city?.message}
                 className='w-[164px]'
               />
               <FormInput

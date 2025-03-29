@@ -77,8 +77,8 @@ export interface ResumeLanguage {
 }
 
 export interface JobInfo {
+  id: string
   title: string
-  company_logo: string
   is_remote: string
   workplace_type: string
   posted_date: string
@@ -87,8 +87,10 @@ export interface JobInfo {
   apply_link: string
   company_name: string
   location: string
-  id: string
-  job_id: number
+  short_description: string
+  field: string
+  company_logo: string
+  experience: string
+  skills_required: string[]
   portal: string
-  gen_cv: string
 }

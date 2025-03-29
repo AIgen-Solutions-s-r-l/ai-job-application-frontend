@@ -25,6 +25,7 @@ export const JobManagerBottomSheet: FC = () => {
       .then((response) => {
         if (response.success) {
           toast.success('Application submitted!');
+          sessionStorage.removeItem('jobManager');
           router.push('/dashboard');
         } else {
           toast.error('Failed to sumbit application.');

@@ -80,7 +80,8 @@ export function toJobProfile(resumeData: any): JobProfile {
         city: "",
         position: "",
         skills_acquired: [],
-        employment_period: "",
+        employment_start_date: "",
+        employment_end_date: "",
         key_responsibilities: [],
       }
     ],

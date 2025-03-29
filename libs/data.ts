@@ -1,4 +1,4 @@
-import { CVType, JobProfile, MatchingJob, JobSearchParams, JobsList, PendingApplicationRecord } from "./definitions";
+import { CVType, JobProfile, MatchingJob, JobSearchParams, JobsList, PendingApplicationRecord, Transaction } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./utils/job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
@@ -6,7 +6,7 @@ import { fetchAppliedJobs } from "./api/application";
 import { fetchDetailedApplicationData, fetchPendingApplications } from "./api/apply_pending";
 import { DetailedPendingApplication } from "./types/response-application.types";
 import { ServerActionResult } from "./action-utils";
-import { getBalance } from "./api/auth";
+import { getBalance, getTransactions } from "./api/auth";
 
 export async function getCVAction(): Promise<CVType> {
   const supabase = createClient();
@@ -314,5 +314,21 @@ export const fetchBalanceData = async (): Promise<ServerActionResult<number>> =>
   } catch (error) {
     console.error("Error fetching user balance:", error);
     return { success: false, error: error.message };
+  }
+}
+
+export const fetchTransactionsData = async (): Promise<Transaction[]> => {
+  try {
+    const response = await getTransactions();
+
+    const creditAddedTransactions = response.transactions.filter(
+      (transaction: any) => transaction.transaction_type === 'credit_added' && 
+      transaction.description !== "Refund for failed application"
+    );
+
+    return creditAddedTransactions || [];
+  } catch (error) {
+    console.error("Error fetching user balance:", error);
+    return [];
   }
 }

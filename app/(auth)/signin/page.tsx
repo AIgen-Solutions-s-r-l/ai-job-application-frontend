@@ -37,7 +37,7 @@ const Login = () => {
       const result = await login(email, password);
 
       if (result.success && result.value?.access_token) {
-        toast.success('Logged in successfully!');
+        toast.success('Login successful!');
         try {
           const [exists, me] = await Promise.all([
             isResumeExits(),
@@ -57,7 +57,7 @@ const Login = () => {
         ) {
           setEmailMotVerified(true);
           toast.error(
-            'Need verify account. Usee link in email or re-send link.'
+            'Account verification pending. Check your email for the verification link or request a new one.'
           );
         } else {
           toast.error(result.error || 'Failed to login.');

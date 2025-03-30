@@ -20,9 +20,9 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { deleteServerCookie } from "@/libs/cookies";
 import { useUserContext } from "@/contexts/user-context";
+import Link from "next/link";
 
 const AppButtonAccount = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,24 +42,24 @@ const AppButtonAccount = () => {
     window.location.href = "/";
   };
 
-  const handleBilling = async () => {
-    setIsLoading(true);
+  // const handleBilling = async () => {
+  //   setIsLoading(true);
 
-    try {
-      const { url }: { url: string } = await apiClient.post(
-        "/stripe/create-portal",
-        {
-          returnUrl: window.location.href,
-        }
-      );
+  //   try {
+  //     const { url }: { url: string } = await apiClient.post(
+  //       "/stripe/create-portal",
+  //       {
+  //         returnUrl: window.location.href,
+  //       }
+  //     );
 
-      window.location.href = url;
-    } catch (e) {
-      console.error(e);
-    }
+  //     window.location.href = url;
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
 
-    setIsLoading(false);
-  };
+  //   setIsLoading(false);
+  // };
 
   return (
     <>
@@ -103,10 +103,12 @@ const AppButtonAccount = () => {
               Settings
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem className="h-10" onClick={handleBilling}>
-            <CreditCard />
-            Billing
-          </DropdownMenuItem>
+          <Link href="/dashboard/subscription">
+            <DropdownMenuItem className="h-10">
+              <CreditCard />
+              Billing
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator className="bg-gray-400" />
           <DropdownMenuItem className="h-10" onClick={handleSignOut}>
             <LogOut />

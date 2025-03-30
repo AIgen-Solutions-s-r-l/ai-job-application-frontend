@@ -22,7 +22,7 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
       console.log({ result });
 
       if (result.success) {
-        toast.success('Logged in successfully!');
+        toast.success('Login successful!');
 
         const me = await fetchUserData();
 

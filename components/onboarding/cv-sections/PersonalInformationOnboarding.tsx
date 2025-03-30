@@ -15,7 +15,7 @@ export const PersonalInformationOnboarding: FC = () => {
         <InputWrapper>
           <FormInput
             title={'First Name'}
-            {...register('personalInfo.name', { required: 'First Name is required' })}
+            {...register('personalInfo.name')}
             placeholder="e.g., John"
             error={!!errors.personalInfo?.name}
             errorMessage={errors.personalInfo?.name?.message}
@@ -23,7 +23,7 @@ export const PersonalInformationOnboarding: FC = () => {
           />
           <FormInput
             title={'Last Name'}
-            {...register('personalInfo.surname', { required: 'Last Name is required' })}
+            {...register('personalInfo.surname')}
             placeholder="e.g., Doe"
             error={!!errors.personalInfo?.surname}
             errorMessage={errors.personalInfo?.surname?.message}
@@ -31,7 +31,7 @@ export const PersonalInformationOnboarding: FC = () => {
           />
           <FormInput
             title={'Date of Birth'}
-            {...register('personalInfo.date_of_birth', { required: 'Date of Birth is required' })}
+            {...register('personalInfo.date_of_birth')}
             type="date"
             min="1980-01-01"
             max={new Date().toLocaleDateString('en-ca')}
@@ -45,7 +45,7 @@ export const PersonalInformationOnboarding: FC = () => {
         <InputWrapper>
           <FormInput
             title={'City'}
-            {...register('personalInfo.city', { required: 'City is required' })}
+            {...register('personalInfo.city')}
             placeholder="e.g., New York"
             error={!!errors.personalInfo?.city}
             errorMessage={errors.personalInfo?.city?.message}
@@ -53,7 +53,7 @@ export const PersonalInformationOnboarding: FC = () => {
           />
           <FormInput
             title={'Address'}
-            {...register('personalInfo.address', { required: 'Address is required' })}
+            {...register('personalInfo.address')}
             placeholder="e.g., 1234 Broadway St."
             error={!!errors.personalInfo?.address}
             errorMessage={errors.personalInfo?.address?.message}
@@ -63,6 +63,7 @@ export const PersonalInformationOnboarding: FC = () => {
             title={'State / Province'}
             // {...register('personalInfo.state')}
             placeholder="N/A"
+            required={false}
             // error={!!errors.personalInfo?.state}
             // errorMessage={errors.personalInfo?.state?.message}
             className='w-[149px]'
@@ -71,11 +72,12 @@ export const PersonalInformationOnboarding: FC = () => {
             title={'Zip / Postal'}
             {...register('personalInfo.zip_code')}
             placeholder="N/A"
+            required={false}
             className='w-[149px]'
           />
           <FormInput
             title={'Country'}
-            {...register('personalInfo.country', { required: 'Country is required' })}
+            {...register('personalInfo.country')}
             placeholder="e.g., USA"
             error={!!errors.personalInfo?.country}
             errorMessage={errors.personalInfo?.country?.message}
@@ -87,7 +89,7 @@ export const PersonalInformationOnboarding: FC = () => {
         <InputWrapper>
           <FormInput
             title={'Phone prefix'}
-            {...register('personalInfo.phone_prefix', { required: 'Phone prefix is required' })}
+            {...register('personalInfo.phone_prefix')}
             placeholder="e.g., +1"
             error={!!errors.personalInfo?.phone_prefix}
             errorMessage={errors.personalInfo?.phone_prefix?.message}
@@ -95,7 +97,7 @@ export const PersonalInformationOnboarding: FC = () => {
           />
           <FormInput
             title={'Phone'}
-            {...register('personalInfo.phone', { required: 'Phone is required' })}
+            {...register('personalInfo.phone')}
             placeholder="e.g., 5551234567"
             error={!!errors.personalInfo?.phone}
             errorMessage={errors.personalInfo?.phone?.message}
@@ -103,13 +105,7 @@ export const PersonalInformationOnboarding: FC = () => {
           />
           <FormInput
             title={'Email'}
-            {...register('personalInfo.email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
-                message: 'Invalid email address',
-              },
-            })}
+            {...register('personalInfo.email')}
             type="email"
             placeholder="e.g., john.doe@example.com"
             error={!!errors.personalInfo?.email}

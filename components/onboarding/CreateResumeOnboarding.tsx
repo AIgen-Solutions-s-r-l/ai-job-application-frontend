@@ -16,10 +16,8 @@ import { Container } from '../Container';
 import { ButtonUnderline } from '../ButtonUnderline';
 import { ArrowLeftIcon, ArrowRightIcon } from '../AppIcons';
 import ChoseLocationModal from './ChooseLocationModal';
-import { useRouter } from 'next/navigation';
-import { fetchUserData } from '@/libs/api/auth';
-import { isResumeExits } from '@/libs/api/resume';
-import { useUserContext } from '@/contexts/user-context';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { cvFormSchema, type CVFormData } from '@/libs/validations/cv-form-schema';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const { CVData, setCVData } = useCVDataContext();
@@ -27,12 +25,10 @@ export const CreateResumeOnboarding: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [defaultLocation, setDefaultLocation] = useState<string>('');
 
-  const methods = useForm({
+  const methods = useForm<CVFormData>({
     defaultValues: CVData,
+    resolver: zodResolver(cvFormSchema)
   });
-
-  const router = useRouter();
-  const { setUser } = useUserContext();
 
   const validateStep = useCallback(async () => {
     let validateFields: any = [];
@@ -63,11 +59,6 @@ export const CreateResumeOnboarding: React.FC = () => {
 
       if (response.success) {
         toast.success("Profile saved successfully!");
-        const [exists, me] = await Promise.all([
-          isResumeExits(),
-          fetchUserData(),
-        ]);
-        setUser({ ...exists, ...me });
         setDefaultLocation(jobProfile.personalInfo.country)
         setIsModalOpen(true);
       } else {

@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { ArrowRightIcon } from "../AppIcons";
 import { useRouter } from "next/navigation";
 import { setServerCookie } from '@/libs/cookies';
+import { useUserContext } from '@/contexts/user-context';
+import { FaLaptopHouse, FaSpinner } from "react-icons/fa";
 
 interface MyLocation {
     city?: string
@@ -31,6 +33,8 @@ const ChoseLocationModal = ({
     const [showSuggestions, setShowSuggestions] = useState(false);
     // eslint-disable-next-line no-undef
     const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
+    const { setUser } = useUserContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const { register, handleSubmit, getValues, reset } = useForm<MyLocation>({
         defaultValues: {
@@ -76,9 +80,11 @@ const ChoseLocationModal = ({
     };
 
     const onSubmit = () => {
+        setIsLoading(true);
         const { country, city, location } = getValues()
-        router.push(`/search?country=${country ?? defaultLocation}${city ? `&city=${city}` : ''}&location=${location ?? defaultLocation}`)
+        setUser((prev) => ({...prev, exists: true }));
         setServerCookie('lastJobSearchLocation', country, {});
+        router.push(`/search?country=${country ?? defaultLocation}${city ? `&city=${city}` : ''}&location=${location ?? defaultLocation}`)
     };
 
     return (
@@ -152,12 +158,23 @@ const ChoseLocationModal = ({
                                 </form>
 
                                 <button
-                                    className="my-btn-green gap-[60px] font-semibold text-[18px]"
+                                    className="my-btn-green gap-[60px] font-semibold text-[18px] disabled:bg-my-neutral-2 disabled:cursor-not-allowed"
                                     form='location-choose'
                                     type='submit'
+                                    disabled={isLoading}
                                 >
-                                    <p>Confirm</p>
-                                    <ArrowRightIcon classname='fill-black' />
+                                    {isLoading 
+                                    ? (
+                                        <>
+                                            <p>Sumbitting</p>
+                                            <FaSpinner className="animate-spin" />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p>Confirm</p>
+                                            <ArrowRightIcon classname='fill-black' />
+                                        </>
+                                    )}
                                 </button>
                             </Dialog.Panel>
                         </Transition.Child>

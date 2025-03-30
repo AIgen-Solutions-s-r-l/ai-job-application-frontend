@@ -82,8 +82,12 @@ export const ResumeExperience: React.FC = () => {
     append({
       position: "",
       company: "",
-      employment_period: "",
-      location: "",
+      employment_start_date: "",
+      employment_end_date: "",
+      location: {
+        country: "",
+        city: "",
+      },
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
@@ -134,8 +138,13 @@ export const ResumeExperience: React.FC = () => {
               </span>
               <span className={template.experience.entryLocation}>
                 <NullifiedInput
-                  {...register(`experienceDetails.${index}.location`)}
-                  placeholder="Location"
+                  {...register(`experienceDetails.${index}.location.city`)}
+                  placeholder="City"
+                />
+                ,&nbsp;
+                <NullifiedInput
+                  {...register(`experienceDetails.${index}.location.country`)}
+                  placeholder="Country"
                 />
               </span>
             </div>
@@ -148,8 +157,15 @@ export const ResumeExperience: React.FC = () => {
               </span>
               <span className={template.experience.entryYear}>
                 <NullifiedInput
-                  {...register(`experienceDetails.${index}.employment_period`)}
-                  placeholder="Employment period"
+                  {...register(`experienceDetails.${index}.employment_start_date`)}
+                  placeholder="Start Date"
+                />
+              </span>
+              &nbsp; - &nbsp;
+              <span className={template.experience.entryYear}>
+                <NullifiedInput
+                  {...register(`experienceDetails.${index}.employment_end_date`)}
+                  placeholder="End Date"
                 />
               </span>
             </div>

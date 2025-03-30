@@ -12,15 +12,15 @@ export function toJobProfile(resumeData: any): JobProfile {
   if (!resumeData) {
     return defaultJobProfile;
   }
-  
-  const { 
-    personal_information, 
-    education_details, 
-    experience_details, 
-    projects, 
-    achievements, 
-    certifications, 
-    languages, 
+
+  const {
+    personal_information,
+    education_details,
+    experience_details,
+    projects,
+    achievements,
+    certifications,
+    languages,
     interests,
     self_identification,
     legal_authorization,
@@ -55,33 +55,40 @@ export function toJobProfile(resumeData: any): JobProfile {
   return {
     personalInfo: personal_information,
     educationDetails: transformedEducationDetails || [
-    {
-      start_date: "",
-      institution: "",
-      field_of_study: "",
-      education_level: "",
-      year_of_completion: "",
-      final_evaluation_grade: "",
-      location: "",
-      exam: [
-        {
-          subject: "",
-          grade: "", 
-        }
-      ],
-    }
-  ],
+      {
+        start_date: "",
+        institution: "",
+        field_of_study: "",
+        education_level: "",
+        year_of_completion: "",
+        final_evaluation_grade: "",
+        location: {
+          country: "",
+          city: "",
+        },
+        exam: [
+          {
+            subject: "",
+            grade: "",
+          }
+        ],
+      }
+    ],
     experienceDetails: experience_details || [
-    {
-      company: "",
-      industry: "",
-      location: "",
-      position: "",
-      skills_acquired: [],
-      employment_period: "",
-      key_responsibilities: [],
-    }
-  ],
+      {
+        company: "",
+        industry: "",
+        location: {
+          country: "",
+          city: "",
+        },
+        position: "",
+        skills_acquired: [],
+        employment_start_date: "",
+        employment_end_date: "",
+        key_responsibilities: [],
+      }
+    ],
     additionalInfo,
   };
 }
@@ -90,34 +97,34 @@ export function fromJobProfile(jobProfile: JobProfile): any {
   const originalEducationDetails = jobProfile.educationDetails?.map(edu => ({
     ...edu,
     exam: edu.exam && edu.exam.length > 0
-    ? (() => {
+      ? (() => {
         const filteredExam = edu.exam.filter(
           ({ subject, grade }) => subject !== "" && grade !== ""
         ); // Filter out invalid entries
         return filteredExam.length > 0
           ? filteredExam.reduce((acc: { [key: string]: string }, { subject, grade }) => {
-              acc[subject] = grade;
-              return acc;
-            }, {})
+            acc[subject] = grade;
+            return acc;
+          }, {})
           : null; // Set exam to null if all entries are invalid
       })()
-    : null // Set exam to null if exam array is empty or doesn't exist
+      : null // Set exam to null if exam array is empty or doesn't exist
   }));
-  
+
   return {
-      "personal_information": jobProfile.personalInfo,
-      "education_details": originalEducationDetails,
-      "experience_details": jobProfile.experienceDetails,
-      "projects": jobProfile.additionalInfo.projects,
-      "achievements": jobProfile.additionalInfo.achievements,
-      "certifications": jobProfile.additionalInfo.certifications,
-      "languages": jobProfile.additionalInfo.languages,
-      "interests": jobProfile.additionalInfo.interests,
-      "self_identification": fromSelfIdentification(jobProfile.additionalInfo.self_identification),
-      "legal_authorization": fromLegalAuthorization(jobProfile.additionalInfo.legal_authorization),
-      "work_preferences": fromWorkPreferences(jobProfile.additionalInfo.work_preferences),
-      "availability": jobProfile.additionalInfo.availability,
-      "salary_expectations": jobProfile.additionalInfo.salary_expectations
+    "personal_information": jobProfile.personalInfo,
+    "education_details": originalEducationDetails,
+    "experience_details": jobProfile.experienceDetails,
+    "projects": jobProfile.additionalInfo.projects,
+    "achievements": jobProfile.additionalInfo.achievements,
+    "certifications": jobProfile.additionalInfo.certifications,
+    "languages": jobProfile.additionalInfo.languages,
+    "interests": jobProfile.additionalInfo.interests,
+    "self_identification": fromSelfIdentification(jobProfile.additionalInfo.self_identification),
+    "legal_authorization": fromLegalAuthorization(jobProfile.additionalInfo.legal_authorization),
+    "work_preferences": fromWorkPreferences(jobProfile.additionalInfo.work_preferences),
+    "availability": jobProfile.additionalInfo.availability,
+    "salary_expectations": jobProfile.additionalInfo.salary_expectations
   };
 }
 
@@ -165,37 +172,37 @@ const toWorkPreferences = (data: any): WorkPreferences => ({
 });
 
 const fromSelfIdentification = (data: SelfIdentification): any => ({
-    ...data,
-    veteran: data.veteran ? "true" : "false",
-    disability: data.disability ? "true" : "false",
+  ...data,
+  veteran: data.veteran ? "true" : "false",
+  disability: data.disability ? "true" : "false",
 });
 
 const fromLegalAuthorization = (data: LegalAuthorization): any => ({
-    eu_work_authorization: data.eu_work_authorization ? "true" : "false",
-    us_work_authorization: data.us_work_authorization ? "true" : "false",
-    requires_us_visa: data.requires_us_visa ? "true" : "false",
-    requires_us_sponsorship: data.requires_us_sponsorship ? "true" : "false",
-    requires_eu_visa: data.requires_eu_visa ? "true" : "false",
-    legally_allowed_to_work_in_eu: data.legally_allowed_to_work_in_eu ? "true" : "false",
-    legally_allowed_to_work_in_us: data.legally_allowed_to_work_in_us ? "true" : "false",
-    requires_eu_sponsorship: data.requires_eu_sponsorship ? "true" : "false",
-    canada_work_authorization: data.canada_work_authorization ? "true" : "false",
-    requires_canada_visa: data.requires_canada_visa ? "true" : "false",
-    legally_allowed_to_work_in_canada: data.legally_allowed_to_work_in_canada ? "true" : "false",
-    requires_canada_sponsorship: data.requires_canada_sponsorship ? "true" : "false",
-    uk_work_authorization: data.uk_work_authorization ? "true" : "false",
-    requires_uk_visa: data.requires_uk_visa ? "true" : "false",
-    legally_allowed_to_work_in_uk: data.legally_allowed_to_work_in_uk ? "true" : "false",
-    requires_uk_sponsorship: data.requires_uk_sponsorship ? "true" : "false",
+  eu_work_authorization: data.eu_work_authorization ? "true" : "false",
+  us_work_authorization: data.us_work_authorization ? "true" : "false",
+  requires_us_visa: data.requires_us_visa ? "true" : "false",
+  requires_us_sponsorship: data.requires_us_sponsorship ? "true" : "false",
+  requires_eu_visa: data.requires_eu_visa ? "true" : "false",
+  legally_allowed_to_work_in_eu: data.legally_allowed_to_work_in_eu ? "true" : "false",
+  legally_allowed_to_work_in_us: data.legally_allowed_to_work_in_us ? "true" : "false",
+  requires_eu_sponsorship: data.requires_eu_sponsorship ? "true" : "false",
+  canada_work_authorization: data.canada_work_authorization ? "true" : "false",
+  requires_canada_visa: data.requires_canada_visa ? "true" : "false",
+  legally_allowed_to_work_in_canada: data.legally_allowed_to_work_in_canada ? "true" : "false",
+  requires_canada_sponsorship: data.requires_canada_sponsorship ? "true" : "false",
+  uk_work_authorization: data.uk_work_authorization ? "true" : "false",
+  requires_uk_visa: data.requires_uk_visa ? "true" : "false",
+  legally_allowed_to_work_in_uk: data.legally_allowed_to_work_in_uk ? "true" : "false",
+  requires_uk_sponsorship: data.requires_uk_sponsorship ? "true" : "false",
 });
 
 const fromWorkPreferences = (data: WorkPreferences): any => ({
-    remote_work: data.remote_work ? "true" : "false",
-    in_person_work: data.in_person_work ? "true" : "false",
-    open_to_relocation: data.open_to_relocation ? "true" : "false",
-    willing_to_complete_assessments: data.willing_to_complete_assessments ? "true" : "false",
-    willing_to_undergo_drug_tests: data.willing_to_undergo_drug_tests ? "true" : "false",
-    willing_to_undergo_background_checks: data.willing_to_undergo_background_checks ? "true" : "false",
+  remote_work: data.remote_work ? "true" : "false",
+  in_person_work: data.in_person_work ? "true" : "false",
+  open_to_relocation: data.open_to_relocation ? "true" : "false",
+  willing_to_complete_assessments: data.willing_to_complete_assessments ? "true" : "false",
+  willing_to_undergo_drug_tests: data.willing_to_undergo_drug_tests ? "true" : "false",
+  willing_to_undergo_background_checks: data.willing_to_undergo_background_checks ? "true" : "false",
 });
 
 export const defaultJobProfile: JobProfile = {
@@ -203,8 +210,10 @@ export const defaultJobProfile: JobProfile = {
     name: "",
     surname: "",
     date_of_birth: Date.now().toString(),
-    country: "",
-    city: "",
+    location: {
+      country: "",
+      city: "",
+    },
     address: "",
     phone_prefix: "",
     phone: "",
@@ -218,11 +227,14 @@ export const defaultJobProfile: JobProfile = {
       education_level: "",
       year_of_completion: "",
       final_evaluation_grade: "",
-      location: "",
+      location: {
+        country: "",
+        city: "",
+      },
       exam: [
         {
           subject: "",
-          grade: "", 
+          grade: "",
         }
       ],
     }
@@ -231,10 +243,14 @@ export const defaultJobProfile: JobProfile = {
     {
       company: "",
       industry: "",
-      location: "",
+      location: {
+        country: "",
+        city: "",
+      },
       position: "",
       skills_acquired: [],
-      employment_period: "",
+      employment_start_date: "",
+      employment_end_date: "",
       key_responsibilities: [],
     }
   ],

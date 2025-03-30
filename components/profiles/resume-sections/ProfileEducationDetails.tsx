@@ -86,7 +86,10 @@ export const ProfileEducationDetails: FC = () => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
-      location: "",
+      location: {
+        country: "",
+        city: "",
+      },
       exam: [
         {
           subject: "",
@@ -116,7 +119,7 @@ export const ProfileEducationDetails: FC = () => {
                 <p className='underline text-base leading-none'>Remove</p>
               </button>}
             </div>
-  
+
             {/* Institution */}
             <InputWrapper>
               <FormInput
@@ -144,7 +147,7 @@ export const ProfileEducationDetails: FC = () => {
                 className='grow lg:w-[429px]'
               />
             </InputWrapper>
-  
+
             {/* Dates */}
             <InputWrapper>
               <FormInput
@@ -171,20 +174,28 @@ export const ProfileEducationDetails: FC = () => {
                 errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
                 className='w-[149px]'
               />
-              {/* <FormInput
-                title={'Location'}
-                {...register(`educationDetails.${index}.location`, { required: 'Location is required' })}
+              <FormInput
+                title={'Country'}
+                {...register(`educationDetails.${index}.location.country`, { required: 'country is required' })}
                 placeholder="e.g., Italy"
-                error={!!errors.educationDetails?.[index]?.location}
-                errorMessage={errors.educationDetails?.[index]?.location?.message}
+                error={!!errors.educationDetails?.[index]?.location?.country}
+                errorMessage={errors.educationDetails?.[index]?.location?.country?.message}
                 className='w-[182px]'
-              /> */}
+              />
+              <FormInput
+                title={'City'}
+                {...register(`educationDetails.${index}.location.city`, { required: 'city is required' })}
+                placeholder="e.g., Milan"
+                error={!!errors.educationDetails?.[index]?.location?.city}
+                errorMessage={errors.educationDetails?.[index]?.location?.city?.message}
+                className='w-[182px]'
+              />
             </InputWrapper>
-  
+
             <ExamNestedFieldArray index={index} />
           </div>
         ))}
-  
+
         <div className="flex items-center gap-4 my-5">
           <div
             className="w-[240px] h-[50px] font-jura hover:text-white text-black rounded-[20px] flex items-center justify-between pl-[25px] pr-[20px] bg-white cursor-pointer hover:bg-my-neutral-5 group transition-all ease-in duration-100"

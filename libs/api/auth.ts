@@ -510,6 +510,29 @@ export async function spendCredits(amount: number): Promise<any> {
   }
 }
 
+export async function getTransactions(): Promise<any> {
+  let accessToken = await getServerCookie('accessToken');
+  const decoded: any = jwtDecode(accessToken);
+
+  try {
+    const response = await apiClientJwt.get(
+      `${API_BASE_URLS.auth}/credits/transactions?user_id=${decoded.id}`,
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching transactions:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
 /**
  * Gets the redirect URL for Google authentication
  * @param redirectUri URI to redirect after successful authentication

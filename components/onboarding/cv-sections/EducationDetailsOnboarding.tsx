@@ -173,7 +173,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Country'}
-              {...register(`educationDetails.${index}.location.country`, { required: 'country is required' })}
+              {...register(`educationDetails.${index}.location.country`)}
               placeholder="e.g., Italy"
               error={!!errors.educationDetails?.[index]?.location?.country}
               errorMessage={errors.educationDetails?.[index]?.location?.country?.message}
@@ -181,7 +181,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'City'}
-              {...register(`educationDetails.${index}.location.city`, { required: 'city is required' })}
+              {...register(`educationDetails.${index}.location.city`)}
               placeholder="e.g., Milan"
               error={!!errors.educationDetails?.[index]?.location?.city}
               errorMessage={errors.educationDetails?.[index]?.location?.city?.message}

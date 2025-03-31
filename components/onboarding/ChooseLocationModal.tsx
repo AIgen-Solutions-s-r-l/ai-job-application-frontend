@@ -19,6 +19,12 @@ interface MyLocation {
     location?: string
 }
 
+interface Experience {
+    experience: "Intern" | "Entry-level" | "Mid-level" | "Senior-level" | "Executive-level"
+}
+
+type FormType = MyLocation & Experience;
+
 interface ModalProps {
     isModalOpen: boolean;
     defaultLocation: string;
@@ -36,9 +42,10 @@ const ChoseLocationModal = ({
     const { setUser } = useUserContext();
     const [isLoading, setIsLoading] = useState(false);
 
-    const { register, handleSubmit, getValues, reset } = useForm<MyLocation>({
+    const { register, handleSubmit, getValues, reset } = useForm<FormType>({
         defaultValues: {
             location: defaultLocation,
+            experience: "Mid-level",  
         }
     });
 
@@ -79,12 +86,13 @@ const ChoseLocationModal = ({
         setShowSuggestions(false);
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         setIsLoading(true);
-        const { country, city, location } = getValues()
+        const { country, experience } = getValues()
         setUser((prev) => ({...prev, exists: true }));
-        setServerCookie('lastJobSearchLocation', country, {});
-        router.push(`/search?country=${country ?? defaultLocation}${city ? `&city=${city}` : ''}&location=${location ?? defaultLocation}`)
+        await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
+        sessionStorage.setItem('fromOnboarding', 'true');
+        router.push('/search')
     };
 
     return (
@@ -118,8 +126,8 @@ const ChoseLocationModal = ({
                         >
                             <Dialog.Panel className="flex flex-col items-center relative w-[700px] px-6 py-[50px] bg-white rounded-xl shadow-lg gap-[30px] font-jura">
                                 <p className="text-[18px] font-semibold text-center leading-[20px]">
-                                    Where do you want to apply for a job? <br />
-                                    *You can select a city or a country
+                                    Where do you want to apply for a job <br />
+                                    and what is your seniority level?
                                 </p>
 
                                 <form
@@ -127,34 +135,54 @@ const ChoseLocationModal = ({
                                     onSubmit={handleSubmit(onSubmit)}
                                     className='w-full h-[350px] bg-my-neutral-1 p-[30px]'
                                 >
-                                    <label htmlFor='location' className='text-base font-semibold leading-[20px]'>
-                                        Location
-                                    </label>
-                                    <div className='w-full mt-3 h-12 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
-                                        <input
-                                            type='text'
-                                            id='location'
-                                            placeholder='City, state, or remote'
-                                            {...register('location', {
-                                                onChange: onLocationChange,
-                                            })}
-                                            autoComplete="off"
-                                            className='block w-full bg-transparent focus:outline focus:outline-0 text-base font-semibold leading-[20px]'
-                                        />
-                                    </div>
-                                    {dataArray.length > 0 && showSuggestions && (
-                                        <div className='w-full box-border bg-white py-3 border border-1 border-neutral max-h-[200px] mt-2 flex flex-col gap-1 rounded-md overflow-auto px-5'>
-                                            {dataArray.map((data, index) => (
-                                                <div
-                                                    key={index}
-                                                    onClick={() => handleLocationSelect(data)}
-                                                    className='w-full box-border flex items-center py-1 hover:text-blue-500 cursor-pointer text-[16px] font-semibold leading-[20px]'
-                                                >
-                                                    {data.display_name}
-                                                </div>
-                                            ))}
+                                    <div>
+                                        <label htmlFor='experience' className='text-base font-semibold leading-[20px] mt-6'>
+                                            Experience level
+                                        </label>
+                                        <div className="w-full">
+                                            <select
+                                                id='experience'
+                                                {...register('experience')}
+                                                className='w-full mt-3 h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base form-select'
+                                            >
+                                                <option value="Intern">Intern</option>
+                                                <option value="Entry-level">Entry-level</option>
+                                                <option value="Mid-level">Mid-level</option>
+                                                <option value="Senior-level">Senior-level</option>
+                                                <option value="Executive-level">Executive-level</option>
+                                            </select>
                                         </div>
-                                    )}
+                                    </div>
+                                    <div className="mt-6">
+                                        <label htmlFor='location' className='text-base font-semibold leading-[20px]'>
+                                            Location
+                                        </label>
+                                        <div className='w-full mt-3 h-12 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
+                                            <input
+                                                type='text'
+                                                id='location'
+                                                placeholder='City, state, or remote'
+                                                {...register('location', {
+                                                    onChange: onLocationChange,
+                                                })}
+                                                autoComplete="off"
+                                                className='block w-full bg-transparent focus:outline focus:outline-0 text-base font-semibold leading-[20px]'
+                                            />
+                                        </div>
+                                        {dataArray.length > 0 && showSuggestions && (
+                                            <div className='w-full box-border bg-white py-3 border border-1 border-neutral max-h-[200px] mt-2 flex flex-col gap-1 rounded-md overflow-auto px-5'>
+                                                {dataArray.map((data, index) => (
+                                                    <div
+                                                        key={index}
+                                                        onClick={() => handleLocationSelect(data)}
+                                                        className='w-full box-border flex items-center py-1 hover:text-blue-500 cursor-pointer text-[16px] font-semibold leading-[20px]'
+                                                    >
+                                                        {data.display_name}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </form>
 
                                 <button

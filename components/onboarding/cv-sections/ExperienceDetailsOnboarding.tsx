@@ -30,31 +30,28 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         <div key={responsibility.id} className="flex items-center gap-2 mb-2 bg-white">
           <button
             type="button"
-            disabled={fields.length === 1}
+            disabled={respIndex === 0}
             className="remove-nested"
             onClick={() => remove(respIndex)}
           >
             <span className="text-base">−</span>
           </button>
           <input
-            {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`, {
-              required: fields.length === 1 ? 'Responsibilities are required' : undefined
-            })}
-            placeholder="e.g., Led a team of developers to build scalable applications"
+            {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`)}
+            placeholder={errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] ? "Responsibility is required" : "e.g., Led a team of developers to build scalable applications"}
             className={
               `my-input
-              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] && "placeholder-shown:border-error"}`
+              ${errors.experienceDetails?.[index]?.key_responsibilities?.[respIndex] && "placeholder-shown:border-error placeholder:text-error"}`
             }
           />
         </div>
       ))}
-      {fields.length === 1 && errors.experienceDetails?.[index]?.key_responsibilities?.[0] && <p className="text-error mt-[2px] text-xs">At least one responsibility is required</p>}
       <button
         type="button"
         className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-2xl">+</span>
+        <span className="text-2xl">+</span> 
         <p className="text-base">Add Responsibility</p>
       </button>
     </>
@@ -121,7 +118,10 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
       company: "",
       employment_start_date: "",
       employment_end_date: "",
-      location: { city: '', country: '' },
+      location: {
+        country: "",
+        city: "",
+      },
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
@@ -150,7 +150,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
           <InputWrapper>
             <FormInput
               title={'Company'}
-              {...register(`experienceDetails.${index}.company`, { required: 'Education level is required' })}
+              {...register(`experienceDetails.${index}.company`)}
               placeholder="e.g., Google"
               error={!!errors.experienceDetails?.[index]?.company}
               errorMessage={errors.experienceDetails?.[index]?.company?.message}
@@ -158,45 +158,11 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
             />
             <FormInput
               title={'Position'}
-              {...register(`experienceDetails.${index}.position`, { required: 'Position is required' })}
+              {...register(`experienceDetails.${index}.position`)}
               placeholder="e.g., Software Engineer"
               error={!!errors.experienceDetails?.[index]?.position}
               errorMessage={errors.experienceDetails?.[index]?.position?.message}
-              className='grow'
-            />
-            <FormInput
-              title={'Start Date'}
-              type="date"
-              {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
-              placeholder="e.g., June 2020"
-              error={!!errors.experienceDetails?.[index]?.employment_start_date}
-              errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
-              className='w-[238px]'
-            />
-            <FormInput
-              title={'End Date'}
-              type="date"
-              {...register(`experienceDetails.${index}.employment_end_date`, { required: 'End Date is required' })}
-              placeholder="e.g., June 2020"
-              error={!!errors.experienceDetails?.[index]?.employment_end_date}
-              errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
-              className='w-[238px]'
-            />
-            <FormInput
-              title={'Country'}
-              {...register(`experienceDetails.${index}.location.country`, { required: 'country is required' })}
-              placeholder="e.g., Italy"
-              error={!!errors.experienceDetails?.[index]?.location?.country}
-              errorMessage={errors.experienceDetails?.[index]?.location?.country?.message}
-              className='w-[164px]'
-            />
-            <FormInput
-              title={'City'}
-              {...register(`experienceDetails.${index}.location.city`, { required: 'City is required' })}
-              placeholder="e.g., Milan"
-              error={!!errors.experienceDetails?.[index]?.location?.city}
-              errorMessage={errors.experienceDetails?.[index]?.location?.city?.message}
-              className='w-[164px]'
+              className='grow max-w-[400px]'
             />
             <FormInput
               title={'Industry'}
@@ -206,6 +172,40 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               // error={!!errors.experienceDetails?.[index]?.industry}
               // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
               className='w-[164px]'
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <FormInput
+              title={'Employment Period'}
+              {...register(`experienceDetails.${index}.employment_start_date`)}
+              placeholder="e.g., June 2020"
+              error={!!errors.experienceDetails?.[index]?.employment_start_date}
+              errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
+              className='w-[188px]'
+            />
+            <FormInput
+              title={'Employment Period'}
+              {...register(`experienceDetails.${index}.employment_end_date`)}
+              placeholder="e.g., Present"
+              error={!!errors.experienceDetails?.[index]?.employment_end_date}
+              errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
+              className='w-[180px]'
+            />
+            <FormInput
+              title={'Country'}
+              {...register(`experienceDetails.${index}.location.country`)}
+              placeholder="e.g., Italy"
+              error={!!errors.experienceDetails?.[index]?.location?.country}
+              errorMessage={errors.experienceDetails?.[index]?.location?.country?.message}
+              className='w-[182px]'
+            />
+            <FormInput
+              title={'City'}
+              {...register(`experienceDetails.${index}.location.city`)}
+              placeholder="e.g., Milan"
+              error={!!errors.experienceDetails?.[index]?.location?.city}
+              errorMessage={errors.experienceDetails?.[index]?.location?.city?.message}
+              className='w-[182px]'
             />
           </InputWrapper>
 

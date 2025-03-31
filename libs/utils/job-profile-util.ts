@@ -48,8 +48,8 @@ export function toJobProfile(resumeData: any): JobProfile {
     self_identification: toSelfIdentification(self_identification),
     legal_authorization: toLegalAuthorization(legal_authorization),
     work_preferences: toWorkPreferences(work_preferences),
-    availability: availability,
-    salary_expectations: salary_expectations,
+    availability: availability ?? '',
+    salary_expectations: salary_expectations ?? '',
   };
 
   return {
@@ -210,10 +210,8 @@ export const defaultJobProfile: JobProfile = {
     name: "",
     surname: "",
     date_of_birth: Date.now().toString(),
-    location: {
-      country: "",
-      city: "",
-    },
+    country: "",
+    city: "",
     address: "",
     phone_prefix: "",
     phone: "",

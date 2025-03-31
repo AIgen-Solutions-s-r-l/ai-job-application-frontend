@@ -106,6 +106,16 @@ export const CreateResumeOnboarding: React.FC = () => {
           {currentStep === 1
             ? <ButtonUnderline title='Back to CV Uploader' handleClick={() => setCVData(null)} />
             : <div></div>}
+            {/* <button
+              className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
+              type="button"
+              onClick={() => {
+                console.log("the errors: ", methods.formState.errors);
+                console.log("the values: ", methods.getValues());
+              }}
+            >
+              <p>test</p>
+            </button> */}
           <div className="flex gap-5 font-jura text-sm md:text-lg">
             <button
               className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
@@ -147,6 +157,10 @@ export const CreateResumeOnboarding: React.FC = () => {
           defaultLocation={defaultLocation}
         />
       )}
+      <ChoseLocationModal
+        isModalOpen={true}
+        defaultLocation={defaultLocation}
+      />
     </div>
   );
 };

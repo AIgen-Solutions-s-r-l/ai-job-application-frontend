@@ -37,7 +37,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
             <div className="w-full grid grid-cols-2 gap-form">
               <div className="w-full">
                 <input
-                  {...register(`additionalInfo.languages.${index}.language`, { required: 'Language is required' })}
+                  {...register(`additionalInfo.languages.${index}.language`)}
                   placeholder="e.g., English"
                   className={
                     `my-input
@@ -48,7 +48,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
               </div>
               <div className="w-full">
                 <select
-                  {...register(`additionalInfo.languages.${index}.proficiency`, { required: 'Proficiency is required' })}
+                  {...register(`additionalInfo.languages.${index}.proficiency`)}
                   // className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary-light-purple px-[10px] rounded-md text-base"
                   className={
                     `w-full h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base

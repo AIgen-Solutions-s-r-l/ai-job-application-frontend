@@ -313,3 +313,14 @@ export interface Bot {
   created_at: string; // Fecha de creación del bot
   updated_at: string; // Fecha de última actualización del bot
 }
+
+export interface Transaction {
+  id: number
+  amount: string
+  reference_id: any
+  description: string
+  user_id: number
+  transaction_type: string
+  created_at: string
+  new_balance: string
+}

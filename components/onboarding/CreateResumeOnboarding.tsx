@@ -157,10 +157,6 @@ export const CreateResumeOnboarding: React.FC = () => {
           defaultLocation={defaultLocation}
         />
       )}
-      <ChoseLocationModal
-        isModalOpen={true}
-        defaultLocation={defaultLocation}
-      />
     </div>
   );
 };

@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import SubscriptionNav from './subscriptionNav';
 import SubscriptionTab from './subscriptionTab';
 import PaymentHistory from './PaymentHistory';
+import { Transaction } from '@/libs/definitions';
 
-function Subscription() {
+interface SubscriptionProps {
+  initialTransactions: Transaction[];
+}
+
+function Subscription({ initialTransactions }: SubscriptionProps) {
     const [tab, setTab] = useState<number | null>(0);
 
     return (
@@ -16,7 +21,7 @@ function Subscription() {
                 setTab={setTab}
             />
             {tab === 0 && <SubscriptionTab />}
-            {tab === 1 && <PaymentHistory />}
+            {tab === 1 && <PaymentHistory transactions={initialTransactions} />}
         </>
     )
 }

@@ -102,7 +102,10 @@ export const ResumeEducation: React.FC = () => {
       final_evaluation_grade: "",
       year_of_completion: "",
       start_date: "",
-      location: "",
+      location: {
+        city: '',
+        country: ''
+      },
       exam: [],
     });
     setActiveSection(`${section}-${newIndex}`);
@@ -175,8 +178,14 @@ export const ResumeEducation: React.FC = () => {
               </span>
               <span className={template.education.entryLocation}>
                 <NullifiedInput
-                  {...register(`educationDetails.${index}.location`)}
-                  placeholder="Location"
+                  {...register(`educationDetails.${index}.location.city`)}
+                  placeholder="City"
+                  className="min-w-2"
+                />
+                ,&nbsp;
+                <NullifiedInput
+                  {...register(`educationDetails.${index}.location.country`)}
+                  placeholder="Country"
                   className="min-w-2"
                 />
               </span>

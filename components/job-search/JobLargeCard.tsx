@@ -43,10 +43,14 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
       </div>
       <div className="mt-5 grow overflow-y-auto scrollable">
         <div className="font-jura text-[18px] font-normal">
-          {job.description.split('\n').map((line, index) => (
-            line.trim() ? (
-              <p key={index} className="mb-2">{line}</p>
-            ) : null
+          {job.description.split('\n\n').map((paragraph, pIndex) => (
+            <div key={pIndex} className="mb-3.5">
+              {paragraph.split('\n').map((line, lIndex) => (
+                line.trim() ? (
+                  <p key={lIndex} className="leading-[1.4]">{line}</p>
+                ) : null
+              ))}
+            </div>
           ))}
         </div>
       </div>

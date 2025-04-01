@@ -47,7 +47,10 @@ export interface EducationDetails {
   final_evaluation_grade?: string; // Opcional
   year_of_completion: string;
   start_date: string;
-  location: string;
+  location: {
+    country: string;
+    city: string;
+  };
   exam: Exam[]
 }
 
@@ -60,8 +63,13 @@ export interface ExperienceDetails {
   id?: string;
   position: string;
   company: string;
-  employment_period: string; // Puede ser una fecha o rango de fechas
-  location: string;
+  // employment_period: string; // Puede ser una fecha o rango de fechas
+  employment_start_date: string;
+  employment_end_date: string;
+  location: {
+    country: string;
+    city: string;
+  };
   industry: string;
   key_responsibilities: string[]; // Lista de responsabilidades
   skills_acquired: string[]; // Lista de habilidades adquiridas
@@ -252,6 +260,7 @@ export interface JobSearchParams {
   radius_km?: number
   keywords?: string[]
   offset?: number
+  experience?: string
 }
 
 export type JobSearchProps = JobSearchParams & {
@@ -303,4 +312,15 @@ export interface Bot {
   ai_cv: boolean;
   created_at: string; // Fecha de creación del bot
   updated_at: string; // Fecha de última actualización del bot
+}
+
+export interface Transaction {
+  id: number
+  amount: string
+  reference_id: any
+  description: string
+  user_id: number
+  transaction_type: string
+  created_at: string
+  new_balance: string
 }

@@ -9,8 +9,10 @@ export interface ResumePersonalInformation {
   name: string;
   surname: string;
   date_of_birth: string;
-  country: string;
-  city: string;
+  location: {
+    country: string;
+    city: string;
+  }
   zip_code?: string;
   address: string;
   phone_prefix: string;
@@ -27,7 +29,10 @@ export interface ResumeEducationDetail {
   final_evaluation_grade: string;
   year_of_completion: string;
   start_date: string;
-  location: string;
+  location: {
+    country: string;
+    city: string;
+  }
   exam?: Exam[]
 }
 
@@ -39,8 +44,12 @@ export interface Exam {
 export interface ResumeExperienceDetail {
   position: string;
   company: string;
-  employment_period: string;
-  location: string;
+  employment_start_date: string;
+  employment_end_date: string;
+  location: {
+    country: string;
+    city: string;
+  }
   industry: string;
   key_responsibilities: string[];
   skills_acquired: string[];

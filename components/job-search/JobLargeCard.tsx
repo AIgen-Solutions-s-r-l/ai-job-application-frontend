@@ -17,7 +17,7 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
     <div className={cn("sticky top-5 hidden xl:flex flex-col h-[calc(100vh-120px)] bg-white rounded-xl py-8 px-10", className)}>
       <div className='flex flex-col justify-between gap-3 border-b border-b-1 border-b-primary pb-5'>
         <div className='flex items-center justify-between'>
-          <h3 className="text-[20px] xl:text-[32px] leading-[1.1] font-montserrat font-semibold">{job.company_name}</h3>
+          <h3 className="text-[20px] font-montserrat font-normal">{job.title}</h3>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>
               <img
@@ -28,8 +28,7 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             </div>
           )}
         </div>
-
-        <h3 className="text-[20px] font-montserrat font-medium">{job.title}</h3>
+        <h3 className="text-[20px] xl:text-[32px] leading-[1.1] font-montserrat font-semibold">{job.company_name}</h3>
         <div className="flex items-center justify-between gap-3 leading-none">
           <p className="flex items-center gap-3 text-[18px] font-jura font-semibold"><Image src={Pin} alt='Pin' />{`${job.city}, ${job.country}`} | {job.workplace_type}</p>
         </div>

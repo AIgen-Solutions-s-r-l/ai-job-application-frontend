@@ -16,10 +16,8 @@ import { Container } from '../Container';
 import { ButtonUnderline } from '../ButtonUnderline';
 import { ArrowLeftIcon, ArrowRightIcon } from '../AppIcons';
 import ChoseLocationModal from './ChooseLocationModal';
-import { useRouter } from 'next/navigation';
-import { fetchUserData } from '@/libs/api/auth';
-import { isResumeExits } from '@/libs/api/resume';
-import { useUserContext } from '@/contexts/user-context';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { cvFormSchema, type CVFormData } from '@/libs/validations/cv-form-schema';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const { CVData, setCVData } = useCVDataContext();
@@ -27,12 +25,10 @@ export const CreateResumeOnboarding: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [defaultLocation, setDefaultLocation] = useState<string>('');
 
-  const methods = useForm({
+  const methods = useForm<CVFormData>({
     defaultValues: CVData,
+    resolver: zodResolver(cvFormSchema)
   });
-
-  const router = useRouter();
-  const { setUser } = useUserContext();
 
   const validateStep = useCallback(async () => {
     let validateFields: any = [];
@@ -63,11 +59,6 @@ export const CreateResumeOnboarding: React.FC = () => {
 
       if (response.success) {
         toast.success("Profile saved successfully!");
-        const [exists, me] = await Promise.all([
-          isResumeExits(),
-          fetchUserData(),
-        ]);
-        setUser({ ...exists, ...me });
         setDefaultLocation(jobProfile.personalInfo.country)
         setIsModalOpen(true);
       } else {
@@ -115,6 +106,16 @@ export const CreateResumeOnboarding: React.FC = () => {
           {currentStep === 1
             ? <ButtonUnderline title='Back to CV Uploader' handleClick={() => setCVData(null)} />
             : <div></div>}
+            {/* <button
+              className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
+              type="button"
+              onClick={() => {
+                console.log("the errors: ", methods.formState.errors);
+                console.log("the values: ", methods.getValues());
+              }}
+            >
+              <p>test</p>
+            </button> */}
           <div className="flex gap-5 font-jura text-sm md:text-lg">
             <button
               className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"

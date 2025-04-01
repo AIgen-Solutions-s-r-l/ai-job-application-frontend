@@ -9,13 +9,17 @@ export default async function JobSearchPage({
 }: {
   searchParams: JobSearchProps//{ q?: string; l?: string };
 }) {
+  const searchParamsKey = JSON.stringify(searchParams);
+
   return (
     <Suspense
+      key={searchParamsKey}
       fallback={
         <>
           <JobSearchBarSkeleton
             keywords={searchParams.q}
             location={searchParams.location}
+            experience={searchParams.experience}
           />
           <JobFeedListSkeleton />
         </>

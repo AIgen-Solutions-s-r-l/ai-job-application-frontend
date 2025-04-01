@@ -19,7 +19,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
 
   return (
     <div
-      className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-12", className)}
+      className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8", className)}
       onClick={onClick}
     >
       <div className="flex gap-2 items-center md:mb-2">
@@ -47,7 +47,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
             .replace(/^(.+)$/, '<p class="mb-2">$1</p>')
         }}
       />
-      <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleJobSelect(job, e)}>
+      <div className="absolute top-3 right-4 h-10 w-10 bg-my-neutral-7 text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleJobSelect(job, e)}>
         {selectedJobs.some((j) => j.id === job.id) && <Check size={24} />}
       </div>
     </div>

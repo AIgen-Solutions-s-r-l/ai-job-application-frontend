@@ -1,7 +1,7 @@
 'use client';
 
 import { MatchingJob } from "@/libs/definitions";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type JobSearchProviderProps = {
   children: React.ReactNode;
@@ -14,20 +14,45 @@ type JobSearchContextType = {
   isAllSelected: () => boolean;
   handleSelectAll: () => void;
   jobs: MatchingJob[];
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
 }
 
 const JobSearchContext = createContext<JobSearchContextType | null>(null);
 
 export default function JobSearchProvider({ children, initialJobs }: JobSearchProviderProps) {
   const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const isAllSelected = () => initialJobs.every(app => selectedJobs.includes(app));
+  // Load selected jobs from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('selectedJobs');
+    if (stored) {
+      setSelectedJobs(JSON.parse(stored));
+    }
+  }, []);
+
+  // Save selected jobs to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('selectedJobs', JSON.stringify(selectedJobs));
+  }, [selectedJobs]);
+
+  const isAllSelected = () => initialJobs.every(job => selectedJobs.some(selected => selected.id === job.id));
 
   const handleSelectAll = () => {
     if (isAllSelected()) {
-      setSelectedJobs([]);
+      // Remove only current page jobs from selection
+      setSelectedJobs(prev => prev.filter(selected => 
+        !initialJobs.some(job => job.id === selected.id)
+      ));
     } else {
-      setSelectedJobs(initialJobs);
+      // Add all current page jobs that aren't already selected
+      setSelectedJobs(prev => {
+        const newJobs = initialJobs.filter(job => 
+          !prev.some(selected => selected.id === job.id)
+        );
+        return [...prev, ...newJobs];
+      });
     }
   };
 
@@ -51,6 +76,8 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
     isAllSelected,
     handleSelectAll,
     jobs: initialJobs,
+    currentPage,
+    setCurrentPage,
   };
 
   return (

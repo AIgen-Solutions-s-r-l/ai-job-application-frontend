@@ -28,10 +28,8 @@ export interface PersonalInformation {
   name: string;
   surname: string;
   date_of_birth: string;
-  location: {
-    country: string;
-    city: string;
-  };
+  country: string;
+  city: string;
   zip_code?: string;
   address: string;
   phone_prefix: string;
@@ -262,6 +260,7 @@ export interface JobSearchParams {
   radius_km?: number
   keywords?: string[]
   offset?: number
+  experience?: string
 }
 
 export type JobSearchProps = JobSearchParams & {

@@ -121,7 +121,7 @@ export const EducationDetailsOnboarding: FC = () => {
           <InputWrapper>
             <FormInput
               title={'Education Level'}
-              {...register(`educationDetails.${index}.education_level`, { required: 'Education level is required' })}
+              {...register(`educationDetails.${index}.education_level`)}
               placeholder="e.g., Bachelor's Degree"
               error={!!errors.educationDetails?.[index]?.education_level}
               errorMessage={errors.educationDetails?.[index]?.education_level?.message}
@@ -129,7 +129,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Institution'}
-              {...register(`educationDetails.${index}.institution`, { required: 'Institution is required' })}
+              {...register(`educationDetails.${index}.institution`)}
               placeholder="e.g., Harvard University"
               error={!!errors.educationDetails?.[index]?.institution}
               errorMessage={errors.educationDetails?.[index]?.institution?.message}
@@ -137,7 +137,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Field of Study'}
-              {...register(`educationDetails.${index}.field_of_study`, { required: 'Field of Study is required' })}
+              {...register(`educationDetails.${index}.field_of_study`)}
               placeholder="e.g., Computer Science"
               error={!!errors.educationDetails?.[index]?.field_of_study}
               errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
@@ -149,7 +149,7 @@ export const EducationDetailsOnboarding: FC = () => {
           <InputWrapper>
             <FormInput
               title={'Start Date'}
-              {...register(`educationDetails.${index}.start_date`, { required: 'Start Date is required' })}
+              {...register(`educationDetails.${index}.start_date`)}
               placeholder="e.g., 2015"
               error={!!errors.educationDetails?.[index]?.start_date}
               errorMessage={errors.educationDetails?.[index]?.start_date?.message}
@@ -157,7 +157,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Completion Date'}
-              {...register(`educationDetails.${index}.year_of_completion`, { required: 'Completion Date is required' })}
+              {...register(`educationDetails.${index}.year_of_completion`)}
               placeholder="e.g., 2019"
               error={!!errors.educationDetails?.[index]?.year_of_completion}
               errorMessage={errors.educationDetails?.[index]?.year_of_completion?.message}
@@ -165,7 +165,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Grade'}
-              {...register(`educationDetails.${index}.final_evaluation_grade`, { required: 'Graduation Grade is required' })}
+              {...register(`educationDetails.${index}.final_evaluation_grade`)}
               placeholder="e.g., 3.8/4.0"
               error={!!errors.educationDetails?.[index]?.final_evaluation_grade}
               errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
@@ -173,7 +173,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'Country'}
-              {...register(`educationDetails.${index}.location.country`, { required: 'country is required' })}
+              {...register(`educationDetails.${index}.location.country`)}
               placeholder="e.g., Italy"
               error={!!errors.educationDetails?.[index]?.location?.country}
               errorMessage={errors.educationDetails?.[index]?.location?.country?.message}
@@ -181,7 +181,7 @@ export const EducationDetailsOnboarding: FC = () => {
             />
             <FormInput
               title={'City'}
-              {...register(`educationDetails.${index}.location.city`, { required: 'city is required' })}
+              {...register(`educationDetails.${index}.location.city`)}
               placeholder="e.g., Milan"
               error={!!errors.educationDetails?.[index]?.location?.city}
               errorMessage={errors.educationDetails?.[index]?.location?.city?.message}

@@ -1,18 +1,12 @@
-import { Suspense } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
-import { FileUser, User } from 'lucide-react';
-import { getUserProfile } from '@/libs/data';
 import { ChangePassword } from '@/components/settings/ChangePassword';
-import { PersonalInfo } from '@/components/settings/PersonalInfo';
 import { ChangeEmail } from '@/components/settings/ChangeEmail';
-import { JobProfile } from '@/libs/definitions';
 import { typography } from '@/components/typography';
-import { ProfilePersonalInformationSkeleton } from '@/components/profiles/resume-sections/ProfilePersonalInformationSkeleton';
 
 export default async function SettingsPage() {
-  let profileData: JobProfile;
+  // let profileData: JobProfile;
   try {
-    profileData = await getUserProfile();
+    // profileData = await getUserProfile();
   } catch (error) {
     console.error('Error fetching user profile:', error);
   }

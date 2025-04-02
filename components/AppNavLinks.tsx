@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, JSX } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -24,14 +24,14 @@ import { useSidenavContext } from '@/contexts/sidenav-context';
 
 type NavLink = {
   id: string; // for detecting slot position
-  jsx?: React.JSX.Element;
+  jsx?: JSX.Element;
   className?: string;
   links: {
     name: string;
     href: string;
     icon: any;
     className?: string;
-    jsx?: React.JSX.Element;
+    jsx?: JSX.Element;
   }[];
 };
 

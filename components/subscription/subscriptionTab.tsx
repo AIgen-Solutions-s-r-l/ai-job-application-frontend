@@ -120,12 +120,23 @@ function SubscriptionTab() {
   const cleanUrlParams = () => {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
+      const fromSearch = url.searchParams.get("from") === "search";
+      const returnUrl = localStorage.getItem('creditsPurchaseReturnUrl');
+      
       url.searchParams.delete("success");
       url.searchParams.delete("credits");
       url.searchParams.delete("session_id");
 
-      // Usar replace state directamente para evitar problemas con router.replace
       window.history.replaceState({}, document.title, url.pathname);
+      if (fromSearch && returnUrl) {
+        // Clear the stored URL
+        localStorage.removeItem('creditsPurchaseReturnUrl');
+        // Redirect to the original search page
+        window.location.href = returnUrl;
+      } else {
+        // Usar replace state directamente para evitar problemas con router.replace
+        window.history.replaceState({}, document.title, url.pathname);
+      }
     }
   };
 

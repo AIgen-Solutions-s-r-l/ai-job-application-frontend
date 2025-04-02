@@ -42,9 +42,12 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
           )
         )}
       </div>
-      <p className="line-clamp-4 font-jura text-[16px] font-semibold leading-[110%] tracking-[-0.352px] mt-2 lg:mt-0">
-        {job.short_description}</p>
-      <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
+      <div className="grow">
+        <p className="line-clamp-4 font-jura text-[16px] font-semibold leading-[110%] tracking-[-0.352px] mt-2 lg:mt-0">
+          {job.short_description}
+        </p>
+      </div>
+      <div className="absolute top-3 right-4 h-10 w-10 job-select-box text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
         {mounted && isSelected && <Check size={24} />}
       </div>
       <Link href={`/manager/${id}`} className='btn mt-4 lg:mt-8 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white'>

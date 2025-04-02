@@ -10,6 +10,7 @@ type JobSearchProviderProps = {
 
 type JobSearchContextType = {
   selectedJobs: MatchingJob[];
+  setSelectedJobs: React.Dispatch<React.SetStateAction<MatchingJob[]>>;
   handleJobSelect: (job: MatchingJob, e: React.MouseEvent) => void;
   isAllSelected: () => boolean;
   handleSelectAll: () => void;
@@ -21,18 +22,15 @@ type JobSearchContextType = {
 const JobSearchContext = createContext<JobSearchContextType | null>(null);
 
 export default function JobSearchProvider({ children, initialJobs }: JobSearchProviderProps) {
-  const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>([]);
+  const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('selectedJobs');
+      return stored ? JSON.parse(stored) : [];
+    }
+    return [];
+  });
   const [currentPage, setCurrentPage] = useState(0);
 
-  // Load selected jobs from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem('selectedJobs');
-    if (stored) {
-      setSelectedJobs(JSON.parse(stored));
-    }
-  }, []);
-
-  // Save selected jobs to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('selectedJobs', JSON.stringify(selectedJobs));
   }, [selectedJobs]);
@@ -72,6 +70,7 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
 
   const contextValue = {
     selectedJobs,
+    setSelectedJobs,
     handleJobSelect,
     isAllSelected,
     handleSelectAll,

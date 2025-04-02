@@ -14,11 +14,11 @@ export const JobSearchDispatcher = async ({
     const searchDataStr = await getServerCookie('lastJobSearchData');
     if (searchDataStr) {
       const searchData = JSON.parse(searchDataStr);
+      const country = searchData.country || undefined;
       modifiedSearchParams = {
         ...searchParams,
-        country: searchData.country,
-        location: searchData.country,
-        experience: searchData.experience
+        ...(country && { country, location: country }),
+        experience: searchData.experience ?? 'Mid-level'
       };
     }
   }

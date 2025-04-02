@@ -9,7 +9,9 @@ export default async function JobSearchPage({
 }: {
   searchParams: JobSearchProps//{ q?: string; l?: string };
 }) {
-  const searchParamsKey = JSON.stringify(searchParams);
+  const keyParams = { ...searchParams };
+  delete keyParams.offset;
+  const searchParamsKey = JSON.stringify(keyParams);
 
   return (
     <Suspense

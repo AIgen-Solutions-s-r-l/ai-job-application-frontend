@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import Link from 'next/link';
-import { SquareChevronRight, SquareChevronLeft, Menu } from 'lucide-react';
+import { ArrowRightToLine, ArrowLeftToLine, Menu } from 'lucide-react';
 import AppNavLinks from './AppNavLinks';
 import { useSidenavCollapse } from '@/libs/hooks';
 
@@ -49,7 +49,7 @@ export default function AppSidenav() {
             }`}
           onClick={toggleCollapse}
         >
-          {isCollapse ? <SquareChevronRight /> : <SquareChevronLeft />}
+          {isCollapse ? <ArrowRightToLine className="text-primary-deep-purple" /> : <ArrowLeftToLine className="text-primary-deep-purple" />}
         </button>
 
         {!isCollapse && (

@@ -221,6 +221,40 @@ export const verifyEmail = createServerAction(async (token: string) => {
   }
 });
 
+export const verifyEmailChange = createServerAction(async (token: string) => {
+  try {
+    const response = await apiClient.get(`${API_BASE_URLS.auth}/auth/verify-email-change?token=${token}`);
+
+    if (!response || !response.data || !response.data.is_verified) {
+      throw new ServerActionError("No data received from API.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    const status = error.response?.status;
+    console.log({ status, error })
+    let errorMessage;
+
+    switch (status) {
+      case 400:
+        errorMessage = error.response?.data?.detail?.message || "Invalid verification token";
+        throw new ServerActionError(errorMessage);
+      case 422:
+        {
+          const validationErrors = error.response?.data?.details || [];
+          const errorMessages = validationErrors
+            .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
+            .join(", ");
+          throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        }
+
+      default:
+        errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+        throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+    }
+  }
+});
+
 export const resendVerification = createServerAction(async (email: string) => {
   try {
     const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/resend-verification`, { email });

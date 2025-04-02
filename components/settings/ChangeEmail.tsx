@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { typography } from '@/components/typography';
@@ -13,7 +12,7 @@ type FormData = {
   newEmail: string;
 };
 
-export const ChangeEmail: React.FC = () => {
+export const ChangeEmail = () => {
   const {
     handleSubmit,
     register,
@@ -32,7 +31,7 @@ export const ChangeEmail: React.FC = () => {
       );
 
       if (response.success) {
-        toast.success('Email updated successfully!');
+        toast.success('Link for change email sent to your current Email.');
       } else {
         toast.error('Error updating email.');
         console.error('Error updating email:', response.error);
@@ -79,7 +78,7 @@ export const ChangeEmail: React.FC = () => {
             className={typography.forms.submitButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : 'Save'}
+            {isSubmitting ? 'Requesting...' : 'Request'}
           </button>
         </div>
       </form>

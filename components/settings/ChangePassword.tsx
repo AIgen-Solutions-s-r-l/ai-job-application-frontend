@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { typography } from '@/components/typography';
@@ -12,7 +11,7 @@ type FormData = {
   newPassword: string;
 };
 
-export const ChangePassword: React.FC = () => {
+export const ChangePassword = () => {
   const {
     handleSubmit,
     register,
@@ -23,13 +22,10 @@ export const ChangePassword: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await changePassword(
-        data.password,
-        data.newPassword
-      );
+      const response = await changePassword(data.password, data.newPassword);
 
       if (response.success) {
-        toast.success('Password updated successfully!');
+        toast.success('Link for change password sent to your current Email.');
       } else {
         toast.error('Error updating password.');
         console.error('Error updating password:', response.error);
@@ -71,7 +67,7 @@ export const ChangePassword: React.FC = () => {
             className={typography.forms.submitButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : 'Save'}
+            {isSubmitting ? 'Requesting...' : 'Request'}
           </button>
         </div>
       </form>

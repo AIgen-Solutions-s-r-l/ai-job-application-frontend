@@ -95,6 +95,10 @@ progress::-webkit-progress-value {
     @apply text-[28px] font-semibold text-primary-deep-purple font-montserrat
   }
 
+  .job-select-box {
+    @apply bg-primary-light-purple
+  }
+  
   .scrollable {
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
@@ -103,6 +107,12 @@ progress::-webkit-progress-value {
 
   .scrollable::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
+  }
+
+  .my-scrollable {
+    scrollbar-color: #8783D1 #E9E3EE;
+    scrollbar-width: thin;
+    overflow-y: scroll;
   }
   
   @media (width <= 767px) {

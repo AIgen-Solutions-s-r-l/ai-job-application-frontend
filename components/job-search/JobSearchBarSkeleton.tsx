@@ -66,7 +66,7 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}
             {/* <p className='hidden md:block text-[20px] font-montserrat'>
               <span className='font-bold'>{jobs.length} jobs</span> found.
             </p> */}
-            <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
+            {/* <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
               <select
                 defaultValue={experience}
                 className='select bg-neutral-content focus:outline-none w-[170px] h-8 min-h-8 rounded-full flex gap-5 items-center'
@@ -78,7 +78,7 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}
                 <option value="Senior-level">Senior-level</option>
                 <option value="Executive-level">Executive-level</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </form>
       </div>

@@ -2,20 +2,33 @@
 
 import { FC } from 'react';
 import { ArrowRightIcon } from '@/components/AppIcons';
+import { FaSpinner } from 'react-icons/fa';
 
 type Props = {
   title: string;
   handleApply?: () => void;
   disabled?: boolean;
+  loadingText?: string;
+  isLoading?: boolean;
 };
 
-export const ButtonApply: FC<Props> = ({ title, handleApply, disabled }) => (
+export const ButtonApply: FC<Props> = ({ title, handleApply, disabled, loadingText, isLoading = false }) => (
   <button
-    className='my-btn-green gap-8 font-semibold text-sm md:text-[18px] font-jura cursor-pointer'
+    className='my-btn-green gap-8 font-semibold text-sm md:text-[18px] font-jura cursor-pointer disabled:bg-my-neutral-2 disabled:cursor-not-allowed'
     onClick={handleApply}
     disabled={disabled}
   >
-    <p>{title}</p>
-    <ArrowRightIcon classname='fill-black hidden md:block' />
+    {isLoading 
+    ? (
+        <>
+            <p>{loadingText}</p>
+            <FaSpinner className="animate-spin" />
+        </>
+    ) : (
+        <>
+            <p>{title}</p>
+            <ArrowRightIcon classname='fill-black hidden md:block' />
+        </>
+    )}
   </button>
 );

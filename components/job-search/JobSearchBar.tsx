@@ -6,6 +6,7 @@ import { JobSearchProps } from '@/libs/definitions';
 import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
 import { setServerCookie } from '@/libs/cookies';
+import { useJobSearch } from '@/contexts/job-search-context';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
@@ -22,6 +23,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     null
   );
   const [locationError, setLocationError] = useState<string | null>(null);
+  const { jobs } = useJobSearch();
 
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
     defaultValues: searchParams,
@@ -42,8 +44,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const onSubmit = async () => {
     const { q, location, country, city, latitude, longitude, experience } = getValues();
 
-    // Check if location is empty or not selected from dropdown
-    if (dataArray.length > 0 && showSuggestions) {
+    // Validate location if there's any input
+    if (location && !country) {
       setLocationError('Please select a location from the dropdown');
       return;
     }
@@ -55,7 +57,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     if (country) {
       cleanParams.country = country;
-      await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience: experience ?? '' }), {});
     }
 
     if (city && city !== 'undefined') {
@@ -71,6 +72,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       cleanParams.experience = experience;
     }
 
+    await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience: experience ?? '' }), {});
+
     onSearch(cleanParams);
   };
 
@@ -83,20 +86,25 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       setShowSuggestions(true);
       setLocationError(null);
       
-      if (e.target.value.length > 3) {
+      if (e.target.value.length > 2) {
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
           setDataArray(response);
-        }, 200);
+        }, 100);
         setSearchTimeout(timeoutId);
       } else {
         setDataArray([]);
       }
 
-      // clear address
-      if (!e.target.value) {
+      // Clear all location-related data when input is empty or too short
+      if (!e.target.value || e.target.value.length <= 3) {
         reset({
-          q: getValues().q,
+          ...getValues(),
+          location: e.target.value,
+          city: undefined,
+          country: undefined,
+          latitude: undefined,
+          longitude: undefined,
         });
       }
     },
@@ -224,9 +232,9 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
           </div>
 
           <div className='flex items-center mt-3 md:pb-1 md:mt-5 gap-16'>
-            {/* <p className='hidden md:block text-[20px] font-montserrat'>
-              <span className='font-bold'>{jobs.length} jobs</span> found.
-            </p> */}
+            <p className='hidden md:block text-[20px] font-jura font-medium'>
+              <span className='font-bold'>{jobs.length} jobs</span> on this page
+            </p>
             <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
               <select
                 {...register('experience', { required: 'Select experience level' })}

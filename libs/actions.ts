@@ -186,6 +186,8 @@ export const updateApplicationResumeAction = async (id: string, resumeData: Resu
   try {
     const entries: any = fromResumeType(resumeData);
 
+    // console.log("updateApplicationResumeAction: \n", JSON.stringify(entries));
+
     const response = await updateApplicationResume(id, entries);
 
     if (!response.success) {
@@ -212,6 +214,8 @@ export const updateApplicationLetterAction = async (id: string, letterData: Cove
     const coverLetter = {
       cover_letter: letterData
     }
+
+    // console.log("updateApplicationLetterAction: \n", JSON.stringify(coverLetter));
 
     const response = await updateApplicationLetter(id, coverLetter);
 

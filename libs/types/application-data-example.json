@@ -1,0 +1,227 @@
+{
+    "resume_optimized": {
+        "resume": {
+            "header": {
+                "personal_information": {
+                    "name": "Arystanbek",
+                    "surname": "Kazhym",
+                    "date_of_birth": "2000-10-23",
+                    "country": "Kazakhstan",
+                    "city": "Almaty",
+                    "zip_code": "050000",
+                    "address": "Street og Rage 1",
+                    "phone_prefix": "7",
+                    "phone": "7002172080",
+                    "email": "cholicer@gmail.com",
+                    "github": "https://github.com/Cholicer",
+                    "linkedin": null
+                }
+            },
+            "body": {
+                "education_details": {
+                    "education_details": [
+                        {
+                            "education_level": "Bachelor's Degree",
+                            "institution": "Almaty University of Information Technology",
+                            "location": {
+                                "city": "Almaty",
+                                "country": "Kazakhstan"
+                            },
+                            "field_of_study": "Computer Science",
+                            "final_evaluation_grade": "3.7/4.0",
+                            "start_date": "09/2018",
+                            "year_of_completion": "06/2024",
+                            "exam": {
+                                "null": null
+                            }
+                        }
+                    ]
+                },
+                "experience_details": {
+                    "experience_details": [
+                        {
+                            "position": "Frontend Developer",
+                            "company": "Laboro (AiHawk)",
+                            "employment_start_date": "11/2024",
+                            "employment_end_date": "Present",
+                            "location": {
+                                "city": "Remote",
+                                "country": "Italy"
+                            },
+                            "industry": "Technology",
+                            "key_responsibilities": [
+                                "Engineered responsive user interfaces for an AI-powered job application platform that automatically matches users with relevant positions based on their skills and experience",
+                                "Developed key components of the resume and cover letter generation system, creating intuitive workflows that helped users customize AI-generated application materials",
+                                "Contributed to the frontend architecture of a platform processing millions of job listings, implementing optimized data visualization and search functionality",
+                                "Collaborated with cross-functional teams to enhance user experience for a rapidly growing product with 330K+ Instagram followers",
+                                "Implemented performance optimizations and responsive design principles for a globally recognized platform featured in TechCrunch, Business Insider, and Wired",
+                                "Participated in open-source development for Python projects that achieved #1 trending status on GitHub globally."
+                            ],
+                            "skills_acquired": [
+                                "Frontend Development",
+                                "Responsive Design",
+                                "Data Visualization",
+                                "Cross-Functional Collaboration",
+                                "Performance Optimization",
+                                "Open Source Contribution"
+                            ]
+                        },
+                        {
+                            "position": "Software Engineer",
+                            "company": "Aura.kz",
+                            "employment_start_date": "03/2024",
+                            "employment_end_date": "Present",
+                            "location": {
+                                "city": "Almaty",
+                                "country": "Kazakhstan"
+                            },
+                            "industry": "Technology",
+                            "key_responsibilities": [
+                                "Led development of Angular applications, implementing component-based architecture and optimizing performance for enterprise clients",
+                                "Designed and delivered a full-featured mobile Tour Guide application using Flutter, incorporating geolocation services, offline functionality, and interactive UI elements",
+                                "Architected and single-handedly developed a comprehensive computer monitoring system for a gaming club, utilizing Next.js for the frontend, NestOS for deployment, and Electron for desktop integration",
+                                "Engineered a custom data pipeline connecting player statistics from Faceit via a browser extension to a RESTful Express API, enabling real-time player analytics and performance tracking."
+                            ],
+                            "skills_acquired": [
+                                "Angular Development",
+                                "Flutter Development",
+                                "Next.js",
+                                "RESTful APIs",
+                                "Geolocation Services"
+                            ]
+                        },
+                        {
+                            "position": "Freelance Web Developer",
+                            "company": "Self-Employed",
+                            "employment_start_date": "09/2023",
+                            "employment_end_date": "02/2024",
+                            "location": {
+                                "city": "Almaty",
+                                "country": "Kazakhstan"
+                            },
+                            "industry": "Freelance",
+                            "key_responsibilities": [
+                                "Developed custom client websites using Next.js with Tailwind CSS for responsive styling and Framer Motion for advanced animations and transitions",
+                                "Delivered pixel-perfect implementations of design mockups while ensuring cross-browser compatibility and optimal performance."
+                            ],
+                            "skills_acquired": [
+                                "Next.js",
+                                "Tailwind CSS",
+                                "Framer Motion",
+                                "Cross-Browser Compatibility"
+                            ]
+                        }
+                    ]
+                },
+                "projects": {
+                    "projects": [
+                        {
+                            "name": "Responsive Portfolio Website",
+                            "description": "Developed a fully responsive portfolio website using React and CSS3, showcasing various projects. The website received positive feedback from users for its design and functionality.",
+                            "link": "https://github.com/username/responsive-portfolio"
+                        },
+                        {
+                            "name": "Weather App",
+                            "description": "Created a weather application using JavaScript and REST API integrations to fetch real-time weather data. The project has garnered over 150 stars on GitHub, highlighting its utility and user-friendly interface.",
+                            "link": "https://github.com/username/weather-app"
+                        },
+                        {
+                            "name": "E-commerce Platform",
+                            "description": "Contributed to a full-stack e-commerce platform using Angular for the front end and Node.js for the back end. Focused on implementing adaptive web design principles to enhance mobile user experience.",
+                            "link": "https://github.com/username/ecommerce-platform"
+                        }
+                    ]
+                },
+                "achievements": {
+                    "achievements": []
+                },
+                "certifications": {
+                    "certifications": []
+                },
+                "additional_skills": {
+                    "additional_skills": [
+                        "RESTful APIs",
+                        "Responsive Design",
+                        "Frontend Development",
+                        "Flutter Development",
+                        "Cross-Functional Collaboration",
+                        "Next.js",
+                        "Framer Motion",
+                        "Angular Development",
+                        "Geolocation Services",
+                        "Data Visualization",
+                        "Open Source Contribution",
+                        "Cross-Browser Compatibility",
+                        "Tailwind CSS",
+                        "Performance Optimization"
+                    ],
+                    "languages": [
+                        {
+                            "language": "English",
+                            "proficiency": "Fluent"
+                        },
+                        {
+                            "language": "Russian",
+                            "proficiency": "Native"
+                        },
+                        {
+                            "language": "Kazakh",
+                            "proficiency": "Native"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "cover_letter": {
+        "cover_letter": {
+            "header": {
+                "applicant_details": {
+                    "name": "Arystanbek Kazhym",
+                    "address": "Street og Rage 1",
+                    "city_state_zip": "Almaty, Kazakhstan, 050000",
+                    "email": "cholicer@gmail.com",
+                    "phone_number": "7002172080"
+                },
+                "company_details": {
+                    "name": "DSR Corporation"
+                }
+            },
+            "body": {
+                "greeting": "Dear DSR Corporation Team",
+                "opening_paragraph": "I am writing to express my interest in the Front-End Developer position at DSR Corporation. With a Bachelor's degree in Computer Science and over three years of hands-on experience in front-end development, I am excited about the opportunity to contribute to your innovative team.",
+                "body_paragraphs": "In my current role at Laboro, I engineered responsive user interfaces for an AI-powered platform, collaborating closely with cross-functional teams to enhance user experience. My proficiency in JavaScript, Angular, and REST API integrations aligns well with the technical skills you seek. Additionally, my experience in optimizing performance and implementing responsive design principles has been instrumental in delivering high-quality applications. I am particularly drawn to DSR Corporation's commitment to leveraging cutting-edge technology to create impactful solutions, which resonates with my career objectives.",
+                "closing_paragraph": "I am eager to bring my background in front-end development and my passion for user-centered design to DSR Corporation. Thank you for considering my application; I look forward to the opportunity to discuss how I can contribute to your team."
+            },
+            "footer": {
+                "closing": "Sincerely",
+                "signature": "Arystanbek Kazhym",
+                "date": "2023-10-23"
+            }
+        }
+    },
+    "job_info": {
+        "id": "9eb1895f-2a93-4df5-b6bf-d3e792381424",
+        "portal": "applytojob",
+        "title": "Front-end developer angular",
+        "workplace_type": "Full-time",
+        "posted_date": "2025-01-30T00:00:00",
+        "job_state": "active",
+        "description": " Overview:\nFull-time Front-End Software Engineer needed for a cross-functional team in Voronezh. Responsibilities include developing front-end web architectures, enhancing web application responsiveness, and collaborating with graphic designers. Role requires translating business needs into interactive applications.\n\nRequired Degrees & Certifications:\n- Bachelor's degree in Computer Science, Mathematics, or related field\n\nKey Responsibilities:\n- Develop front-end web architectures\n- Improve web application responsiveness\n- Collaborate with graphic designers\n\nRequired Technical Skills:\n- JavaScript ES5-ES6 and/or TypeScript\n- Modern front-end frameworks (Angular, React, Vue)\n- HTML5 and CSS3\n- Adaptive web design (AWD)\n- REST API integrations\n\nRequired Soft Skills:\n- Problem-solving\n- Attention to detail\n- Teamwork\n- Communication\n\nPreferred/Nice-to-have Skills:\n- Node.js, Java-Spring MVC, .NET\n- WebPack\n- CSS preprocessors (SASS, LESS, PostCSS)\n- Functional programming\n- Back-end technologies\n- Solid English skills (spoken and written)\n\nExperience Requirements:\n- Years of experience: 3+ years\n- Category of experience: Mid-level\n- Specific domain experience: Full stack development and back-end technologies\n\nAdditional Informations:\n- Decent salary with annual bonus\n- Paid overtime\n- Permanent employment\n- Employer-sponsored health insurance\n- Paid sick leave days\n- Office in the city center with free parking\n- Free English courses\n- Restaurant-grade lunches\n- Daily treats (coffee, chocolate, bakery)\n- Corporate events\n- Team-building program\n- Mentorship program\n- International DSR Training Center\n- Opportunities for skill development",
+        "apply_link": "https://dsr.applytojob.com/apply/LmuakjC9Zd/FrontEnd-Software-Engineer-Angular",
+        "company_name": "DSR Corporation",
+        "location": "Austria, Voronezh",
+        "short_description": " Overview",
+        "field": "Information Technology",
+        "company_logo": "https://s3.amazonaws.com/resumator/customer_20180201044330_XWLG764UNCE54LLD/logos/20211222142203_logo1.png",
+        "experience": "Mid-level",
+        "skills_required": [
+            "React",
+            "JavaScript",
+            "Angular"
+        ]
+    },
+    "style": "samodum_bold",
+    "sent": false,
+    "gen_cv": null
+}

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import { JobInfo } from '@/libs/types/application.types';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonUnderline } from '../ButtonUnderline';
@@ -16,8 +15,6 @@ export const ApplicationJobInfo: FC<Props> = ({
   job,
   goBack,
 }) => {
-
-  console.log(job);
   return (
     <>
       <div

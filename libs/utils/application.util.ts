@@ -17,7 +17,9 @@ export function toResumeType(resumeData: any): Resume {
         experience_details: {
           experience_details
         },
-        side_projects,
+        projects: {
+          projects
+        },
         achievements: {
           achievements
         },
@@ -44,7 +46,7 @@ export function toResumeType(resumeData: any): Resume {
   });
 
   const additionalInfo: ResumeAdditionalInfo = {
-    side_projects: side_projects?.length ? side_projects : null,
+    projects: projects?.length ? projects : null,
     achievements: achievements?.length ? achievements : null,
     certifications: certifications?.length ? certifications : null,
     languages: languages?.length ? languages : null,
@@ -97,7 +99,9 @@ export function fromResumeType(resumeData: Resume): any {
         experience_details: {
           experience_details: experienceDetails,
         },
-        side_projects: additionalInfo.side_projects,
+        projects: {
+          projects: additionalInfo.projects,
+        },
         achievements: {
           achievements: additionalInfo.achievements,
         },

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation'; // Importa el router
 import config from '@/config';
@@ -10,6 +10,7 @@ import { fetchUserData, verifyEmail } from '@/libs/api/auth'; // Importa la func
 import { useUserContext } from '@/contexts/user-context';
 
 const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
+  const hasRun = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const { setUser } = useUserContext();
   const router = useRouter();
@@ -41,6 +42,9 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
   };
 
   useEffect(() => {
+    if (hasRun.current) return;
+
+    hasRun.current = true;
     verify();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

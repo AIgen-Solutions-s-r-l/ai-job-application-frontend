@@ -15,7 +15,7 @@ type FormValues = {
 
 export default function ResetPassword() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isEmailSend, setIsEmailSend] = useState<boolean>(false);
+  const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
 
   const {
     register,
@@ -30,7 +30,7 @@ export default function ResetPassword() {
       const response = await resetPasswordForEmail(email);
       if (response.success) {
         toast.success('Password reset email sent! Check your inbox.');
-        setIsEmailSend(true);
+        setIsEmailSent(true);
       } else {
         toast.error(`Failed to send password reset email: ${response.error}`);
         console.error('Failed to send password reset email.:', response.error);
@@ -49,7 +49,7 @@ export default function ResetPassword() {
           <Image src='/laboro.png' alt='Logo' width={214} height={58} />
           <h2 className='auth-form-header'>Reset your password</h2>
 
-          {isEmailSend ? (
+          {isEmailSent ? (
             <p className='text-sm text-gray-600 mb-4'>
               Password reset email was sent yo your inbox! Follow the
               instructions to reset your password.
@@ -62,7 +62,7 @@ export default function ResetPassword() {
           )}
         </div>
 
-        {isEmailSend || (
+        {!isEmailSent && (
           <form
             className='space-y-4 font-jura'
             onSubmit={handleSubmit(onSubmit)}

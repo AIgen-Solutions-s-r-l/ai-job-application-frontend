@@ -24,7 +24,7 @@ const VerifyEmailChange = ({
       const result = await verifyEmailChange(searchParams.token);
       if (result.success) {
         toast.success('Email changed!');
-        router.replace('/dashboard/settings');
+        router.replace('/logout');
       } else {
         //@ts-ignore
         toast.error(result.error);

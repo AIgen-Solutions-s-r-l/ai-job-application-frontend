@@ -1,37 +1,60 @@
 'use client';
 
 import { MatchingJob } from "@/libs/definitions";
-import React, { createContext, useContext, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 
 type JobSearchProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   initialJobs: MatchingJob[];
 }
 
 type JobSearchContextType = {
   selectedJobs: MatchingJob[];
-  handleJobSelect: (job: MatchingJob, e: React.MouseEvent) => void;
+  setSelectedJobs: Dispatch<SetStateAction<MatchingJob[]>>;
+  handleJobSelect: (job: MatchingJob, e: MouseEvent) => void;
   isAllSelected: () => boolean;
   handleSelectAll: () => void;
   jobs: MatchingJob[];
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
 }
 
 const JobSearchContext = createContext<JobSearchContextType | null>(null);
 
 export default function JobSearchProvider({ children, initialJobs }: JobSearchProviderProps) {
-  const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>([]);
+  const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('selectedJobs');
+      return stored ? JSON.parse(stored) : [];
+    }
+    return [];
+  });
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const isAllSelected = () => initialJobs.every(app => selectedJobs.includes(app));
+  useEffect(() => {
+    localStorage.setItem('selectedJobs', JSON.stringify(selectedJobs));
+  }, [selectedJobs]);
+
+  const isAllSelected = () => initialJobs.every(job => selectedJobs.some(selected => selected.id === job.id));
 
   const handleSelectAll = () => {
     if (isAllSelected()) {
-      setSelectedJobs([]);
+      // Remove only current page jobs from selection
+      setSelectedJobs(prev => prev.filter(selected => 
+        !initialJobs.some(job => job.id === selected.id)
+      ));
     } else {
-      setSelectedJobs(initialJobs);
+      // Add all current page jobs that aren't already selected
+      setSelectedJobs(prev => {
+        const newJobs = initialJobs.filter(job => 
+          !prev.some(selected => selected.id === job.id)
+        );
+        return [...prev, ...newJobs];
+      });
     }
   };
 
-  const handleJobSelect = (job: MatchingJob, e: React.MouseEvent) => {
+  const handleJobSelect = (job: MatchingJob, e: MouseEvent) => {
     e.stopPropagation();
 
     setSelectedJobs((prevSelected) => {
@@ -47,10 +70,13 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
 
   const contextValue = {
     selectedJobs,
+    setSelectedJobs,
     handleJobSelect,
     isAllSelected,
     handleSelectAll,
     jobs: initialJobs,
+    currentPage,
+    setCurrentPage,
   };
 
   return (

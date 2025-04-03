@@ -15,12 +15,14 @@ export const JobManagerBottomSheet: FC = () => {
   const { applications, selectedApplications } = useJobManager();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const handleApply = useCallback(() => {
+    setIsLoading(true);
     applySelectedApplicationsAction(selectedApplications)
       .then((response) => {
         if (response.success) {
@@ -61,7 +63,9 @@ export const JobManagerBottomSheet: FC = () => {
         <ButtonApply
           title='Submit Applications'
           handleApply={handleApply}
-          disabled={!selectedApplications.length}
+          disabled={!selectedApplications.length || isLoading}
+          loadingText='Submitting'
+          isLoading={isLoading}
         />
       </div>
     </JobButtomSheet>

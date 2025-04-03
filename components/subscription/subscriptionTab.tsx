@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 // Icons and images
@@ -10,40 +10,33 @@ import SliderInput from "./sliderInput";
 import TwoWayToggleSwitch from "../common/TwoWayToggleSwitch";
 
 // Auth / API logic
-import { getUserInfo, addCredits } from "@/libs/api/auth";
+import { addCredits } from "@/libs/api/auth";
 
 // Importamos la configuración central
-import config from "@/config";
 import { MasterCardIcon } from "../AppIconsWithImages";
+import { useSubscription } from "@/libs/hooks/useSubscription";
 
 function SubscriptionTab() {
-  const [sliderValue, setSliderValue] = useState(2); // Default at index 2 (500 credits)
   const [currentApplications, setCurrentApplications] = useState(300);
-
-  // Payment plan: 'monthly' (20% off) or 'onetime' (no discount)
-  const [paymentPlan, setPaymentPlan] = useState<"monthly" | "onetime">("monthly");
-  const [isLoading, setIsLoading] = useState(false);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-
-  // Next.js utilities
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // Slider steps
-  const values = [
-    { value: "100" },
-    { value: "200" },
-    { value: "300" },
-    { value: "500" },
-    { value: "1000" },
-  ];
-
-  // Utilizando la configuración de precios desde config.ts
-  const pricing = config.stripe.pricing;
-
   // Añadimos un estado para rastrear las transacciones ya procesadas
   const [processedTransactions, setProcessedTransactions] = useState<Set<string>>(new Set());
+  
+  const {
+    sliderValue,
+    setSliderValue,
+    paymentPlan,
+    setPaymentPlan,
+    isLoading,
+    values,
+    calculateTotal,
+    getPricePerApplication,
+    handlePurchase,
+  } = useSubscription();
 
+  const totals = calculateTotal(currentApplications);
+  const searchParams = useSearchParams();
+ 
   // Check Stripe checkout result
   useEffect(() => {
     const success = searchParams.get("success");
@@ -120,85 +113,23 @@ function SubscriptionTab() {
   const cleanUrlParams = () => {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
+      const fromSearch = url.searchParams.get("from") === "search";
+      const returnUrl = localStorage.getItem('creditsPurchaseReturnUrl');
+      
       url.searchParams.delete("success");
       url.searchParams.delete("credits");
       url.searchParams.delete("session_id");
 
-      // Usar replace state directamente para evitar problemas con router.replace
       window.history.replaceState({}, document.title, url.pathname);
-    }
-  };
-
-  // Calculate cost based on slider
-  const calculateTotal = () => {
-    const newApplications = parseInt(values[sliderValue].value);
-    const priceType = paymentPlan === "monthly" ? "monthly" : "onetime";
-    const price = pricing[priceType][newApplications.toString()].amount;
-
-    return {
-      newApplications,
-      price: price.toFixed(2),
-      totalApplications: currentApplications + newApplications,
-    };
-  };
-
-  const totals = calculateTotal();
-
-  // Calculate price per application
-  const getPricePerApplication = () => {
-    const newApplications = parseInt(values[sliderValue].value);
-    const priceType = paymentPlan === "monthly" ? "monthly" : "onetime";
-    const price = pricing[priceType][newApplications.toString()].amount;
-
-    return (price / newApplications).toFixed(2);
-  };
-
-  // Handle purchase
-  const handlePurchase = async () => {
-    setIsLoading(true);
-    try {
-      // Get user info
-      const userInfo = await getUserInfo();
-
-      // Determine the credits and plan type from your UI
-      const numberOfApps = values[sliderValue].value;
-      const planType = paymentPlan;
-
-      // Get price ID based on selection
-      const priceId = pricing[planType][numberOfApps].id;
-
-      // Determine checkout mode
-      const mode = planType === "monthly" ? "subscription" : "payment";
-
-      // Create checkout session
-      const response = await fetch("/api/stripe/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          priceId,
-          mode,
-          successUrl:
-            window.location.origin +
-            `/dashboard/subscription?success=true&credits=${numberOfApps}&session_id={CHECKOUT_SESSION_ID}`,
-          cancelUrl:
-            window.location.origin + "/dashboard/subscription?success=false",
-          userId: userInfo.id,
-          userEmail: userInfo.email,
-        }),
-      });
-
-      const checkoutData = await response.json();
-      if (!response.ok || !checkoutData.url) {
-        throw new Error(checkoutData.error || "Could not create Checkout session.");
+      if (fromSearch && returnUrl) {
+        // Clear the stored URL
+        localStorage.removeItem('creditsPurchaseReturnUrl');
+        // Redirect to the original search page
+        window.location.href = returnUrl;
+      } else {
+        // Usar replace state directamente para evitar problemas con router.replace
+        window.history.replaceState({}, document.title, url.pathname);
       }
-
-      // Redirect user to Stripe
-      window.location.assign(checkoutData.url);
-    } catch (error: any) {
-      console.error("Error:", error);
-      toast.error("Could not initiate payment process. Please try again later.");
-    } finally {
-      setIsLoading(false);
     }
   };
 

@@ -3,7 +3,7 @@
 import { Fragment, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CloseButtonIcon } from "@/components/AppIcons";
-import SubscriptionTab from "@/components/subscription/subscriptionTab";
+import SmallSubscriptionTab from "./SmallSubscriptionTab";
 
 interface ModalProps {
     isModalOpen: boolean;
@@ -16,14 +16,14 @@ const SubscriptionModal = ({
     onCancel,
     setIsModalOpen,
 }: ModalProps) => {
-  const handleCancel = () => {
+    const handleCancel = () => {
     if (onCancel) {
         onCancel();
     }
     setIsModalOpen(false);
-  };
+    };
   
-  return (
+    return (
       <Transition appear show={isModalOpen} as={Fragment}>
         <Dialog
             as="div"
@@ -63,7 +63,7 @@ const SubscriptionModal = ({
                                 <CloseButtonIcon />
                               </button>
                             </div>
-                            <SubscriptionTab />
+                            <SmallSubscriptionTab />
                         </Dialog.Panel>
                     </Transition.Child>
                 </div>

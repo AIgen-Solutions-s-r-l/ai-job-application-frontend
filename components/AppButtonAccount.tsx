@@ -94,7 +94,7 @@ const AppButtonAccount = () => {
           <Link href="/dashboard/settings" passHref>
             <DropdownMenuItem
               className={clsx(
-                `h-10`,
+                `h-10 cursor-pointer`,
                 pathname === "/dashboard/settings" &&
                 `bg-gray-300 dark:bg-gray-600`
               )}
@@ -104,13 +104,13 @@ const AppButtonAccount = () => {
             </DropdownMenuItem>
           </Link>
           <Link href="/dashboard/subscription">
-            <DropdownMenuItem className="h-10">
+            <DropdownMenuItem className="h-10 cursor-pointer">
               <CreditCard />
               Billing
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator className="bg-gray-400" />
-          <DropdownMenuItem className="h-10" onClick={handleSignOut}>
+          <DropdownMenuItem className="h-10 cursor-pointer" onClick={handleSignOut}>
             <LogOut />
             Logout
           </DropdownMenuItem>

@@ -9,6 +9,7 @@ import LaboroSmiley from '@/public/LaboroSmileyPurple.svg';
 import { Container } from "@/components/Container";
 import { AiFillFilePdf } from "react-icons/ai";
 import { ArrowRightIcon } from '@/components/AppIcons';
+import { FaSpinner } from 'react-icons/fa';
 
 export const UploadResumeOnboarding: React.FC = () => {
   const [cvFile, setCVFile] = useState<File | null>(null);
@@ -101,14 +102,25 @@ export const UploadResumeOnboarding: React.FC = () => {
             <AiFillFilePdf className='text-7xl text-primary' />
           ) : cvFile ? (
             <>
-              <p className="font-montserrat text-[20px] font-semibold leading-none mb-10">You have successfully uploaded "{cvFile.name}"</p>
+              <p className="font-montserrat text-[20px] font-semibold leading-none mb-10">You have successfully uploaded &quot;{cvFile.name}&quot;</p>
               <button
                 type="button"
                 onClick={handleUpload}
-                className="w-[273px] my-btn-green"
+                className="w-[273px] my-btn-green disabled:bg-my-neutral-2 disabled:cursor-not-allowed font-jura font-semibold text-[18px]"
+                disabled={isLoading}
               >
-                <p className="text-xl">Create Resume</p>
-                <ArrowRightIcon />
+                {isLoading 
+                ? (
+                    <>
+                        <p>Creating Resume</p>
+                        <FaSpinner className="animate-spin" />
+                    </>
+                ) : (
+                    <>
+                        <p>Create Resume</p>
+                        <ArrowRightIcon />
+                    </>
+                )}
               </button>
             </>
           ) : (

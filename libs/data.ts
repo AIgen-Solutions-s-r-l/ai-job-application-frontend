@@ -263,7 +263,6 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
       .join('&');
 
     const matchings = await fetchMatchingJobs(queryString);
-    console.log(matchings);
 
     const matchingJobs: MatchingJob[] = matchings || [];
 

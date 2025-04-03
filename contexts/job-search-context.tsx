@@ -1,17 +1,17 @@
 'use client';
 
 import { MatchingJob } from "@/libs/definitions";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 
 type JobSearchProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   initialJobs: MatchingJob[];
 }
 
 type JobSearchContextType = {
   selectedJobs: MatchingJob[];
-  setSelectedJobs: React.Dispatch<React.SetStateAction<MatchingJob[]>>;
-  handleJobSelect: (job: MatchingJob, e: React.MouseEvent) => void;
+  setSelectedJobs: Dispatch<SetStateAction<MatchingJob[]>>;
+  handleJobSelect: (job: MatchingJob, e: MouseEvent) => void;
   isAllSelected: () => boolean;
   handleSelectAll: () => void;
   jobs: MatchingJob[];
@@ -54,7 +54,7 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
     }
   };
 
-  const handleJobSelect = (job: MatchingJob, e: React.MouseEvent) => {
+  const handleJobSelect = (job: MatchingJob, e: MouseEvent) => {
     e.stopPropagation();
 
     setSelectedJobs((prevSelected) => {

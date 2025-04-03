@@ -17,7 +17,7 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
     <div className={cn("sticky top-5 hidden xl:flex flex-col h-[calc(100vh-120px)] bg-white rounded-xl py-8 px-10", className)}>
       <div className='flex flex-col justify-between gap-3 border-b border-b-1 border-b-primary pb-5'>
         <div className='flex items-center justify-between'>
-          <h3 className="text-[20px] font-montserrat font-normal">{job.title}</h3>
+          <h3 className="text-[24px] xl:text-[32px] leading-[1.2] font-montserrat font-semibold">{job.title}</h3>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>
               <img
@@ -28,10 +28,19 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             </div>
           )}
         </div>
-        <h3 className="text-[20px] xl:text-[32px] leading-[1.1] font-montserrat font-semibold">{job.company_name}</h3>
-        <div className="flex items-center justify-between gap-3 leading-none">
-          <p className="flex items-center gap-3 text-[18px] font-jura font-semibold"><Image src={Pin} alt='Pin' />{`${job.city}, ${job.country}`} | {job.workplace_type}</p>
-        </div>
+        <h3 className="text-[20px] xl:text-[27px] font-montserrat">{job.company_name}</h3>
+        <p className="text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold">
+          {job.country === 'Unknown'
+          ? (
+            job.workplace_type
+          )
+          : (
+            <>
+              <Image src={Pin} alt='pin' />
+              {`${job.city}, ${job.country}`} | {job.workplace_type}
+            </>
+          )}
+        </p>
         <div className='flex gap-x-2 gap-y-1 md:gap-x-3 my-1 lg:my-2 flex-wrap overflow-hidden'>
           {!!job.skills_required.length && job.skills_required.map(
             (skill, index) => (

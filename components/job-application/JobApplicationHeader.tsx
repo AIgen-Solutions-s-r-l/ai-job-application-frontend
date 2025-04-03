@@ -23,10 +23,22 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
         <div
           className="hidden xl:flex w-[493px]  -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white"
         >
-          <div className="flex gap-[8px] items-center">
-            <p className='text-[36px] leading-[40px] font-medium'>{job.company_name}</p>
+          {/* <div className="flex gap-[8px] items-center">
+            <p className='text-[24px] leading-[32px] font-medium'>{job.title}</p>
+          </div> */}
+          <div className='flex items-center justify-between'>
+            <h3 className="font-montserrat text-base md:text-xl font-medium">{job.title}</h3>
+            {job.company_logo && (
+              <div className='w-[80px] h-[40px]'>
+                <img
+                  src={job.company_logo}
+                  alt='Logo'
+                  className='w-full h-full object-contain'
+                />
+              </div>
+            )}
           </div>
-          <p className='text-[20px] leading-none'>{job.title}</p>
+          <p className='font-montserrat text-base md:text-xl font-normal'>{job.company_name}</p>
           {job.location && (
             <div className="flex gap-[8px] items-end ">
               <MapPin size={20} />

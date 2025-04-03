@@ -32,9 +32,26 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
       className={cn("flex flex-col justify-between bg-white rounded-xl relative p-5 gap-1 lg:gap-3 leading-none cursor-pointer", className)}
       onClick={onClick}
     >
-      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.company_name}</h3>
-      <h3 className="font-montserrat font-normal text-base md:text-xl">{job.title}</h3>
-      <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {job.location} | {job.workplace_type}</p>
+      <h3 className="font-montserrat text-base md:text-xl font-medium">{job.title}</h3>
+      <div className='flex items-center justify-between'>
+        <h3 className="font-montserrat text-base md:text-xl font-normal">{job.company_name}</h3>
+        {job.company_logo && (
+          <div className='w-[80px] h-[40px]'>
+            <img
+              src={job.company_logo}
+              alt='Logo'
+              className='w-full h-full object-contain'
+            />
+          </div>
+        )}
+      </div>
+      {job.location  
+      ? (
+        <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {job.location} | {job.workplace_type}</p>
+      ) 
+      : (
+        <p className="text-sm md:text-base flex gap-2 items-center">{job.workplace_type}</p>
+      )}
       <div className='flex gap-x-2 gap-y-1 my-1 lg:my-2 flex-wrap overflow-hidden'>
         {!!job.skills_required.length && job.skills_required.map(
           (skill, index) => (

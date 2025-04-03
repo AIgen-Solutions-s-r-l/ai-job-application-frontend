@@ -11,16 +11,19 @@ import { addJobsToManager, spendCreditsAction } from '@/libs/actions';
 import { templateStyleByIndex } from '../job-application/_components/resumeTemplates';
 import SubscriptionModal from './SubscriptionModal';
 import { useUserCreditsContext } from '@/contexts/user-credits-context';
+import SelectedJobsModal from './SelectedJobsModal';
+import { ShoppingBag } from 'lucide-react';
 
 export const JobSearchBottomSheet: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isSubscriptionModal, setIsSubscriptionModal] = useState<boolean>(false);
   const [generateTemplate, setGenerateTemplate] = useState<boolean>(true);
   const [selectedTemplate, setSelectedTemplate] = useState<number | null>(1);
-  const { selectedJobs } = useJobSearch();
+  const { selectedJobs, setSelectedJobs } = useJobSearch();
   const router = useRouter();
   const [cvFile, setCVFile] = useState<File | null>(null);
   const { credits, updateCredits } = useUserCreditsContext();
+  const [isSelectedJobsModal, setIsSelectedJobsModal] = useState<boolean>(false);
 
   const handleApply = async () => {
     if (selectedJobs.length > 0) {
@@ -45,11 +48,12 @@ export const JobSearchBottomSheet: React.FC = () => {
         ])
 
         if (job.success && credit.success) {
-          updateCredits()
+          updateCredits();
+          setSelectedJobs([]);
           toast.success("Your application will be added to job manager soon", {
             duration: 10000,
           });
-          router.push('/manager')
+          router.push('/manager');
         } else {
           throw new Error("Failed to submit application.");
         }
@@ -61,6 +65,7 @@ export const JobSearchBottomSheet: React.FC = () => {
   };
 
   const checkSubscription = async (applications: number) => {
+
     if (credits < applications) {
       setIsSubscriptionModal(true);
     } else {
@@ -71,9 +76,15 @@ export const JobSearchBottomSheet: React.FC = () => {
   return (
     <>
       <JobButtomSheet className='justify-end items-center gap-2 md:gap-8 lg:gap-10'>
-        <p className='text-sm md:text-base xl:text-[20px] font-normal text-white font-montserrat text-right'>
-          Adding&nbsp;<span className='font-bold'>{selectedJobs.length} jobs</span>&nbsp;to your Job Manager
-        </p>
+        <div 
+          className="flex items-center gap-2 group cursor-pointer"
+          onClick={() => setIsSelectedJobsModal(true)}
+        >
+          <ShoppingBag className='stroke-white hidden md:block' />
+          <p className='text-sm md:text-base xl:text-[20px] font-normal text-white font-montserrat text-right'>
+            Adding&nbsp;<span className='font-bold group-hover:underline'>{selectedJobs.length} jobs</span>&nbsp;to your Job Manager
+          </p>
+        </div>
         <ButtonApply
           title='Save & Continue'
           handleApply={() => checkSubscription(selectedJobs.length)}
@@ -96,6 +107,11 @@ export const JobSearchBottomSheet: React.FC = () => {
       <SubscriptionModal
         isModalOpen={isSubscriptionModal}
         setIsModalOpen={setIsSubscriptionModal}
+      />
+
+      <SelectedJobsModal
+        isModalOpen={isSelectedJobsModal}
+        setIsModalOpen={setIsSelectedJobsModal}
       />
     </>
   );

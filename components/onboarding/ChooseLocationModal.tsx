@@ -9,7 +9,8 @@ import { ArrowRightIcon } from "../AppIcons";
 import { useRouter } from "next/navigation";
 import { setServerCookie } from '@/libs/cookies';
 import { useUserContext } from '@/contexts/user-context';
-import { FaLaptopHouse, FaSpinner } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa";
+import { AlertTriangle } from "lucide-react";
 
 interface MyLocation {
     city?: string
@@ -41,6 +42,7 @@ const ChoseLocationModal = ({
     const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
     const { setUser } = useUserContext();
     const [isLoading, setIsLoading] = useState(false);
+    const [locationError, setLocationError] = useState<string | null>(null);
 
     const { register, handleSubmit, getValues, reset } = useForm<FormType>({
         defaultValues: {
@@ -56,12 +58,13 @@ const ChoseLocationModal = ({
             }
 
             setShowSuggestions(true);
-            if (e.target.value.length > 3) {
+            setLocationError(null);
+            
+            if (e.target.value.length > 2) {
                 const timeoutId = setTimeout(async () => {
                     const response = await locationQuery(e.target.value);
-
                     setDataArray(response);
-                }, 200);
+                }, 100);
                 setSearchTimeout(timeoutId);
             } else {
                 setDataArray([]);
@@ -75,23 +78,35 @@ const ChoseLocationModal = ({
         const { city, country } = data.address;
         const { display_name, lat: latitude, lon: longitude } = data;
 
+        const county = data.address.city
+            ? `${data.address.city}, `
+            : data.address.village
+                ? `${data.address.village}, `
+                : data.address.town
+                ? `${data.address.town}, `
+                : '';
+
         reset({
             city,
             country,
             latitude,
             longitude,
-            location: display_name,
+            location: `${county}${country}`
         });
 
         setShowSuggestions(false);
+        setLocationError(null);
     };
 
     const onSubmit = async () => {
+        const { location, country, experience } = getValues()
+        if (location && !country) {
+            setLocationError('Please select a location from the dropdown');
+            return;
+        }
         setIsLoading(true);
-        const { country, experience } = getValues()
         setUser((prev) => ({...prev, exists: true }));
         await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
-        sessionStorage.setItem('fromOnboarding', 'true');
         router.push('/search')
     };
 
@@ -154,9 +169,17 @@ const ChoseLocationModal = ({
                                         </div>
                                     </div>
                                     <div className="mt-6">
-                                        <label htmlFor='location' className='text-base font-semibold leading-[20px]'>
+                                        <div className="flex gap-2">
+                                            <label htmlFor='location' className='hidden md:block text-base leading-none'>
                                             Location
-                                        </label>
+                                            </label>
+                                            {locationError && (
+                                            <div className='text-red-500 text-sm flex items-center'>
+                                                <AlertTriangle size={16} className='mr-2' />
+                                                {locationError}
+                                            </div>
+                                            )}
+                                        </div>
                                         <div className='w-full mt-3 h-12 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
                                             <input
                                                 type='text'
@@ -200,7 +223,7 @@ const ChoseLocationModal = ({
                                     ) : (
                                         <>
                                             <p>Confirm</p>
-                                            <ArrowRightIcon classname='fill-black' />
+                                            <ArrowRightIcon />
                                         </>
                                     )}
                                 </button>

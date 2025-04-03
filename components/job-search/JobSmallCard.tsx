@@ -19,7 +19,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
 
   return (
     <div
-      className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-12", className)}
+      className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8", className)}
       onClick={onClick}
     >
       <div className="flex gap-2 items-center md:mb-2">
@@ -28,9 +28,26 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
           <Info size={18} />
         </div>
       </div>
-      <h3 className="font-montserrat font-medium text-base md:text-xl">{job.company_name}</h3>
-      <h3 className="font-montserrat text-base md:text-xl font-normal">{job.title}</h3>
-      <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {`${job.city}, ${job.country}`} | {job.workplace_type}</p>
+      <div className='flex items-center justify-between'>
+        <h3 className="font-montserrat text-base md:text-xl font-medium">{job.title}</h3>
+        {job.company_logo && (
+          <div className='w-[80px] h-[40px]'>
+            <img
+              src={job.company_logo}
+              alt='Logo'
+              className='w-full h-full object-contain'
+            />
+          </div>
+        )}
+      </div>
+      <h3 className="font-montserrat text-base md:text-xl font-normal">{job.company_name}</h3>
+      {job.country === 'Unknown' 
+      ? (
+        <p className="text-sm md:text-base flex gap-2 items-center">{job.workplace_type}</p>
+      ) 
+      : (
+        <p className="text-sm md:text-base flex gap-2 items-center"><Image src={Pin} alt='pin' /> {`${job.city}, ${job.country}`} | {job.workplace_type}</p>
+      )}
       <div className='flex gap-x-2 gap-y-1 my-1 lg:my-2 flex-wrap overflow-hidden'>
         {!!job.skills_required.length && job.skills_required.map(
           (skill, index) => (
@@ -41,7 +58,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       <p
         className="line-clamp-5 text-sm md:text-base text-gray-600"
       >{job.short_description}</p>
-      <div className="absolute top-3 right-4 h-10 w-10 bg-base-content text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleJobSelect(job, e)}>
+      <div className="absolute top-3 right-4 h-10 w-10 job-select-box text-white rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleJobSelect(job, e as any)}>
         {selectedJobs.some((j) => j.id === job.id) && <Check size={24} />}
       </div>
     </div>

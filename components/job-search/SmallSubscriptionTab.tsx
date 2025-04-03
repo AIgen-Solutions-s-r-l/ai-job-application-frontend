@@ -1,0 +1,93 @@
+import { useState } from "react";
+
+// Icons and images
+import { CartIcon } from "@/components/AppIcons";
+
+// Components
+import TwoWayToggleSwitch from "../common/TwoWayToggleSwitch";
+
+// Importamos la configuración central
+import SliderInput from "../subscription/sliderInput";
+import { useSubscription } from "@/libs/hooks/useSubscription";
+
+function SmallSubscriptionTab() {
+  const [currentApplications] = useState(300);
+  const {
+    sliderValue,
+    setSliderValue,
+    paymentPlan,
+    setPaymentPlan,
+    isLoading,
+    values,
+    calculateTotal,
+    getPricePerApplication,
+    handlePurchase,
+  } = useSubscription({ fromSearch: true });
+
+  const totals = calculateTotal(currentApplications);
+
+  return (
+    <div className="bg-white p-6 rounded-xl flex flex-col gap-6">
+      {/* Toggle row */}
+      <div className="flex items-center gap-4">
+        <TwoWayToggleSwitch value={paymentPlan} onChange={setPaymentPlan} />
+        {paymentPlan === "monthly" && (
+          <div className="pill bg-green-100 text-green-600 px-2 py-1">
+            20% off
+          </div>
+        )}
+      </div>
+
+      {/* Main box: Title, Slider, Price & Purchase */}
+      <div className="border border-my-neutral-3 rounded-lg p-5 flex flex-col gap-4">
+        {/* Title */}
+        <h2 className="font-montserrat text-xl font-semibold text-black">
+          Job Application Credits
+        </h2>
+
+        {/* Slider */}
+        <div className="relative">
+          <SliderInput
+            values={values}
+            sliderValue={sliderValue}
+            setSliderValue={setSliderValue}
+          />
+          {/* "Current plan" label if 500 is selected */}
+          {values[sliderValue].value === "500" && (
+            <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
+              Current plan
+            </div>
+          )}
+        </div>
+
+        {/* Row: left -> credit equivalency, right -> price + purchase */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-2">
+          {/* Left: 1 Credit = ... */}
+          <div className="text-my-neutral-5 text-sm font-jura leading-5">
+            1 Credit = €{getPricePerApplication()} <br />
+            1 Credit = 1 Job Application
+          </div>
+
+          {/* Right: Price & Purchase */}
+          <div className="flex flex-col items-start md:items-end gap-2">
+            <p className="font-montserrat text-2xl font-bold text-black">
+              {paymentPlan === "monthly"
+                ? `€${totals.price} / mo`
+                : `€${totals.price} (one-time)`}
+            </p>
+            <button
+              onClick={handlePurchase}
+              disabled={isLoading}
+              className="flex items-center gap-2 bg-secondary rounded-xl px-5 py-2 font-jura font-semibold disabled:opacity-70"
+            >
+              {isLoading ? "Processing..." : "Purchase"}
+              <CartIcon />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default SmallSubscriptionTab;

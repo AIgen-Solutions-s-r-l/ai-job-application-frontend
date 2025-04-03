@@ -65,12 +65,9 @@ export const JobSearchBottomSheet: React.FC = () => {
   };
 
   const checkSubscription = async (applications: number) => {
-    // Store current URL for redirect
-    const currentPath = window.location.pathname + window.location.search;
+
     if (credits < applications) {
       setIsSubscriptionModal(true);
-      // Pass the return URL to SubscriptionModal
-      localStorage.setItem('creditsPurchaseReturnUrl', currentPath);
     } else {
       setIsModalOpen(true)
     }

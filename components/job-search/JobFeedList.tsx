@@ -36,7 +36,7 @@ export const JobFeedList: FC = () => {
     router.push(`/search?${params.toString()}`);
   };
 
-    const renderPaginationButtons = () => {
+  const renderPaginationButtons = () => {
     const buttons = [];
     const itemsPerPage = 25;
     const totalPages = Math.ceil(totalCount / itemsPerPage);

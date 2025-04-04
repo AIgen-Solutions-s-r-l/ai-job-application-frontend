@@ -1,4 +1,4 @@
-import { CVType, JobProfile, MatchingJob, JobSearchParams, JobsList, PendingApplicationRecord, Transaction } from "./definitions";
+import { CVType, JobProfile, JobSearchParams, JobsList, PendingApplicationRecord, Transaction, MatchingJobsResponse } from "./definitions";
 import { fetchUserResume } from "@/libs/api/resume";
 import { toJobProfile } from "./utils/job-profile-util";
 import { fetchMatchingJobs } from "./api/matching";
@@ -250,7 +250,7 @@ export async function fetchPassesData() {
   }
 }
 
-export async function getMatchingJobsData(params?: JobSearchParams): Promise<MatchingJob[]> {
+export async function getMatchingJobsData(params?: JobSearchParams): Promise<MatchingJobsResponse> {
   try {
     const queryString = Object.entries(params)
       .map(([key, value]) => {
@@ -262,14 +262,15 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
       })
       .join('&');
 
-    const matchings = await fetchMatchingJobs(queryString);
-
-    const matchingJobs: MatchingJob[] = matchings || [];
-
-    return matchingJobs;
+    const response = await fetchMatchingJobs(queryString);
+    
+    return {
+      jobs: response.jobs || [],
+      total_count: response.total_count || 0
+    };
   } catch (error) {
     console.error("Error fetching matching jobs from API:", error);
-    return [];
+    return { jobs: [], total_count: 0 };
   }
 }
 

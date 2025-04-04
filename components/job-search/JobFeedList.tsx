@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { MatchingJob } from '@/libs/definitions';
 import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { JobSmallCard } from './JobSmallCard';
@@ -9,8 +9,8 @@ import { useJobSearch } from '@/contexts/job-search-context';
 import { Container } from '../Container';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export const JobFeedList: React.FC = () => {
-  const { jobs, isAllSelected, handleSelectAll, currentPage, setCurrentPage, } = useJobSearch();
+export const JobFeedList: FC = () => {
+  const { jobs, totalCount, isAllSelected, handleSelectAll, currentPage, setCurrentPage, } = useJobSearch();
   const [focusedJob, setFocusedJob] = useState<MatchingJob | undefined>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,68 +36,14 @@ export const JobFeedList: React.FC = () => {
     router.push(`/search?${params.toString()}`);
   };
 
-  const renderPaginationButtons = () => {
+    const renderPaginationButtons = () => {
     const buttons = [];
-    const maxVisiblePages = 4;
     const itemsPerPage = 25;
-
-    // Always show current page 1 button
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
+    const maxVisiblePages = 5;
+    
+    // Prev button
     buttons.push(
-      <button
-        key={0}
-        onClick={() => handlePageChange(0)}
-        className={`px-3 py-1 rounded-md border ${currentPage === 0 ? 'bg-primary text-white' : ''}`}
-      >
-        1
-      </button>
-    );
-
-    // Add ellipsis if we're past page 4
-    if (currentPage >= maxVisiblePages) {
-      buttons.push(<span key="dots" className="px-2">...</span>);
-    } else {
-      // Show sequential pages up to current if we're in first 4 pages
-      for (let i = 1; i < currentPage; i++) {
-        buttons.push(
-          <button
-            key={i}
-            onClick={() => handlePageChange(i)}
-            className="px-3 py-1 rounded-md border"
-          >
-            {i + 1}
-          </button>
-        );
-      }
-    }
-
-    // Show current and surrounding pages
-    if (currentPage >= maxVisiblePages) {
-      for (let i = currentPage - 2; i <= currentPage; i++) {
-        buttons.push(
-          <button
-            key={i}
-            onClick={() => handlePageChange(i)}
-            className={`px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
-          >
-            {i + 1}
-          </button>
-        );
-      }
-    } else if (currentPage > 0) {
-      // Current page button when on pages 2-4
-      buttons.push(
-        <button
-          key={currentPage}
-          onClick={() => handlePageChange(currentPage)}
-          className="px-3 py-1 rounded-md border bg-primary text-white"
-        >
-          {currentPage + 1}
-        </button>
-      );
-    }
-
-    // Add prev button 
-    buttons.unshift(
       <button 
         key="prev" 
         onClick={() => handlePageChange(currentPage - 1)} 
@@ -108,8 +54,67 @@ export const JobFeedList: React.FC = () => {
       </button>
     );
 
-    // Add next button 
-    if (jobs.length) {
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages if total pages is 5 or less
+      for (let i = 0; i < totalPages; i++) {
+        buttons.push(
+          <button
+            key={i}
+            onClick={() => handlePageChange(i)}
+            className={`px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
+          >
+            {i + 1}
+          </button>
+        );
+      }
+    } else {
+      // Always show first page
+      buttons.push(
+        <button
+          key={0}
+          onClick={() => handlePageChange(0)}
+          className={`px-3 py-1 rounded-md border ${currentPage === 0 ? 'bg-primary text-white' : ''}`}
+        >
+          1
+        </button>
+      );
+
+      // For pages after 5, show dots
+      if (currentPage >= maxVisiblePages) {
+        buttons.push(<span key="dots" className="px-2">...</span>);
+      }
+
+      if (currentPage < maxVisiblePages) {
+        // First 5 pages
+        for (let i = 1; i < maxVisiblePages; i++) {
+          buttons.push(
+            <button
+              key={i}
+              onClick={() => handlePageChange(i)}
+              className={`px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
+            >
+              {i + 1}
+            </button>
+          );
+        }
+      } else {
+        // Pages after 5
+        for (let i = currentPage - 2; i <= Math.min(currentPage, totalPages - 1); i++) {
+          buttons.push(
+            <button
+              key={i}
+              onClick={() => handlePageChange(i)}
+              className={`px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
+            >
+              {i + 1}
+            </button>
+          );
+        }
+      }
+    }
+
+    // Next button (only if not on last page)
+    if (currentPage < totalPages - 1) {
       buttons.push(
         <button 
           key="next" 
@@ -123,7 +128,7 @@ export const JobFeedList: React.FC = () => {
 
     return buttons;
   };
-
+  
   if (jobs.length === 0) {
     if (currentPage > 0) {
       return (

@@ -44,7 +44,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                     ${errors.additionalInfo?.languages?.[index]?.language && "placeholder-shown:border-error"}`
                   }
                 />
-                {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].language.message}</p>}
+                {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].language.message}</p>}
               </div>
               <div className="w-full">
                 <select
@@ -60,7 +60,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   <option value="Fluent">Fluent</option>
                   <option value="Beginner">Beginner</option>
                 </select>
-                {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
+                {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
               </div>
             </div>
           </div>
@@ -315,7 +315,7 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
     <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
       <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Additional Information
-        {errors.additionalInfo && <p className="text-error text-xs">Please fill out all required fields</p>}
+        {errors.additionalInfo && <p className="text-error text-xs lg:text-sm">Please fill out all required fields</p>}
       </div>
       <div className="collapse-content !p-0 bg-base-100">
         <div className="flex flex-col gap-5">

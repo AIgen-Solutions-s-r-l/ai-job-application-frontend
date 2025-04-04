@@ -6,6 +6,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 type JobSearchProviderProps = {
   children: ReactNode;
   initialJobs: MatchingJob[];
+  totalCount: number;
 }
 
 type JobSearchContextType = {
@@ -16,12 +17,13 @@ type JobSearchContextType = {
   handleSelectAll: () => void;
   jobs: MatchingJob[];
   currentPage: number;
+  totalCount: number;
   setCurrentPage: (page: number) => void;
 }
 
 const JobSearchContext = createContext<JobSearchContextType | null>(null);
 
-export default function JobSearchProvider({ children, initialJobs }: JobSearchProviderProps) {
+export default function JobSearchProvider({ children, initialJobs, totalCount }: JobSearchProviderProps) {
   const [selectedJobs, setSelectedJobs] = useState<MatchingJob[]>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('selectedJobs');
@@ -76,6 +78,7 @@ export default function JobSearchProvider({ children, initialJobs }: JobSearchPr
     handleSelectAll,
     jobs: initialJobs,
     currentPage,
+    totalCount,
     setCurrentPage,
   };
 

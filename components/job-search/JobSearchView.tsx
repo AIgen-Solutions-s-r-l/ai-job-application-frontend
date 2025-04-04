@@ -9,15 +9,17 @@ import JobSearchProvider from '@/contexts/job-search-context';
 
 type JobSearchViewProps = {
   initialJobs: MatchingJob[];
+  totalCount: number;
   searchParams: JobSearchProps; //{ q?: string; l?: string };
 };
 
 export const JobSearchView: FC<JobSearchViewProps> = ({
   initialJobs,
   searchParams,
+  totalCount,
 }) => {
   return (
-    <JobSearchProvider initialJobs={initialJobs}>
+    <JobSearchProvider initialJobs={initialJobs} totalCount={totalCount}>
       <div className='w-full flex flex-col items-center'>
         <JobSearchBar searchParams={searchParams} />
         <JobFeedList />

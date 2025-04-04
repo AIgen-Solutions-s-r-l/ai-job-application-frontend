@@ -48,7 +48,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
           />
         </div>
       ))}
-      {fields.length === 1 && errors.experienceDetails?.[index]?.key_responsibilities?.[0] && <p className="text-error mt-[2px] text-xs">At least one responsibility is required</p>}
+      {fields.length === 1 && errors.experienceDetails?.[index]?.key_responsibilities?.[0] && <p className="text-error mt-[2px] text-xs lg:text-sm">At least one responsibility is required</p>}
       <button
         type="button"
         className="add-nested"
@@ -135,7 +135,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
     <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
       <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Experience Details
-        {errors.experienceDetails && <p className="text-error text-xs">Please fill out all required fields</p>}
+        {errors.experienceDetails && <p className="text-error text-xs lg:text-sm">Please fill out all required fields</p>}
       </div>
       <div className="collapse-content !p-0 bg-base-100">
         {fields.map((experience, index) => (

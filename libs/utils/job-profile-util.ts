@@ -5,6 +5,7 @@ import {
   LegalAuthorization,
   WorkPreferences,
   EducationDetails,
+  ExperienceDetails,
 } from '../definitions';
 
 
@@ -29,15 +30,54 @@ export function toJobProfile(resumeData: any): JobProfile {
     salary_expectations,
   } = resumeData;
 
-  const transformedEducationDetails = education_details.map((education: EducationDetails) => {
-    if (education.exam) {
-      return {
-        ...education,
-        exam: Object.entries(education.exam).map(([subject, grade]) => ({ subject, grade })),
-      };
-    }
-    return education;
-  });
+  const transformedPersonalInfo = {
+    ...personal_information,
+    name: personal_information?.name || '',
+    surname: personal_information?.surname || '',
+    date_of_birth: personal_information?.date_of_birth || '',
+    country: personal_information?.country || '',
+    city: personal_information?.city || '',
+    address: personal_information?.address || '',
+    zip_code: personal_information?.zip_code || '',
+    phone_prefix: personal_information?.phone_prefix || '',
+    phone: personal_information?.phone || '',
+    email: personal_information?.email || '',
+    github: personal_information?.github || '',
+    linkedin: personal_information?.linkedin || '',
+  };
+
+  const transformedEducationDetails = education_details?.map((education: EducationDetails) => ({
+    ...education,
+    education_level: education.education_level || '',
+    institution: education.institution || '',
+    field_of_study: education.field_of_study || '',
+    start_date: education.start_date || '',
+    year_of_completion: education.year_of_completion || '',
+    final_evaluation_grade: education.final_evaluation_grade || '',
+    location: {
+      country: education.location?.country || '',
+      city: education.location?.city || '',
+    },
+    exam: education.exam ? Object.entries(education.exam).map(([subject, grade]) => ({
+      subject: subject || '',
+      grade: grade || ''
+    })) : []
+  })) || defaultJobProfile.educationDetails;
+
+  const transformedExperienceDetails = experience_details?.map((experience: ExperienceDetails) => ({
+    ...experience,
+    company: experience.company || '',
+    position: experience.position || '',
+    industry: experience.industry || '',
+    employment_start_date: experience.employment_start_date || '',
+    employment_end_date: experience.employment_end_date || '',
+    location: {
+      country: experience.location?.country || '',
+      city: experience.location?.city || '',
+    },
+    key_responsibilities: experience.key_responsibilities || [],
+    skills_acquired: experience.skills_acquired || []
+  })) || defaultJobProfile.experienceDetails;
 
   const additionalInfo: AdditionalInfo = {
     projects: projects?.length ? projects : defaultJobProfile.additionalInfo.projects,
@@ -53,42 +93,9 @@ export function toJobProfile(resumeData: any): JobProfile {
   };
 
   return {
-    personalInfo: personal_information,
-    educationDetails: transformedEducationDetails || [
-      {
-        start_date: "",
-        institution: "",
-        field_of_study: "",
-        education_level: "",
-        year_of_completion: "",
-        final_evaluation_grade: "",
-        location: {
-          country: "",
-          city: "",
-        },
-        exam: [
-          {
-            subject: "",
-            grade: "",
-          }
-        ],
-      }
-    ],
-    experienceDetails: experience_details || [
-      {
-        company: "",
-        industry: "",
-        location: {
-          country: "",
-          city: "",
-        },
-        position: "",
-        skills_acquired: [],
-        employment_start_date: "",
-        employment_end_date: "",
-        key_responsibilities: [],
-      }
-    ],
+    personalInfo: transformedPersonalInfo,
+    educationDetails: transformedEducationDetails,
+    experienceDetails: transformedExperienceDetails,
     additionalInfo,
   };
 }
@@ -213,6 +220,7 @@ export const defaultJobProfile: JobProfile = {
     country: "",
     city: "",
     address: "",
+    zip_code: "",
     phone_prefix: "",
     phone: "",
     email: "",

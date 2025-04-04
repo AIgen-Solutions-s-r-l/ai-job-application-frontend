@@ -1,4 +1,4 @@
-import { JobSearchProps, MatchingJob } from '@/libs/definitions';
+import { JobSearchProps } from '@/libs/definitions';
 import { JobSearchView } from './JobSearchView';
 import { getMatchingJobsData } from '@/libs/data';
 import { getServerCookie } from '@/libs/cookies';
@@ -20,6 +20,11 @@ export const JobSearchDispatcher = async ({
         ...(country && { country, location: country }),
         experience: searchData.experience ?? 'Mid-level'
       };
+    } else {
+      modifiedSearchParams = {
+        ...searchParams,
+        experience: 'Mid-level'
+      };
     }
   }
 
@@ -29,7 +34,7 @@ export const JobSearchDispatcher = async ({
     jobSearchParams.keywords = q.split(' ');
   }
 
-  const jobs: MatchingJob[] = await getMatchingJobsData(jobSearchParams);
+  const response = await getMatchingJobsData(jobSearchParams);
 
-  return <JobSearchView initialJobs={jobs} searchParams={modifiedSearchParams} />;
+  return <JobSearchView initialJobs={response.jobs} totalCount={response.total_count} searchParams={modifiedSearchParams} />;
 };

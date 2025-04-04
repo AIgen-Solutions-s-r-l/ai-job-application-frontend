@@ -72,7 +72,6 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}
                 className='select bg-neutral-content focus:outline-none w-[170px] h-8 min-h-8 rounded-full flex gap-5 items-center'
               >
                 <option value="">Experience level</option>
-                <option value="Intern">Intern</option>
                 <option value="Entry-level">Entry-level</option>
                 <option value="Mid-level">Mid-level</option>
                 <option value="Senior-level">Senior-level</option>

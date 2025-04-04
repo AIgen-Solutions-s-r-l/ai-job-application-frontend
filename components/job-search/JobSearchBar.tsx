@@ -23,7 +23,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     null
   );
   const [locationError, setLocationError] = useState<string | null>(null);
-  const { jobs } = useJobSearch();
+  const { totalCount } = useJobSearch();
 
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
     defaultValues: searchParams,
@@ -233,7 +233,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
           <div className='flex items-center mt-3 md:pb-1 md:mt-5 gap-16'>
             <p className='hidden md:block text-[20px] font-jura font-medium'>
-              <span className='font-bold'>{jobs.length} jobs</span> on this page
+              <span className='font-bold'>{totalCount} jobs</span> found
             </p>
             <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
               <select
@@ -247,7 +247,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 <option value="Senior-level">Senior-level</option>
                 <option value="Executive-level">Executive-level</option>
               </select>
-              {!!errors.experience && <p className="text-error mt-[2px] text-xs font-jura">{errors.experience?.message}</p>}
+              {!!errors.experience && <p className="text-error mt-[2px] text-xs lg:text-sm font-jura">{errors.experience?.message}</p>}
               {/* <select
                 className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
                 defaultValue='remote'

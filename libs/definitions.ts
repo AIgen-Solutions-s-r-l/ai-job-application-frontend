@@ -198,6 +198,11 @@ export interface MatchingJob {
   skills_required: string[]
 }
 
+export interface MatchingJobsResponse {
+  jobs: MatchingJob[];
+  total_count: number;
+}
+
 export type PendingApplicationRecord = Record<string, PendingApplication>;
 
 export interface PendingApplication {

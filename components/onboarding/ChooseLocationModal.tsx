@@ -160,7 +160,6 @@ const ChoseLocationModal = ({
                                                 {...register('experience')}
                                                 className='w-full mt-3 h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base form-select'
                                             >
-                                                <option value="Intern">Intern</option>
                                                 <option value="Entry-level">Entry-level</option>
                                                 <option value="Mid-level">Mid-level</option>
                                                 <option value="Senior-level">Senior-level</option>

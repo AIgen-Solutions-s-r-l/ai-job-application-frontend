@@ -100,7 +100,7 @@ export const EducationDetailsOnboarding: FC = () => {
 
   return (
     <div className="">
-      {errors.educationDetails?.root && <p className="text-error text-xs">{errors.educationDetails.root.message}</p>}
+      {errors.educationDetails?.root && <p className="text-error text-xs lg:text-sm">{errors.educationDetails.root.message}</p>}
 
       {fields.map((education, index) => (
         <div key={education.id} className="flex flex-col gap-5 mt-5">

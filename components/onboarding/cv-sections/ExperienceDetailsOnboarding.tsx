@@ -22,7 +22,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
     if (fields.length === 0) {
       append("");
     }
-  }, []);
+  }, [fields.length]);
 
   return (
     <>
@@ -130,7 +130,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
 
   return (
     <div>
-      {errors.experienceDetails?.root && <p className="text-error text-xs">{errors.experienceDetails.root.message}</p>}
+      {errors.experienceDetails?.root && <p className="text-error text-xs lg:text-sm">{errors.experienceDetails.root.message}</p>}
 
       {fields.map((experience, index) => (
         <div key={experience.id} className="flex flex-col gap-5 mt-5">

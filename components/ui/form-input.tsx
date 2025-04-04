@@ -26,7 +26,7 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        {error && <p className="text-error mt-[2px] text-xs font-jura">{errorMessage}</p>}
+        {error && <p className="text-error mt-[2px] text-xs lg:text-sm font-jura">{errorMessage}</p>}
       </div>
     )
   }

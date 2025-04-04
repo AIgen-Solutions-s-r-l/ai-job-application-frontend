@@ -15,8 +15,12 @@ export const personalInfoSchema = z.object({
     .min(2, 'Surname must be at least 2 characters')
     .regex(/^[a-zA-Z\s]*$/, 'Surname can only contain letters'),
   date_of_birth: z.string()
+    .min(2, 'Date of birth is required')
     .refine((date) => isNotFutureDate(new Date(date)), {
       message: 'Date of birth cannot be in the future',
+    })
+    .refine((date) => new Date(date).getFullYear() >= 1900, {
+      message: 'Date of birth cannot be before 1900',
     }),
   city: z.string().min(2, 'City is required'),
   address: z.string().min(3, 'Address is required'),
@@ -40,16 +44,8 @@ export const educationSchema = z.object({
   education_level: z.string().min(2, 'Education level is required'),
   institution: z.string().min(2, 'Institution is required'),
   field_of_study: z.string().min(2, 'Field of study is required'),
-  start_date: z.string()
-    .min(4, 'Start date is required')
-    .refine((date) => !isNaN(Date.parse(date)), {
-      message: 'Invalid start date format',
-    }),
-  year_of_completion: z.string()
-    .min(4, 'Completion date is required')
-    .refine((date) => !isNaN(Date.parse(date)), {
-      message: 'Invalid completion date format',
-    }),
+  start_date: z.string().min(4, 'Start date is required'),
+  year_of_completion: z.string().min(4, 'Completion date is required'),
   final_evaluation_grade: z.string().min(1, 'Grade is required'),
   location: z.object({
     country: z.string().min(2, 'Country is required'),
@@ -59,17 +55,19 @@ export const educationSchema = z.object({
     subject: z.string().optional(),
     grade: z.string().optional()
   }))
-}).refine(
-  (data) => {
-    const startDate = new Date(data.start_date);
-    const completionDate = new Date(data.year_of_completion);
-    return completionDate >= startDate;
-  },
-  {
-    message: 'Completion date must be after start date',
-    path: ['year_of_completion'] // This targets the error at the year_of_completion field
-  }
-);
+})
+// .refine(
+//   (data) => {
+//     const startDate = new Date(data.start_date);
+//     const completionDate = new Date(data.year_of_completion);
+//     return completionDate >= startDate;
+//   },
+//   {
+//     message: 'Completion date must be after start date',
+//     path: ['year_of_completion'] // This targets the error at the year_of_completion field
+//   }
+// )
+;
 
 export const experienceSchema = z.object({
   company: z.string().min(2, 'Company name is required'),
@@ -78,7 +76,7 @@ export const experienceSchema = z.object({
   employment_end_date: z.string().min(4, 'End date is required'),
   location: z.object({
     country: z.string().min(2, 'Country is required'),
-    city: z.string().min(2, 'City is required')
+    city: z.string().min(2, 'City is required'),
   }),
   industry: z.string().optional(),
   key_responsibilities: z.array(z.string().min(1, 'Responsibility is required')).min(1, 'At least one responsibility is required'),
@@ -87,8 +85,16 @@ export const experienceSchema = z.object({
 
 export const additionalInfoSchema = z.object({
   languages: z.array(z.object({
-    language: z.string().min(2, 'Language is required'),
-    proficiency: z.string().min(1, 'Proficiency is required')
+    language: z.string().nullable()
+    .refine((val) => val !== null && val.length >= 2, {
+      message: 'Language is required'
+    })
+    .transform(val => val || ''),
+    proficiency: z.string().nullable()
+    .refine((val) => val !== null && val.length >= 2, {
+      message: 'Proficiency is required'
+    })
+    .transform(val => val || ''),
   })),
   projects: z.array(z.object({
     name: z.string().nullish(),

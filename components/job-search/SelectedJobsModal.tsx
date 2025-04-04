@@ -3,7 +3,7 @@
 import { Fragment, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CloseButtonIcon } from "@/components/AppIcons";
-import { Check, Building2, Briefcase } from "lucide-react";
+import { Trash2, Building2, Briefcase } from "lucide-react";
 import { useJobSearch } from "@/contexts/job-search-context";
 
 interface ModalProps {
@@ -60,8 +60,7 @@ const SelectedJobsModal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
                     {selectedJobs.map((job) => (
                       <div
                         key={job.id}
-                        className="flex items-center justify-between py-4 hover:bg-gray-50 cursor-pointer"
-                        onClick={(e) => handleJobSelect(job, e)}
+                        className="flex items-center justify-between py-4 hover:bg-gray-50"
                       >
                         <div className="flex-1 min-w-0 pr-4">
                           <div className="flex items-center gap-2 mb-1">
@@ -77,8 +76,11 @@ const SelectedJobsModal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
                             </p>
                           </div>
                         </div>
-                        <div className="h-6 w-6 rounded-md flex items-center justify-center job-select-box">
-                          <Check className="text-white" size={16} />
+                        <div 
+                          className="h-12 w-12 flex items-center justify-end cursor-pointer"
+                          onClick={(e) => handleJobSelect(job, e as any)}
+                        >
+                          <Trash2 className="text-primary-light-purple" size={24} />
                         </div>
                       </div>
                     ))}

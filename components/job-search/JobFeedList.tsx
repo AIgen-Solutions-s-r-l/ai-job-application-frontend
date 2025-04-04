@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { MatchingJob } from '@/libs/definitions';
-import { Check, ChevronRight } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { JobSmallCard } from './JobSmallCard';
 import { JobLargeCard } from './JobLargeCard';
 import { useJobSearch } from '@/contexts/job-search-context';
@@ -96,16 +96,30 @@ export const JobFeedList: React.FC = () => {
       );
     }
 
-    // Add next button 
-    buttons.push(
+    // Add prev button 
+    buttons.unshift(
       <button 
-        key="next" 
-        onClick={() => handlePageChange(currentPage + 1)} 
-        className="px-2 py-1 rounded-md border"
+        key="prev" 
+        onClick={() => handlePageChange(currentPage - 1)} 
+        className="px-2 py-1 rounded-md border disabled:cursor-not-allowed"
+        disabled={currentPage === 0}
       >
-        <ChevronRight size={20} />
+        <ChevronLeft size={20} />
       </button>
     );
+
+    // Add next button 
+    if (jobs.length) {
+      buttons.push(
+        <button 
+          key="next" 
+          onClick={() => handlePageChange(currentPage + 1)} 
+          className="px-2 py-1 rounded-md border"
+        >
+          <ChevronRight size={20} />
+        </button>
+      );
+    }
 
     return buttons;
   };

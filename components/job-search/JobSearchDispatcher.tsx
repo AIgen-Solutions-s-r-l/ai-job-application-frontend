@@ -20,6 +20,11 @@ export const JobSearchDispatcher = async ({
         ...(country && { country, location: country }),
         experience: searchData.experience ?? 'Mid-level'
       };
+    } else {
+      modifiedSearchParams = {
+        ...searchParams,
+        experience: 'Mid-level'
+      };
     }
   }
 

@@ -18,6 +18,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '../AppIcons';
 import ChoseLocationModal from './ChooseLocationModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cvFormSchema, type CVFormData } from '@/libs/validations/cv-form-schema';
+import { scrollToError } from '@/libs/utils/form-utils';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const { CVData, setCVData } = useCVDataContext();
@@ -39,7 +40,12 @@ export const CreateResumeOnboarding: React.FC = () => {
       case 4: validateFields = ['additionalInfo']; break;
     }
 
-    return await methods.trigger(validateFields);
+    const isValid = await methods.trigger(validateFields);
+    if (!isValid) {
+      // Scroll to the first error
+      scrollToError(methods.formState.errors);
+    }
+    return isValid;
   }, [currentStep]);
 
   const nextStep = async (ev: FormEvent<HTMLButtonElement>) => {

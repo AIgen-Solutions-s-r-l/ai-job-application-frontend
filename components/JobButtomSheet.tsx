@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const JobButtomSheet: FC<Props> = ({ children, className }) => (
-  <div className='fixed bottom-0 z-10 w-full h-[80px] flex items-center bg-primary'>
+  <div className='fixed bottom-0 z-10 w-full h-[60px] flex items-center bg-primary'>
     <Container className={`flex ${className}`}>{children}</Container>
   </div>
 );

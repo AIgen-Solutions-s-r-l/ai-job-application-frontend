@@ -30,12 +30,20 @@ export const JobCard: FC<Props> = ({ job, status }) => {
 
   return (
     <article className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
-      <div className='flex justify-between'>
-        <div className='w-[200px] text-xl'>
+      <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
+        <div className='text-l gap-4'>
           <p>{job.company_name}</p>
-          <p>{job.title}</p>
+          <p className='font-bold'>{job.title}</p>
         </div>
-        <div className='grow flex flex-wrap justify-end items-start gap-x-3 gap-y-1'>
+        <div className='flex gap-3'>
+          <p className='leading-tight md:px-8'>
+            {job.short_description}
+          </p>
+        </div>
+        <div className='flex flex-col justify-between text-sm shrink-0 grow-0 md:w-[100px]'>
+          <p className={`px-2 py-1 rounded-md text-center ${getStatusColor(status)}`}>{status}</p>
+        </div>
+        {/* <div className='grow flex flex-wrap justify-end items-start gap-x-3 gap-y-1'>
           {job.skills_required.length &&
             <>
               <div className='pill'>{job.skills_required[0]}</div>
@@ -43,26 +51,7 @@ export const JobCard: FC<Props> = ({ job, status }) => {
               <div className='pill'>{job.skills_required[2]}</div>
             </>
           }
-        </div>
-      </div>
-
-      <div className='flex gap-3'>
-        <div className='flex flex-col justify-between text-sm shrink-0 grow-0 w-[100px]'>
-          <p className={`px-2 py-1 rounded-md text-center ${getStatusColor(status)}`}>{status}</p>
-          {/* {job.posted_date ? (
-            <div>
-              <p>Sent on</p>
-              <p className='whitespace-nowrap'>
-                {date.toLocaleDateString(undefined, dateOptions)}
-              </p>
-            </div>
-          ) : ( */}
-          <>&nbsp;</>
-          {/* )} */}
-        </div>
-        <p className='line-clamp-5 leading-tight border-l border-neutral-content px-8'>
-          {job.short_description}
-        </p>
+        </div> */}
       </div>
     </article>
   );

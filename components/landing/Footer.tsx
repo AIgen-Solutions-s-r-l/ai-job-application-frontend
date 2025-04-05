@@ -9,18 +9,12 @@ export const Footer: FC = () => {
     <footer className='bg-my-neutral-7 pt-[37px] pb-[45px] xl:pt-[47px] xl:pb-[53px]'>
       <LandingContainer className='xl:px-[10vw] md:px-[10vw] px-[5vw]'>
         <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-11">
-          <div className="col-span-1 md:col-span-1 xl:col-span-2 py-[12px] xl:py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
+          <div className="col-span-1 md:col-span-1 xl:col-span-3 py-[12px] xl:py-[36px] px-[32px] xl:px-[60px] flex flex-col gap-[64px] xl:border-r border-primary-light-purple">
             <Link href='/' className='footer-link' >About Us</Link>
-            <Link href='/' className='footer-link' >Our Team</Link>
             <Link href='/' className='footer-link' >Legal Center</Link>
           </div>
-          <div className="col-span-1 md:col-span-2 xl:col-span-2 py-[12px] xl:py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
-            <Link href='/' className='footer-link' >How it works</Link>
-            <Link href='/' className='footer-link' >Pricing</Link>
-            <Link href='/' className='footer-link' >Resources</Link>
-          </div>
-          <div className="col-span-2 md:col-span-1 xl:col-span-3 py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
-            <Link href='/' className='footer-link' >Contact Us</Link>
+          <div className="col-span-1 md:col-span-1 xl:col-span-4 py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
+            <Link href='mailto:interview.scouter@gmail.com' className='footer-link' >Contact Us</Link>
             <div className="flex xl:mt-[20px] gap-6 text-white">
               <Link href='https://www.instagram.com/interview_scouter/' className="footer-social-container">
                 <InstagramIcon classname='footer-social-icon' />
@@ -35,7 +29,7 @@ export const Footer: FC = () => {
             <Link
               href="/"
             >
-              <Image src="/landing/logo.png" alt="Logo" width={428} height={110} className='w-[280px] md:w-[360px] xl:w-[428px] h-auto' />
+              <Image src="/landing/logo.png" alt="Logo" width={428} height={110} className='w-[280px] md:w-[360px] xl:w-[600px] h-auto' />
             </Link>
             <p className="text-[16px] md:text-[20px] xl:text-[24px] font-medium text-white font-montserrat md:ml-[10px] xl:ml-[24px] mt-[12px] xl:mt-[22px]">AI-automated Job Applications</p>
           </div>

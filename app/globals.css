@@ -43,7 +43,7 @@ progress::-webkit-progress-value {
   }
 
   .my-btn-green {
-    @apply h-[56px] px-2 md:px-5 flex items-center justify-between bg-splash-green rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
+    @apply h-[48px] px-2 md:px-5 flex items-center justify-between bg-splash-green rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
   }
 
   .my-btn-clear {

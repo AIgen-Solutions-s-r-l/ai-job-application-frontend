@@ -81,7 +81,7 @@ export const JobSearchBottomSheet: React.FC = () => {
           onClick={() => setIsSelectedJobsModal(true)}
         >
           <ShoppingBag className='stroke-white hidden md:block' />
-          <p className='text-sm md:text-base xl:text-[20px] font-normal text-white font-montserrat text-right'>
+          <p className='text-sm md:text-base xl:text-[18px] font-normal text-white font-montserrat text-right'>
             Adding&nbsp;<span className='font-bold group-hover:underline'>{selectedJobs.length} jobs</span>&nbsp;to your Job Manager
           </p>
         </div>

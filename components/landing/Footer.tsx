@@ -14,7 +14,7 @@ export const Footer: FC = () => {
             <Link href='/' className='footer-link' >Legal Center</Link>
           </div>
           <div className="col-span-1 md:col-span-1 xl:col-span-4 py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] xl:border-r border-primary-light-purple">
-            <Link href='mailto:interview.scouter@gmail.com' className='footer-link' >Contact Us</Link>
+            <Link href='mailto:info@laboro.co' className='footer-link' >Contact Us</Link>
             <div className="flex xl:mt-[20px] gap-6 text-white">
               <Link href='https://www.instagram.com/interview_scouter/' className="footer-social-container">
                 <InstagramIcon classname='footer-social-icon' />

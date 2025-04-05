@@ -88,8 +88,8 @@ export function toJobProfile(resumeData: any): JobProfile {
     self_identification: toSelfIdentification(self_identification),
     legal_authorization: toLegalAuthorization(legal_authorization),
     work_preferences: toWorkPreferences(work_preferences),
-    availability: availability ?? '',
-    salary_expectations: salary_expectations ?? '',
+    // availability: availability ?? '',
+    // salary_expectations: salary_expectations ?? '',
   };
 
   return {
@@ -130,8 +130,8 @@ export function fromJobProfile(jobProfile: JobProfile): any {
     "self_identification": fromSelfIdentification(jobProfile.additionalInfo.self_identification),
     "legal_authorization": fromLegalAuthorization(jobProfile.additionalInfo.legal_authorization),
     "work_preferences": fromWorkPreferences(jobProfile.additionalInfo.work_preferences),
-    "availability": jobProfile.additionalInfo.availability,
-    "salary_expectations": jobProfile.additionalInfo.salary_expectations
+    // "availability": jobProfile.additionalInfo.availability,
+    // "salary_expectations": jobProfile.additionalInfo.salary_expectations
   };
 }
 
@@ -287,12 +287,12 @@ export const defaultJobProfile: JobProfile = {
       }
     ],
     interests: [],
-    availability: {
-      notice_period: "",
-    },
-    salary_expectations: {
-      salary_range_usd: "",
-    },
+    // availability: {
+    //   notice_period: "",
+    // },
+    // salary_expectations: {
+    //   salary_range_usd: "",
+    // },
     self_identification: {
       gender: "",
       veteran: false,

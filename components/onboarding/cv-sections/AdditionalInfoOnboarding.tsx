@@ -322,7 +322,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
       <CertificationsNestedFieldArray />
 
       <InputWrapper>
-        <FormInput
+        {/* <FormInput
           title={'Availability'}
           {...register('additionalInfo.availability.notice_period')}
           required={false}
@@ -335,7 +335,7 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
           required={false}
           placeholder="e.g., 50000 - 60000"
           className='grow'
-        />
+        /> */}
         {/* <FormInput
           title={'Gender'}
           {...register('additionalInfo.self_identification.gender')}

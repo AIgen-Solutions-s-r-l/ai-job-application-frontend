@@ -19,7 +19,7 @@ export const GetHired: FC = () => {
     offset: ["start 100%", "start 70%"]
   });
 
-  const pathY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const pathY = useTransform(scrollYProgress, [0, 1], ['0%', '65%']);
   const pathYSpring = useSpring(pathY, { stiffness: 50, damping: 20, restDelta: 0.01 });
   const rotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const rotationSpring = useSpring(rotation, { stiffness: 50, damping: 20, restDelta: 0.01 });
@@ -43,7 +43,7 @@ export const GetHired: FC = () => {
         <p>Get Hired.</p>
         <p>Get Hired.</p>
         <p>Get Hired.</p>
-        <motion.div className="absolute -top-[20%] left-[51%] -translate-x-1/2 w-[80px] h-[120px] md:w-[160px] md:h-[240px] xl:w-[140px] xl:h-[270px] border-[10px] md:border-[20px] border-black"
+        <motion.div className="absolute -top-[20%] left-[51%] -translate-x-1/2 w-[80px] h-[150px] md:w-[160px] md:h-[240px] xl:w-[140px] xl:h-[270px] border-[10px] md:border-[20px] border-black"
           style={{ top: pathYSpring }}
         >
           <Image src='/landing/hired-dude.png' alt='hired-dude' width={127} height={244} className='w-[50px] md:w-[100px] xl:w-[90px] h-auto absolute left-[6px] bottom-0' />

@@ -78,7 +78,7 @@ export const ChangeEmail = () => {
             className={typography.forms.submitButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Requesting...' : 'Request'}
+            {isSubmitting ? 'Confirming...' : 'Confirm'}
           </button>
         </div>
       </form>

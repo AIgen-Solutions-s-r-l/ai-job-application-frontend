@@ -559,63 +559,63 @@ export const upsertJobProfile = async (
     }
 
     // 8. Actualizar o insertar disponibilidad (availability)
-    const { data: availabilityData, error: availabilityError } = await supabase
-      .from("availability")
-      .select("id")
-      .eq("personal_information_id", personalInformationId)
-      .single();
+    // const { data: availabilityData, error: availabilityError } = await supabase
+    //   .from("availability")
+    //   .select("id")
+    //   .eq("personal_information_id", personalInformationId)
+    //   .single();
 
-    if (availabilityData) {
-      // Actualizar disponibilidad si ya existe
-      const { error: updateAvailabilityError } = await supabase
-        .from("availability")
-        .update({
-          notice_period: additionalInfo.availability,
-        })
-        .eq("personal_information_id", personalInformationId);
+    // if (availabilityData) {
+    //   // Actualizar disponibilidad si ya existe
+    //   const { error: updateAvailabilityError } = await supabase
+    //     .from("availability")
+    //     .update({
+    //       notice_period: additionalInfo.availability,
+    //     })
+    //     .eq("personal_information_id", personalInformationId);
 
-      if (updateAvailabilityError) throw updateAvailabilityError;
-    } else {
-      // Insertar nueva disponibilidad
-      const { error: insertAvailabilityError } = await supabase
-        .from("availability")
-        .insert({
-          personal_information_id: personalInformationId,
-          notice_period: additionalInfo.availability,
-        });
+    //   if (updateAvailabilityError) throw updateAvailabilityError;
+    // } else {
+    //   // Insertar nueva disponibilidad
+    //   const { error: insertAvailabilityError } = await supabase
+    //     .from("availability")
+    //     .insert({
+    //       personal_information_id: personalInformationId,
+    //       notice_period: additionalInfo.availability,
+    //     });
 
-      if (insertAvailabilityError) throw insertAvailabilityError;
-    }
+    //   if (insertAvailabilityError) throw insertAvailabilityError;
+    // }
 
     // 9. Actualizar o insertar expectativas salariales (salary expectations)
-    const { data: salaryExpectationsData, error: salaryExpectationsError } =
-      await supabase
-        .from("salary_expectations")
-        .select("id")
-        .eq("personal_information_id", personalInformationId)
-        .single();
+    // const { data: salaryExpectationsData, error: salaryExpectationsError } =
+    //   await supabase
+    //     .from("salary_expectations")
+    //     .select("id")
+    //     .eq("personal_information_id", personalInformationId)
+    //     .single();
 
-    if (salaryExpectationsData) {
-      // Actualizar expectativas salariales si ya existe
-      const { error: updateSalaryExpectationsError } = await supabase
-        .from("salary_expectations")
-        .update({
-          salary_range_usd: additionalInfo.salary_expectations,
-        })
-        .eq("personal_information_id", personalInformationId);
+    // if (salaryExpectationsData) {
+    //   // Actualizar expectativas salariales si ya existe
+    //   const { error: updateSalaryExpectationsError } = await supabase
+    //     .from("salary_expectations")
+    //     .update({
+    //       salary_range_usd: additionalInfo.salary_expectations,
+    //     })
+    //     .eq("personal_information_id", personalInformationId);
 
-      if (updateSalaryExpectationsError) throw updateSalaryExpectationsError;
-    } else {
-      // Insertar nuevas expectativas salariales
-      const { error: insertSalaryExpectationsError } = await supabase
-        .from("salary_expectations")
-        .insert({
-          personal_information_id: personalInformationId,
-          salary_range_usd: additionalInfo.salary_expectations,
-        });
+    //   if (updateSalaryExpectationsError) throw updateSalaryExpectationsError;
+    // } else {
+    //   // Insertar nuevas expectativas salariales
+    //   const { error: insertSalaryExpectationsError } = await supabase
+    //     .from("salary_expectations")
+    //     .insert({
+    //       personal_information_id: personalInformationId,
+    //       salary_range_usd: additionalInfo.salary_expectations,
+    //     });
 
-      if (insertSalaryExpectationsError) throw insertSalaryExpectationsError;
-    }
+    //   if (insertSalaryExpectationsError) throw insertSalaryExpectationsError;
+    // }
 
     // 10. Actualizar o insertar auto-identificación (self_identification)
     if (additionalInfo.self_identification.id) {

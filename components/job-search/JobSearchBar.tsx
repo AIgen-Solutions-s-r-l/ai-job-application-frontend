@@ -85,7 +85,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
       setShowSuggestions(true);
       setLocationError(null);
-      
+
       if (e.target.value.length > 2) {
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
@@ -190,7 +190,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                   className='block w-full bg-transparent focus:outline focus:outline-0'
                 />
               </div>
-            
+
               {dataArray.length > 0 && showSuggestions && (
                 <div className='absolute w-full bg-white box-border py-3 border border-1 border-neutral max-h-[200px] mt-2 z-30 flex flex-col gap-1 rounded-md overflow-auto'>
                   {dataArray.map((data, index) => (
@@ -238,7 +238,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
               <select
                 {...register('experience', { required: 'Select experience level' })}
-                className='select bg-neutral-content focus:outline-none w-[170px] h-8 min-h-8 rounded-full flex gap-5 items-center'
+                className='select bg-white border-2 border-neutral hover:border-primary
+                    transition-colors duration-200 focus:outline-none w-[200px] 
+                    h-10 min-h-10 rounded-full px-4 cursor-pointer
+                    text-neutral-700 font-medium appearance-none relative
+                    shadow-sm hover:shadow-md'
               >
                 <option value="" disabled>Experience level</option>
                 <option value="Entry-level">Entry-level</option>

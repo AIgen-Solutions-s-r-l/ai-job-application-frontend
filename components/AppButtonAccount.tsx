@@ -39,6 +39,7 @@ const AppButtonAccount = () => {
   const handleSignOut = async () => {
     await deleteServerCookie("accessToken");
     setUser(null);
+    localStorage.removeItem('selectedJobs');
     window.location.href = "/";
   };
 

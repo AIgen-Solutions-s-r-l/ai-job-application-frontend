@@ -139,7 +139,7 @@ export const JobFeedList: FC<Props> = ({
             ) : (
               <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
                 <p className='font-montserrat font-medium text-base xl:text-lg'>
-                  You don&apos;t have any applications
+                <strong>Your application history is empty.</strong> Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click? Let us do the heavy lifting for you.
                 </p>
               </div>
             )

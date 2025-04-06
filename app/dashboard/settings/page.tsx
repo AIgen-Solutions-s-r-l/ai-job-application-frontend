@@ -13,6 +13,8 @@ export default async function SettingsPage() {
 
   return (
     <Tabs.Root className='h-full-' defaultValue='profile'>
+      <p className='page-header'>Account Information</p>
+
       <Tabs.List className={typography.tabs.list} aria-label='Profile data'>
         {/* <Tabs.Trigger className={typography.tabs.trigger} value='profile'>
           <User />

@@ -21,7 +21,7 @@ function SubscriptionTab() {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   // Añadimos un estado para rastrear las transacciones ya procesadas
   const [processedTransactions, setProcessedTransactions] = useState<Set<string>>(new Set());
-  
+
   const {
     sliderValue,
     setSliderValue,
@@ -36,7 +36,7 @@ function SubscriptionTab() {
 
   const totals = calculateTotal(currentApplications);
   const searchParams = useSearchParams();
- 
+
   // Check Stripe checkout result
   useEffect(() => {
     const success = searchParams.get("success");
@@ -107,7 +107,7 @@ function SubscriptionTab() {
       cleanUrlParams();
       setIsProcessingPayment(false);
     }
-  }, [searchParams, processedTransactions]);
+  }, []);
 
   // Clean URL params - mejorado para ser más robusto
   const cleanUrlParams = () => {
@@ -115,7 +115,7 @@ function SubscriptionTab() {
       const url = new URL(window.location.href);
       const fromSearch = url.searchParams.get("from") === "search";
       const returnUrl = localStorage.getItem('creditsPurchaseReturnUrl');
-      
+
       url.searchParams.delete("success");
       url.searchParams.delete("credits");
       url.searchParams.delete("session_id");

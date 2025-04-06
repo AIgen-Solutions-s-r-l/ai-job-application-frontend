@@ -84,8 +84,8 @@ export interface AdditionalInfo {
   self_identification: SelfIdentification;
   legal_authorization: LegalAuthorization;
   work_preferences: WorkPreferences;
-  availability: Availability;
-  salary_expectations: SalaryExpectations;
+  // availability: Availability;
+  // salary_expectations: SalaryExpectations;
 }
 
 export interface Availability {

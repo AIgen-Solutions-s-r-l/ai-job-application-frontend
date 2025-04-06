@@ -320,13 +320,13 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
       <div className="collapse-content !p-0 bg-base-100">
         <div className="flex flex-col gap-5">
           <LanguageNestedFieldArray />
-    
+
           <ProjectsNestedFieldArray />
-    
+
           <CertificationsNestedFieldArray />
-    
+
           <InputWrapper>
-            <FormInput
+            {/* <FormInput
               title={'Availability'}
               {...register('additionalInfo.availability.notice_period')}
               required={false}
@@ -339,7 +339,7 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
               required={false}
               placeholder="e.g., 50000 - 60000"
               className='grow'
-            />
+            /> */}
             <FormInput
               title={'Gender'}
               {...register('additionalInfo.self_identification.gender')}
@@ -362,11 +362,11 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
               className='w-[268px]'
             />
           </InputWrapper>
-    
+
           <AchievementsNestedFieldArray />
-    
+
           <InterestsFieldArray />
-    
+
           {/* Specific Details */}
           {/* <div className="w-full p-10 rounded-[22px] bg-white">
             <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
@@ -393,7 +393,7 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
               </label>
             </div>
           </div> */}
-    
+
           {/* Legal Authorization */}
           {/* <div className="w-full p-10 rounded-[22px] bg-white">
             <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
@@ -414,7 +414,7 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
                 ))}
             </div>
           </div> */}
-    
+
           {/* Work Preferences */}
           {/* <div className="w-full p-10 rounded-[22px] bg-white">
             <label className="w-full flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">

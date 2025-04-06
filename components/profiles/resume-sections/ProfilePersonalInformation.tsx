@@ -64,14 +64,14 @@ export const ProfilePersonalInformation: FC = () => {
               errorMessage={errors.personalInfo?.address?.message}
               className='grow'
             />
-            <FormInput
+            {/* <FormInput
               title={'State / Province'}
               // {...register('personalInfo.state')}
               placeholder="N/A"
               // error={!!errors.personalInfo?.state}
               // errorMessage={errors.personalInfo?.state?.message}
               className='w-[149px]'
-            />
+            /> */}
             <FormInput
               title={'Zip / Postal'}
               {...register('personalInfo.zip_code')}

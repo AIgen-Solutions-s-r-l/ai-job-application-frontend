@@ -8,7 +8,7 @@ import AutomateItemArrow from '@/public/landing/automate-item-arrow.svg';
 import AutomateItemCheck from '@/public/landing/automate-item-check.svg';
 import AutomateEyeBase from '@/public/landing/automate-eye-base.svg';
 import * as motion from "motion/react-client"
-import { useScroll, useTransform } from "motion/react"
+import { useScroll, useTransform, useSpring } from "motion/react"
 import { LandingContainer } from './LandingContainer';
 import { CheckmarkIcon } from '../AppIcons';
 
@@ -24,8 +24,23 @@ export const Automate: React.FC = () => {
     offset: ["start center", "center end"]
   });
 
-  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['5%', '96%', '96%', '-3%', '-3%', '46%', '46%']);
-  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1], ['0%', '0%', '30%', '30%', '55%', '55%', '75%']);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 70,
+    restDelta: 0.001
+  });
+
+  const pathX = useTransform(
+    smoothProgress,
+    [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1],
+    ['5%', '96%', '96%', '-3%', '-3%', '46%', '46%']
+  );
+
+  const pathY = useTransform(
+    smoothProgress,
+    [0, 0.3, 0.4, 0.7, 0.8, 0.9, 1],
+    ['0%', '0%', '30%', '30%', '55%', '55%', '75%']
+  );
 
   const calculateEyePosition = () => {
     if (!eyeBall.current || !eyeContainer.current) return { x: 0, y: 0 };

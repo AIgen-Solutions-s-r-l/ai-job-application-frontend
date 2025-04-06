@@ -15,6 +15,7 @@ type FormValues = {
   email: string;
   password: string;
   confirmPassword: string;
+  termsAccepted: boolean;
 };
 
 const Signup = () => {
@@ -122,6 +123,28 @@ const Signup = () => {
                   value === pswd || 'The passwords do not match',
               })}
             />
+          </FormField>
+
+          <FormField error={errors.termsAccepted?.message}>
+            <label className="flex items-start gap-2 text-md text-gray-800">
+              <input
+                type="checkbox"
+                {...register('termsAccepted', {
+                  required: 'You must accept the terms and conditions',
+                })}
+                className="mt-1.5 scale-125 accent-primary"
+              />
+              <span>
+                I agree to the{' '}
+                <Link href="/terms" className="text-primary underline">
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link href="/privacy" className="text-primary underline">
+                  Privacy Policy
+                </Link>.
+              </span>
+            </label>
           </FormField>
           
           <button

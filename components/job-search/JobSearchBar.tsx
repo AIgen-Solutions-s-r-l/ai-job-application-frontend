@@ -159,7 +159,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 <input
                   type='text'
                   id='q'
-                  placeholder='Job title, keywords, or company'
+                  placeholder='Job title, keyword, or company'
                   {...register('q')}
                   autoComplete='off'
                   className='block w-full bg-transparent focus:outline focus:outline-0'

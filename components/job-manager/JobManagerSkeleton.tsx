@@ -13,7 +13,7 @@ export const JobManagerSkeleton = () => {
 export const HeaderSkeleton = () => {
   return (
     <Container className="flex flex-col gap-2 xl:gap-4 pt-2 xl:pt-4">
-      <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Submit Your Applications</h1>
+      <h1 className='text-[21px] md:text-[28px] font-montserrat font-semibold leading-[1.1]'>Review & Submit</h1>
       <h2 className='font-montserrat font-normal text-[18px]'>Your resumes have been personalized for each job application,
         and your cover letters are ready. You can submit all your applications now or review each job to make final tweaks before sending. Good luck!
       </h2>

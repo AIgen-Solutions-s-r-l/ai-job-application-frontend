@@ -24,7 +24,7 @@ export const JobSearchBar: FC<JobSearchBarProps> = ({ onSearch }) => {
             <input
               type="text"
               id="keywords"
-              placeholder="Job title, keywords, or company"
+              placeholder="Job title, keyword, or company"
               {...register("keywords")}
               className="block w-full bg-transparent focus:outline focus:outline-0"
             />

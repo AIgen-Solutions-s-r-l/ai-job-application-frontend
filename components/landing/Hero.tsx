@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
             </video>
           </div>
 
-          {!isPlaying && (
+          {/* {!isPlaying && (
             <Image
               src="/landing/hero-click.png"
               alt="hero-click"
@@ -51,7 +51,7 @@ export const Hero: React.FC = () => {
               height={142}
               className='w-[50px] md:w-[100px] 2xl:w-[133px] h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
             />
-          )}
+          )} */}
         </div>
       </section>
     </LandingContainer>

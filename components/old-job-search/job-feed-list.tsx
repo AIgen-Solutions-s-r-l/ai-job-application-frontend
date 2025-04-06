@@ -38,7 +38,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
           toast.success("Application submitted!");
           setSelectedJobs([]);
         } else {
-          toast.error("Failed to sumbit application.");
+          toast.error("Failed to submit application.");
         }
       } catch (error) {
         console.error("Error submitting profile:", error);

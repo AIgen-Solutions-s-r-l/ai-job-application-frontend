@@ -43,13 +43,13 @@ const MobileFeatures: FC = () => {
         {/* Feature 2 */}
         <div className="bg-primary-deep-purple/10 p-6 rounded-lg">
           <div className="space-y-3">
-            <p className="text-xl font-thin text-white">1- Upload your resume</p>
-            <p className="text-xl font-thin text-white">2- Find matching jobs</p>
+            <p className="text-xl font-thin text-white"><span>1</span><span className="ml-3">- Upload your resume</span></p>
+            <p className="text-xl font-thin text-white"><span>2</span><span className="ml-1">-  Find matching jobs</span></p>
             <p className="text-xl font-semibold text-white">
-              3- Laboro creates a set of resume and cover letter
+            <span>3</span><span className="ml-1">- Laboro creates a set of resume and cover letter</span>
             </p>
             <p className="text-xl font-semibold text-splash-green">
-              4- Auto-apply to many jobs at once!
+            <span>4</span><span className="ml-1">- Auto-apply to many jobs at once!</span>
             </p>
           </div>
         </div>
@@ -58,8 +58,8 @@ const MobileFeatures: FC = () => {
         <div className="bg-primary-deep-purple/10 p-6 rounded-lg">
           <p className="text-2xl font-thin text-white">
             We currently have<br />
-            300.021 Job Posts,<br />
-            from <span className="text-splash-green">465 companies!</span>
+            +700K Job Posts,<br />
+            from <span className="text-splash-green">+30K companies!</span>
           </p>
         </div>
 
@@ -157,10 +157,10 @@ export const DesktopFeatures: FC = () => {
           >
             <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[20px] left-0 z-20' />
 
-            <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]">1- Upload your resume</p>
-            <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]">2- Find matching jobs</p>
-            <p className="text-[20px] 2xl:text-[24px] font-semibold text-white leading-[1.2]">3- Laboro creates a set of resume and cover letter for each job application</p>
-            <p className="text-[20px] 2xl:text-[24px] font-semibold text-splash-green leading-[1.2]">4- Auto-apply to many jobs at once!</p>
+            <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]"><span>1</span><span className="ml-3">- Upload your resume</span></p>
+            <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]"><span>2</span><span className="ml-1">- Find matching jobs</span></p>
+            <p className="text-[20px] 2xl:text-[24px] font-semibold text-white leading-[1.2]"><span>3</span><span className="ml-1">- Laboro creates a set of resume and cover letter for each job application</span></p>
+            <p className="text-[20px] 2xl:text-[24px] font-semibold text-splash-green leading-[1.2]"><span>4</span><span className="ml-1">- Auto-apply to many jobs at once!</span></p>
           </div>
 
           <div
@@ -168,8 +168,8 @@ export const DesktopFeatures: FC = () => {
           >
             <p className="text-[35px] 2xl:text-[40px] leading-[1.1] font-thin text-white">
               We currently have<br />
-              300.021 Job Posts,<br />
-              from <span className='text-splash-green'>465 companies!</span>
+              +700K Job Posts,<br />
+              from <span className='text-splash-green'>+30K companies!</span>
             </p>
           </div>
 

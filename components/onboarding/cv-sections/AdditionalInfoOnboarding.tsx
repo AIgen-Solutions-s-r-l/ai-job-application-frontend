@@ -321,8 +321,8 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
 
       <CertificationsNestedFieldArray />
 
-      <InputWrapper>
-        {/* <FormInput
+      {/* <InputWrapper> */}
+      {/* <FormInput
           title={'Availability'}
           {...register('additionalInfo.availability.notice_period')}
           required={false}
@@ -336,28 +336,28 @@ export const AdditionalInfoOnboarding: FC = (): ReactElement => {
           placeholder="e.g., 50000 - 60000"
           className='grow'
         /> */}
-        {/* <FormInput
+      {/* <FormInput
           title={'Gender'}
           {...register('additionalInfo.self_identification.gender')}
           required={false}
           placeholder="Male"
           className='w-[149px]'
         /> */}
-        {/* <FormInput
+      {/* <FormInput
           title={'Pronouns'}
           {...register('additionalInfo.self_identification.pronouns')}
           required={false}
           placeholder="He/Him"
           className='w-[149px]'
         /> */}
-        {/* <FormInput
+      {/* <FormInput
           title={'Ethnicity'}
           {...register('additionalInfo.self_identification.ethnicity')}
           required={false}
           placeholder="e.g., Hispanic"
           className='w-[268px]'
         /> */}
-      </InputWrapper>
+      {/* </InputWrapper> */}
 
       <AchievementsNestedFieldArray />
 

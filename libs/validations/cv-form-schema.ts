@@ -33,11 +33,11 @@ export const personalInfoSchema = z.object({
   email: z.string()
     .email('Invalid email format'),
   github: z.string()
-      .url('Invalid URL format')
-      .optional(),
+    .url('Invalid URL format')
+    .optional(),
   linkedin: z.string()
-      .url('Invalid URL format')
-      .optional()
+    .url('Invalid URL format')
+    .optional()
 });
 
 export const educationSchema = z.object({
@@ -56,18 +56,18 @@ export const educationSchema = z.object({
     grade: z.string().optional()
   }))
 })
-// .refine(
-//   (data) => {
-//     const startDate = new Date(data.start_date);
-//     const completionDate = new Date(data.year_of_completion);
-//     return completionDate >= startDate;
-//   },
-//   {
-//     message: 'Completion date must be after start date',
-//     path: ['year_of_completion'] // This targets the error at the year_of_completion field
-//   }
-// )
-;
+  // .refine(
+  //   (data) => {
+  //     const startDate = new Date(data.start_date);
+  //     const completionDate = new Date(data.year_of_completion);
+  //     return completionDate >= startDate;
+  //   },
+  //   {
+  //     message: 'Completion date must be after start date',
+  //     path: ['year_of_completion'] // This targets the error at the year_of_completion field
+  //   }
+  // )
+  ;
 
 export const experienceSchema = z.object({
   company: z.string().min(2, 'Company name is required'),
@@ -86,15 +86,15 @@ export const experienceSchema = z.object({
 export const additionalInfoSchema = z.object({
   languages: z.array(z.object({
     language: z.string().nullable()
-    .refine((val) => val !== null && val.length >= 2, {
-      message: 'Language is required'
-    })
-    .transform(val => val || ''),
+      .refine((val) => val !== null && val.length >= 2, {
+        message: 'Language is required'
+      })
+      .transform(val => val || ''),
     proficiency: z.string().nullable()
-    .refine((val) => val !== null && val.length >= 2, {
-      message: 'Proficiency is required'
-    })
-    .transform(val => val || ''),
+      .refine((val) => val !== null && val.length >= 2, {
+        message: 'Proficiency is required'
+      })
+      .transform(val => val || ''),
   })),
   projects: z.array(z.object({
     name: z.string().nullish(),
@@ -105,12 +105,12 @@ export const additionalInfoSchema = z.object({
     name: z.string().nullish(),
     description: z.string().nullish()
   })),
-  availability: z.object({
-    notice_period: z.string().nullish()
-  }),
-  salary_expectations: z.object({
-    salary_range_usd: z.string().nullish()
-  }),
+  // availability: z.object({
+  //   notice_period: z.string().nullish()
+  // }),
+  // salary_expectations: z.object({
+  //   salary_range_usd: z.string().nullish()
+  // }),
   self_identification: z.object({
     gender: z.string().nullish(),
     pronouns: z.string().nullish(),

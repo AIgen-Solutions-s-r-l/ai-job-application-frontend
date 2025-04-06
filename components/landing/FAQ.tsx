@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import FaqQuestion from '@/public/landing/faq-question.svg';
 import { LandingContainer } from './LandingContainer';
 import * as motion from "motion/react-client";
-import { useScroll, useTransform } from "motion/react";
+import { useScroll, useSpring, useTransform } from "motion/react";
 
 const accordionItems = [
   {
@@ -64,8 +64,14 @@ export const FAQ: FC = () => {
     offset: ["200px end", "center end"]
   });
 
-  const pathX = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.6, 0.9], ['0%', '80%', '80%', '0%', '0%']);
-  const pathY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.6, 0.9], [0, 0, 110, 110, 245]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const pathX = useTransform(smoothProgress, [0, 0.3, 0.4, 0.6, 0.9], ['0%', '80%', '80%', '0%', '0%']);
+  const pathY = useTransform(smoothProgress, [0, 0.3, 0.4, 0.6, 0.9], [0, 0, 110, 110, 245]);
 
   return (
     <section ref={sectionRef} className='bg-primary-light-purple pt-[150px] md:pt-[200px] xl:pt-[240px]'>

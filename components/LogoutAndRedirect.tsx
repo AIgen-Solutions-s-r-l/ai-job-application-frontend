@@ -15,6 +15,7 @@ const LogoutAndRedirect = () => {
     const handleSignOut = async () => {
       await deleteServerCookie("accessToken");
       setUser(null);
+      localStorage.removeItem('selectedJobs');
       router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
     };
     handleSignOut();

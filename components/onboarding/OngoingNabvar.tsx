@@ -16,6 +16,7 @@ export const OngoingNabvar: FC = () => {
   const handleSignOut = async () => {
     await deleteServerCookie("accessToken");
     setUser(null);
+    localStorage.removeItem('selectedJobs');
     router.push("/signin");
   };
 

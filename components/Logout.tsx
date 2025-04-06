@@ -15,6 +15,7 @@ const Logout = () => {
       await deleteServerCookie('accessToken');
       setUser(null);
       setAccessToken(null);
+      localStorage.removeItem('selectedJobs');
       router.replace('/');
     };
     handleSignOut();

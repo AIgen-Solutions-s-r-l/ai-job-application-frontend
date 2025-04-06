@@ -59,7 +59,7 @@ export const PersonalInformationOnboarding: FC = () => {
             errorMessage={errors.personalInfo?.address?.message}
             className='grow'
           />
-          <FormInput
+          {/* <FormInput
             title={'State / Province'}
             // {...register('personalInfo.state')}
             placeholder="N/A"
@@ -67,7 +67,7 @@ export const PersonalInformationOnboarding: FC = () => {
             // error={!!errors.personalInfo?.state}
             // errorMessage={errors.personalInfo?.state?.message}
             className='w-[149px]'
-          />
+          /> */}
           <FormInput
             title={'Zip / Postal'}
             {...register('personalInfo.zip_code')}

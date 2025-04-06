@@ -92,6 +92,7 @@ export default function UserContextProvider({
         console.error('Error fetching resume existence:', error);
       }
     } else {
+      localStorage.removeItem('selectedJobs');
       setUser(null);
     }
   };

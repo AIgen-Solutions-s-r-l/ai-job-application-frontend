@@ -91,7 +91,7 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           icon: CircleCheck,
         },
         {
-          name: 'Review & Submit Your Applications',
+          name: 'Review & Submit',
           href: '/manager',
           icon: Briefcase,
         },

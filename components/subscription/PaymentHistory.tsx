@@ -57,18 +57,15 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
             <table className="w-full">
                 <thead>
                     <tr className="border-b font-jura font-semibold text-[18px]">
-                        <th className="text-left py-4">Transaction #</th>
                         <th className="text-left py-4">Date / Time</th>
                         <th className="text-left py-4">Amount</th>
                         <th className="text-left py-4">Status</th>
                         <th className="text-left py-4">Type</th>
-                        <th className="text-left py-4">Receipt</th>
                     </tr>
                 </thead>
                 <tbody>
                     {sortedTransactions.map((transaction) => (
                         <tr key={transaction.id} className="border-b font-jura font-semibold text-[14px]">
-                            <td>{transaction.id}</td>
                             <td>{formatDate(transaction.created_at)}</td>
                             <td>$ {parseFloat(transaction.amount).toFixed(2)}</td>
                             <td className="py-4">
@@ -77,16 +74,7 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                                     <Image src={CheckMark} alt="CheckMark" className="w-5 h-5 text-blue-600" />
                                 </div>
                             </td>
-                            <td>{transaction.description || 'Credit Purchase'}</td>
-                            <td>
-                                {transaction.reference_id ? (
-                                    <button className="w-full text-black border-radius-5 border bg-my-neutrals-cold-1 px-4 py-2 rounded-2xl text-center font-jura font-semibold text-base leading-[19.2px] tracking-[-0.352px]">
-                                        View / Download
-                                    </button>
-                                ) : (
-                                    <span className="text-gray-400">N/A</span>
-                                )}
-                            </td>
+                            <td>{(transaction.description?.split("via")[0] || 'Credit Purchase').trim()}</td>
                         </tr>
                     ))}
                 </tbody>

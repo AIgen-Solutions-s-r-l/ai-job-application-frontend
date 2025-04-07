@@ -19,6 +19,9 @@ import ChoseLocationModal from './ChooseLocationModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cvFormSchema, type CVFormData } from '@/libs/validations/cv-form-schema';
 import { scrollToError } from '@/libs/utils/form-utils';
+import { useUserContext } from '@/contexts/user-context';
+import { isResumeExits } from '@/libs/api/resume';
+import { fetchUserData } from '@/libs/api/auth';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const { CVData, setCVData } = useCVDataContext();
@@ -30,6 +33,8 @@ export const CreateResumeOnboarding: React.FC = () => {
     defaultValues: CVData,
     resolver: zodResolver(cvFormSchema)
   });
+
+  const { setUser } = useUserContext()
 
   const validateStep = useCallback(async () => {
     let validateFields: any = [];
@@ -60,11 +65,17 @@ export const CreateResumeOnboarding: React.FC = () => {
   }
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
+    console.log('here')
     try {
       const response = await createJobProfile(jobProfile);
-
       if (response.success) {
         toast.success("Profile saved successfully!");
+        const [exists, me] = await Promise.all([
+          isResumeExits(),
+          fetchUserData(),
+        ]);
+        const newUserData = { ...exists, ...me };
+        setUser(newUserData);
         setDefaultLocation(jobProfile.personalInfo.country)
         setIsModalOpen(true);
       } else {
@@ -112,16 +123,16 @@ export const CreateResumeOnboarding: React.FC = () => {
           {currentStep === 1
             ? <ButtonUnderline title='Back to CV Uploader' handleClick={() => setCVData(null)} />
             : <div></div>}
-            {/* <button
-              className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
-              type="button"
-              onClick={() => {
-                console.log("the errors: ", methods.formState.errors);
-                console.log("the values: ", methods.getValues());
-              }}
-            >
-              <p>test</p>
-            </button> */}
+          {/* <button
+            className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
+            type="button"
+            onClick={() => {
+              console.log("the errors: ", methods.formState.errors);
+              console.log("the values: ", methods.getValues());
+            }}
+          >
+            <p>test</p>
+          </button> */}
           <div className="flex gap-5 font-jura text-sm md:text-lg">
             <button
               className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"

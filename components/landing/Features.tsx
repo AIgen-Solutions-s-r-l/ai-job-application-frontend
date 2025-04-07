@@ -46,10 +46,10 @@ const MobileFeatures: FC = () => {
             <p className="text-xl font-thin text-white"><span>1</span><span className="ml-3">- Upload your resume</span></p>
             <p className="text-xl font-thin text-white"><span>2</span><span className="ml-1">-  Find matching jobs</span></p>
             <p className="text-xl font-semibold text-white">
-            <span>3</span><span className="ml-1">- Laboro creates a set of resume and cover letter</span>
+              <span>3</span><span className="ml-1">- Laboro creates a set of resume and cover letter</span>
             </p>
             <p className="text-xl font-semibold text-splash-green">
-            <span>4</span><span className="ml-1">- Auto-apply to many jobs at once!</span>
+              <span>4</span><span className="ml-1">- Auto-apply to many jobs at once!</span>
             </p>
           </div>
         </div>
@@ -69,7 +69,7 @@ const MobileFeatures: FC = () => {
             Companies hiring now
           </p>
           <Image
-            src='/landing/feature-4.png'
+            src='/landing/feature-4.svg'
             alt='feature-4'
             width={300}
             height={188}
@@ -178,7 +178,7 @@ export const DesktopFeatures: FC = () => {
           >
             <p className="text-white text-[22px] 2xl:text-[28px] leading-none">Companies hiring now</p>
 
-            <Image src='/landing/feature-4.png' alt='feature-4' width={350} height={264} />
+            <Image src='/landing/feature-4.svg' alt='feature-4' width={300} height={264} className="mt-4" />
           </div>
         </div>
       </motion.div>

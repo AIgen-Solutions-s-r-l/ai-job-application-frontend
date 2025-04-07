@@ -88,15 +88,15 @@ export interface AdditionalInfo {
   // salary_expectations: SalaryExpectations;
 }
 
-export interface Availability {
-  id?: string;
-  notice_period: string;
-}
+// export interface Availability {
+//   id?: string;
+//   notice_period: string;
+// }
 
-export interface SalaryExpectations {
-  id?: string;
-  salary_range_usd: string;
-}
+// export interface SalaryExpectations {
+//   id?: string;
+//   salary_range_usd: string;
+// }
 
 export interface ProjectDetails {
   id?: string;

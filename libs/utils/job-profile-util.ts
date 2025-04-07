@@ -26,8 +26,8 @@ export function toJobProfile(resumeData: any): JobProfile {
     self_identification,
     legal_authorization,
     work_preferences,
-    availability,
-    salary_expectations,
+    // availability,
+    // salary_expectations,
   } = resumeData;
 
   const transformedPersonalInfo = {

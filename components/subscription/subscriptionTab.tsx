@@ -195,7 +195,7 @@ function SubscriptionTab() {
       </div>
 
       {/* Billing & Subscription */}
-      <div className="border border-my-neutral-3 rounded-lg p-5 flex flex-col gap-4">
+      {/* <div className="border border-my-neutral-3 rounded-lg p-5 flex flex-col gap-4">
         <h3 className="font-montserrat text-xl font-semibold text-black">
           Billing and Subscription
         </h3>
@@ -206,11 +206,10 @@ function SubscriptionTab() {
           <p className="font-jura text-base text-black">
             01 March 2025
           </p>
-        </div>
+        </div> */}
 
         {/* Card info + Billing details side by side */}
-        <div className="flex flex-col md:flex-row gap-6 w-full mt-2">
-          {/* Card info box */}
+        {/* <div className="flex flex-col md:flex-row gap-6 w-full mt-2">
           <div className="border border-my-neutral-3 rounded-lg p-4 flex-1 flex flex-col gap-3">
             <p className="font-jura font-semibold text-base text-black">
               Credit Card Information
@@ -229,7 +228,6 @@ function SubscriptionTab() {
             </button>
           </div>
 
-          {/* Billing details box */}
           <div className="border border-my-neutral-3 rounded-lg p-4 flex-1 flex flex-col gap-3">
             <p className="font-jura font-semibold text-base text-black">
               Billing Details
@@ -240,7 +238,7 @@ function SubscriptionTab() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

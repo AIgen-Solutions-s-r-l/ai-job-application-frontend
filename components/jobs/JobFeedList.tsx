@@ -110,7 +110,7 @@ export const JobFeedList: FC<Props> = ({
       )}
 
       <div>
-        <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
+        {/* <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
           Sort by:
           <button onClick={() => setSortBy('latest')}>
             {underlineOrParagraph('Latest', sortBy === 'latest')}
@@ -122,7 +122,7 @@ export const JobFeedList: FC<Props> = ({
               sortBy === 'alphabetically'
             )}
           </button>
-        </div>
+        </div> */}
 
         <div className={typography.tabs.content}>
           {isLoading ? (

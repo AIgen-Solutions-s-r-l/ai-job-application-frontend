@@ -30,7 +30,7 @@ export const JobManagerBottomSheet: FC = () => {
           sessionStorage.removeItem('jobManager');
           router.push('/dashboard');
         } else {
-          toast.error('Failed to sumbit application.');
+          toast.error('Failed to submit application.');
         }
       })
       .catch((error) => {
@@ -43,7 +43,7 @@ export const JobManagerBottomSheet: FC = () => {
       <div className='flex items-center gap-2 md:gap-4 lg:gap-6'>
         <ButtonUnderline
           title='Back to Search'
-          handleClick={() => router.back()}
+          handleClick={() => router.push('/search')}
         />
         <div className='w-[1px] h-16 bg-white' />
         <ButtonUnderline title='Cancel' handleClick={() => router.back()} />

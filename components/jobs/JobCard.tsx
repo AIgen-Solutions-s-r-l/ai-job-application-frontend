@@ -32,8 +32,8 @@ export const JobCard: FC<Props> = ({ job, status }) => {
     <article className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
       <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
         <div className='text-l gap-4'>
-          <p>{job.company_name}</p>
           <p className='font-bold'>{job.title}</p>
+          <p>{job.company_name}</p>
         </div>
         <div className='flex gap-3'>
           <p className='leading-tight md:px-8'>

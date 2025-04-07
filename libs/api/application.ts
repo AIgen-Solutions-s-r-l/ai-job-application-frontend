@@ -52,6 +52,7 @@ export async function getAppliedJobApplications(): Promise<JobsList | any> {
 export async function getFailedJobApplications(): Promise<JobsList | any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.application}/fail_applied`)
+    console.log(response);
     return response.data as JobsList;
   } catch (error) {
     console.error('Error getting failed job applications', error);

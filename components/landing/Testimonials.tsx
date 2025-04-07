@@ -35,7 +35,7 @@ export const Testimonials: FC = () => {
               autoPlay={false}
               playsInline
             >
-              <source src="/landing/testimonial-v2.mp4" type="video/mp4" />
+              <source src="/landing/testimonial-v4.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -48,7 +48,7 @@ export const Testimonials: FC = () => {
               autoPlay={false}
               playsInline
             >
-              <source src="/landing/testimonial-v2.mp4" type="video/mp4" />
+              <source src="/landing/testimonial-v4.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

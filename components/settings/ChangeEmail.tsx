@@ -2,6 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 import { typography } from '@/components/typography';
 import { FormInput } from '@/components/ui/form-input';
 import { changeEmail } from '@/libs/api/auth';
@@ -13,6 +14,7 @@ type FormData = {
 };
 
 export const ChangeEmail = () => {
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -32,6 +34,7 @@ export const ChangeEmail = () => {
 
       if (response.success) {
         toast.success('Link for change email sent to your current Email.');
+        router.replace('/logout');
       } else {
         toast.error('Error updating email.');
         console.error('Error updating email:', response.error);

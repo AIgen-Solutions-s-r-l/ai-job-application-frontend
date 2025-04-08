@@ -37,9 +37,13 @@ export function toResumeType(resumeData: any): Resume {
 
   const transformedEducationDetails = education_details.map((education: EducationDetail) => {
     if (education.exam) {
+      // Filter out the "null": null entry and only map valid entries
+      const validExamEntries = Object.entries(education.exam).filter(([key, value]) => key !== "null");
       return {
         ...education,
-        exam: Object.entries(education.exam).map(([subject, grade]) => ({ subject, grade })),
+        exam: validExamEntries.length > 0 
+          ? validExamEntries.map(([subject, grade]) => ({ subject, grade }))
+          : [{ subject: "", grade: "" }], // Provide default empty entry if no valid exams
       };
     }
     return education;

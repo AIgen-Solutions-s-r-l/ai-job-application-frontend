@@ -155,7 +155,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   return fields.length ? (
     <div className={template.projects.container}>
       <h2 className={template.projects.h2}>
-        Side Projects
+        Projects
       </h2>
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`

@@ -110,9 +110,9 @@ const config = {
     // REQUIRED — Email 'From' field to be used when sending other emails, like abandoned carts, updates, etc.
     fromAdmin: `David at laboro <david@mg.laboro.co>`,
     // Email shown to customers if they need support
-    supportEmail: "support@laboro.co",
+    supportEmail: "help@laboro.co",
     // When someone replies to the support email, forward it to this email
-    forwardRepliesTo: "david@laboro.co",
+    forwardRepliesTo: "help@laboro.co",
   },
   colors: {
     // REQUIRED — The DaisyUI theme to use. Leave blank for default (light & dark mode). 

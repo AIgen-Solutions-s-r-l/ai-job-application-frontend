@@ -123,6 +123,9 @@ export const JobFeedList: FC<Props> = ({
             )}
           </button>
         </div> */}
+        <div className="mb-5 font-montserrat">
+          <p className="text-gray-500">You can view all your submitted applications here. <strong>Please note that we retain your applications on file for 90 days.</strong></p>
+        </div>
 
         <div className={typography.tabs.content}>
           {isLoading ? (

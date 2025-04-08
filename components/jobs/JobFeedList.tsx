@@ -137,9 +137,18 @@ export const JobFeedList: FC<Props> = ({
                 <JobCard job={job} status={job.status} key={key} />
               ))
             ) : (
-              <div className='w-full px-7 py-4 flex flex-col gap-5 border-2 border-neutral-content rounded-2xl bg-white'>
+              <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">
+                <p className='font-montserrat font-xl text-base xl:text-xl font-bold'>
+                Your application history is empty.
+                </p>
                 <p className='font-montserrat font-medium text-base xl:text-lg'>
-                <strong>Your application history is empty.</strong> Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click? Let us do the heavy lifting for you.
+                  Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click? 
+                </p>
+                <p className='font-montserrat font-medium text-base xl:text-lg'>
+                  Let us do the heavy lifting for you!
+                </p>
+                <p className='font-montserrat font-medium text-base xl:text-lg text-primary-deep-purple font-bold'>
+                  <strong><a href='/search'>Start apply here</a></strong>
                 </p>
               </div>
             )

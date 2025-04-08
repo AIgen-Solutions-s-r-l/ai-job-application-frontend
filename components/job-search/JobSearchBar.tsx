@@ -59,7 +59,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     null
   );
   const [locationError, setLocationError] = useState<string | null>(null);
-  const { totalCount } = useJobSearch();
+  const { totalCount, setCurrentPage } = useJobSearch();
 
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
     defaultValues: searchParams,
@@ -110,6 +110,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience: experience ?? '' }), {});
 
+    setCurrentPage(0)
     onSearch(cleanParams);
   };
 

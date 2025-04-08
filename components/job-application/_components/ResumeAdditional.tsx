@@ -134,9 +134,9 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
 const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   const { register, getValues } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
-    name: `additionalInfo.side_projects`
+    name: `additionalInfo.projects`
   })
-  const side_projects = getValues('additionalInfo.side_projects');
+  const side_projects = getValues('additionalInfo.projects');
 
   const { activeSection, setActiveSection } = useActiveSectionContext();
   const section = 'projects-section';
@@ -155,7 +155,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   return fields.length ? (
     <div className={template.projects.container}>
       <h2 className={template.projects.h2}>
-        Side Projects
+        Projects
       </h2>
       {fields.map((exp, index) => {
         const activeIndex = `${section}-${index}`
@@ -186,19 +186,19 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
                     }}
                   />
                   <NullifiedInput
-                    {...register(`additionalInfo.side_projects.${index}.name`)}
+                    {...register(`additionalInfo.projects.${index}.name`)}
                     placeholder="Project Name"
                   />
                   &nbsp;&#8209;&nbsp;
                   <NullifiedInput
-                    {...register(`additionalInfo.side_projects.${index}.link`)}
+                    {...register(`additionalInfo.projects.${index}.link`)}
                     placeholder="Project Link"
                   />
                 </>
               ) : (
                 <Link href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline text-blue-500 relative">
                   <NullifiedInput
-                    {...register(`additionalInfo.side_projects.${index}.name`)}
+                    {...register(`additionalInfo.projects.${index}.name`)}
                     placeholder="Project Name"
                     className='text-blue-500'
                   />
@@ -209,7 +209,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
             <ul className={template.projects.compactList}>
               <li>
                 <TextareaAutosize
-                  {...register(`additionalInfo.side_projects.${index}.description`)}
+                  {...register(`additionalInfo.projects.${index}.description`)}
                   minRows={1}
                   placeholder="Project Description"
                   className="w-full align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"

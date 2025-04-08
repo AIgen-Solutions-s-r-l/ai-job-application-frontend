@@ -51,7 +51,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-2xl">+</span> 
+        <span className="text-2xl">+</span>
         <p className="text-base">Add Responsibility</p>
       </button>
     </>
@@ -176,7 +176,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
           </InputWrapper>
           <InputWrapper>
             <FormInput
-              title={'Employment Period'}
+              title={'Start Date'}
               {...register(`experienceDetails.${index}.employment_start_date`)}
               placeholder="e.g., June 2020"
               error={!!errors.experienceDetails?.[index]?.employment_start_date}
@@ -184,7 +184,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               className='w-[188px]'
             />
             <FormInput
-              title={'Employment Period'}
+              title={'End Date'}
               {...register(`experienceDetails.${index}.employment_end_date`)}
               placeholder="e.g., Present"
               error={!!errors.experienceDetails?.[index]?.employment_end_date}

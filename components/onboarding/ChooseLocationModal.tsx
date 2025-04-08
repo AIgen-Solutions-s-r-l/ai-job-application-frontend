@@ -3,7 +3,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useCallback, useState } from "react";
 import React from "react";
-import { locationQuery } from "@/libs/api/matching";
 import { useForm } from "react-hook-form";
 import { ArrowRightIcon } from "../AppIcons";
 import { useRouter } from "next/navigation";
@@ -31,6 +30,43 @@ interface ModalProps {
     defaultLocation: string;
 }
 
+async function locationQuery(query: string): Promise<any> {
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1`, {
+            headers: {
+                "Accept-Language": "en"
+            },
+        });
+
+        const data = await response.json();
+
+        const filteredResults = data.filter((location: any) => {
+            return location.addresstype === 'city' || location.addresstype === 'country' || location.addresstype === 'town' || location.addresstype === 'village';
+        });
+
+        const uniqueLocations = filteredResults.reduce((acc: any[], current: any) => {
+            const locationName = current.address.city || current.address.town || current.address.village;
+            const country = current.address.country;
+
+            const isDuplicate = acc.find((item: any) => {
+                const itemLocationName = item.address.city || item.address.town || item.address.village;
+                return itemLocationName === locationName && item.address.country === country;
+            });
+
+            if (!isDuplicate) {
+                acc.push(current);
+            }
+            return acc;
+        }, []);
+
+        return uniqueLocations;
+
+    } catch (error) {
+        console.error("API Error", error);
+        return [];
+    }
+}
+
 const ChoseLocationModal = ({
     isModalOpen,
     defaultLocation,
@@ -47,7 +83,7 @@ const ChoseLocationModal = ({
     const { register, handleSubmit, getValues, reset } = useForm<FormType>({
         defaultValues: {
             location: defaultLocation,
-            experience: "Mid-level",  
+            experience: "Mid-level",
         }
     });
 
@@ -59,7 +95,7 @@ const ChoseLocationModal = ({
 
             setShowSuggestions(true);
             setLocationError(null);
-            
+
             if (e.target.value.length > 2) {
                 const timeoutId = setTimeout(async () => {
                     const response = await locationQuery(e.target.value);
@@ -83,8 +119,8 @@ const ChoseLocationModal = ({
             : data.address.village
                 ? `${data.address.village}, `
                 : data.address.town
-                ? `${data.address.town}, `
-                : '';
+                    ? `${data.address.town}, `
+                    : '';
 
         reset({
             city,
@@ -105,7 +141,7 @@ const ChoseLocationModal = ({
             return;
         }
         setIsLoading(true);
-        setUser((prev) => ({...prev, exists: true }));
+        setUser((prev) => ({ ...prev, exists: true }));
         await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
         router.push('/search')
     };
@@ -170,13 +206,13 @@ const ChoseLocationModal = ({
                                     <div className="mt-6">
                                         <div className="flex gap-2">
                                             <label htmlFor='location' className='hidden md:block text-base leading-none'>
-                                            Location
+                                                Location
                                             </label>
                                             {locationError && (
-                                            <div className='text-red-500 text-sm flex items-center'>
-                                                <AlertTriangle size={16} className='mr-2' />
-                                                {locationError}
-                                            </div>
+                                                <div className='text-red-500 text-sm flex items-center'>
+                                                    <AlertTriangle size={16} className='mr-2' />
+                                                    {locationError}
+                                                </div>
                                             )}
                                         </div>
                                         <div className='w-full mt-3 h-12 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
@@ -213,18 +249,18 @@ const ChoseLocationModal = ({
                                     type='submit'
                                     disabled={isLoading}
                                 >
-                                    {isLoading 
-                                    ? (
-                                        <>
-                                            <p>Sumbitting</p>
-                                            <FaSpinner className="animate-spin" />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <p>Confirm</p>
-                                            <ArrowRightIcon />
-                                        </>
-                                    )}
+                                    {isLoading
+                                        ? (
+                                            <>
+                                                <p>Sumbitting</p>
+                                                <FaSpinner className="animate-spin" />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p>Confirm</p>
+                                                <ArrowRightIcon />
+                                            </>
+                                        )}
                                 </button>
                             </Dialog.Panel>
                         </Transition.Child>

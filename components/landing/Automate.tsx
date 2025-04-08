@@ -25,9 +25,9 @@ export const Automate: React.FC = () => {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 70,
-    restDelta: 0.001
+    stiffness: 170,
+    damping: 100,
+    restDelta: 0.01
   });
 
   const pathX = useTransform(

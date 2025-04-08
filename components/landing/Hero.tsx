@@ -38,7 +38,7 @@ export const Hero: React.FC = () => {
               controls={isPlaying}
               playsInline
             >
-              <source src="/landing/hero-video.mp4" type="video/mp4" />
+              <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/hero-video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

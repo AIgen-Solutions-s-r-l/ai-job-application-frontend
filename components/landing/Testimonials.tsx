@@ -21,36 +21,46 @@ export const Testimonials: FC = () => {
         <div className='flex items-center justify-between mb-[70px] gap-[10px] lg:w-full'>
           <Heart />
           <h2 className="text-3xl text-center md:text-[35px] 2xl:text-[40px] font-medium leading-[1.1] text-white text-center">
-            Don’t take our word for it!<br />Hear it from our customers
+            Don't take our word for it!<br />Hear it from our customers
           </h2>
           <Heart />
         </div>
 
         <div className="flex flex-col xl:flex-row justify-between gap-6 w-full">
           <div className="w-full xl:w-1/2 p-4 bg-white/10 rounded-2xl shadow-lg backdrop-blur-sm">
+            {!isPlaying && (
+              <div className="aspect-video w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/landing/testimonial-1-cover.png"
+                  alt="hero-content"
+                  width={1000}
+                  height={562}
+                  className='w-full h-full object-cover cursor-pointer'
+                  onClick={handleVideoClick}
+                />
+              </div>
+            )}
             <video
               ref={videoRef}
-              className="w-full h-auto rounded-lg"
-              controls
-              autoPlay={false}
-              playsInline
+              className={`w-full aspect-video ${!isPlaying ? 'hidden' : ''} rounded-lg`}
+              controls={isPlaying}
             >
-              <source src="/landing/testimonial-v2.mp4" type="video/mp4" />
+              <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/testimonial+v4.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
 
           <div className="w-full xl:w-1/2 p-4 bg-white/10 rounded-2xl shadow-lg backdrop-blur-sm">
-            <video
+            {/* <video
               ref={videoRef}
               className="w-full h-auto rounded-lg"
               controls
               autoPlay={false}
               playsInline
             >
-              <source src="/landing/testimonial-v2.mp4" type="video/mp4" />
+              <source src="" type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </video> */}
           </div>
         </div>
 

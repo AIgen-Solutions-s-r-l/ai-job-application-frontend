@@ -5,6 +5,7 @@ import { motion, useTransform, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 import { useWindowSize } from "@/lib/hooks";
 import { LandingContainer } from './LandingContainer';
+import { Hero } from "./Hero";
 
 const MobileFeatures: FC = () => {
   return (
@@ -115,15 +116,17 @@ export const DesktopFeatures: FC = () => {
     stiffness: 400
   });
 
-  const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-60%']);
+  const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-20%']);
 
   return (
-    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[200vh] pt-[80px] 2xl:pt-[100px]" ref={containerRef}>
-      <motion.div
-        className="sticky top-[30%]"
-        style={{ x: translateX }}
+    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[200vh] pt-[80px] 2xl:pt-[100px]">
+      <div
+        className="sticky top-[-50%]"
       >
-        <div
+        <Hero />
+        <motion.div
+          ref={containerRef}
+          style={{ x: translateX }}
           className="flex flex-row gap-4 h-[33vh]"
         >
           <div
@@ -173,15 +176,15 @@ export const DesktopFeatures: FC = () => {
             </p>
           </div>
 
-          <div
+          {/* <div
             className="features-slide items-center justify-center font-montserrat"
           >
             <p className="text-white text-[22px] 2xl:text-[28px] leading-none">Companies hiring now</p>
 
             <Image src='/landing/feature-4.svg' alt='feature-4' width={300} height={264} className="mt-4" />
-          </div>
-        </div>
-      </motion.div>
+          </div> */}
+        </motion.div>
+      </div>
     </section >
   );
 };

@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <Hero />
+        {/* <Hero /> */}
         <Features />
         <Automate />
         <Clouds />

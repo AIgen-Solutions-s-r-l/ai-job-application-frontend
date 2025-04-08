@@ -150,7 +150,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
   const handleLocationSelect = (data: any) => {
     // get only params needs for JobSearchParams
-    const { city, country } = data.address;
+    const { country } = data.address;
     const { lat: latitude, lon: longitude } = data;
     // eslint-disable-next-line no-unused-vars
     const { location, ...searchParams } = getValues();
@@ -165,7 +165,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     reset({
       ...searchParams,
-      city,
+      city: county,
       country,
       latitude,
       longitude,

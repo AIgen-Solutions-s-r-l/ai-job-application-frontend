@@ -118,7 +118,7 @@ export const CreateResumeOnboarding: React.FC = () => {
         </Container>
       </div>
 
-      <div className="fixed bottom-0 left-0 z-10 w-full h-[80px] flex items-center bg-primary">
+      <div className="fixed bottom-0 left-0 z-10 w-full h-[70px] flex items-center bg-primary">
         <Container className="flex flex-none items-center justify-between">
           {currentStep === 1
             ? <ButtonUnderline title='Back to CV Uploader' handleClick={() => setCVData(null)} />

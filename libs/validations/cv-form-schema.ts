@@ -25,7 +25,7 @@ export const personalInfoSchema = z.object({
   city: z.string().min(2, 'City is required'),
   address: z.string().min(3, 'Address is required'),
   country: z.string().min(2, 'Country is required'),
-  zip_code: z.string().optional(),
+  zip_code: z.string().min(2, 'Zip / Postal code is required'),
   phone_prefix: z.string()
     .regex(/^\+?\d{1,4}$/, 'Invalid phone prefix format'),
   phone: z.string()

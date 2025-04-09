@@ -74,8 +74,10 @@ export const ProfilePersonalInformation: FC = () => {
             /> */}
             <FormInput
               title={'Zip / Postal'}
-              {...register('personalInfo.zip_code')}
-              placeholder="N/A"
+              {...register('personalInfo.zip_code', { required: 'Zip / Postal is required' })}
+              placeholder="e.g., 10001"
+              error={!!errors.personalInfo?.zip_code}
+              errorMessage={errors.personalInfo?.zip_code?.message}
               className='w-[149px]'
             />
             <FormInput

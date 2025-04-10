@@ -17,7 +17,9 @@ export function toResumeType(resumeData: any): Resume {
         experience_details: {
           experience_details
         },
-        side_projects,
+        projects: {
+          projects
+        },
         achievements: {
           achievements
         },
@@ -35,16 +37,20 @@ export function toResumeType(resumeData: any): Resume {
 
   const transformedEducationDetails = education_details.map((education: EducationDetail) => {
     if (education.exam) {
+      // Filter out the "null": null entry and only map valid entries
+      const validExamEntries = Object.entries(education.exam).filter(([key, value]) => key !== "null");
       return {
         ...education,
-        exam: Object.entries(education.exam).map(([subject, grade]) => ({ subject, grade })),
+        exam: validExamEntries.length > 0 
+          ? validExamEntries.map(([subject, grade]) => ({ subject, grade }))
+          : [{ subject: "", grade: "" }], // Provide default empty entry if no valid exams
       };
     }
     return education;
   });
 
   const additionalInfo: ResumeAdditionalInfo = {
-    side_projects: side_projects?.length ? side_projects : null,
+    projects: projects?.length ? projects : null,
     achievements: achievements?.length ? achievements : null,
     certifications: certifications?.length ? certifications : null,
     languages: languages?.length ? languages : null,
@@ -97,7 +103,9 @@ export function fromResumeType(resumeData: Resume): any {
         experience_details: {
           experience_details: experienceDetails,
         },
-        side_projects: additionalInfo.side_projects,
+        projects: {
+          projects: additionalInfo.projects,
+        },
         achievements: {
           achievements: additionalInfo.achievements,
         },

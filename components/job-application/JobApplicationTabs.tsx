@@ -225,6 +225,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
 
     const router = useRouter();
     const converted = toResumeType(resume_optimized);
+    // console.log("converted: \n", JSON.stringify(converted));
     const [activeTab, setActiveTab] = useState<Tab>("resume");
 
     return (

@@ -9,10 +9,8 @@ export interface ResumePersonalInformation {
   name: string;
   surname: string;
   date_of_birth: string;
-  location: {
-    country: string;
-    city: string;
-  }
+  country: string;
+  city: string;
   zip_code?: string;
   address: string;
   phone_prefix: string;
@@ -56,7 +54,7 @@ export interface ResumeExperienceDetail {
 }
 
 export interface ResumeAdditionalInfo {
-  side_projects: ResumeProjectDetails[];
+  projects: ResumeProjectDetails[];
   achievements: ResumeAchievement[];
   certifications: ResumeCertification[];
   languages: ResumeLanguage[];

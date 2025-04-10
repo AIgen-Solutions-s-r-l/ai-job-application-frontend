@@ -12,15 +12,14 @@ export interface ResumeOptimized {
 }
 
 interface Resume {
-    header?: ResumeHeader;
+    header: ResumeHeader;
     body: ResumeBody;
 }
 
 interface ResumeBody {
     education_details: EducationDetails;
     experience_details?: ExperienceDetails;
-    projects?: ProjectDetails[];
-    side_projects?: ProjectDetails[];
+    projects?: Projects;
     achievements?: Achievements;
     certifications?: Certifications;
     additional_skills?: AdditionalSkills;
@@ -49,6 +48,10 @@ interface ProjectDetails {
     name?: string;
     description?: string;
     link?: string;
+}
+
+interface Projects {
+    projects?: ProjectDetails[];
 }
 
 interface Achievements {
@@ -129,6 +132,7 @@ interface PersonalInformation {
     date_of_birth?: string;
     country?: string;
     city?: string;
+    zip_code?: string;
     address?: string;
     phone_prefix?: string;
     phone?: number;

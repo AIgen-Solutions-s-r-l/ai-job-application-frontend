@@ -32,7 +32,10 @@ export async function middleware(request: NextRequest) {
               'apikey': process.env.API_KEY || '',
               'api-key': process.env.API_KEY2 || ''
             },
-            body: JSON.stringify({ code })
+            body: JSON.stringify({
+              code,
+              redirect_uri: process.env.GOOGLE_REDIRECT_URI
+            })
           }
         );
 

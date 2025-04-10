@@ -82,7 +82,7 @@ export const JobSearchBottomSheet: React.FC = () => {
         >
           <ShoppingBag className='stroke-white hidden md:block' />
           <p className='text-sm md:text-base xl:text-[18px] font-normal text-white font-montserrat text-right'>
-            Adding&nbsp;<span className='font-bold group-hover:underline'>{selectedJobs.length} jobs</span>&nbsp;to your Job Manager
+            Adding&nbsp;<span className='font-bold group-hover:underline'>{selectedJobs.length.toLocaleString('en-US')} jobs</span>&nbsp;to your Job Manager
           </p>
         </div>
         <ButtonApply

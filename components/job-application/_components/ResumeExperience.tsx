@@ -55,7 +55,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   return (
     <ul className={cn('relative', template.experience.compactList)}>
       {fields.map((responsibility, respIndex) => (
-        <li key={responsibility.id}>
+        <li key={responsibility.id} className={template.experience.listItem}>
           <TextareaAutosize
             id={`responsibility-${index}-${respIndex}`}
             {...register(`experienceDetails.${index}.key_responsibilities.${respIndex}`)}
@@ -160,9 +160,7 @@ export const ResumeExperience: React.FC = () => {
                   {...register(`experienceDetails.${index}.employment_start_date`)}
                   placeholder="Start Date"
                 />
-              </span>
-              &nbsp; - &nbsp;
-              <span className={template.experience.entryYear}>
+                &nbsp; - &nbsp;
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.employment_end_date`)}
                   placeholder="End Date"

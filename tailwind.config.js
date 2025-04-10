@@ -39,6 +39,8 @@ module.exports = {
         barlow: ['Barlow', 'serif'],
         k2d: ['K2D', 'serif'],
         italianno: ['Italianno', 'serif'],
+        arial: ['Arial', 'serif'],
+        calibry: ['Calibry', 'serif'],
         'josefin-sans': ['Josefin Sans', 'serif'],
         'open-sans': ['Open Sans', 'serif'],
       },

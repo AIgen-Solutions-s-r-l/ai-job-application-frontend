@@ -11,7 +11,7 @@ import CVTemplateProvider from '../../contexts/cv-template-context';
 import { JobApplicationHeader } from './JobApplicationHeader';
 import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
-import { TemplateType } from './_components/resumeTemplates';
+import { TemplateType } from '../../libs/utils/resume-template-utils';
 
 interface Props {
     id: string;
@@ -38,139 +38,215 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //         "resume": {
     //             "header": {
     //                 "personal_information": {
-    //                     "name": "Marco",
-    //                     "surname": "Rossi",
-    //                     "date_of_birth": "15/08/1995",
-    //                     "country": "Italy",
-    //                     "city": "Milan",
-    //                     "address": "Corso Buenos Aires 12",
-    //                     "phone_prefix": "+39",
-    //                     "phone": 3401234567.0,
-    //                     "email": "marco.rossi@example.com",
-    //                     "github": "https://github.com/marco-rossi/ProjectExample",
-    //                     "linkedin": "https://www.linkedin.com/in/marco-rossi"
+    //                     "name": "Arystanbek",
+    //                     "surname": "test",
+    //                     "date_of_birth": "2000-10-23",
+    //                     "country": "Kazakhstan",
+    //                     "city": "Almaty",
+    //                     "address": "Street og Rage 1",
+    //                     "zip_code": "050000",
+    //                     "phone_prefix": "7",
+    //                     "phone": "7002172080",
+    //                     "email": "cholicer@gmail.com",
+    //                     "github": "https://github.com/Cholicer",
+    //                     "linkedin": null
     //                 }
     //             },
     //             "body": {
     //                 "education_details": {
     //                     "education_details": [
     //                         {
-    //                             "education_level": "Masters Degree",
-    //                             "institution": "Politecnico di Milano",
-    //                             "location": "Italy",
-    //                             "field_of_study": "Software Engineering",
-    //                             "final_evaluation_grade": "3.8/4",
-    //                             "start_date": 2018,
-    //                             "year_of_completion": 2024,
-    //                             "exam": {
-    //                                 "Data Structures": 3.9,
-    //                                 "Web Technologies": 3.8,
-    //                                 "Mobile Development": 4,
-    //                                 "Database Management": 3.7,
-    //                                 "Machine Learning": 4,
-    //                                 "Cloud Computing": 3.8
-    //                             }
+    //                             "education_level": "Bachelor's Degree",
+    //                             "institution": "Almaty University of Information Technology",
+    //                             "location": {
+    //                                 "country": "russia",
+    //                                 "city": "Almaty"
+    //                             },
+    //                             "field_of_study": "Computer Science",
+    //                             "final_evaluation_grade": "3.7/4.0",
+    //                             "start_date": "09/2018",
+    //                             "year_of_completion": "06/2024",
+    //                             "exam": null
+    //                         },
+    //                         {
+    //                             "education_level": "asd",
+    //                             "institution": "test",
+    //                             "location": {
+    //                                 "country": "asd",
+    //                                 "city": "asd"
+    //                             },
+    //                             "field_of_study": "asd",
+    //                             "final_evaluation_grade": "123",
+    //                             "start_date": "asd",
+    //                             "year_of_completion": "asda",
+    //                             "exam": null
     //                         }
     //                     ]
     //                 },
     //                 "experience_details": {
     //                     "experience_details": [
     //                         {
-    //                             "position": "Software Engineer",
-    //                             "company": "Tech Innovations",
-    //                             "employment_period": "06/2020 - Present",
-    //                             "location": "Italy",
+    //                             "position": "Frontend Developer",
+    //                             "company": "Laboro (AiHawk)",
+    //                             "employment_start_date": "11/2024",
+    //                             "employment_end_date": "Present",
+    //                             "location": {
+    //                                 "country": "Italy",
+    //                                 "city": "Remote"
+    //                             },
     //                             "industry": "Technology",
     //                             "key_responsibilities": [
-    //                                 "Developed scalable web applications using modern frameworks",
-    //                                 "Collaborated with cross-functional teams to define project requirements",
-    //                                 "Implemented RESTful APIs for mobile and web applications",
-    //                                 "Conducted code reviews and mentored junior developers",
-    //                                 "Participated in Agile ceremonies and continuous improvement initiatives"
+    //                                 "Engineered responsive user interfaces for an AI-powered job application platform that automatically matches users with relevant positions based on their skills and experience",
+    //                                 "Developed key components of the resume and cover letter generation system, creating intuitive workflows that helped users customize AI-generated application materials",
+    //                                 "Contributed to the frontend architecture of a platform processing millions of job listings, implementing optimized data visualization and search functionality",
+    //                                 "Collaborated with cross-functional teams to enhance user experience for a rapidly growing product with 330K+ Instagram followers",
+    //                                 "Implemented performance optimizations and responsive design principles for a globally recognized platform featured in TechCrunch, Business Insider, and Wired",
+    //                                 "Participated in open-source development for Python projects that achieved #1 trending status on GitHub globally."
     //                             ],
     //                             "skills_acquired": [
-    //                                 "JavaScript",
-    //                                 "React",
-    //                                 "Node.js",
-    //                                 "Agile Methodologies",
-    //                                 "REST APIs",
-    //                                 "Cloud Services",
-    //                                 "DevOps Practices",
-    //                                 "Database Management",
-    //                                 "Team Collaboration",
-    //                                 "Technical Documentation"
+    //                                 "Frontend Development",
+    //                                 "Responsive Design",
+    //                                 "Data Visualization",
+    //                                 "Cross-Functional Collaboration",
+    //                                 "Performance Optimization",
+    //                                 "Open Source Contribution"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "position": "Software Engineer",
+    //                             "company": "Aura.kz",
+    //                             "employment_start_date": "03/2024",
+    //                             "employment_end_date": "123",
+    //                             "location": {
+    //                                 "country": "asd",
+    //                                 "city": "as"
+    //                             },
+    //                             "industry": "Technology",
+    //                             "key_responsibilities": [
+    //                                 "Led development of Angular applications, implementing component-based architecture and optimizing performance for enterprise clients",
+    //                                 "Designed and delivered a full-featured mobile Tour Guide application using Flutter, incorporating geolocation services, offline functionality, and interactive UI elements",
+    //                                 "Architected and single-handedly developed a comprehensive computer monitoring system for a gaming club, utilizing Next.js for the frontend, NestOS for deployment, and Electron for desktop integration",
+    //                                 "Engineered a custom data pipeline connecting player statistics from Faceit via a browser extension to a RESTful Express API, enabling real-time player analytics and performance tracking."
+    //                             ],
+    //                             "skills_acquired": [
+    //                                 "Angular Development",
+    //                                 "Flutter Development",
+    //                                 "Next.js",
+    //                                 "RESTful APIs",
+    //                                 "Geolocation Services"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "position": "Freelance Web Developer",
+    //                             "company": "Self-Employed",
+    //                             "employment_start_date": "09/2023",
+    //                             "employment_end_date": "02/2024",
+    //                             "location": {
+    //                                 "country": "Kazakhstan",
+    //                                 "city": "Almaty"
+    //                             },
+    //                             "industry": "Freelance",
+    //                             "key_responsibilities": [
+    //                                 "Developed custom client websites using Next.js with Tailwind CSS for responsive styling and Framer Motion for advanced animations and transitions",
+    //                                 "Delivered pixel-perfect implementations of design mockups while ensuring cross-browser compatibility and optimal performance."
+    //                             ],
+    //                             "skills_acquired": [
+    //                                 "Next.js",
+    //                                 "Tailwind CSS",
+    //                                 "Framer Motion",
+    //                                 "Cross-Browser Compatibility"
     //                             ]
     //                         }
     //                     ]
     //                 },
-    //                 "projects": [
-    //                     {
-    //                         "name": "Portfolio Website",
-    //                         "description": "Created a personal portfolio website to showcase my projects and skills",
-    //                         "link": "https://github.com/marco-rossi/portfolio-website"
+    //                 "projects": {
+    //                     "projects": [
+    //                         {
+    //                             "name": "Responsive Portfolio Website",
+    //                             "description": "Developed a fully responsive portfolio website using React and CSS3, showcasing various projects. The website received positive feedback from users for its design and functionality.",
+    //                             "link": "https://github.com/username/responsive-portfolio"
+    //                         },
+    //                         {
+    //                             "name": "Weather App",
+    //                             "description": "Created a weather application using JavaScript and REST API integrations to fetch real-time weather data. The project has garnered over 150 stars on GitHub, highlighting its utility and user-friendly interface.",
+    //                             "link": "https://github.com/username/weather-app"
+    //                         },
+    //                         {
+    //                             "name": "E-commerce Platform",
+    //                             "description": "Contributed to a full-stack e-commerce platform using Angular for the front end and Node.js for the back end. Focused on implementing adaptive web design principles to enhance mobile user experience.",
+    //                             "link": "https://github.com/username/ecommerce-platform"
+    //                         }
+    //                     ]
+    //                 },
+    //                     "achievements": {
+    //                         "achievements": [
+    //                             {
+    //                             "name": "Eccellenza MIUR",
+    //                             "description": "Enhancement of Italian Excellence - MIUR"
+    //                             },
+    //                             {
+    //                             "name": "First FCE Certificate",
+    //                             "description": "Cambridge Assessment, awarded on 29 May 2019, Europass level B2."
+    //                             },
+    //                             {
+    //                             "name": "PET Certificate",
+    //                             "description": "Cambridge Assessment, awarded on 19/07/2018, level B1."
+    //                             }
+    //                         ]
     //                     },
-    //                     {
-    //                         "name": "E-commerce Platform",
-    //                         "description": "Developed a full-stack e-commerce application with payment integration and user authentication",
-    //                         "link": "https://github.com/marco-rossi/ecommerce-platform"
-    //                     }
-    //                 ],
-    //                 "achievements": {
-    //                     "achievements": [
-    //                         {
-    //                             "name": "Top Performer",
-    //                             "description": "Recognized as a top performer in the software engineering team for three consecutive quarters, demonstrating consistent excellence in software development and teamwork."
-    //                         },
-    //                         {
-    //                             "name": "Hackathon Winner",
-    //                             "description": "Won first place in a regional hackathon for developing an innovative mobile app, showcasing problem-solving skills and creativity in software design."
-    //                         },
-    //                         {
-    //                             "name": "Publication",
-    //                             "description": "Published an article on Medium about best practices in web development, highlighting expertise in the field and ability to communicate technical concepts effectively."
-    //                         }
-    //                     ]
-    //                 },
-    //                 "certifications": {
-    //                     "certifications": [
-    //                         {
+    //                     "certifications": {
+    //                         "certifications": [
+    //                             {
     //                             "name": "AWS Certified Solutions Architect",
-    //                             "description": "Certification demonstrating proficiency in designing distributed applications and systems on AWS"
-    //                         }
-    //                     ]
-    //                 },
-    //                 "additional_skills": {
-    //                     "additional_skills": [
-    //                         "Artificial Intelligence",
-    //                         "Blockchain Technology",
-    //                         "Open Source Development",
-    //                         "Cybersecurity",
-    //                         "Game Development",
-    //                         "Robotics",
-    //                         "Virtual Reality",
-    //                         "REST APIs",
-    //                         "Technical Documentation",
-    //                         "React",
-    //                         "DevOps Practices",
-    //                         "Agile Methodologies",
-    //                         "Cloud Services",
-    //                         "Database Management",
-    //                         "Team Collaboration",
-    //                         "Node.js",
-    //                         "JavaScript"
+    //                             "description": "Certification demonstrating proficiency in designing distributed applications and systems on AWS."
+    //                             },
+    //                             {
+    //                             "name": "AWS Certified Developer",
+    //                             "description": "Certification demonstrating proficiency in developing and maintaining applications on AWS."
+    //                             },
+    //                             {
+    //                             "name": "AWS Certified Cloud Practitioner",
+    //                             "description": "Certification demonstrating foundational knowledge of AWS Cloud."
+    //                             },
+    //                             {
+    //                             "name": "Google Associate Android Developer",
+    //                             "description": "Certification demonstrating proficiency in Android development."
+    //                             }
+    //                         ]
+    //                     },
+    //                     "additional_skills": {
+    //                         "additional_skills": [
+    //                             "RESTful APIs",
+    //                             "Responsive Design",
+    //                             "Frontend Development",
+    //                             "Flutter Development",
+    //                             "Cross-Functional Collaboration",
+    //                             "Next.js",
+    //                             "Framer Motion",
+    //                             "Angular Development",
+    //                             "Geolocation Services",
+    //                             "Data Visualization",
+    //                             "Open Source Contribution",
+    //                             "Cross-Browser Compatibility",
+    //                             "Tailwind CSS",
+    //                             "Performance Optimizatiasdon"
     //                     ],
     //                     "languages": [
-    //                         {
-    //                             "language": "Italian",
-    //                             "proficiency": "Native"
-    //                         },
     //                         {
     //                             "language": "English",
     //                             "proficiency": "Fluent"
     //                         },
     //                         {
-    //                             "language": "Spanish",
-    //                             "proficiency": "Intermediate"
+    //                             "language": "Russian",
+    //                             "proficiency": "Native"
+    //                         },
+    //                         {
+    //                             "language": "Kazakh",
+    //                             "proficiency": "Native"
+    //                         },
+    //                         {
+    //                             "language": "asd",
+    //                             "proficiency": "asd"
     //                         }
     //                     ]
     //                 }
@@ -181,44 +257,53 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //         "cover_letter": {
     //             "header": {
     //                 "applicant_details": {
-    //                     "name": "Marco Rossi",
-    //                     "address": "Corso Buenos Aires 12",
-    //                     "city_state_zip": "Milan, Italy",
-    //                     "email": "marco.rossi@example.com",
-    //                     "phone_number": "+39 3401234567"
+    //                     "name": "Arystanbek Kazhym",
+    //                     "address": "Street og Rage 1",
+    //                     "city_state_zip": "Almaty, Kazakhstan, 050000",
+    //                     "email": "cholicer@gmail.com",
+    //                     "phone_number": "7002172080"
     //                 },
     //                 "company_details": {
-    //                     "name": "Google"
+    //                     "name": "DSR Corporation"
     //                 }
     //             },
     //             "body": {
-    //                 "greeting": "Dear Google Hiring Team,",
-    //                 "opening_paragraph": "I am writing to express my interest in the Software Engineer position at Google. With a Master's degree in Software Engineering from Politecnico di Milano and over three years of professional experience in developing scalable web applications, I am excited about the opportunity to contribute to a company that values innovation and excellence.",
-    //                 "body_paragraphs": "In my current role at Tech Innovations, I have successfully developed and implemented RESTful APIs and collaborated with cross-functional teams to deliver high-quality software solutions. My proficiency in Java and cloud services, along with my experience in Agile methodologies, aligns well with the requirements outlined in the job description. Additionally, my AWS Certified Solutions Architect certification demonstrates my commitment to staying current with industry trends, particularly in cloud computing and microservices architecture. I am particularly drawn to Google's mission of organizing the world's information and making it universally accessible and useful, as I believe technology should empower and enhance lives.",
-    //                 "closing_paragraph": "I am eager to bring my skills in software development and my passion for problem-solving to Google. Thank you for considering my application; I look forward to the opportunity to discuss how I can contribute to your team."
+    //                 "greeting": "Dear DSR Corporation Team",
+    //                 "opening_paragraph": "I am writing to express my interest in the Front-End Developer position at DSR Corporation. With a Bachelor's degree in Computer Science and over three years of hands-on experience in front-end development, I am excited about the opportunity to contribute to your innovative team.",
+    //                 "body_paragraphs": "In my current role at Laboro, I engineered responsive user interfaces for an AI-powered platform, collaborating closely with cross-functional teams to enhance user experience. My proficiency in JavaScript, Angular, and REST API integrations aligns well with the technical skills you seek. Additionally, my experience in optimizing performance and implementing responsive design principles has been instrumental in delivering high-quality applications. I am particularly drawn to DSR Corporation's commitment to leveraging cutting-edge technology to create impactful solutions, which resonates with my career objectives.",
+    //                 "closing_paragraph": "I am eager to bring my background in front-end development and my passion for user-centered design to DSR Corporation. Thank you for considering my application; I look forward to the opportunity to discuss how I can contribute to your team."
     //             },
     //             "footer": {
     //                 "closing": "Sincerely",
-    //                 "signature": "Marco Rossi",
-    //                 "date": "October 2023"
+    //                 "signature": "Arystanbek Kazhym",
+    //                 "date": "2023-10-23"
     //             }
     //         }
     //     },
     //     "job_info": {
-    //         "title": "FP&A manager",
-    //         "is_remote": null,
-    //         "workplace_type": null,
-    //         "posted_date": null,
-    //         "job_state": null,
-    //         "description": "Boh",
-    //         "apply_link": null,
-    //         "company_name": null,
-    //         "location": null,
-    //         "id": null,
-    //         "job_id": 1111,
-    //         "portal": "example",
-    //         "gen_cv": null
-    //     }
+    //         "id": "9eb1895f-2a93-4df5-b6bf-d3e792381424",
+    //         "portal": "applytojob",
+    //         "title": "Front-end developer angular",
+    //         "workplace_type": "Full-time",
+    //         "posted_date": "2025-01-30T00:00:00",
+    //         "job_state": "active",
+    //         "description": " Overview:\nFull-time Front-End Software Engineer needed for a cross-functional team in Voronezh. Responsibilities include developing front-end web architectures, enhancing web application responsiveness, and collaborating with graphic designers. Role requires translating business needs into interactive applications.\n\nRequired Degrees & Certifications:\n- Bachelor's degree in Computer Science, Mathematics, or related field\n\nKey Responsibilities:\n- Develop front-end web architectures\n- Improve web application responsiveness\n- Collaborate with graphic designers\n\nRequired Technical Skills:\n- JavaScript ES5-ES6 and/or TypeScript\n- Modern front-end frameworks (Angular, React, Vue)\n- HTML5 and CSS3\n- Adaptive web design (AWD)\n- REST API integrations\n\nRequired Soft Skills:\n- Problem-solving\n- Attention to detail\n- Teamwork\n- Communication\n\nPreferred/Nice-to-have Skills:\n- Node.js, Java-Spring MVC, .NET\n- WebPack\n- CSS preprocessors (SASS, LESS, PostCSS)\n- Functional programming\n- Back-end technologies\n- Solid English skills (spoken and written)\n\nExperience Requirements:\n- Years of experience: 3+ years\n- Category of experience: Mid-level\n- Specific domain experience: Full stack development and back-end technologies\n\nAdditional Informations:\n- Decent salary with annual bonus\n- Paid overtime\n- Permanent employment\n- Employer-sponsored health insurance\n- Paid sick leave days\n- Office in the city center with free parking\n- Free English courses\n- Restaurant-grade lunches\n- Daily treats (coffee, chocolate, bakery)\n- Corporate events\n- Team-building program\n- Mentorship program\n- International DSR Training Center\n- Opportunities for skill development",
+    //         "apply_link": "https://dsr.applytojob.com/apply/LmuakjC9Zd/FrontEnd-Software-Engineer-Angular",
+    //         "company_name": "DSR Corporation",
+    //         "location": "Austria, Voronezh",
+    //         "short_description": " Overview",
+    //         "field": "Information Technology",
+    //         "company_logo": "https://s3.amazonaws.com/resumator/customer_20180201044330_XWLG764UNCE54LLD/logos/20211222142203_logo1.png",
+    //         "experience": "Mid-level",
+    //         "skills_required": [
+    //             "React",
+    //             "JavaScript",
+    //             "Angular"
+    //         ]
+    //     },
+    //     "style": "style_3",
+    //     "sent": false,
+    //     "gen_cv": null
     // }
 
     const { resume_optimized, cover_letter, job_info, style } = applicationDetails;

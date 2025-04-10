@@ -11,57 +11,57 @@ import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "additionalInfo">
 
-const SkillsNestedFieldArray: React.FC = () => {
-  const { getValues, setValue } = useFormContext<FormData>();
-  const additional_skills = getValues('additionalInfo.additional_skills');
-  const { activeSection, setActiveSection } = useActiveSectionContext();
-  const isActive = activeSection === 'skills-section';
-  const { template } = useCVTemplateContext();
+// const SkillsNestedFieldArray: React.FC = () => {
+//   const { getValues, setValue } = useFormContext<FormData>();
+//   const additional_skills = getValues('additionalInfo.additional_skills');
+//   const { activeSection, setActiveSection } = useActiveSectionContext();
+//   const isActive = activeSection === 'skills-section';
+//   const { template } = useCVTemplateContext();
 
-  const debounce = (func: (...args: any[]) => void, delay: number) => {
-    let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  };
+//   const debounce = (func: (...args: any[]) => void, delay: number) => {
+//     let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
+//     return (...args: any[]) => {
+//       clearTimeout(timeout);
+//       timeout = setTimeout(() => func(...args), delay);
+//     };
+//   };
 
-  const handleSkillsChange = useCallback(
-    (value: string) => {
-      const skillsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
-      setValue(`additionalInfo.additional_skills`, skillsArray);
-    },
-    [setValue]
-  );
+//   const handleSkillsChange = useCallback(
+//     (value: string) => {
+//       const skillsArray = value.split(',').map(skill => skill.trim()).filter(Boolean);
+//       setValue(`additionalInfo.additional_skills`, skillsArray);
+//     },
+//     [setValue]
+//   );
 
-  const debouncedHandleSkillsChange = useCallback(
-    debounce(handleSkillsChange, 500),
-    [handleSkillsChange]
-  );
+//   const debouncedHandleSkillsChange = useCallback(
+//     debounce(handleSkillsChange, 500),
+//     [handleSkillsChange]
+//   );
 
-  return additional_skills.length ? (
-    <>
-      <div
-        data-section="skills-section"
-        className={cn(
-          template.additional.skills,
-          'border-2 border-transparent hover:border-primary has-[:focus]:border-primary',
-          isActive && 'bg-white'
-        )}
-        onClick={() => setActiveSection('skills-section')}
-      >
-        <span className="font-semibold">Skills: </span>
-        <TextareaAutosize
-          minRows={1}
-          onChange={(e) => debouncedHandleSkillsChange(e.target.value)}
-          defaultValue={additional_skills ? additional_skills.join(', ') : ''}
-          placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
-          className="grow resize-none overflow-y-hidden outline-none bg-transparent"
-        />
-      </div>
-    </>
-  ) : null;
-}
+//   return additional_skills.length ? (
+//     <>
+//       <div
+//         data-section="skills-section"
+//         className={cn(
+//           template.additional.skills,
+//           'border-2 border-transparent hover:border-primary has-[:focus]:border-primary',
+//           isActive && 'bg-white'
+//         )}
+//         onClick={() => setActiveSection('skills-section')}
+//       >
+//         <span className="font-semibold">Skills: </span>
+//         <TextareaAutosize
+//           minRows={1}
+//           onChange={(e) => debouncedHandleSkillsChange(e.target.value)}
+//           defaultValue={additional_skills ? additional_skills.join(', ') : ''}
+//           placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
+//           className="grow resize-none overflow-y-hidden outline-none bg-transparent"
+//         />
+//       </div>
+//     </>
+//   ) : null;
+// }
 
 const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
   const { register } = useFormContext<FormData>();
@@ -84,7 +84,10 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
 
   return fields.length ? (
     <div className={template.additional.languages}>
-      <span className="font-semibold">Languages: </span>
+      <h3 className={template.additional.h3}>
+        Languages
+      </h3>
+
       {fields.map((item, index) => {
         const activeIndex = `${section}-${index}`
 
@@ -94,7 +97,7 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
             data-section={activeIndex}
             className={cn(
               template.additional.languageItem,
-              'relative border-2 border-transparent hover:border-primary',
+              'inline relative border-2 border-transparent hover:border-primary',
               activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
             )}
             onClick={(e) => {
@@ -116,8 +119,9 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
             <NullifiedInput
               {...register(`additionalInfo.languages.${index}.language`)}
               placeholder="Language"
-              className='mr-1 leading-none'
+              className='leading-none'
             />
+            &nbsp;
             (<NullifiedInput
               {...register(`additionalInfo.languages.${index}.proficiency`)}
               placeholder="Proficiency"
@@ -207,7 +211,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
             </div>
 
             <ul className={template.projects.compactList}>
-              <li>
+              <li className={template.projects.listItem}>
                 <TextareaAutosize
                   {...register(`additionalInfo.projects.${index}.description`)}
                   minRows={1}
@@ -243,28 +247,29 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className={template.achievements.container}>
-      <h2 className={template.achievements.h2}>
+    <div className={template.additional.container}>
+      <h2 className={template.additional.h3}>
         Achievements
       </h2>
-      {fields.map((exp, index) => {
-        const activeIndex = `${section}-${index}`
 
-        return (
-          <div
-            key={exp.id}
-            data-section={activeIndex}
-            className={cn(
-              template.achievements.entry,
-              'relative border-2 hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
-            )}
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveSection(activeIndex);
-            }}
-          >
-            <div className={template.achievements.entryHeader}>
+      <ul className={template.additional.compactList}>
+        {fields.map((exp, index) => {
+          const activeIndex = `${section}-${index}`
+
+          return (
+            <li
+              key={exp.id}
+              data-section={activeIndex}
+              className={cn(
+                template.additional.listItem,
+                'relative border-2 hover:border-primary',
+                activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
+              )}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveSection(activeIndex);
+              }}
+            >
               {activeIndex === activeSection && (
                 <EntryOperator
                   itemsLength={fields.length}
@@ -275,24 +280,25 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
                   }}
                 />
               )}
-              <NullifiedInput
-                {...register(`additionalInfo.achievements.${index}.name`)}
-                placeholder="Achievement Name"
-              />
-            </div>
-            <ul className={template.achievements.compactList}>
-              <li>
+              <div className="flex items-start">
+                <strong>
+                  <NullifiedInput
+                    {...register(`additionalInfo.achievements.${index}.name`)}
+                    placeholder="Achievement Name"
+                  />
+                </strong>
+                :&nbsp;
                 <TextareaAutosize
                   {...register(`additionalInfo.achievements.${index}.description`)}
                   minRows={1}
                   placeholder="Achievement Description"
-                  className="w-full align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                  className="w-full mt-0.5 align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
                 />
-              </li>
-            </ul>
-          </div>
-        )
-      })}
+              </div>
+            </li>
+          )
+        })}
+      </ul>
     </div>
   ) : null;
 }
@@ -317,28 +323,29 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
   }
 
   return fields.length ? (
-    <div className={template.certifications.container}>
-      <h2 className={template.certifications.h2}>
+    <div className={template.additional.container}>
+      <h2 className={template.additional.h3}>
         Certifications
       </h2>
-      {fields.map((exp, index) => {
-        const activeIndex = `${section}-${index}`
 
-        return (
-          <div
-            key={exp.id}
-            data-section={activeIndex}
-            className={cn(
-              template.certifications.entry,
-              'relative border-2 hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
-            )}
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveSection(activeIndex);
-            }}
-          >
-            <div className={template.certifications.entryHeader}>
+      <ul className={template.additional.compactList}>
+        {fields.map((exp, index) => {
+          const activeIndex = `${section}-${index}`
+
+          return (
+            <li
+              key={exp.id}
+              data-section={activeIndex}
+              className={cn(
+                template.additional.listItem,
+                'relative border-2 hover:border-primary',
+                activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
+              )}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveSection(activeIndex);
+              }}
+            >
               {activeIndex === activeSection && (
                 <EntryOperator
                   itemsLength={fields.length}
@@ -349,24 +356,25 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
                   }}
                 />
               )}
-              <NullifiedInput
-                {...register(`additionalInfo.certifications.${index}.name`)}
-                placeholder="Certification Name"
-              />
-            </div>
-            <ul className={template.certifications.compactList}>
-              <li>
+              <div className='flex items-start'>
+                <strong>
+                  <NullifiedInput
+                    {...register(`additionalInfo.certifications.${index}.name`)}
+                    placeholder="Certification Name"
+                  />
+                </strong>
+                :&nbsp;
                 <TextareaAutosize
                   {...register(`additionalInfo.certifications.${index}.description`)}
                   minRows={1}
                   placeholder="Certification Description"
-                  className="w-full align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
+                  className="w-full mt-0.5 align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
                 />
-              </li>
-            </ul>
-          </div>
-        )
-      })}
+              </div>
+            </li>
+          )
+        })}
+      </ul>
     </div>
   ) : null;
 }
@@ -377,16 +385,14 @@ export const ResumeAdditional: React.FC = () => {
   return <>
     <ProjectsNestedFieldArray />
 
-    <AchievementsNestedFieldArray />
-
-    <CertificationsNestedFieldArray />
-
     <div className={template.additional.container} id="skills-section">
-      <h1 className={template.additional.h2}>
-        Additional Information
-      </h1>
+      <h2 className={template.additional.h2}>
+        Technical Skills & Certifications
+      </h2>
 
-      <SkillsNestedFieldArray />
+      <AchievementsNestedFieldArray />
+
+      <CertificationsNestedFieldArray />
 
       <LanguageNestedFieldArray />
     </div>

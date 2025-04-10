@@ -1,7 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import { TemplateStyle, TemplateType, templateStyles } from '../components/job-application/_components/resumeTemplates';
+import { TemplateType, templateStyles } from '../libs/utils/resume-template-utils';
+import { TemplateStyle } from "../libs/types/cv-template-style.type";
 
 type CVTemplateProviderProps = {
   children: React.ReactNode;
@@ -17,9 +18,9 @@ type CVTemplateContextType = {
 export const CVTemplateContext = createContext<CVTemplateContextType | null>(null);
 
 export default function CVTemplateProvider ({ children, style }: CVTemplateProviderProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(style || 'default');
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(style || 'style_1');
 
-  const template = templateStyles[selectedTemplate] || templateStyles['default'];
+  const template = templateStyles[selectedTemplate] || templateStyles['style_1'];
 
   return (
     <CVTemplateContext.Provider

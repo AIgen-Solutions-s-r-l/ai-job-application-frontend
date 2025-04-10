@@ -48,7 +48,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //                     "phone_prefix": "7",
     //                     "phone": "7002172080",
     //                     "email": "cholicer@gmail.com",
-    //                     "github": "https://github.com/Cholicer",
+    //                     "github": null,
     //                     "linkedin": null
     //                 }
     //             },
@@ -164,7 +164,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //                         {
     //                             "name": "Responsive Portfolio Website",
     //                             "description": "Developed a fully responsive portfolio website using React and CSS3, showcasing various projects. The website received positive feedback from users for its design and functionality.",
-    //                             "link": "https://github.com/username/responsive-portfolio"
+    //                             "link": null
     //                         },
     //                         {
     //                             "name": "Weather App",

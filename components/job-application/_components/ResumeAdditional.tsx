@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import Link from 'next/link';
 import { NullifiedInput } from '@/components/ui/nullified-input';
 import TextareaAutosize from 'react-textarea-autosize';
 import { cn } from '@/lib/utils';
@@ -200,13 +199,13 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
                   />
                 </>
               ) : (
-                <Link href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline text-blue-500 relative">
+                <a href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline text-blue-500 relative">
                   <NullifiedInput
                     {...register(`additionalInfo.projects.${index}.name`)}
                     placeholder="Project Name"
                     className='text-blue-500'
                   />
-                </Link>
+                </a>
               )}
             </div>
 

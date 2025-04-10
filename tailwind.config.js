@@ -6,6 +6,7 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./styles/globals.css",
+    "./libs/constants/cv-templates/*.ts",
   ],
   theme: {
     extend: {

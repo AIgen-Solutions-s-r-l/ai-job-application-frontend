@@ -46,7 +46,8 @@ export async function GET(request: NextRequest) {
           });
 
           // Redirect to dashboard
-          return NextResponse.redirect(`${appOrigin}${appConfig.auth.callbackUrl}`);
+          // Redirect to search page as requested
+          return NextResponse.redirect(`${appOrigin}/search`);
         } else {
            // Handle case where token is missing in response
            console.error('Google callback successful but no access token received');

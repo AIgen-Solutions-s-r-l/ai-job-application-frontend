@@ -1,41 +1,79 @@
-import { NextResponse, NextRequest } from "next/server";
-import { handleGoogleCallback } from "@/libs/api/auth";
-import config from "@/config";
-import axios from "axios";
+import { NextResponse, type NextRequest } from 'next/server';
+import { cookies } from 'next/headers';
+import { getAppOrigin } from '@/libs/utils'; // Assuming utils is in libs
+import { decodeToken } from '@/libs/api/auth'; // Assuming auth utils are here
+import appConfig from '@/config'; // Assuming config is at root
 
-export const dynamic = "force-dynamic";
-
-// This route is called after a successful Google OAuth login. It exchanges the code for a JWT token and redirects to the callback URL.
-export async function GET(req: NextRequest) {
-  const requestUrl = new URL(req.url);
-  const code = requestUrl.searchParams.get("code");
-  const error = requestUrl.searchParams.get("error");
-
-  // Handle error from Google OAuth
-  if (error) {
-    console.error("Google OAuth error:", error);
-    return NextResponse.redirect(requestUrl.origin + config.auth.loginUrl + "?error=google_auth_failed");
-  }
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const code = searchParams.get('code');
+  const appOrigin = getAppOrigin();
 
   if (code) {
+    // Create a direct API request to the auth service
     try {
-      // Exchange the code for a JWT token
-      const result = await handleGoogleCallback(code);
-      
-      if (result.success) {
-        // Successful authentication, redirect to the callback URL
-        return NextResponse.redirect(requestUrl.origin + config.auth.callbackUrl);
+      const response = await fetch(
+        `${process.env.AUTH_API_URL}/auth/login-with-google`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Include API keys if needed, assuming they are required for this endpoint
+            'apikey': process.env.API_KEY || '',
+            'api-key': process.env.API_KEY2 || ''
+          },
+          body: JSON.stringify({
+            code,
+            redirect_uri: process.env.GOOGLE_REDIRECT_URI
+          })
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.access_token) {
+          // Set the JWT token as a cookie
+          const { expirationDate } = await decodeToken(data.access_token);
+          const cookieStore = cookies(); // Use cookies() from next/headers
+
+          cookieStore.set('accessToken', data.access_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/', // Ensure cookie is available for all paths
+            expires: expirationDate
+          });
+
+          // Redirect to dashboard
+          return NextResponse.redirect(`${appOrigin}${appConfig.auth.callbackUrl}`);
+        } else {
+           // Handle case where token is missing in response
+           console.error('Google callback successful but no access token received');
+           return NextResponse.redirect(
+             `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
+           );
+        }
       } else {
-        // Authentication failed, redirect to login page with error
-        const errorMessage = "google_auth_failed";
-        return NextResponse.redirect(requestUrl.origin + config.auth.loginUrl + "?error=" + encodeURIComponent(errorMessage));
+        // Auth failed, redirect to login page
+        const errorData = await response.text(); // Get error details if possible
+        console.error(`Google auth failed with status ${response.status}: ${errorData}`);
+        return NextResponse.redirect(
+          `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed`
+        );
       }
     } catch (error) {
-      console.error("Error handling Google callback:", error);
-      return NextResponse.redirect(requestUrl.origin + config.auth.loginUrl + "?error=google_auth_failed");
+      console.error('Error in Google callback route handler:', error);
+      return NextResponse.redirect(
+        `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed`
+      );
     }
+  } else {
+    // No code provided, redirect to login
+    const error = searchParams.get('error');
+    if (error) {
+      console.error('Google OAuth error received:', error);
+    }
+    return NextResponse.redirect(`${appOrigin}${appConfig.auth.loginUrl}${error ? '?error=google_auth_error' : ''}`);
   }
-
-  // No code provided, redirect to login page
-  return NextResponse.redirect(requestUrl.origin + config.auth.loginUrl);
 }

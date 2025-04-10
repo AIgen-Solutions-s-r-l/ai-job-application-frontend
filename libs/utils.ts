@@ -1,4 +1,5 @@
 import path from "path";
+import config from '@/config';
 import { z } from "zod";
 
 const MAX_RESUME_FILE_SIZE = 5000000;   // 5MB
@@ -73,4 +74,10 @@ export const sortArrayByDate = <T, K extends keyof T>(arr: T[], dateFiledName: K
       ? d1.getTime() - d2.getTime()
       : d2.getTime() - d1.getTime()
   })
+}
+
+export function getAppOrigin(): string {
+  return process.env.NODE_ENV === 'production'
+    ? `https://${config.domainName}`
+    : 'http://localhost:3000';
 }

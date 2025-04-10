@@ -33,6 +33,7 @@ module.exports = {
       fontFamily: {
         jura: ['var(--font-jura)'],
         montserrat: ['var(--font-montserrat)'],
+        josefinSans: ['var(--font-josefin-sans)'],
         kanit: ['Kanit', 'serif'],
         roboto: ['Roboto', 'serif'],
         poppins: ['Poppins', 'serif'],

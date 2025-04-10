@@ -57,7 +57,7 @@ export const JobManagerBottomSheet: FC = () => {
         </div>
         {mounted && (
           <p className='text-sm md:text-base xl:text-[18px] font-normal text-white font-montserrat text-right'>
-            You’re applying to&nbsp;<span className='font-bold'>{selectedApplications.length} jobs</span>&nbsp;instantly
+            You’re applying to&nbsp;<span className='font-bold'>{selectedApplications.length.toLocaleString('en-US')} jobs</span>&nbsp;instantly
           </p>
         )}
         <ButtonApply

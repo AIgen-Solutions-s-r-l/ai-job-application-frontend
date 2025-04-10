@@ -171,12 +171,12 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               placeholder="e.g., Tech"
               // error={!!errors.experienceDetails?.[index]?.industry}
               // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
-              className='w-[164px]'
+              className='w-[250px]'
             />
           </InputWrapper>
           <InputWrapper>
             <FormInput
-              title={'Employment Period'}
+              title={'Start Date'}
               {...register(`experienceDetails.${index}.employment_start_date`)}
               placeholder="e.g., June 2020"
               error={!!errors.experienceDetails?.[index]?.employment_start_date}
@@ -184,7 +184,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               className='w-[188px]'
             />
             <FormInput
-              title={'Employment Period'}
+              title={'End Date'}
               {...register(`experienceDetails.${index}.employment_end_date`)}
               placeholder="e.g., Present"
               error={!!errors.experienceDetails?.[index]?.employment_end_date}

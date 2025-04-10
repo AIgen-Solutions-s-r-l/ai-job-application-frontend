@@ -71,8 +71,9 @@ export const PersonalInformationOnboarding: FC = () => {
           <FormInput
             title={'Zip / Postal'}
             {...register('personalInfo.zip_code')}
-            placeholder="N/A"
-            required={false}
+            placeholder="e.g., 10001"
+            error={!!errors.personalInfo?.zip_code}
+            errorMessage={errors.personalInfo?.zip_code?.message}
             className='w-[149px]'
           />
           <FormInput

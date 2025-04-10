@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
           // Set the JWT token as a cookie
           const { expirationDate } = await decodeToken(data.access_token);
           const cookieStore = cookies(); // Use cookies() from next/headers
+          console.log('[Google Callback] Attempting to set access token cookie.'); // Added log
 
           cookieStore.set('accessToken', data.access_token, {
             httpOnly: true,
@@ -44,10 +45,13 @@ export async function GET(request: NextRequest) {
             path: '/', // Ensure cookie is available for all paths
             expires: expirationDate
           });
+          console.log('[Google Callback] Cookie setting function called.'); // Added log
 
           // Redirect to dashboard
           // Redirect to search page as requested
-          return NextResponse.redirect(`${appOrigin}/search`);
+          const redirectUrl = `${appOrigin}/search`;
+          console.log(`[Google Callback] Redirecting to: ${redirectUrl}`); // Added log
+          return NextResponse.redirect(redirectUrl);
         } else {
            // Handle case where token is missing in response
            console.error('Google callback successful but no access token received');

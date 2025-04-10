@@ -1,9 +1,8 @@
 import Image from "next/image";
-import HeartImage from '../svgs/Heart.svg';
+import Start from '@/public/aboutus/Start.svg';
 import { useState, useRef, useEffect, RefObject } from 'react';
 
-function Heart({ ClassName }: { ClassName?: string }) {
-    console.log(ClassName);
+function Star() {
     const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
     const leftEyeBall = useRef<HTMLDivElement>(null);
     const rightEyeBall = useRef<HTMLDivElement>(null);
@@ -44,28 +43,33 @@ function Heart({ ClassName }: { ClassName?: string }) {
     const rightEyePosition = getEyePosition(rightEyeBall, rightEyeContainer);
 
     return (
-        <div className={`w-[150px] h-[150px] bg-splash-orange items-center justify-center rounded-full pt-[10px] lg:flex hidde ${ClassName ? ClassName : 'relative'}`}>
-            <Image src={HeartImage} alt="Heart" width={120} height={120} />
-            <div ref={leftEyeContainer} className="absolute top-[65px] left-9 w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                <div
-                    ref={leftEyeBall}
-                    className="w-3 h-3 bg-black rounded-full absolute top-1/2 left-1/2"
-                    style={{
-                        transform: `translate(calc(-50% + ${leftEyePosition.x}px), calc(-50% + ${leftEyePosition.y}px))`
-                    }}
-                />
-            </div>
-            <div ref={rightEyeContainer} className="absolute top-[65px] right-9 w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                <div
-                    ref={rightEyeBall}
-                    className="w-3 h-3 bg-black rounded-full absolute top-1/2 left-1/2"
-                    style={{
-                        transform: `translate(calc(-50% + ${rightEyePosition.x}px), calc(-50% + ${rightEyePosition.y}px))`
-                    }}
-                />
+        <div className="relative items-center justify-center rounded-full pt-[10px] lg:flex hidden">
+            <Image src={Start} alt="Heart" />
+            {/* Orange circle with eyes */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110px] h-[110px] bg-splash-orange rounded-full flex items-center justify-center">
+                {/* Left eye container */}
+                <div ref={leftEyeContainer} className="absolute top-10 left-4 w-7 h-7 bg-white rounded-full flex items-center justify-center">
+                    <div
+                        ref={leftEyeBall}
+                        className="w-3 h-3 bg-black rounded-full absolute top-1/2 left-1/2"
+                        style={{
+                            transform: `translate(calc(-50% + ${leftEyePosition.x}px), calc(-50% + ${leftEyePosition.y}px))`
+                        }}
+                    />
+                </div>
+                {/* Right eye container */}
+                <div ref={rightEyeContainer} className="absolute top-10 right-4 w-7 h-7 bg-white rounded-full flex items-center justify-center">
+                    <div
+                        ref={rightEyeBall}
+                        className="w-3 h-3 bg-black rounded-full absolute top-1/2 left-1/2"
+                        style={{
+                            transform: `translate(calc(-50% + ${rightEyePosition.x}px), calc(-50% + ${rightEyePosition.y}px))`
+                        }}
+                    />
+                </div>
             </div>
         </div>
     )
 }
 
-export default Heart
+export default Star

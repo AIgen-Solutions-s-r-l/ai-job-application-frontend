@@ -10,8 +10,8 @@ import { Footer } from '@/components/landing/Footer';
 function AboutUsPage() {
     return (
         <>
-            {/* <Header /> */}
-            <div className="flex flex-col px-[15vw] gap-32 mb-[200px]">
+            <Header />
+            <div className="flex flex-col px-[15vw] gap-32 mb-[200px] mt-[100px]">
                 <OurMission />
                 <OurSolution />
                 <WhoWeAre />

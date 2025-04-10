@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import Image from 'next/image';
+import Laboro from '@/public/aboutus/Laboro.svg';
 import { LandingContainer } from '../landing/LandingContainer';
 import { useUserContext } from '@/contexts/user-context';
-import navLeftArrow from '@/public/landing/nav-left-arrow.svg';
+import LeftArrow from '@/public/aboutus/NavLeftArrow.svg'
 import navRightArrow from '@/public/landing/nav-right-arrow.svg';
 import Link from 'next/link';
 
@@ -16,13 +17,13 @@ export const Header: FC = () => {
           <Link
             href="/"
           >
-            <Image src="/landing/logo.png" alt="Logo" width={300} height={110} />
+            <Image src={Laboro} alt="Logo" width={300} height={110} />
           </Link>
         </div>
         <div className="flex flex-col md:flex-row gap-2 2xl:gap-5 font-k2d mt-2 md:mt-5">
-          <Link className='order-1 md:-order-1 h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between border border-white rounded-[8px] md:rounded-[20px] gap-2' href='/'>
-            <Image src={navLeftArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
-            <p className='text-[14px] 2xl:text-[18px] font-light text-white leading-none'>Employers</p>
+          <Link className='order-1 md:-order-1 h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between border border-my-neutral-7 rounded-[8px] md:rounded-[20px] gap-2' href='/'>
+            <Image src={LeftArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
+            <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>Employers</p>
           </Link>
           <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green hover:bg-my-neutral-2 transition-all ease-in duration-300 rounded-[8px] md:rounded-[20px] gap-2' href={user ? '/search' : '/signin'}>
             <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>{user && user.email ? user.email.split('@')[0] : 'Sign in'}</p>

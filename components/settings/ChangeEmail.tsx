@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { typography } from '@/components/typography';
 import { FormInput } from '@/components/ui/form-input';
-import { changeEmail } from '@/libs/api/auth';
+import { changeEmail, fetchUserData } from '@/libs/api/auth';
 
 type FormData = {
   name: string;
@@ -25,9 +25,15 @@ export const ChangeEmail = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const username = localStorage.getItem('username');
+      const { email } = await fetchUserData();
+
+      if (email === data.newEmail) {
+        toast.error('New email and current email must differ.');
+        console.error('Error updating email: New email must differ from current email.');
+        return;
+      }
+
       const response = await changeEmail(
-        username,
         data.password,
         data.newEmail
       );
@@ -66,8 +72,8 @@ export const ChangeEmail = () => {
             {...register('newEmail', {
               required: 'Email is required',
               pattern: {
-                value: /^[a-zA-Z0-9.]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
-                message: 'Invalid email address',
+              value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+              message: 'Invalid email address',
               },
             })}
             type='email'

@@ -22,6 +22,13 @@ export const ChangePassword = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
+
+      if (data.password === data.newPassword) {
+        toast.error('New password and current password must differ.');
+        console.error('Error updating password: New password and current password must differ.');
+        return;
+      }
+
       const response = await changePassword(data.password, data.newPassword);
 
       if (response.success) {

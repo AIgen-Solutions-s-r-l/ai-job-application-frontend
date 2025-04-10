@@ -455,6 +455,10 @@ export async function addCredits(amount: number, referenceId: string, descriptio
   const cookieStore = cookies();
   accessToken = cookieStore.get('accessToken')?.value;
 
+  if (!accessToken) {
+    // Return a default response indicating user is not logged in
+    return { success: false, message: "User not logged in", requiresLogin: true };
+  }
 
   const decoded: any = jwtDecode(accessToken);
 
@@ -498,6 +502,12 @@ export async function addCredits(amount: number, referenceId: string, descriptio
 
 export async function getBalance(): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
+  
+  if (!accessToken) {
+    // Return a default balance for non-logged in users
+    return { balance: 0, requiresLogin: true };
+  }
+  
   const decoded: any = jwtDecode(accessToken);
 
   try {
@@ -521,6 +531,12 @@ export async function getBalance(): Promise<any> {
 
 export async function spendCredits(amount: number): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
+  
+  if (!accessToken) {
+    // Return a response indicating user needs to log in to spend credits
+    return { success: false, message: "Login required to spend credits", requiresLogin: true };
+  }
+  
   const decoded: any = jwtDecode(accessToken);
 
   try {
@@ -546,6 +562,12 @@ export async function spendCredits(amount: number): Promise<any> {
 
 export async function getTransactions(): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
+  
+  if (!accessToken) {
+    // Return empty transactions for non-logged in users
+    return { transactions: [], requiresLogin: true };
+  }
+  
   const decoded: any = jwtDecode(accessToken);
 
   try {
@@ -572,22 +594,108 @@ export async function getTransactions(): Promise<any> {
  * @param redirectUri URI to redirect after successful authentication
  * @returns Authentication URL to start the Google OAuth flow
  */
-export async function getGoogleOAuthURL(redirectUri: string) {
+export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string) => {
   try {
-    // Include the redirect_uri parameter in the request
-    const response = await apiClient.get(
-      `${API_BASE_URLS.auth}/auth/oauth/google/login?redirect_uri=${encodeURIComponent(redirectUri)}`, 
+    // Use provided redirectUri or fall back to environment variable
+    const redirect_uri = redirectUri || process.env.GOOGLE_REDIRECT_URI;
+    const client_id = process.env.GOOGLE_CLIENT_ID;
+    
+    // Log for debugging
+    console.log('getGoogleOAuthURL called with:');
+    console.log('redirect_uri:', redirect_uri);
+    console.log('client_id:', client_id);
+    
+    if (!client_id) {
+      throw new ServerActionError("Google Client ID is not configured");
+    }
+    
+    if (!redirect_uri) {
+      throw new ServerActionError("Google Redirect URI is not configured");
+    }
+    
+    // Try to build the URL directly if needed
+    if (process.env.NODE_ENV === 'development') {
+      // Build Google OAuth URL directly
+      const params = new URLSearchParams({
+        client_id,
+        redirect_uri,
+        scope: 'openid email profile',
+        response_type: 'code',
+        access_type: 'offline',
+        prompt: 'consent'
+      });
+      
+      const authUrl = `https://accounts.google.com/o/oauth2/auth?${params.toString()}`;
+      return authUrl;
+    }
+    
+    // Otherwise use the backend service
+    const response = await apiClient.post(
+      `${API_BASE_URLS.auth}/auth/google-auth`,
+      { redirect_uri }
     );
-    console.log(response);
 
-    if (!response || !response.data || !response.data.auth_url) {
+    if (!response || !response.data || !response.data.authorization_url) {
       throw new ServerActionError("No authentication URL received from the API");
     }
 
-    return response.data.auth_url;
+    // Return the authorization URL
+    return response.data.authorization_url;
   } catch (error: any) {
     console.error("Error getting Google OAuth URL:", error);
     const errorMessage = error.response?.data?.detail || "Error processing Google authentication request.";
     throw new ServerActionError(errorMessage);
   }
-}
+});
+
+/**
+ * Handles the Google OAuth callback by sending the authorization code to the backend
+ * @param code The authorization code received from Google
+ * @returns The JWT token and user information
+ */
+export const handleGoogleCallback = createServerAction(async (code: string) => {
+  if (!code) {
+    throw new ServerActionError("Authorization code is required");
+  }
+
+  try {
+    const response = await apiClient.post(`${API_BASE_URLS.auth}/auth/login-with-google`, {
+      code
+    });
+
+    if (!response || !response.data) {
+      throw new ServerActionError("No data received from API.");
+    }
+
+    const { expirationDate } = await decodeToken(response.data.access_token);
+
+    setServerCookie("accessToken", response.data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      expires: expirationDate
+    });
+
+    return { success: true };
+  } catch (error: any) {
+    const status = error.response?.status;
+    let errorMessage;
+
+    switch (status) {
+      case 400:
+        errorMessage = error.response?.data?.detail?.message || "Invalid authorization code";
+        throw new ServerActionError(errorMessage);
+      case 422:
+        {
+          const validationErrors = error.response?.data?.details || [];
+          const errorMessages = validationErrors
+            .map((err: any) => `${err.loc?.join(" -> ") || ""}: ${err.msg}`)
+            .join(", ");
+          throw new ServerActionError(`Validation Error: ${errorMessages}`);
+        }
+      default:
+        errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+        throw new ServerActionError(`Error ${status || "unknown"}: ${errorMessage}`);
+    }
+  }
+});

@@ -62,7 +62,7 @@ export const Contacts: React.FC = () => {
       </div>
 
       <h3 className="font-montserrat text-[30px] md:text-[36px] font-medium text-white leading-none mb-[38px]">Contact Us</h3>
-      <p className="font-montserrat text-[21px] md:text-[24px] font-medium text-white leading-none">support@laborojobs.com</p>
+      <p className="font-montserrat text-[21px] md:text-[24px] font-medium text-white leading-none">info@laborojobs.com</p>
     </section>
   );
 };

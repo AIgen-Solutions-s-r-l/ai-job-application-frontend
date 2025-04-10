@@ -1,10 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 import { handleGoogleCallback } from "@/libs/api/auth";
 import config from "@/config";
+import axios from "axios";
 
 export const dynamic = "force-dynamic";
 
-// This route is called after the auth_service redirects from the Google OAuth callback
+// This route is called after a successful Google OAuth login. It exchanges the code for a JWT token and redirects to the callback URL.
 export async function GET(req: NextRequest) {
   const requestUrl = new URL(req.url);
   const code = requestUrl.searchParams.get("code");
@@ -29,14 +30,9 @@ export async function GET(req: NextRequest) {
         const errorMessage = "google_auth_failed";
         return NextResponse.redirect(requestUrl.origin + config.auth.loginUrl + "?error=" + encodeURIComponent(errorMessage));
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error handling Google callback:", error);
-      return NextResponse.redirect(
-        requestUrl.origin +
-        config.auth.loginUrl +
-        "?error=" +
-        encodeURIComponent(error.message || "google_auth_failed")
-      );
+      return NextResponse.redirect(requestUrl.origin + config.auth.loginUrl + "?error=google_auth_failed");
     }
   }
 

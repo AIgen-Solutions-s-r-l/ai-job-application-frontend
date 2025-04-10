@@ -9,6 +9,7 @@ import {
   CircleCheck,
   CreditCard,
   Settings,
+  CircleHelp,  
   Briefcase,
   LogOut,
 } from 'lucide-react';
@@ -129,6 +130,11 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           name: 'Account Information',
           href: '/dashboard/settings',
           icon: Settings,
+        },
+        {
+          name: 'Need help?',
+          href: 'mailto:help@laboro.co',
+          icon: CircleHelp,
         },
       ],
     },

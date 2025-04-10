@@ -49,7 +49,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
   if (jobs.length === 0) {
     return (
       <div className={'w-full h-full items-center justify-center text-4xl'}>
-        No jobs found
+        No jobs matched
       </div>
     );
   }
@@ -58,7 +58,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
     <div className={cn('w-full flex flex-col gap-5 py-5', className)}>
       <div className="w-full flex items-center gap-[60px] pl-[200px]">
         <div className="w-[900px]">
-          <h5 className='text-lg'>{jobs.length} jobs found</h5>
+          <h5 className='text-lg'>{jobs.length} jobs matched</h5>
         </div>
           <button
             onClick={handleApply}

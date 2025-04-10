@@ -73,19 +73,23 @@ const Login = () => {
     }
   };
 
-  const handleGoogleOath = async () => {
+  const handleGoogleOauth = async () => {
     setIsGoogleLoading(true);
     try {
-      const redirectURL = window.location.origin + '/api/auth/callback';
-      const result = await getGoogleOAuthURL(redirectURL);
+      // Use the environment variable for redirect URI
+      const result = await getGoogleOAuthURL();
+      
       if (result.success && result.value) {
-        window.location.href = result.value;
+        // Redirect to the Google authorization URL
+        window.location.href = result.value as string;
       } else {
-        toast.error('Failed to initiate Google authentication');
+        // Type assertion to access the error property
+        const errorResult = result as { success: false; error: string };
+        toast.error(errorResult.error || 'Failed to initiate Google authentication');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error starting Google authentication:', error);
-      toast.error('Error starting Google authentication');
+      toast.error(error.message || 'Error starting Google authentication');
     } finally {
       setIsGoogleLoading(false);
     }
@@ -169,7 +173,7 @@ const Login = () => {
         <div className='divider text-sm text-gray-500'>OR</div>
 
         <button
-          onClick={handleGoogleOath}
+          onClick={handleGoogleOauth}
           className='btn btn-outline w-full flex items-center justify-center gap-2'
           disabled={isGoogleLoading}
         >

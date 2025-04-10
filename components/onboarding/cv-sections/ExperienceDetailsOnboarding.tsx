@@ -171,7 +171,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
               placeholder="e.g., Tech"
               // error={!!errors.experienceDetails?.[index]?.industry}
               // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
-              className='w-[164px]'
+              className='w-[250px]'
             />
           </InputWrapper>
           <InputWrapper>

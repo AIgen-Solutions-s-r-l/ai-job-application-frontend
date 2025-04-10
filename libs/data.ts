@@ -290,6 +290,9 @@ export async function getPendingApplicationsData(): Promise<PendingApplicationRe
 export async function getDetailedApplicationData(id: string): Promise<DetailedPendingApplication | null> {
   try {
     const applicationDetails: DetailedPendingApplication = await fetchDetailedApplicationData(id);
+
+    // console.log("getDetailedApplicationData: \n", JSON.stringify(applicationDetails));
+
     return applicationDetails;
   } catch (error) {
     console.error("Error fetching application details from API:", error);

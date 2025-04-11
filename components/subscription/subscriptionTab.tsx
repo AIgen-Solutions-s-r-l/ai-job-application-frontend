@@ -159,11 +159,11 @@ function SubscriptionTab() {
             setSliderValue={setSliderValue}
           />
           {/* "Current plan" label if 500 is selected */}
-          {values[sliderValue].value === "500" && (
+          {/* {values[sliderValue].value === "500" && (
             <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
               Current plan
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price + purchase */}

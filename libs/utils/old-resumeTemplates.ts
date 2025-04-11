@@ -328,7 +328,7 @@ const cloyolaTemplate: TemplateStyle = {
   },
 };
 
-export const templateStyles = {
+const templateStyles = {
   'default': defaultTemplate,
   'krishnavalliappan': krishnavalliappanTemplate,
   'samodum_bold': samodumBoldTemplate,
@@ -337,16 +337,16 @@ export const templateStyles = {
   'cloyola': cloyolaTemplate,
 } as const;
 
-export const templateStyleByIndex: Record<number, string> = {
+const templateStyleByIndex: Record<number, string> = {
   1: 'samodum_bold',
   2: 'josylad_grey',
   3: 'josylad_blue',
   4: 'cloyola'
 };
 
-export type TemplateType = keyof typeof templateStyles;
+type TemplateType = keyof typeof templateStyles;
 
-export interface TemplateStyle {
+interface TemplateStyle {
   background?: string;
   body: string;
   personal: PersonalStyle;

@@ -28,7 +28,7 @@ interface ResumeBody {
 interface JobInfo {
     id: string
     title: string
-    is_remote: string
+    is_remote?: string
     workplace_type: string
     posted_date: string
     job_state: string
@@ -91,8 +91,8 @@ export interface EducationDetail {
     institution: string;
     field_of_study: string;
     final_evaluation_grade: string;
-    start_date: number;
-    year_of_completion: number;
+    start_date: number | string;
+    year_of_completion: number | string;
     location: {
         country: string;
         city: string;
@@ -101,7 +101,7 @@ export interface EducationDetail {
 }
 
 interface Exam {
-    [key: string]: number;
+    [key: string]: number | string;
 }
 
 interface ExperienceDetails {
@@ -135,7 +135,7 @@ interface PersonalInformation {
     zip_code?: string;
     address?: string;
     phone_prefix?: string;
-    phone?: number;
+    phone?: number | string;
     email?: string;
     github?: string;
     linkedin?: string;

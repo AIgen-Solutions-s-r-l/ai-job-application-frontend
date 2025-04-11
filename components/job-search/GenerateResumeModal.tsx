@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import { CloseButtonIcon } from "@/components/AppIcons";
 import Template1 from '../svgs/template1.svg';
@@ -42,6 +42,11 @@ const GenerateResumeModal = ({
 }: ModalProps) => {
     const [isDragging, setIsDragging] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Reset the choice when the modal is closed
+    useEffect(() => {
+        setGenerateTemplate(false);
+      }, [isModalOpen]);
 
 
     const handleConfirm = async () => {
@@ -135,8 +140,13 @@ const GenerateResumeModal = ({
                                     </button>
                                 </div>
                                 <section className="pb-5 px-6">
-                                    <p className="font-jura text-[18px] font-semibold">
-                                        Generate a resume for each job post with the selected template?
+                                    <p className="font-jura text-[18px] font-semibold text-center">
+                                        {generateTemplate
+                                            ? "Select a template to generate your resume for the selected jobs."
+                                            : "Upload your resume to apply for the selected jobs."}
+                                    </p>
+                                    <p className="font-jura font-semibold text-red-500 text-center pt-5">
+                                        Note: this action is irreversible, you will not be able to undo it.
                                     </p>
                                 </section>
                                 <ToggleSwitch

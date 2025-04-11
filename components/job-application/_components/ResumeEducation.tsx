@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { FC, ReactElement, useCallback, KeyboardEvent } from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
@@ -9,11 +9,11 @@ import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "educationDetails">
 
-const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
+const ExamNestedFieldArray: FC<{ index: number; }> = ({
   index,
 }: {
   index: number;
-}): React.ReactElement => {
+}): ReactElement => {
   const { register } = useFormContext<FormData>();
   const { fields, append, insert, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
@@ -21,7 +21,7 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
   const { template } = useCVTemplateContext();
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>, respIndex: number) => {
+    (e: KeyboardEvent<HTMLInputElement>, respIndex: number) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         insert(respIndex + 1, { subject: "", grade: "" });
@@ -88,7 +88,7 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
   )
 }
 
-export const ResumeEducation: React.FC = () => {
+export const ResumeEducation: FC = () => {
   const { control, register, getValues } = useFormContext<FormData>();
   const { fields, append, remove, update } = useFieldArray({ control, name: "educationDetails" });
   const { activeSection, setActiveSection } = useActiveSectionContext();

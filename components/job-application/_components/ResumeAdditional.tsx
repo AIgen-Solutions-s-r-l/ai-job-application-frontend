@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, ReactElement } from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
@@ -10,7 +10,7 @@ import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "additionalInfo">
 
-// const SkillsNestedFieldArray: React.FC = () => {
+// const SkillsNestedFieldArray: FC = () => {
 //   const { getValues, setValue } = useFormContext<FormData>();
 //   const additional_skills = getValues('additionalInfo.additional_skills');
 //   const { activeSection, setActiveSection } = useActiveSectionContext();
@@ -62,7 +62,7 @@ type FormData = Pick<Resume, "additionalInfo">
 //   ) : null;
 // }
 
-const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
+const LanguageNestedFieldArray: FC = (): ReactElement => {
   const { register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.languages`
@@ -134,7 +134,7 @@ const LanguageNestedFieldArray: React.FC = (): React.ReactElement => {
   ) : null;
 }
 
-const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
+const ProjectsNestedFieldArray: FC = (): ReactElement => {
   const { register, getValues } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.projects`
@@ -226,7 +226,7 @@ const ProjectsNestedFieldArray: React.FC = (): React.ReactElement => {
   ) : null;
 }
 
-const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
+const AchievementsNestedFieldArray: FC = (): ReactElement => {
   const { register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.achievements`
@@ -302,7 +302,7 @@ const AchievementsNestedFieldArray: React.FC = (): React.ReactElement => {
   ) : null;
 }
 
-const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
+const CertificationsNestedFieldArray: FC = (): ReactElement => {
   const { register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.certifications`
@@ -378,7 +378,7 @@ const CertificationsNestedFieldArray: React.FC = (): React.ReactElement => {
   ) : null;
 }
 
-export const ResumeAdditional: React.FC = () => {
+export const ResumeAdditional: FC = () => {
   const { template } = useCVTemplateContext();
 
   return <>

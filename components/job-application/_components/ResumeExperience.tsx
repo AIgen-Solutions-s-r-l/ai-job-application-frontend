@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import { FC, ReactElement, useCallback, useEffect, KeyboardEvent } from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
@@ -10,11 +10,11 @@ import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "experienceDetails">
 
-const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
+const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   index,
 }: {
   index: number;
-}): React.ReactElement => {
+}): ReactElement => {
   const { register } = useFormContext<FormData>();
   const { fields, append, insert, remove } = useFieldArray({
     name: `experienceDetails.${index}.key_responsibilities`
@@ -28,7 +28,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   }, []);
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {
+    (e: KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         insert(respIndex + 1, "");
@@ -70,7 +70,7 @@ const ResponsibilityNestedFieldArray: React.FC<{ index: number; }> = ({
   )
 }
 
-export const ResumeExperience: React.FC = () => {
+export const ResumeExperience: FC = () => {
   const { control, register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: "experienceDetails" });
   const { activeSection, setActiveSection } = useActiveSectionContext();

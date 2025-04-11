@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import CheckMark from '../svgs/CheckMarkPurple.svg'
 import { Transaction } from '@/libs/definitions';

@@ -18,12 +18,13 @@ interface User {
   id: string;
   username: string;
   email: string;
-  exists: boolean;
+  exists: boolean; // Indicates if a resume exists for the user
+  auth_type: 'password' | 'google' | 'both' | null; // Added auth_type
 }
 
 type UserContextType = {
   user: User | null;
-  setUser: Dispatch<SetStateAction<User>>;
+  setUser: Dispatch<SetStateAction<User | null>>; // Allow null during initialization/logout
   setAccessToken: Dispatch<React.SetStateAction<string>>;
 };
 
@@ -84,7 +85,14 @@ export default function UserContextProvider({
           fetchUserData(),
         ]);
 
-        const newUserData = { ...exists, ...me };
+        // Ensure all expected fields are present, including the new auth_type
+        const newUserData: User = {
+          id: me.id,
+          username: me.username,
+          email: me.email,
+          exists: exists.exists, // Assuming exists comes from isResumeExits()
+          auth_type: me.auth_type || null, // Get auth_type from /me response, default to null
+        };
         setUser(newUserData);
 
         // console.log('this is me', newUserData);

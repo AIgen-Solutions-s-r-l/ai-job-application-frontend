@@ -47,6 +47,7 @@ const ChoseLocationModal = ({
     const { register, handleSubmit, getValues, reset } = useForm<FormType>({
         defaultValues: {
             location: defaultLocation,
+            country: defaultLocation,
             experience: "Mid-level",  
         }
     });
@@ -64,13 +65,24 @@ const ChoseLocationModal = ({
                 const timeoutId = setTimeout(async () => {
                     const response = await locationQuery(e.target.value);
                     setDataArray(response);
-                }, 100);
+                }, 200);
                 setSearchTimeout(timeoutId);
             } else {
                 setDataArray([]);
             }
+
+            if (!e.target.value || e.target.value.length <= 2) {
+                reset({
+                    ...getValues(),
+                    location: e.target.value,
+                    city: undefined,
+                    country: undefined,
+                    latitude: undefined,
+                    longitude: undefined,
+                });
+            }
         },
-        [searchTimeout]
+        [getValues, reset, searchTimeout]
     );
 
     const handleLocationSelect = (data: any) => {

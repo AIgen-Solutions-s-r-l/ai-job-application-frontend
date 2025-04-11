@@ -115,6 +115,12 @@ progress::-webkit-progress-value {
     overflow-y: scroll;
   }
   
+  .my-x-scrollable {
+    scrollbar-color: #8783D1 #E9E3EE;
+    scrollbar-width: thin;
+    overflow-x: scroll;
+  }
+
   @media (width <= 767px) {
     .my-collapse-plus > .collapse-title:after {
       position: absolute;

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AlertTriangle, Search } from 'lucide-react';
+import { AlertTriangle, Building2, Globe2, HomeIcon, Search } from 'lucide-react';
 import { locationQuery } from '@/libs/api/matching';
 import { JobSearchProps } from '@/libs/definitions';
 import { useRouter } from 'next/navigation';
@@ -26,7 +26,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const { totalCount } = useJobSearch();
 
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
-    defaultValues: searchParams,
+    defaultValues: { ...searchParams, is_remote_only: String(searchParams.is_remote_only) === 'true' }, // Handle potential string from URL params
   });
 
   const router = useRouter();
@@ -42,7 +42,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   };
 
   const onSubmit = async () => {
-    const { q, location, country, city, latitude, longitude, experience } = getValues();
+    const { q, location, country, city, latitude, longitude, experience, is_remote_only } = getValues(); // Get is_remote_only value
 
     // Validate location if there's any input
     if (location && !country) {
@@ -72,6 +72,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       cleanParams.experience = experience;
     }
 
+    // Add is_remote_only only if it's true
+    if (is_remote_only) {
+      cleanParams.is_remote_only = true;
+    }
+
     await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience: experience ?? '' }), {});
 
     onSearch(cleanParams);
@@ -90,14 +95,14 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
           setDataArray(response);
-        }, 100);
+        }, 200);
         setSearchTimeout(timeoutId);
       } else {
         setDataArray([]);
       }
 
       // Clear all location-related data when input is empty or too short
-      if (!e.target.value || e.target.value.length <= 3) {
+      if (!e.target.value || e.target.value.length <= 2) {
         reset({
           ...getValues(),
           location: e.target.value,
@@ -138,6 +143,18 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     setShowSuggestions(false);
     setLocationError(null);
+  };
+
+  const getIcon = (addresstype: any) => {
+    switch (addresstype) {
+      case 'country':
+        return <Globe2 size={16} className="text-neutral-400" />;
+      case 'city':
+      case 'town':
+        return <Building2 size={16} className="text-neutral-400" />;
+      default:
+        return <HomeIcon size={16} className="text-neutral-400" />;
+    }
   };
 
   return (
@@ -197,7 +214,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                     <div
                       key={index}
                       onClick={() => handleLocationSelect(data)}
-                      className='w-full box-border flex items-center px-10 py-1 hover:text-blue-500 cursor-pointer'
+                      className='w-full box-border flex items-center px-5 py-1 hover:text-blue-500 cursor-pointer'
                     >
                       {(() => {
                         const location = data.address.city
@@ -209,9 +226,12 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                               : '';
                         return (
                           <>
-                            <span className="text-neutral-500 text-sm ml-2">
-                              {`${location}${data.address.country}`}
-                            </span>
+                            <div className="flex items-center gap-2">
+                              {getIcon(data.addresstype)}
+                              <span className="text-neutral-500 text-sm">
+                                {`${location}${data.address.country}`}
+                              </span>
+                            </div>
                           </>
                         );
                       })()}
@@ -251,6 +271,19 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 <option value="Executive-level">Executive-level</option>
               </select>
               {!!errors.experience && <p className="text-error mt-[2px] text-xs lg:text-sm font-jura">{errors.experience?.message}</p>}
+
+              {/* Remote Only Checkbox */}
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="is_remote_only"
+                  {...register('is_remote_only')}
+                  className="checkbox checkbox-primary checkbox-sm border-neutral hover:border-primary"
+                />
+                <label htmlFor="is_remote_only" className="cursor-pointer select-none">
+                  Remote Only
+                </label>
+              </div>
               {/* <select
                 className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
                 defaultValue='remote'

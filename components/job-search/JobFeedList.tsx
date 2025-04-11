@@ -163,8 +163,8 @@ export const JobFeedList: FC = () => {
             </div>
             <div className="flex items-center gap-5">
               <p className='hidden md:block font-jura font-semibold text-[18px]'>Select All</p>
-              <div className="h-10 w-10 rounded-md flex items-center justify-center cursor-pointer job-select-box" onClick={handleSelectAll}>
-                {isAllSelected() && <Check className='text-white' size={24} />}
+              <div className="h-10 w-10 rounded-md flex items-center text-black justify-center cursor-pointer job-select-box" onClick={handleSelectAll}>
+                {isAllSelected() && <Check size={24} />}
               </div>
             </div>
           </div>

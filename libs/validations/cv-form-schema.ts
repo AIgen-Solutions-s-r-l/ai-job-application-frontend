@@ -45,7 +45,7 @@ export const educationSchema = z.object({
   institution: z.string().min(2, 'Institution is required'),
   field_of_study: z.string().min(2, 'Field of study is required'),
   start_date: z.string().min(4, 'Start date is required'),
-  year_of_completion: z.string().min(4, 'Completion date is required'),
+  year_of_completion: z.string().min(4, 'End date is required'),
   final_evaluation_grade: z.string().min(1, 'Grade is required'),
   location: z.object({
     country: z.string().min(2, 'Country is required'),

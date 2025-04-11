@@ -134,16 +134,16 @@ const Signup = () => {
                 })}
                 className="mt-1.5 scale-125 accent-primary"
               />
-              <span>
+                <span>
                 I agree to the{' '}
-                <Link href="/terms" className="text-primary underline">
+                <a href="https://drive.google.com/file/d/1GJZ2moJmJ8KBSrzVPcD9Slg6Kx_gTDSM/view" className="text-primary underline" target="_blank" rel="noopener noreferrer">
                   Terms of Service
-                </Link>{' '}
+                </a>{' '}
                 and{' '}
-                <Link href="/privacy" className="text-primary underline">
-                  Privacy Policy
-                </Link>.
-              </span>
+                <a href="https://drive.google.com/file/d/1M7AMuOOO6OAIXViYxY5gCVcnhYx6xQEB/view" className="text-primary underline" target="_blank" rel="noopener noreferrer">
+                  Privacy & Cookie Policy
+                </a>.
+                </span>
             </label>
           </FormField>
           

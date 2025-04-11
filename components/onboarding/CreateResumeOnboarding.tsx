@@ -19,9 +19,6 @@ import ChoseLocationModal from './ChooseLocationModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cvFormSchema, type CVFormData } from '@/libs/validations/cv-form-schema';
 import { scrollToError } from '@/libs/utils/form-utils';
-import { useUserContext } from '@/contexts/user-context';
-import { isResumeExits } from '@/libs/api/resume';
-import { fetchUserData } from '@/libs/api/auth';
 
 export const CreateResumeOnboarding: React.FC = () => {
   const { CVData, setCVData } = useCVDataContext();
@@ -33,8 +30,6 @@ export const CreateResumeOnboarding: React.FC = () => {
     defaultValues: CVData,
     resolver: zodResolver(cvFormSchema)
   });
-
-  const { setUser } = useUserContext()
 
   const validateStep = useCallback(async () => {
     let validateFields: any = [];
@@ -65,17 +60,10 @@ export const CreateResumeOnboarding: React.FC = () => {
   }
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {
-    console.log('here')
     try {
       const response = await createJobProfile(jobProfile);
       if (response.success) {
         toast.success("Profile saved successfully!");
-        const [exists, me] = await Promise.all([
-          isResumeExits(),
-          fetchUserData(),
-        ]);
-        const newUserData = { ...exists, ...me };
-        setUser(newUserData);
         setDefaultLocation(jobProfile.personalInfo.country)
         setIsModalOpen(true);
       } else {

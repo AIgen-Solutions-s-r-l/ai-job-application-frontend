@@ -14,8 +14,8 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
 }: {
   index: number;
 }): React.ReactElement => {
-  const { register, getValues } = useFormContext<FormData>();
-  const { fields, append, insert, remove } = useFieldArray({
+  const { register } = useFormContext<FormData>();
+  const { fields, insert, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
   })
   const { template } = useCVTemplateContext();
@@ -208,7 +208,6 @@ export const ResumeEducation: React.FC = () => {
                   placeholder="Grade"
                   className="min-w-2"
                 />
-                /4
               </span>
               <span className={template.education.entryYear}>
                 <NullifiedInput

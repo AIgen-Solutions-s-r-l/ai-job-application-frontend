@@ -168,11 +168,22 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 placeholder="e.g., Software Engineer"
                 error={!!errors.experienceDetails?.[index]?.position}
                 errorMessage={errors.experienceDetails?.[index]?.position?.message}
-                className='grow'
+                className='grow max-w-[400px]'
               />
               <FormInput
+                title={'Industry'}
+                {...register(`experienceDetails.${index}.industry`)}
+                required={false}
+                placeholder="e.g., Tech"
+                // error={!!errors.experienceDetails?.[index]?.industry}
+                // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
+                className='w-[164px]'
+              />
+            </InputWrapper>
+
+            <InputWrapper>
+              <FormInput
                 title={'Start Date'}
-                type="date"
                 {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
                 placeholder="e.g., June 2020 - Present"
                 error={!!errors.experienceDetails?.[index]?.employment_start_date}
@@ -181,7 +192,6 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
               />
               <FormInput
                 title={'End Date'}
-                type="date"
                 {...register(`experienceDetails.${index}.employment_end_date`, { required: 'End Date is required' })}
                 placeholder="e.g., June 2020 - Present"
                 error={!!errors.experienceDetails?.[index]?.employment_end_date}
@@ -202,15 +212,6 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 placeholder="e.g., Milan"
                 error={!!errors.experienceDetails?.[index]?.location.city}
                 errorMessage={errors.experienceDetails?.[index]?.location.city?.message}
-                className='w-[164px]'
-              />
-              <FormInput
-                title={'Industry'}
-                {...register(`experienceDetails.${index}.industry`)}
-                required={false}
-                placeholder="e.g., Tech"
-                // error={!!errors.experienceDetails?.[index]?.industry}
-                // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
                 className='w-[164px]'
               />
             </InputWrapper>

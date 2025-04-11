@@ -35,7 +35,7 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
       <h3 className="font-montserrat text-base md:text-xl font-medium pr-12">{job.title}</h3>
       <div className='flex items-center justify-between'>
         <h3 className="font-montserrat text-base md:text-xl font-normal">{job.company_name}</h3>
-        {job.company_logo && (
+        {/* {job.company_logo && (
           <div className='w-[80px] h-[40px]'>
             <img
               src={job.company_logo}
@@ -43,7 +43,7 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
               className='w-full h-full object-contain'
             />
           </div>
-        )}
+        )} */}
       </div>
       {job.location
         ? (
@@ -64,8 +64,8 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
           {job.short_description}
         </p>
       </div>
-      <div className="absolute top-3 right-4 h-10 w-10 job-select-box rounded-md flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
-        {mounted && isSelected && <Check size={24} />}
+      <div className="absolute top-3 right-4 h-10 w-10 job-select-box rounded-md text-black flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
+        {mounted && isSelected && <Check size={32} strokeWidth={2} />}
       </div>
       <Link href={`/manager/${id}`} className='btn mt-4 lg:mt-8 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white'>
         Edit Resume & Cover Letter

@@ -3,7 +3,7 @@
 import { Fragment, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CloseButtonIcon } from "@/components/AppIcons";
-import { Trash2, Building2, Briefcase } from "lucide-react";
+import { Trash2, Building2, Briefcase, Trash, Delete, DeleteIcon } from "lucide-react";
 import { useJobSearch } from "@/contexts/job-search-context";
 
 interface ModalProps {
@@ -46,7 +46,7 @@ const SelectedJobsModal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
               <Dialog.Panel className="flex flex-col items-center relative w-[700px] max-h-[80vh] py-6 bg-white rounded-xl shadow-lg">
                 <div className="flex w-full justify-between items-center mb-4 px-6">
                   <div className="w-[30px] h-[20px]"></div>
-                  <p className="font-jura text-[18px] font-semibold">{selectedJobs.length} Jobs Selected</p>
+                  <p className="font-jura text-[18px] font-semibold">{selectedJobs.length.toLocaleString('en-US')} Jobs Selected</p>
                   <button
                     className="outline-none"
                     onClick={() => setIsModalOpen(false)}
@@ -86,6 +86,21 @@ const SelectedJobsModal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
                     ))}
                   </div>
                 </div>
+                {selectedJobs.length > 0 && (
+                  <div className="flex items-center justify-center w-full mt-4">
+                  <div 
+                    className="flex items-center gap-2 text-red-500 cursor-pointer absolute bottom-4 pt-4"
+                    onClick={(e) => {
+                    e.stopPropagation();
+                    // Clear all selected jobs
+                    selectedJobs.forEach(job => handleJobSelect(job, e as any));
+                    }}
+                  >
+                    <Trash2 size={20} />
+                    <span className="text-sm font-medium">Clear all</span>
+                  </div>
+                  </div>
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>

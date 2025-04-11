@@ -471,6 +471,12 @@ export async function addCredits(amount: number, referenceId: string, descriptio
   }
 
   try {
+    // console.log("Adding credits:", {
+    //   amount,
+    //   referenceId,
+    //   description,
+    //   userId: decoded.id
+    // });
     const response = await apiClientJwt.post(`${API_BASE_URLS.auth}/credits/add?user_id=${decoded.id}`,
       {
         amount: amount,

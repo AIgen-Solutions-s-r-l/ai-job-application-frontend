@@ -72,13 +72,12 @@ function SubscriptionTab() {
           return response.json();
         })
         .then(data => {
-          const transactionId = data.transactionId;
-
-          // Usar el Transaction ID en lugar del Session ID
+          const referenceId = data.subscriptionId || data.paymentIntentId || sessionId;
+        
           return addCredits(
             creditsAmount,
-            transactionId, // Aquí pasamos el Transaction ID en lugar del Session ID
-            `Added ${creditsAmount} applications via Stripe payment (Transaction: ${transactionId})`
+            referenceId,
+            `Added ${creditsAmount} applications via Stripe (${referenceId.startsWith("sub_") ? "Subscription" : "Payment"}: ${referenceId})`
           );
         })
         .then(() => {

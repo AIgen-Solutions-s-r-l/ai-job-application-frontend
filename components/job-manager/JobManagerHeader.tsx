@@ -38,7 +38,7 @@ export const JobManagerHeader: FC = () => {
         <div className="w-full lg:w-[430px] h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
           <p className='font-jura text-[18px] font-semibold'>Select All Jobs</p>
           <div className="h-10 w-10 rounded-md flex items-center justify-center cursor-pointer job-select-box" onClick={handleSelectAll}>
-            {mounted && isAllSelected() && <Check className='text-white' size={24} />}
+            {mounted && isAllSelected() && <Check size={24} />}
           </div>
         </div>
       </div>

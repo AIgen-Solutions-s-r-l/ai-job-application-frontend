@@ -210,7 +210,6 @@ export const ResumeEducation: FC = () => {
                   placeholder="Grade"
                   className="min-w-2"
                 />
-                /4
               </span>
               <span className={template.education.entryYear}>
                 <NullifiedInput

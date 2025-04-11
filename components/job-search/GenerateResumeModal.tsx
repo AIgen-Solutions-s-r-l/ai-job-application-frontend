@@ -145,7 +145,7 @@ const GenerateResumeModal = ({
                                     label="Yes, Generate"
                                 />
                                 {generateTemplate ?
-                                    <section className={`px-7 flex w-full py-3 h-[320px] gap-4 bg-base-100 overflow-auto relative`}>
+                                    <section className={`px-7 flex w-full py-3 h-[320px] gap-4 bg-base-100 my-x-scrollable relative`}>
                                         {
                                             [Template1, Template2, Template3, Template4].map((template, index) => (
                                                 <TemplateCard

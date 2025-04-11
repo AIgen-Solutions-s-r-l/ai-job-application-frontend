@@ -11,6 +11,7 @@ const MobileFeatures: FC = () => {
   return (
     <section className="py-12 px-4">
       {/* Header */}
+      <Hero />
       <div className="flex flex-col items-center gap-6 mb-12">
         <h2 className="text-3xl font-medium text-center text-white">
           All the jobs on the internet, in one place.
@@ -134,7 +135,7 @@ export const DesktopFeatures: FC = () => {
           >
             <Image src='/landing/feature-1.png' alt='feature-1' width={305} height={100} />
 
-            <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">300K+ Followers</p>
+            <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">400K+ Followers</p>
 
             <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">on social platforms (Instagram, Github)</p>
           </div>

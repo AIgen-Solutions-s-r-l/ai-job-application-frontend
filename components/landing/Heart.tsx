@@ -44,7 +44,7 @@ function Heart({ ClassName }: { ClassName?: string }) {
     const rightEyePosition = getEyePosition(rightEyeBall, rightEyeContainer);
 
     return (
-        <div className={`w-[150px] h-[150px] bg-splash-orange items-center justify-center rounded-full pt-[10px] lg:flex hidde ${ClassName ? ClassName : 'relative'}`}>
+        <div className={`w-[150px] h-[150px] bg-splash-orange items-center justify-center rounded-full pt-[10px] lg:flex hidden ${ClassName ? ClassName : 'relative'}`}>
             <Image src={HeartImage} alt="Heart" width={120} height={120} />
             <div ref={leftEyeContainer} className="absolute top-[65px] left-9 w-6 h-6 bg-white rounded-full flex items-center justify-center">
                 <div

@@ -43,7 +43,7 @@ function Star() {
     const rightEyePosition = getEyePosition(rightEyeBall, rightEyeContainer);
 
     return (
-        <div className="relative items-center justify-center rounded-full pt-[10px] lg:flex hidden">
+        <div className="relative items-center justify-center rounded-full pt-[10px] lg:flex hidden animate-moveIn">
             <Image src={Start} alt="Heart" />
             {/* Orange circle with eyes */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110px] h-[110px] bg-splash-orange rounded-full flex items-center justify-center">

@@ -266,6 +266,7 @@ export interface JobSearchParams {
   keywords?: string[]
   offset?: number
   experience?: string
+  is_remote_only?: boolean // Add new filter parameter
 }
 
 export type JobSearchProps = JobSearchParams & {

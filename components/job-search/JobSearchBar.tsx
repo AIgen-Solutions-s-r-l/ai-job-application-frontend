@@ -26,7 +26,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const { totalCount } = useJobSearch();
 
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
-    defaultValues: searchParams,
+    defaultValues: { ...searchParams, is_remote_only: String(searchParams.is_remote_only) === 'true' }, // Handle potential string from URL params
   });
 
   const router = useRouter();
@@ -42,7 +42,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   };
 
   const onSubmit = async () => {
-    const { q, location, country, city, latitude, longitude, experience } = getValues();
+    const { q, location, country, city, latitude, longitude, experience, is_remote_only } = getValues(); // Get is_remote_only value
 
     // Validate location if there's any input
     if (location && !country) {
@@ -70,6 +70,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     if (experience) {
       cleanParams.experience = experience;
+    }
+
+    // Add is_remote_only only if it's true
+    if (is_remote_only) {
+      cleanParams.is_remote_only = true;
     }
 
     await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience: experience ?? '' }), {});
@@ -251,6 +256,19 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 <option value="Executive-level">Executive-level</option>
               </select>
               {!!errors.experience && <p className="text-error mt-[2px] text-xs lg:text-sm font-jura">{errors.experience?.message}</p>}
+
+              {/* Remote Only Checkbox */}
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="is_remote_only"
+                  {...register('is_remote_only')}
+                  className="checkbox checkbox-primary checkbox-sm border-neutral hover:border-primary"
+                />
+                <label htmlFor="is_remote_only" className="cursor-pointer select-none">
+                  Remote Only
+                </label>
+              </div>
               {/* <select
                 className='select bg-neutral-content focus:outline-none w-[150px] h-8 min-h-8 rounded-full flex gap-5 items-center'
                 defaultValue='remote'

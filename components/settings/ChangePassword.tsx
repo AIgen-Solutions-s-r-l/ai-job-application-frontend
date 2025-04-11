@@ -45,7 +45,7 @@ export const ChangePassword = () => {
     }
   };
 
-  const isGoogleAuth = user?.auth_type === 'google' || user?.auth_type === 'both';
+  const isGoogleAuth = user?.auth_type === 'google';
 
   return (
     <div className={typography.forms.container}>

@@ -8,11 +8,11 @@ import toast from 'react-hot-toast';
 import { ButtonApply } from '@/components/ButtonAppy';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { addJobsToManager, spendCreditsAction } from '@/libs/actions';
-import { templateStyleByIndex } from '../job-application/_components/resumeTemplates';
 import SubscriptionModal from './SubscriptionModal';
 import { useUserCreditsContext } from '@/contexts/user-credits-context';
 import SelectedJobsModal from './SelectedJobsModal';
 import { ShoppingBag } from 'lucide-react';
+import { templateStyleByIndex } from '@/libs/utils/resume-template-utils';
 
 export const JobSearchBottomSheet: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

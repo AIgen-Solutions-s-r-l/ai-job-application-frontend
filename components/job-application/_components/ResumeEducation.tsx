@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { FC, ReactElement, useCallback, KeyboardEvent } from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
@@ -9,19 +9,19 @@ import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 type FormData = Pick<Resume, "educationDetails">
 
-const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
+const ExamNestedFieldArray: FC<{ index: number; }> = ({
   index,
 }: {
   index: number;
-}): React.ReactElement => {
-  const { register, getValues } = useFormContext<FormData>();
+}): ReactElement => {
+  const { register } = useFormContext<FormData>();
   const { fields, append, insert, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
   })
   const { template } = useCVTemplateContext();
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>, respIndex: number) => {
+    (e: KeyboardEvent<HTMLInputElement>, respIndex: number) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         insert(respIndex + 1, { subject: "", grade: "" });
@@ -57,36 +57,38 @@ const ExamNestedFieldArray: React.FC<{ index: number; }> = ({
   if (!fields.length) return null;
 
   return (
-    <ul className={cn('relative', template.education.compactList)}>
+    <div className={cn('relative', template.education.coursesDetails)}>
+      <strong>Relevant Courses: </strong>
       {fields.map((responsibility, respIndex) => (
-        <li key={responsibility.id} className='group relative'>
+        <div key={responsibility.id} className='inline group relative'>
+          <div
+            className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
+            onClick={() => handleRemoveExam(respIndex)}
+          >-</div>
           <NullifiedInput
             id={`subject-${index}-${respIndex}`}
             {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
             placeholder="Subject of Exam"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
           />
-          &nbsp;→&nbsp;
-          <NullifiedInput
+          &nbsp;
+          (<NullifiedInput
             {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
             placeholder="Grade"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
-          />
+          />)
           <div
             className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
-            onClick={() => handleRemoveExam(respIndex)}
-          >-</div>
-          <div
-            className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-primray items-center justify-center rounded-full text-white text-lg leading-none cursor-pointer"
             onClick={() => handleInsertExam(respIndex)}
           >+</div>
-        </li>
+          {index === fields.length - 1 ? '.' : ', '}
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
 
-export const ResumeEducation: React.FC = () => {
+export const ResumeEducation: FC = () => {
   const { control, register, getValues } = useFormContext<FormData>();
   const { fields, append, remove, update } = useFieldArray({ control, name: "educationDetails" });
   const { activeSection, setActiveSection } = useActiveSectionContext();

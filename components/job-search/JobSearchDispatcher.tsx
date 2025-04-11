@@ -8,7 +8,10 @@ export const JobSearchDispatcher = async ({
 }: {
   searchParams: JobSearchProps; 
 }) => {
-  let modifiedSearchParams = searchParams;
+  let modifiedSearchParams = {
+    ...searchParams,
+    experience: searchParams.experience || 'Mid-level'
+  };
   
   if (!searchParams.country) {
     const searchDataStr = await getServerCookie('lastJobSearchData');
@@ -16,16 +19,10 @@ export const JobSearchDispatcher = async ({
       const searchData = JSON.parse(searchDataStr);
       const country = searchData.country || undefined;
       modifiedSearchParams = {
-        ...searchParams,
+        ...modifiedSearchParams,
         ...(country && { country, location: country }),
-        experience: searchData.experience ?? 'Mid-level'
       };
-    } else {
-      modifiedSearchParams = {
-        ...searchParams,
-        experience: 'Mid-level'
-      };
-    }
+    } 
   }
 
   const { q, location, ...jobSearchParams } = modifiedSearchParams;

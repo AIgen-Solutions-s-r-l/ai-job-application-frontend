@@ -14,7 +14,7 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
   if (!job) return <JobLargeCardSkeleton />;
 
   return (
-    <div className={cn("sticky top-5 hidden xl:flex flex-col h-[calc(100vh-120px)] bg-white rounded-xl py-8 px-10", className)}>
+    <div className={cn("sticky top-5 hidden xl:flex flex-col h-[calc(100vh-100px)] bg-white rounded-xl py-8 px-10", className)}>
       <div className='flex flex-col justify-between gap-3 border-b border-b-1 border-b-primary pb-5'>
         <div className='flex items-center justify-between'>
           <h3 className="text-[24px] xl:text-[32px] leading-[1.2] font-montserrat font-semibold">{job.title}</h3>

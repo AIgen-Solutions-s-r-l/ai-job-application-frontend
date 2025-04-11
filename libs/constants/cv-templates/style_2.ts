@@ -1,0 +1,49 @@
+import { TemplateStyle } from "@/libs/types/cv-template-style.type";
+
+export const style_2: TemplateStyle = {
+  body: 'font-calibri leading-[1.2] text-[#333] max-w-[700px] mx-auto py-[40px] px-[20px] text-[10pt]',
+  personal: {
+    header: 'text-center mb-[28px]',
+    h1: 'text-[21pt] leading-[1] font-medium mb-[10px]',
+    contactSection: 'flex flex justify-center flex-wrap font-normal',
+    contactItem: '[&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[4px]',
+  },
+  education: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
+    entry: 'mb-[8px]',
+    entryHeader: 'flex justify-between mb-[3px]',
+    entryDetails: 'flex justify-between mb-[4px]',
+    entryName: 'font-bold',
+    entryYear: 'italic',
+    compactList: 'list-disc pb-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+  experience: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
+    entry: 'mb-[8px]',
+    entryHeader: 'flex justify-between mb-[3px]',
+    entryDetails: 'flex justify-between mb-[4px]',
+    entryName: 'font-bold',
+    entryYear: 'italic',
+    compactList: 'list-disc pb-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+  projects: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
+    entry: 'mb-[8px]',
+    entryHeader: 'flex justify-between mb-[3px]',
+    entryName: 'font-bold',
+    compactList: 'list-disc pb-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+  additional: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
+    h3: 'text-[10pt] font-bold uppercase mt-[8px] mb-[4px] text-left',
+    compactList: 'list-disc pb-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+};

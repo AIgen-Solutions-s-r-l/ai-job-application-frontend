@@ -11,7 +11,7 @@ export const JobManagerList: React.FC = () => {
 
   return (
     <div className='w-full h-full gap-5 pt-16'>
-      <Container className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-[100px]">
+      <Container className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-[80px]">
         {Object.entries(applications).map(([key, value]) => (
           <JobManagerCard 
             key={key} 

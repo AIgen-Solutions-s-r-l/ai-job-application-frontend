@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import { typography } from '@/components/typography';
 import { FormInput } from '@/components/ui/form-input';
 import { changePassword } from '@/libs/api/auth';
+import { useUserContext } from '@/contexts/user-context'; // Import user context hook
+import { Alert } from '@/components/Alert'; // Import the custom Alert component
 
 type FormData = {
   password: string;
@@ -12,6 +14,7 @@ type FormData = {
 };
 
 export const ChangePassword = () => {
+  const { user } = useUserContext(); // Get user from context
   const {
     handleSubmit,
     register,
@@ -42,42 +45,55 @@ export const ChangePassword = () => {
     }
   };
 
+  const isGoogleAuth = user?.auth_type === 'google' || user?.auth_type === 'both';
+
   return (
     <div className={typography.forms.container}>
       <div className={typography.forms.header.container}>
         <h2 className={typography.forms.header.mainText}>Change Password</h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={typography.forms.row}>
-          <FormInput
-            title={'Current Password'}
-            {...register('password', {
-              required: 'Password is required',
-            })}
-            type='password'
-            error={!!errors.password}
-            errorMessage={errors.password?.message}
-            className='grow'
-          />
-          <FormInput
-            title={'New Password'}
-            {...register('newPassword', {
-              required: 'Password is required',
-            })}
-            type='password'
-            error={!!errors.newPassword}
-            errorMessage={errors.newPassword?.message}
-            className='grow'
-          />
-          <button
-            type='submit'
-            className={typography.forms.submitButton}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Confirming...' : 'Confirm'}
-          </button>
-        </div>
-      </form>
+
+      {isGoogleAuth ? (
+        <Alert>
+          <h4 className='font-semibold mb-2'>Account Managed by Google</h4>
+          <p className='text-sm'>
+            Your password is managed through your linked Google account. To
+            change your password, please update it in your Google account settings.
+          </p>
+        </Alert>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={typography.forms.row}>
+            <FormInput
+              title={'Current Password'}
+              {...register('password', {
+                required: 'Password is required',
+              })}
+              type='password'
+              error={!!errors.password}
+              errorMessage={errors.password?.message}
+              className='grow'
+            />
+            <FormInput
+              title={'New Password'}
+              {...register('newPassword', {
+                required: 'Password is required',
+              })}
+              type='password'
+              error={!!errors.newPassword}
+              errorMessage={errors.newPassword?.message}
+              className='grow'
+            />
+            <button
+              type='submit'
+              className={typography.forms.submitButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Confirming...' : 'Confirm'}
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };

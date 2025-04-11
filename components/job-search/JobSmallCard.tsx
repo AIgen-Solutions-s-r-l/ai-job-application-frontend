@@ -19,7 +19,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
 
   return (
     <div
-      className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8", className)}
+      className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8 border-b border-my-neutral-3", className)}
       onClick={onClick}
     >
       <div className="flex gap-2 items-center md:mb-2">

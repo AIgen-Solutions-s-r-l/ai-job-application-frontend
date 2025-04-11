@@ -79,42 +79,33 @@ export async function createCheckout(data: CheckoutData): Promise<string | null>
 }
 
 // Nueva función para obtener el transaction ID (Payment Intent ID) a partir del Session ID
-export async function getTransactionIdFromSession(sessionId: string): Promise<string | null> {
+export async function getTransactionIdFromSession(sessionId: string): Promise<{ paymentIntentId?: string; subscriptionId?: string }> {
   try {
-    // Recuperar la sesión con el payment_intent expandido
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["payment_intent"],
+      expand: ["payment_intent", "subscription"],
     });
 
-    // Para pagos únicos (mode: payment)
+    const result: {
+      paymentIntentId?: string;
+      subscriptionId?: string;
+    } = {};
+
     if (session.payment_intent) {
-      if (typeof session.payment_intent === "string") {
-        return session.payment_intent;
-      } else {
-        return session.payment_intent.id;
-      }
+      result.paymentIntentId = typeof session.payment_intent === "string"
+        ? session.payment_intent
+        : session.payment_intent.id;
     }
-    
-    // Para suscripciones (mode: subscription)
-    else if (session.subscription) {
-      // Obtener la última factura de la suscripción
-      const subscriptionId = typeof session.subscription === "string" 
-        ? session.subscription 
+
+    if (session.subscription) {
+      result.subscriptionId = typeof session.subscription === "string"
+        ? session.subscription
         : session.subscription.id;
-        
-      const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
-        expand: ["latest_invoice"],
-      });
-      
-      if (subscription.latest_invoice && typeof subscription.latest_invoice !== "string") {
-        return subscription.latest_invoice.payment_intent as string;
-      }
     }
-    
-    return null;
+
+    return result;
   } catch (error) {
-    console.error("Error getting transaction ID:", error);
-    return null;
+    console.error("Error getting transaction or subscription ID:", error);
+    return {};
   }
 }
 

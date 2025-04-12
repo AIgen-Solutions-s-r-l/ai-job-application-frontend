@@ -18,13 +18,14 @@ interface User {
   id: string;
   username: string;
   email: string;
-  exists: boolean;
+  exists: boolean; // Indicates if a resume exists for the user
+  auth_type: 'password' | 'google' | 'both' | null; // Added auth_type
 }
 
 type UserContextType = {
   user: User | null;
-  setUser: Dispatch<SetStateAction<User>>;
-  setAccessToken: Dispatch<React.SetStateAction<string>>;
+  setUser: Dispatch<SetStateAction<User | null>>; // Allow null during initialization/logout
+  setAccessToken: Dispatch<SetStateAction<string>>;
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -38,6 +39,7 @@ export default function UserContextProvider({
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     let timeout: NodeJS.Timeout;
 
     const handleStartInterval = async () => {
@@ -48,10 +50,10 @@ export default function UserContextProvider({
         const { access_token } = await refreshToken();
         setAccessToken(access_token);
 
-        console.log('token updated', new Date().toLocaleString(), {
-          accessToken,
-          interval: timeout,
-        });
+        // console.log('token updated', new Date().toLocaleString(), {
+        //   accessToken,
+        //   interval: timeout,
+        // });
       }, (tokenValiditySeconds - 60) * 1000);
 
       //   console.log(
@@ -84,7 +86,14 @@ export default function UserContextProvider({
           fetchUserData(),
         ]);
 
-        const newUserData = { ...exists, ...me };
+        // Ensure all expected fields are present, including the new auth_type
+        const newUserData: User = {
+          id: me.id,
+          username: me.username,
+          email: me.email,
+          exists: exists.exists, // Assuming exists comes from isResumeExits()
+          auth_type: me.auth_type || null, // Get auth_type from /me response, default to null
+        };
         setUser(newUserData);
 
         // console.log('this is me', newUserData);

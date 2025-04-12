@@ -133,7 +133,7 @@ export const JobFeedList: FC = () => {
     if (currentPage > 0) {
       return (
         <Container className="flex gap-6 mt-3 lg:mt-5">
-          <div className="w-full xl:w-[540px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0 relative">
+          <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
             <div className="h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
               <div className="flex justify-center gap-2">
                 {renderPaginationButtons()}
@@ -148,23 +148,23 @@ export const JobFeedList: FC = () => {
     
     return (
       <Container className='h-full mt-3 lg:mt-5'>
-        <p className='font-jura font-semibold text-base xl:text-xl'>No jobs found</p>
+        <p className='font-jura font-semibold text-base xl:text-xl'>No jobs matched</p>
       </Container>
     );
   }
 
   return (
-    <div className="w-full gap-5 bg-base-100 mb-20 py-3 lg:py-5">
+    <div className="w-full gap-5 bg-base-100 mb-[60px] py-3 lg:py-5">
       <Container className="flex gap-6">
-        <div className="w-full xl:w-[540px] min-h-[calc(100vh-120px)] flex flex-col gap-5 shrink-0 relative">
+        <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
           <div className="sticky top-5 z-10 h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
             <div className="flex justify-center gap-2">
               {renderPaginationButtons()}
             </div>
             <div className="flex items-center gap-5">
               <p className='hidden md:block font-jura font-semibold text-[18px]'>Select All</p>
-              <div className="h-10 w-10 rounded-md flex items-center justify-center cursor-pointer job-select-box" onClick={handleSelectAll}>
-                {isAllSelected() && <Check className='text-white' size={24} />}
+              <div className="h-10 w-10 rounded-md flex items-center text-black justify-center cursor-pointer job-select-box" onClick={handleSelectAll}>
+                {isAllSelected() && <Check size={24} />}
               </div>
             </div>
           </div>

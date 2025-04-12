@@ -86,7 +86,7 @@ export interface ResumeLanguage {
 export interface JobInfo {
   id: string
   title: string
-  is_remote: string
+  is_remote?: string
   workplace_type: string
   posted_date: string
   job_state: string

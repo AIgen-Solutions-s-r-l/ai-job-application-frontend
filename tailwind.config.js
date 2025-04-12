@@ -6,6 +6,7 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./styles/globals.css",
+    "./libs/constants/cv-templates/*.ts",
   ],
   theme: {
     extend: {
@@ -40,6 +41,9 @@ module.exports = {
         barlow: ['Barlow', 'serif'],
         k2d: ['K2D', 'serif'],
         italianno: ['Italianno', 'serif'],
+        arial: ['Arial', 'serif'],
+        calibry: ['Calibry', 'serif'],
+        cambria: ['Cambria', 'serif'],
         'josefin-sans': ['Josefin Sans', 'serif'],
         'open-sans': ['Open Sans', 'serif'],
       },

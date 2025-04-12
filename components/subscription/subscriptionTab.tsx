@@ -72,13 +72,12 @@ function SubscriptionTab() {
           return response.json();
         })
         .then(data => {
-          const transactionId = data.transactionId;
-
-          // Usar el Transaction ID en lugar del Session ID
+          const referenceId = data.subscriptionId || data.paymentIntentId || sessionId;
+        
           return addCredits(
             creditsAmount,
-            transactionId, // Aquí pasamos el Transaction ID en lugar del Session ID
-            `Added ${creditsAmount} applications via Stripe payment (Transaction: ${transactionId})`
+            referenceId,
+            `Added ${creditsAmount} applications via Stripe (${referenceId.startsWith("sub_") ? "Subscription" : "Payment"}: ${referenceId})`
           );
         })
         .then(() => {
@@ -160,11 +159,11 @@ function SubscriptionTab() {
             setSliderValue={setSliderValue}
           />
           {/* "Current plan" label if 500 is selected */}
-          {values[sliderValue].value === "500" && (
+          {/* {values[sliderValue].value === "500" && (
             <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
               Current plan
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price + purchase */}

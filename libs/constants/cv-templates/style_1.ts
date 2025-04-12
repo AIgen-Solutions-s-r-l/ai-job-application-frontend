@@ -1,0 +1,52 @@
+import { TemplateStyle } from "@/libs/types/cv-template-style.type";
+
+export const style_1: TemplateStyle = {
+  body: 'font-calibri leading-[1.2] text-[#333] max-w-[700px] mx-auto px-[10px] py-[5px] text-[10pt]',
+  personal: {
+    header: 'text-center mb-[20px]',
+    h1: 'text-[24pt] leading-[1] font-bold mb-[8px]',
+    contactSection: 'flex flex justify-center flex-wrap font-normal',
+    contactItem: '[&:not(:first-child):before]:content-["/"] [&:not(:first-child):before]:mx-[4px]',
+  },
+  education: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    entry: 'mb-[8px]',
+    entryHeader: 'flex justify-between mb-[3px]',
+    entryDetails: 'flex justify-between gap-5 mb-[4px]',
+    coursesDetails: 'hidden',
+    entryName: 'font-bold',
+    entryLocation: 'shrink-0',
+    entryYear: 'shrink-0',
+    compactList: 'list-disc py-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+  experience: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    entry: 'mb-[8px]',
+    entryHeader: 'flex justify-between mb-[3px]',
+    entryDetails: 'flex justify-between gap-5 mb-[4px]',
+    entryName: 'font-bold',
+    entryLocation: 'shrink-0',
+    entryYear: 'shrink-0',
+    compactList: 'list-disc py-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+  projects: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    entry: 'mb-[8px]',
+    entryHeader: 'flex justify-between mb-[3px]',
+    entryName: 'font-bold',
+    compactList: 'list-disc py-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+  additional: {
+    container: '',
+    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    h3: 'text-[10pt] font-bold uppercase mt-[8px] mb-[4px] text-left',
+    compactList: 'list-disc py-[6px] pl-[36px]',
+    listItem: 'mb-[2px]',
+  },
+};

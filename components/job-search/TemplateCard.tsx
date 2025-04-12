@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CheckMark from '../svgs/CheckMark.svg';
+import { Check } from "lucide-react";
 
 interface TemplateCardProps {
     templateNumber: number;
@@ -26,10 +27,10 @@ const TemplateCard = ({
                 className={`${isSelected && 'outline outline-1 outline-black'}`}
             />
             <div
-                className={`flex items-center justify-center h-8 bg-black w-8 rounded-[6px] ${isEnabled ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+                className={`flex items-center justify-center h-8 w-8 job-select-box rounded-[6px] ${isEnabled ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                 onClick={() => isEnabled && onSelect(templateNumber)}
             >
-                {isSelected && <Image src={CheckMark} alt="checkmark" />}
+                {isSelected && <Check size={24} />}
             </div>
         </div>
     );

@@ -90,6 +90,8 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
                 "Desired Skills",
                 "Role Overview",
                 "Brief Overview",
+                "Qualifications and Competencies",
+                "Required Work Arrangement",
               ];
 
               const boldedLine = boldPhrases.reduce((acc, phrase) => {

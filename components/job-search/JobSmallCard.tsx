@@ -21,6 +21,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
     <div
       className={cn("bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8 border-b border-my-neutral-3", className)}
       onClick={onClick}
+      onDoubleClick={(e) => handleJobSelect(job, e as any)}
     >
       <div className="flex gap-2 items-center md:mb-2">
       <p className="text-xs font-jura font-semibold">{job.score}% Match</p>

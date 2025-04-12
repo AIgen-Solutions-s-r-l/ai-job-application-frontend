@@ -31,6 +31,7 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
     <div
       className={cn("flex flex-col justify-between bg-white rounded-xl relative p-5 gap-1 lg:gap-3 leading-none cursor-pointer", className)}
       onClick={onClick}
+      onDoubleClick={(e) => handleApplicationSelect(id, e)}
     >
       <h3 className="font-montserrat text-base md:text-xl font-medium pr-12">{job.title}</h3>
       <div className='flex items-center justify-between'>

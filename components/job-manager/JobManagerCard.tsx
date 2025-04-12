@@ -65,17 +65,20 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
         </p>
       </div>
       <div
-        className="absolute top-3 right-4 h-10 w-10 job-select-box rounded-md text-black flex items-center justify-center cursor-pointer"
+        className={cn(
+          "absolute top-3 right-4 h-10 w-10 job-select-box text-black rounded-md flex items-center justify-center cursor-pointer",
+          isSelected ? "pop-once" : "scale-100"
+        )}
         onClick={(e) => handleApplicationSelect(id, e)}
       >
         {mounted && (
           <div
-            className={cn(
-              "transition-transform duration-150 ease-in-out",
-              isSelected ? "scale-100" : "scale-0"
-            )}
+        className={cn(
+          "transition-transform duration-150 ease-in-out",
+          isSelected ? "scale-100" : "scale-0"
+        )}
           >
-            <Check size={32} strokeWidth={2.5} />
+        <Check size={32} strokeWidth={2.5} />
           </div>
         )}
       </div>

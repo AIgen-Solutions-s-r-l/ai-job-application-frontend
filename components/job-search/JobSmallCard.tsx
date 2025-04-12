@@ -58,10 +58,13 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       <p
       className="line-clamp-5 text-sm md:text-base text-gray-600"
       >{job.short_description}</p>
-      <div
-        className="absolute top-3 right-4 h-10 w-10 job-select-box text-black rounded-md flex items-center justify-center cursor-pointer"
-        onClick={(e) => handleJobSelect(job, e as any)}
-      >
+        <div
+          className={cn(
+            "absolute top-3 right-4 h-10 w-10 job-select-box text-black rounded-md flex items-center justify-center cursor-pointer",
+            selectedJobs.some((j) => j.id === job.id) ? "pop-once" : "scale-100"
+          )}
+          onClick={(e) => handleJobSelect(job, e as any)}
+        >
         <div
           className={cn(
         "transition-transform duration-100 ease-in-out",

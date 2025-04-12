@@ -64,7 +64,7 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}
 
           <div className='flex items-center mt-3 md:pb-1 md:mt-5 gap-16'>
             {/* <p className='hidden md:block text-[20px] font-montserrat'>
-              <span className='font-bold'>{jobs.length} jobs</span> found.
+              <span className='font-bold'>{jobs.length} jobs</span> matched.
             </p> */}
             {/* <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
               <select

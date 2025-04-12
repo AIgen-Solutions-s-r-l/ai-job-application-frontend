@@ -35,9 +35,16 @@ const MobileFeatures: FC = () => {
           <p className="mt-4 text-2xl font-light text-white text-center">
             300K+ Followers
           </p>
-          <p className="mt-2 text-lg font-medium text-white text-center">
-            on social platforms (Instagram, Github)
-          </p>
+            <p className="mt-2 text-lg font-medium text-white text-center">
+            on social platforms (
+            <a href="https://www.instagram.com/interview_scouter" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
+              Instagram
+            </a>, 
+            <a href="https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
+              Github
+            </a>
+            )
+            </p>
         </div>
 
         {/* Feature 2 */}
@@ -133,7 +140,16 @@ export const DesktopFeatures: FC = () => {
 
             <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">300K+ Followers</p>
 
-            <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">on social platforms (Instagram, Github)</p>
+            <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">
+              on social platforms (
+              <a href="https://www.instagram.com/interview_scouter" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
+                Instagram
+              </a>&nbsp;&amp;&nbsp;
+              <a href="https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
+              Github
+              </a>
+              )
+            </p>
           </div>
 
           <div

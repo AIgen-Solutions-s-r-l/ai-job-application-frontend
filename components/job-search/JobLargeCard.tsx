@@ -77,15 +77,19 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             <div key={pIndex} className="mb-3.5">
               {paragraph.split('\n').map((line, lIndex) => {
               const boldPhrases = [
-                "Required Degrees & Certifications:",
-                "Key Responsibilities:",
-                "Required Technical Skills:",
-                "Required Soft Skills:",
-                "Preferred/Nice-to-have Skills:",
-                "Experience Requirements:",
-                "Position Details:",
-                "Additional Information:",
-                "Additional Informations:",
+                "Required Degrees & Certifications",
+                "Key Responsibilities",
+                "Required Technical Skills",
+                "Required Soft Skills",
+                "Preferred/Nice-to-have Skills",
+                "Experience Requirements",
+                "Position Details",
+                "Additional Information",
+                "Additional Informations",
+                "Required Skills",
+                "Desired Skills",
+                "Role Overview",
+                "Brief Overview",
               ];
 
               const boldedLine = boldPhrases.reduce((acc, phrase) => {

@@ -73,15 +73,38 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
         ref={descriptionRef}
       >
         <div className="font-jura text-[18px] font-normal">
-          {job.description.split('\n\n').map((paragraph, pIndex) => (
+            {job.description.split('\n\n').map((paragraph, pIndex) => (
             <div key={pIndex} className="mb-3.5">
-              {paragraph.split('\n').map((line, lIndex) => (
-                line.trim() ? (
-                  <p key={lIndex} className="leading-[1.4]">{line}</p>
-                ) : null
-              ))}
+              {paragraph.split('\n').map((line, lIndex) => {
+              const boldPhrases = [
+                "Required Degrees & Certifications:",
+                "Key Responsibilities:",
+                "Required Technical Skills:",
+                "Required Soft Skills:",
+                "Preferred/Nice-to-have Skills:",
+                "Experience Requirements:",
+                "Position Details:",
+                "Additional Information:",
+                "Additional Informations:",
+              ];
+
+              const boldedLine = boldPhrases.reduce((acc, phrase) => {
+                if (line.includes(phrase)) {
+                return line.replace(phrase, `<strong>${phrase}</strong>`);
+                }
+                return acc;
+              }, line);
+
+              return line.trim() ? (
+                <p
+                key={lIndex}
+                className="leading-[1.4]"
+                dangerouslySetInnerHTML={{ __html: boldedLine }}
+                />
+              ) : null;
+              })}
             </div>
-          ))}
+            ))}
         </div>
       </div>
       {/* <Link

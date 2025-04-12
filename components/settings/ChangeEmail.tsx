@@ -76,26 +76,37 @@ export const ChangeEmail = () => {
               {...register('password', {
                 required: 'Password is required',
               })}
-              type='password'
-              error={!!errors.password}
-              errorMessage={errors.password?.message}
-              className='grow'
-            />
-            <FormInput
-              title={'New Email'}
-              {...register('newEmail', {
+                type='password'
+                error={!!errors.password}
+                errorMessage={errors.password?.message}
+                className='grow'
+              />
+              <FormInput
+                title={'New Email'}
+                {...register('newEmail', {
                 required: 'Email is required',
                 pattern: {
                   value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
-                  message: 'Invalid email address',
+                  message: 'Please enter a valid email',
                 },
-              })}
-              type='email'
-              placeholder='e.g., john.doe@example.com'
-              error={!!errors.newEmail}
-              errorMessage={errors.newEmail?.message}
-              className='grow'
-            />
+                // validate: (value: string) => {
+                //   const allowedDomains = [
+                //   'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
+                //   'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
+                //   'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
+                //   'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
+                //   'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
+                //   ];
+                //   const domain = value.split('@')[1];
+                //   return allowedDomains.includes(domain) || 'Please enter a valid email';
+                // },
+                })}
+                type='email'
+                placeholder='e.g., john.doe@example.com'
+                error={!!errors.newEmail}
+                errorMessage={errors.newEmail?.message}
+                className='grow'
+              />
             <button
               type='submit'
               className={typography.forms.submitButton}

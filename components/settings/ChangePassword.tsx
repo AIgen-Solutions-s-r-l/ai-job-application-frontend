@@ -35,7 +35,7 @@ export const ChangePassword = () => {
       const response = await changePassword(data.password, data.newPassword);
 
       if (response.success) {
-        toast.success('Link for change password sent to your current Email.');
+        toast.success('Password changed successfully.');
       } else {
         toast.error('Error updating password.');
         console.error('Error updating password:', response.error);
@@ -75,15 +75,19 @@ export const ChangePassword = () => {
               className='grow'
             />
             <FormInput
-              title={'New Password'}
-              {...register('newPassword', {
+                title={'New Password'}
+                {...register('newPassword', {
                 required: 'Password is required',
-              })}
-              type='password'
-              error={!!errors.newPassword}
-              errorMessage={errors.newPassword?.message}
-              className='grow'
-            />
+                pattern: {
+                  value: /^(?=.*\d).+$/,
+                  message: 'Password must contain at least one number',
+                },
+                })}
+                type='password'
+                error={!!errors.newPassword}
+                errorMessage={errors.newPassword?.message}
+                className='grow'
+              />
             <button
               type='submit'
               className={typography.forms.submitButton}

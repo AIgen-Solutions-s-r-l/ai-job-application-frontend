@@ -7,7 +7,6 @@ import { CloseButtonIcon } from "@/components/AppIcons";
 import Template1 from '../svgs/template1.svg';
 import Template2 from '../svgs/template2.svg';
 import Template3 from '../svgs/template3.svg';
-import Template4 from '../svgs/template4.svg';
 import ResumeUpload from '../svgs/ResumeUpload.svg';
 import { Dispatch, SetStateAction, DragEvent, ChangeEvent } from "react";
 import ToggleSwitch from "../common/ToggleSwitch";
@@ -131,7 +130,7 @@ const GenerateResumeModal = ({
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="flex flex-col items-center relative w-[700px] py-6 bg-white rounded-xl shadow-lg gap-[20px]">
-                                <div className="flex w-full justify-end items-center mb-4  px-6">
+                                <div className="flex w-full justify-end items-center mb-4 px-6">
                                     <button
                                         className="outline-none"
                                         onClick={handleCancel}
@@ -157,7 +156,7 @@ const GenerateResumeModal = ({
                                 {generateTemplate ?
                                     <section className={`px-7 flex w-full py-3 h-[320px] gap-4 bg-base-100 my-x-scrollable relative`}>
                                         {
-                                            [Template1, Template2, Template3, Template4].map((template, index) => (
+                                            [Template1, Template2, Template3].map((template, index) => (
                                                 <TemplateCard
                                                     key={index + 1}
                                                     templateNumber={index + 1}

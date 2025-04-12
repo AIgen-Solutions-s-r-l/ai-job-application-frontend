@@ -52,7 +52,7 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
               </>
             )}
           </p>
-          <p className="text-base md:text-[18px] font-jura font-medium">
+          <p className="text-base md:text-[18px] font-jura font-semibold">
             {new Date(job.posted_date).toLocaleDateString('en-US', { 
               year: 'numeric',
               month: 'long',

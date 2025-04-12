@@ -64,8 +64,20 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
           {job.short_description}
         </p>
       </div>
-      <div className="absolute top-3 right-4 h-10 w-10 job-select-box rounded-md text-black flex items-center justify-center cursor-pointer" onClick={(e) => handleApplicationSelect(id, e)}>
-        {mounted && isSelected && <Check size={32} strokeWidth={2} />}
+      <div
+        className="absolute top-3 right-4 h-10 w-10 job-select-box rounded-md text-black flex items-center justify-center cursor-pointer"
+        onClick={(e) => handleApplicationSelect(id, e)}
+      >
+        {mounted && (
+          <div
+            className={cn(
+              "transition-transform duration-150 ease-in-out",
+              isSelected ? "scale-100" : "scale-0"
+            )}
+          >
+            <Check size={32} strokeWidth={2.5} />
+          </div>
+        )}
       </div>
       <Link href={`/manager/${id}`} className='btn mt-4 lg:mt-8 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white'>
         Edit Resume & Cover Letter

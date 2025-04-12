@@ -2,6 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 import { MatchingJob } from '@/libs/definitions';
+import { cn } from '@/lib/utils';
 import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { JobSmallCard } from './JobSmallCard';
 import { JobLargeCard } from './JobLargeCard';
@@ -163,8 +164,18 @@ export const JobFeedList: FC = () => {
             </div>
             <div className="flex items-center gap-5">
               <p className='hidden md:block font-jura font-semibold text-[18px]'>Select All</p>
-              <div className="h-10 w-10 rounded-md flex items-center text-black justify-center cursor-pointer job-select-box" onClick={handleSelectAll}>
-                {isAllSelected() && <Check size={24} />}
+              <div 
+              className="h-10 w-10 rounded-md flex items-center text-black justify-center cursor-pointer job-select-box" 
+              onClick={handleSelectAll}
+              >
+              <div
+                className={cn(
+                "transition-transform duration-100 ease-in-out",
+                isAllSelected() ? "scale-100" : "scale-0"
+                )}
+              >
+                <Check size={32} strokeWidth={2.5} />
+              </div>
               </div>
             </div>
           </div>

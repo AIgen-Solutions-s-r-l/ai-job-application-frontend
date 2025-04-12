@@ -121,17 +121,17 @@ export const ApplicationCoverLetter: FC<Props> = ({
             {/* Footer */}
             <div className=''>
               <TextareaAutosize
-                {...register(`footer.date`)}
-                minRows={1}
-                className='cover-letter-input'
-              />
-              <TextareaAutosize
                 {...register(`footer.closing`)}
                 minRows={1}
                 className='cover-letter-input'
               />
               <TextareaAutosize
                 {...register(`footer.signature`)}
+                minRows={1}
+                className='cover-letter-input'
+              />
+              <TextareaAutosize
+                {...register(`footer.date`)}
                 minRows={1}
                 className='cover-letter-input'
               />

@@ -10,7 +10,7 @@ export const style_1: TemplateStyle = {
   },
   education: {
     container: '',
-    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    h2: 'text-[11pt] font-bold uppercase border-b border-solid border-[#333] mb-[8px] text-left',
     entry: 'mb-[8px]',
     entryHeader: 'flex justify-between mb-[3px]',
     entryDetails: 'flex justify-between gap-5 mb-[4px]',
@@ -23,7 +23,7 @@ export const style_1: TemplateStyle = {
   },
   experience: {
     container: '',
-    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    h2: 'text-[11pt] font-bold uppercase border-b border-solid border-[#333] mb-[8px] text-left',
     entry: 'mb-[8px]',
     entryHeader: 'flex justify-between mb-[3px]',
     entryDetails: 'flex justify-between gap-5 mb-[4px]',
@@ -35,7 +35,7 @@ export const style_1: TemplateStyle = {
   },
   projects: {
     container: '',
-    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    h2: 'text-[11pt] font-bold uppercase border-b border-solid border-[#333] mb-[8px] text-left',
     entry: 'mb-[8px]',
     entryHeader: 'flex justify-between mb-[3px]',
     entryName: 'font-bold',
@@ -44,7 +44,7 @@ export const style_1: TemplateStyle = {
   },
   additional: {
     container: '',
-    h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[8px] text-left',
+    h2: 'text-[11pt] font-bold uppercase border-b border-solid border-[#333] mb-[8px] text-left',
     h3: 'text-[10pt] font-bold uppercase mt-[8px] mb-[4px] text-left',
     compactList: 'list-disc py-[6px] pl-[36px]',
     listItem: 'mb-[2px]',

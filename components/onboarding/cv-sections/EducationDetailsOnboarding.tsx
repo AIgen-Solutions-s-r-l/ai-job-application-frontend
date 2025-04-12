@@ -196,7 +196,7 @@ export const EducationDetailsOnboarding: FC = () => {
                 if (isChecked) {
                   setValue(`educationDetails.${index}.year_of_completion`, "Present");
                 } else {
-                  setValue(`educationDetails.${index}.year_of_completion`, "");
+                  setValue(`educationDetails.${index}.year_of_completion`, '');
                 }
                 }}
               />

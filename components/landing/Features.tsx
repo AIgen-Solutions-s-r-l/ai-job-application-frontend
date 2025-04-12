@@ -65,7 +65,7 @@ const MobileFeatures: FC = () => {
         <div className="bg-primary-deep-purple/10 p-6 rounded-lg">
           <p className="text-2xl font-thin text-white">
             We currently have<br />
-            +700K Job Posts,<br />
+            +1M Job Posts,<br />
             from <span className="text-splash-green">+30K companies!</span>
           </p>
         </div>
@@ -184,7 +184,7 @@ export const DesktopFeatures: FC = () => {
           >
             <p className="text-[35px] 2xl:text-[40px] leading-[1.1] font-thin text-white">
               We currently have<br />
-              +700K Job Posts,<br />
+              +1M Job Posts,<br />
               from <span className='text-splash-green'>+30K companies!</span>
             </p>
           </div>

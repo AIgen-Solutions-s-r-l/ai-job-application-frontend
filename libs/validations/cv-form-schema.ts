@@ -22,9 +22,13 @@ export const personalInfoSchema = z.object({
     .refine((date) => new Date(date).getFullYear() >= 1900, {
       message: 'Date of birth cannot be before 1900',
     }),
-  city: z.string().min(2, 'City is required'),
+  city: z.string()
+    .min(2, 'City is required')
+    .regex(/^[a-zA-Z\s]*$/, 'City can only contain letters'),
   address: z.string().min(3, 'Address is required'),
-  country: z.string().min(2, 'Country is required'),
+  country: z.string()
+    .min(2, 'Country is required')
+    .regex(/^[a-zA-Z\s]*$/, 'Country can only contain letters'),
   zip_code: z.string().min(2, 'Zip / Postal code is required'),
   phone_prefix: z.string()
     .regex(/^\+?\d{1,4}$/, 'Invalid phone prefix format'),
@@ -41,58 +45,71 @@ export const personalInfoSchema = z.object({
 });
 
 export const educationSchema = z.object({
-  education_level: z.string().min(2, 'Education level is required'),
-  institution: z.string().min(2, 'Institution is required'),
-  field_of_study: z.string().min(2, 'Field of study is required'),
+  education_level: z.string()
+    .min(2, 'Education level is required')
+    .regex(/^[a-zA-Z\s\W]*$/, 'Education level cannot contain numbers'),
+  institution: z.string()
+    .min(2, 'Institution is required')
+    .regex(/^[a-zA-Z\s\W]*$/, 'Institution cannot contain numbers'),
+  field_of_study: z.string()
+    .min(2, 'Field of study is required')
+    .regex(/^[a-zA-Z\s\W]*$/, 'Field of study cannot contain numbers'),
   start_date: z.string().min(4, 'Start date is required'),
   year_of_completion: z.string().min(4, 'End date is required'),
   final_evaluation_grade: z.string().min(1, 'Grade is required'),
   location: z.object({
-    country: z.string().min(2, 'Country is required'),
-    city: z.string().min(2, 'City is required')
+    country: z.string()
+      .min(2, 'Country is required')
+      .regex(/^[a-zA-Z\s]*$/, 'Country cannot contain numbers'),
+    city: z.string()
+      .min(2, 'City is required')
+      .regex(/^[a-zA-Z\s]*$/, 'City cannot contain numbers')
   }),
   exam: z.array(z.object({
-    subject: z.string().optional(),
+    subject: z.string()
+      .regex(/^[a-zA-Z\s]*$/, 'Subject cannot contain numbers')
+      .optional(),
     grade: z.string().optional()
   }))
-})
-  // .refine(
-  //   (data) => {
-  //     const startDate = new Date(data.start_date);
-  //     const completionDate = new Date(data.year_of_completion);
-  //     return completionDate >= startDate;
-  //   },
-  //   {
-  //     message: 'Completion date must be after start date',
-  //     path: ['year_of_completion'] // This targets the error at the year_of_completion field
-  //   }
-  // )
-  ;
+});
 
 export const experienceSchema = z.object({
   company: z.string().min(2, 'Company name is required'),
-  position: z.string().min(2, 'Position is required'),
+  position: z.string()
+    .min(2, 'Position is required')
+    .regex(/^[a-zA-Z\s\W]*$/, 'Position cannot contain numbers'),
   employment_start_date: z.string().min(4, 'Start date is required'),
   employment_end_date: z.string().min(4, 'End date is required'),
   location: z.object({
-    country: z.string().min(2, 'Country is required'),
-    city: z.string().min(2, 'City is required'),
+    country: z.string()
+      .min(2, 'Country is required')
+      .regex(/^[a-zA-Z\s]*$/, 'Country cannot contain numbers'),
+    city: z.string()
+      .min(2, 'City is required')
+      .regex(/^[a-zA-Z\s]*$/, 'City cannot contain numbers'),
   }),
-  industry: z.string().optional(),
-  key_responsibilities: z.array(z.string().min(1, 'Responsibility is required')).min(1, 'At least one responsibility is required'),
-  skills_acquired: z.array(z.string())
+  industry: z.string()
+    .regex(/^[a-zA-Z\s\W]*$/, 'Industry cannot contain numbers')
+    .optional(),
+  key_responsibilities: z.array(
+    z.string().min(1, 'Responsibility is required')
+  ).min(1, 'At least one responsibility is required'),
+  skills_acquired: z.array(
+    z.string()
+      .regex(/^[a-zA-Z\s\W]*$/, 'Skill cannot contain numbers')
+  )
 });
 
 export const additionalInfoSchema = z.object({
   languages: z.array(z.object({
     language: z.string().nullable()
-      .refine((val) => val !== null && val.length >= 2, {
-        message: 'Language is required'
+      .refine((val) => val !== null && /^[a-zA-Z\s]*$/.test(val) && val.length >= 2, {
+        message: 'Language is required and cannot contain numbers'
       })
       .transform(val => val || ''),
     proficiency: z.string().nullable()
-      .refine((val) => val !== null && val.length >= 2, {
-        message: 'Proficiency is required'
+      .refine((val) => val !== null && /^[a-zA-Z\s]*$/.test(val) && val.length >= 2, {
+        message: 'Proficiency is required and cannot contain numbers'
       })
       .transform(val => val || ''),
   })),

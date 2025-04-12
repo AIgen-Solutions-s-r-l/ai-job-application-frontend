@@ -192,7 +192,7 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
           <InputWrapper>
             <FormInput
               title={'Start Date'}
-              {...register(`experienceDetails.${index}.employment_start_date`)}
+              {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
               placeholder="e.g., June 2020"
               error={!!errors.experienceDetails?.[index]?.employment_start_date}
               errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}

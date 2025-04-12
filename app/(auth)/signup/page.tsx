@@ -89,40 +89,44 @@ const Signup = () => {
               autoComplete='email'
               className='auth-form-input'
               placeholder='Enter your email'
-                {...register('email', {
-                required: 'Required field',
-                pattern: {
-                value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
-                message: 'Please enter a valid email',
-                },
-                // validate: (value: string) => {
-                // const allowedDomains = [
-                //   'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
-                //   'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
-                //   'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
-                //   'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
-                //   'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
-                // ];
-                // const domain = value.split('@')[1];
-                // return allowedDomains.includes(domain) || 'Please enter a valid email';
-                // },
-                })}
+              {...register('email', {
+              required: 'Required field',
+              pattern: {
+              value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+              message: 'Please enter a valid email',
+              },
+              // validate: (value: string) => {
+              // const allowedDomains = [
+              //   'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
+              //   'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
+              //   'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
+              //   'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
+              //   'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
+              // ];
+              // const domain = value.split('@')[1];
+              // return allowedDomains.includes(domain) || 'Please enter a valid email';
+              // },
+              })}
             />
             </FormField>
-          <FormField error={errors.password?.message}>
+            <FormField error={errors.password?.message}>
             <input
               type='password'
               className='auth-form-input'
               placeholder='Create a password'
               {...register('password', {
-                required: 'Required field',
-                minLength: {
-                  message: 'Minimum length 8 characters',
-                  value: 8,
-                },
+              required: 'Required field',
+              minLength: {
+                message: 'Minimum length 8 characters',
+                value: 8,
+              },
+              pattern: {
+                value: /^(?=.*\d).+$/,
+                message: 'Password must contain at least one number',
+              },
               })}
             />
-          </FormField>
+            </FormField>
           <FormField error={errors.confirmPassword?.message}>
             <input
               type='password'

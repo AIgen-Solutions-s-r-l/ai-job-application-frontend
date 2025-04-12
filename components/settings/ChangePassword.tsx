@@ -7,10 +7,12 @@ import { FormInput } from '@/components/ui/form-input';
 import { changePassword } from '@/libs/api/auth';
 import { useUserContext } from '@/contexts/user-context'; // Import user context hook
 import { Alert } from '@/components/Alert'; // Import the custom Alert component
+import Link from 'next/link';
 
 type FormData = {
   password: string;
   newPassword: string;
+  newPasswordConfirm: string;
 };
 
 export const ChangePassword = () => {
@@ -19,6 +21,7 @@ export const ChangePassword = () => {
     handleSubmit,
     register,
     formState: { isSubmitting, errors },
+    watch,
   } = useForm<FormData>({
     defaultValues: {},
   });
@@ -67,7 +70,7 @@ export const ChangePassword = () => {
             <FormInput
               title={'Current Password'}
               {...register('password', {
-                required: 'Password is required',
+                required: 'Current Password is required',
               })}
               type='password'
               error={!!errors.password}
@@ -77,17 +80,36 @@ export const ChangePassword = () => {
             <FormInput
                 title={'New Password'}
                 {...register('newPassword', {
-                required: 'Password is required',
+                required: 'New Password is required',
                 pattern: {
-                  value: /^(?=.*\d).+$/,
-                  message: 'Password must contain at least one number',
+                  value: /^(?=.*\d).{8,}$/,
+                  message: 'Password must be at least 8 characters long and contain at least one number',
                 },
                 })}
                 type='password'
                 error={!!errors.newPassword}
                 errorMessage={errors.newPassword?.message}
                 className='grow'
-              />
+                />
+                <FormInput
+                title={'Confirm New Password'}
+                {...register('newPasswordConfirm', {
+                  required: 'Confirm Password is required',
+                })}
+                type='password'
+                error={!!errors.newPasswordConfirm}
+                errorMessage={
+                  watch('newPasswordConfirm') !== watch('newPassword')
+                  ? 'The passwords do not match'
+                  : undefined
+                }
+                className='grow'
+                onChange={() => {
+                  if (watch('newPasswordConfirm') === watch('newPassword')) {
+                  errors.newPasswordConfirm = undefined;
+                  }
+                }}
+                />
             <button
               type='submit'
               className={typography.forms.submitButton}
@@ -96,6 +118,9 @@ export const ChangePassword = () => {
               {isSubmitting ? 'Confirming...' : 'Confirm'}
             </button>
           </div>
+            <Link href='/forgot-password' className='font-medium text-primary hover:underline'>
+            <p className='pt-4'> Forgot password?</p>
+            </Link>
         </form>
       )}
     </div>

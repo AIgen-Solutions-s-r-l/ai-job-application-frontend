@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { JobDetail } from '@/libs/definitions';
+import { Info } from 'lucide-react';
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -41,7 +42,27 @@ export const JobCard: FC<Props> = ({ job, status }) => {
           </p>
         </div>
         <div className='flex flex-col justify-between text-sm shrink-0 grow-0 md:w-[100px]'>
-          <p className={`px-2 py-1 rounded-md text-center ${getStatusColor(status)}`}>{status}</p>
+          <div className="flex items-center justify-center gap-2">
+            {(() => {
+              const lowerStatus = status.toLowerCase();
+              let tooltipText = "";
+
+              if (lowerStatus === "pending") {
+                tooltipText = "It usually takes a few hours for the applications to be completed, please come back later";
+              } else if (lowerStatus === "applied") {
+                tooltipText = "Congratulations! The job has been applied, check your email address for any update";
+              } else if (lowerStatus === "failed") {
+                tooltipText = "Sometimes applications may fail. We refunded the credits spent";
+              }
+
+              return tooltipText ? (
+                <div className="tooltip tooltip-left" data-tip={tooltipText}>
+                  <Info size={20} className="text-gray-500" />
+                </div>
+              ) : null;
+            })()}
+            <p className={`px-5 py-1 rounded-md text-center ${getStatusColor(status)}`}>{status}</p>
+          </div>
         </div>
         {/* <div className='grow flex flex-wrap justify-end items-start gap-x-3 gap-y-1'>
           {job.skills_required.length &&

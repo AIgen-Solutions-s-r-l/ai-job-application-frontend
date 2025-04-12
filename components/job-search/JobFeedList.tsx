@@ -148,7 +148,7 @@ export const JobFeedList: FC = () => {
     
     return (
       <Container className='h-full mt-3 lg:mt-5'>
-        <p className='font-jura font-semibold text-base xl:text-xl'>No jobs found</p>
+        <p className='font-jura font-semibold text-base xl:text-xl'>No jobs matched</p>
       </Container>
     );
   }

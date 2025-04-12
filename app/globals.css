@@ -114,6 +114,10 @@ progress::-webkit-progress-value {
     scrollbar-width: thin;
     overflow-y: scroll;
   }
+
+  .cover-letter-input {
+    @apply w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto;
+  }
   
   @media (width <= 767px) {
     .my-collapse-plus > .collapse-title:after {

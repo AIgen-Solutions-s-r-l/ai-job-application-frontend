@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { MatchingJob } from '@/libs/definitions';
 import { JobLargeCardSkeleton } from './JobLargeCardSkeleton';
@@ -11,6 +11,15 @@ interface Props {
 }
 
 export const JobLargeCard: FC<Props> = ({ className, job }) => {
+  const descriptionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Reset scroll position whenever job changes
+    if (descriptionRef.current) {
+      descriptionRef.current.scrollTop = 0;
+    }
+  }, [job]);  
+
   if (!job) return <JobLargeCardSkeleton />;
 
   return (
@@ -29,18 +38,28 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           )}
         </div>
         <h3 className="text-[20px] xl:text-[27px] font-montserrat">{job.company_name}</h3>
-        <p className="text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold">
-          {job.country === 'Unknown'
-          ? (
-            job.workplace_type
-          )
-          : (
-            <>
-              <Image src={Pin} alt='pin' />
-              {`${job.city}, ${job.country}`} | {job.workplace_type}
-            </>
-          )}
-        </p>
+        
+        <div className="flex justify-between items-center">
+          <p className="text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold">
+            {job.country === 'Unknown'
+            ? (
+              job.workplace_type
+            )
+            : (
+              <>
+                <Image src={Pin} alt='pin' />
+                {`${job.city}, ${job.country}`} | {job.workplace_type}
+              </>
+            )}
+          </p>
+          <p className="text-base md:text-[18px] font-jura font-medium">
+            {new Date(job.posted_date).toLocaleDateString('en-US', { 
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </p>
+        </div>
         <div className='flex gap-x-2 gap-y-1 md:gap-x-3 my-1 lg:my-2 flex-wrap overflow-hidden'>
           {!!job.skills_required.length && job.skills_required.map(
             (skill, index) => (
@@ -49,7 +68,10 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           )}
         </div>
       </div>
-      <div className="mt-5 grow overflow-y-auto scrollable">
+      <div 
+        className="mt-5 grow overflow-y-auto scrollable" 
+        ref={descriptionRef}
+      >
         <div className="font-jura text-[18px] font-normal">
           {job.description.split('\n\n').map((paragraph, pIndex) => (
             <div key={pIndex} className="mb-3.5">

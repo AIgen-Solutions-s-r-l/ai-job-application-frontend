@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form';
 import { updateApplicationLetterAction } from '@/libs/actions';
 import toast from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
-import { useRouter } from 'next/navigation';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
 import { ButtonUnderline } from '../ButtonUnderline';
@@ -69,63 +68,53 @@ export const ApplicationCoverLetter: FC<Props> = ({
         >
           <div
             id='letter-sections'
-            className='w-full h-full flex flex-col px-4 gap-4 md:px-10 py-8 text-base'
+            className='w-full h-full flex flex-col px-4 gap-9 md:px-12 py-10 text-base font-montserrat'
           >
             {/* Header */}
             <div className=''>
               <TextareaAutosize
                 {...register(`header.applicant_details.name`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
-              />
-              <TextareaAutosize
-                {...register(`header.applicant_details.address`)}
-                minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
-              />
-              <TextareaAutosize
-                {...register(`header.applicant_details.city_state_zip`)}
-                minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input font-semibold'
               />
               <TextareaAutosize
                 {...register(`header.applicant_details.email`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input font-semibold'
               />
               <TextareaAutosize
                 {...register(`header.applicant_details.phone_number`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input font-semibold'
               />
               <TextareaAutosize
                 {...register(`header.company_details.name`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input font-semibold'
               />
             </div>
 
             {/* Body */}
-            <div className=''>
+            <div className='space-y-3'>
               <TextareaAutosize
                 {...register(`body.greeting`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
               <TextareaAutosize
                 {...register(`body.opening_paragraph`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
               <TextareaAutosize
                 {...register(`body.body_paragraphs`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
               <TextareaAutosize
                 {...register(`body.closing_paragraph`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
             </div>
 
@@ -134,17 +123,17 @@ export const ApplicationCoverLetter: FC<Props> = ({
               <TextareaAutosize
                 {...register(`footer.date`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
               <TextareaAutosize
                 {...register(`footer.closing`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
               <TextareaAutosize
                 {...register(`footer.signature`)}
                 minRows={1}
-                className='w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto'
+                className='cover-letter-input'
               />
             </div>
           </div>

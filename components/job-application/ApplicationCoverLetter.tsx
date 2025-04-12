@@ -54,7 +54,7 @@ export const ApplicationCoverLetter: FC<Props> = ({
   return (
     <>
       <div
-        className={`w-full lg:w-[940px] h-[1330px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${activeSection ? 'bg-black/20' : 'bg-white'
+        className={`w-full lg:w-[850px] h-[1200px] mx-auto overflow-y-auto text-black shadow-xl mb-[80px] ${activeSection ? 'bg-black/20' : 'bg-white'
           }`}
       >
         <form

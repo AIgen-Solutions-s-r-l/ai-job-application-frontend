@@ -19,7 +19,7 @@ export const ApplicationJobInfo: FC<Props> = ({
     <>
       <div
         className={cn(
-          'w-full lg:w-[940px] min-h-[800px] max-h-[1330px] mx-auto overflow-y-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]',
+          'w-full lg:w-[850px] min-h-[800px] max-h-[1200px] mx-auto flex flex-col bg-white py-8 px-10 shadow-xl mb-[80px]',
           className
         )}
       >
@@ -37,7 +37,7 @@ export const ApplicationJobInfo: FC<Props> = ({
             </div>
           )}
         </div>
-        <div className='mt-5 flex-1 overflow-y-auto'>
+        <div className='mt-5 flex-1 scrollable'>
           <p className='text-md font-light'>
             {job.description.split('\n').map((line, index) => (
               line.trim() ? (

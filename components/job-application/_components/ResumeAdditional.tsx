@@ -384,7 +384,7 @@ export const ResumeAdditional: FC = () => {
   return <>
     <ProjectsNestedFieldArray />
 
-    <div className={template.additional.container} id="skills-section">
+    <div className={cn('order-4', template.additional.container)} id="skills-section">
       <h2 className={template.additional.h2}>
         Technical Skills & Certifications
       </h2>

@@ -25,7 +25,7 @@ interface User {
 type UserContextType = {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>; // Allow null during initialization/logout
-  setAccessToken: Dispatch<React.SetStateAction<string>>;
+  setAccessToken: Dispatch<SetStateAction<string>>;
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -39,6 +39,7 @@ export default function UserContextProvider({
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     let timeout: NodeJS.Timeout;
 
     const handleStartInterval = async () => {
@@ -49,10 +50,10 @@ export default function UserContextProvider({
         const { access_token } = await refreshToken();
         setAccessToken(access_token);
 
-        console.log('token updated', new Date().toLocaleString(), {
-          accessToken,
-          interval: timeout,
-        });
+        // console.log('token updated', new Date().toLocaleString(), {
+        //   accessToken,
+        //   interval: timeout,
+        // });
       }, (tokenValiditySeconds - 60) * 1000);
 
       //   console.log(

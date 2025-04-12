@@ -319,7 +319,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
             <ActiveSectionProvider>
                 <div className="w-full grow flex flex-col">
                     <Container>
-                        <div className="w-full lg:w-[940px] mx-auto flex gap-2 pt-5 font-kanit">
+                        <div className="w-full lg:w-[850px] mx-auto flex gap-2 pt-5 font-kanit">
                             <ButtonTab text="Resume" isActive={activeTab === "resume"} onClick={() => setActiveTab("resume")} />
                             <ButtonTab text="Cover Letter" isActive={activeTab === "coverLetter"} onClick={() => setActiveTab("coverLetter")} />
                             <ButtonTab text="Job Description" isActive={activeTab === "jobInfo"} onClick={() => setActiveTab("jobInfo")} />

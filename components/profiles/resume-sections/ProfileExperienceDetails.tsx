@@ -22,7 +22,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
     if (fields.length === 0) {
       append("");
     }
-  }, []);
+  }, [fields.length]);
 
   return (
     <>

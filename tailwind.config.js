@@ -44,6 +44,7 @@ module.exports = {
         italianno: ['Italianno', 'serif'],
         arial: ['Arial', 'serif'],
         calibry: ['Calibry', 'serif'],
+        cambria: ['Cambria', 'serif'],
         'josefin-sans': ['Josefin Sans', 'serif'],
         'open-sans': ['Open Sans', 'serif'],
       },

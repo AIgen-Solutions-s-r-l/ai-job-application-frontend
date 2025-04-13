@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import config from '@/config';
 import ContactsArrow from '@/public/landing/contacts-arrow.svg'
 import ContactsEyeBase from '@/public/landing/contacts-eye-base.svg'
 
@@ -40,7 +41,10 @@ export const Contacts: React.FC = () => {
 
   return (
     <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[120px] pb-[300px] md:pb-[400px]'>
-      <Link className='h-[60px] md:h-[74px] px-[20px] md:px-[36px] flex items-center justify-between bg-splash-green rounded-[20px] gap-[10px] md:gap-[50px]' href='/signin'>
+      <Link 
+        className='h-[60px] md:h-[74px] px-[20px] md:px-[36px] flex items-center justify-between bg-splash-green rounded-[20px] gap-[10px] md:gap-[50px]' 
+        href={config.auth.loginUrl}
+      >
         <p className='text-[27px] md:text-[32px] font-light font-k2d text-my-neutral-7 leading-none'>Try it</p>
         <Image src={ContactsArrow} alt="contacts-arrow" className='mt-1' />
       </Link>

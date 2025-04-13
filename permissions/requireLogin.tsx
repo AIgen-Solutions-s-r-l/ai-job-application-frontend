@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import { getServerCookie } from "@/libs/cookies";
 import config from '@/config';
 import { useUserContext } from '@/contexts/user-context';
+import { decodeToken } from '@/libs/api/auth';
+import LogoutAndRedirect from '@/components/LogoutAndRedirect';
 
 type ComponentType<Props = {}> = React.ComponentType<Props>;
 
@@ -14,13 +16,19 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
 
         const checkAuthentication = useCallback(async () => {
             const accessToken = await getServerCookie('accessToken');
+            setIsAuthenticated(!!accessToken);
+            
             if (!accessToken) {
-                setIsAuthenticated(false);
                 router.replace(config.auth.loginUrl);
+                return  <></>;
             }
-            else {
-                setIsAuthenticated(true);
+
+            const { exp } = await decodeToken(accessToken);
+
+            if (exp < Math.floor(Date.now() / 1000)) {
+                return <LogoutAndRedirect />;
             }
+
             if (user) {
                 if (user.exists && !Resume) {
                     router.replace("/search");

@@ -48,7 +48,7 @@ export default function UpdatePassword({
         toast.success(
           'Password updated successfully! Please log in with your new password.'
         );
-        router.replace('/signin');
+        router.replace(config.auth.loginUrl);
       } else {
         toast.error(`Failed to update password: ${response.error}`);
         console.error('Failed to update password.:', response.error);
@@ -123,7 +123,7 @@ export default function UpdatePassword({
         <div className='auth-form-footer'>
           <p className=''>
             Remembered your password?{' '}
-            <a href='/signin' className='text-primary'>
+            <a href={config.auth.loginUrl} className='text-primary'>
               Sign in
             </a>
           </p>

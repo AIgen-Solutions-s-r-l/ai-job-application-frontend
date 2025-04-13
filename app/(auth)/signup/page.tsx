@@ -200,7 +200,7 @@ const Signup = () => {
         <div className='auth-form-footer'>
           <p className='text-center'>
             If you are already a member, please{' '}
-            <Link href='/signin' className='text-primary'>
+            <Link href={config.auth.loginUrl} className='text-primary'>
               Sign in
             </Link>
           </p>

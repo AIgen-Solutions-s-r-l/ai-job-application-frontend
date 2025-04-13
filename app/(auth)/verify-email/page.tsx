@@ -63,7 +63,7 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
           <div className='auth-form-footer'>
             <p>
               If you are already a member, please{' '}
-              <Link href='/signin' className='text-primary'>
+              <Link href={config.auth.loginUrl} className='text-primary'>
                 Sign in
               </Link>
             </p>

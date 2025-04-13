@@ -490,7 +490,6 @@ export async function addCredits(amount: number, referenceId: string, descriptio
       throw new Error("No data received from API.");
     }
 
-    // console.log("Credits added successfully:", response.data);
     return response.data;
   } catch (error: any) {
     console.error("Error adding credits:", error);
@@ -587,7 +586,6 @@ export async function getTransactions(): Promise<any> {
       throw new Error("No data received from API.");
     }
 
-    // console.log("Transactions fetched successfully:", response.data);
     return response.data;
   } catch (error: any) {
     console.error("Error fetching transactions:", error);
@@ -634,6 +632,7 @@ export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string)
       });
       
       const authUrl = `https://accounts.google.com/o/oauth2/auth?${params.toString()}`;
+      console.log('First One', authUrl)
       return authUrl;
     }
     
@@ -648,6 +647,7 @@ export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string)
     }
 
     // Return the authorization URL
+    console.log('Second One', response.data.authorization_url);
     return response.data.authorization_url;
   } catch (error: any) {
     console.error("Error getting Google OAuth URL:", error);

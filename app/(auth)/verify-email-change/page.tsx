@@ -24,7 +24,7 @@ const VerifyEmailChange = ({
       const result = await verifyEmailChange(searchParams.token);
       if (result.success) {
         toast.success('Email changed!');
-        router.replace('/signin');
+        router.replace(config.auth.loginUrl);
       } else {
         //@ts-ignore
         toast.error(result.error);
@@ -66,7 +66,7 @@ const VerifyEmailChange = ({
           <div className='auth-form-footer'>
             <p className=''>
               If you are already a member, please{' '}
-              <Link href='/signin' className='text-primary'>
+              <Link href={config.auth.loginUrl} className='text-primary'>
                 Sign in
               </Link>
             </p>

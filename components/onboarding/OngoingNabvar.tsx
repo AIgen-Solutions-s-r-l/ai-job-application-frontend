@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { Container } from '../Container';
 import Image from 'next/image';
 import Link from 'next/link';
+import config from '@/config';
 import { useUserContext } from '@/contexts/user-context';
 import { deleteServerCookie } from '@/libs/cookies';
 import { useRouter } from 'next/navigation';
@@ -17,7 +18,7 @@ export const OngoingNabvar: FC = () => {
     await deleteServerCookie("accessToken");
     setUser(null);
     localStorage.removeItem('selectedJobs');
-    router.push("/signin");
+    router.push(config.auth.loginUrl);
   };
 
   return (

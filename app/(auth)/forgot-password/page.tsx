@@ -100,7 +100,7 @@ export default function ResetPassword() {
         <div className='auth-form-footer'>
           <p className=''>
             Remember your password?{' '}
-            <Link href='/signin' className='text-primary'>
+            <Link href={config.auth.loginUrl} className='text-primary'>
               Sign in
             </Link>
           </p>

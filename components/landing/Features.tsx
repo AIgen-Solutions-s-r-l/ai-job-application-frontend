@@ -128,7 +128,7 @@ export const DesktopFeatures: FC = () => {
         <motion.div
           ref={containerRef}
           style={{ x: translateX }}
-          className="flex flex-row gap-4 h-[33vh]"
+          className="flex flex-row gap-4 h-[320px]"
         >
           <div
             className="features-slide justify-end font-montserra"

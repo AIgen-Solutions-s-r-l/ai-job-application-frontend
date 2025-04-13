@@ -53,12 +53,14 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             )}
           </p>
           <p className="text-base md:text-[18px] font-jura font-semibold">
-            {new Date(job.posted_date).toLocaleDateString('en-US', { 
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </p>
+          {(() => {
+            const postedDate: Date = new Date(job.posted_date);
+            const now: Date = new Date();
+            const diffInMs: number = now.getTime() - postedDate.getTime();
+            const diffInWeeks: number = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
+            return `Published ${diffInWeeks} week${diffInWeeks !== 1 ? 's' : ''} ago`;
+          })()}
+        </p>
         </div>
         <div className='flex gap-x-2 gap-y-1 md:gap-x-3 my-1 lg:my-2 flex-wrap overflow-hidden'>
           {!!job.skills_required.length && job.skills_required.map(

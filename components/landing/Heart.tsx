@@ -2,7 +2,8 @@ import Image from "next/image";
 import HeartImage from '../svgs/Heart.svg';
 import { useState, useRef, useEffect, RefObject } from 'react';
 
-function Heart() {
+function Heart({ ClassName }: { ClassName?: string }) {
+    console.log(ClassName);
     const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
     const leftEyeBall = useRef<HTMLDivElement>(null);
     const rightEyeBall = useRef<HTMLDivElement>(null);
@@ -43,7 +44,7 @@ function Heart() {
     const rightEyePosition = getEyePosition(rightEyeBall, rightEyeContainer);
 
     return (
-        <div className="relative w-[150px] h-[150px] bg-splash-orange items-center justify-center rounded-full pt-[10px] lg:flex hidden">
+        <div className={`w-[150px] h-[150px] bg-splash-orange items-center justify-center rounded-full pt-[10px] lg:flex hidden ${ClassName ? ClassName : 'relative'}`}>
             <Image src={HeartImage} alt="Heart" width={120} height={120} />
             <div ref={leftEyeContainer} className="absolute top-[65px] left-9 w-6 h-6 bg-white rounded-full flex items-center justify-center">
                 <div

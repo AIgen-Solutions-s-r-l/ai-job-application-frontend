@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AlertTriangle, Building2, Globe2, HomeIcon, Search } from 'lucide-react';
-import { locationQuery } from '@/libs/api/matching';
 import { JobSearchProps } from '@/libs/definitions';
 import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
@@ -11,6 +10,43 @@ import { useJobSearch } from '@/contexts/job-search-context';
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
   // eslint-disable-next-line no-unused-vars
+}
+
+async function locationQuery(query: string): Promise<any> {
+  try {
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1`, {
+      headers: {
+        "Accept-Language": "en"
+      },
+    });
+
+    const data = await response.json();
+
+    const filteredResults = data.filter((location: any) => {
+      return location.addresstype === 'city' || location.addresstype === 'country' || location.addresstype === 'town' || location.addresstype === 'village';
+    });
+
+    const uniqueLocations = filteredResults.reduce((acc: any[], current: any) => {
+      const locationName = current.address.city || current.address.town || current.address.village;
+      const country = current.address.country;
+
+      const isDuplicate = acc.find((item: any) => {
+        const itemLocationName = item.address.city || item.address.town || item.address.village;
+        return itemLocationName === locationName && item.address.country === country;
+      });
+
+      if (!isDuplicate) {
+        acc.push(current);
+      }
+      return acc;
+    }, []);
+
+    return uniqueLocations;
+
+  } catch (error) {
+    console.error("API Error", error);
+    return [];
+  }
 }
 
 export const JobSearchBar: React.FC<JobSearchBarProps> = ({
@@ -23,7 +59,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     null
   );
   const [locationError, setLocationError] = useState<string | null>(null);
-  const { totalCount } = useJobSearch();
+  const { totalCount, setCurrentPage } = useJobSearch();
 
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
     defaultValues: { ...searchParams, is_remote_only: String(searchParams.is_remote_only) === 'true' }, // Handle potential string from URL params
@@ -79,6 +115,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience: experience ?? '' }), {});
 
+    setCurrentPage(0)
     onSearch(cleanParams);
   };
 

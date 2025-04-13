@@ -10,7 +10,7 @@ export const Footer: FC = () => {
       <LandingContainer className='xl:px-[10vw] md:px-[10vw] px-[5vw]'>
         <div className="w-full grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 justify-center text-center">
           <div className="py-[12px] xl:py-[36px] px-[32px] xl:px-[60px] flex flex-col gap-[40px] xl:border-r border-primary-light-purple items-center">
-            <Link href='/' className='footer-link' >About Us</Link>
+            <Link href='/about-us' className='footer-link' >About Us</Link>
             <a
               href='https://drive.google.com/file/d/1M7AMuOOO6OAIXViYxY5gCVcnhYx6xQEB/view'
               className='footer-link'
@@ -30,23 +30,23 @@ export const Footer: FC = () => {
             </a>
             <Link href='mailto:info@laboro.co' className='footer-link' >Contact Us</Link>
             <div className="flex xl:mt-[20px] gap-6 text-white">
-            <a
-              href='https://www.instagram.com/interview_scouter/'
-              className='footer-social-container'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <InstagramIcon classname='footer-social-icon' />
-            </a>
+              <a
+                href='https://www.instagram.com/interview_scouter/'
+                className='footer-social-container'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <InstagramIcon classname='footer-social-icon' />
+              </a>
 
-            <a
-              href='https://www.linkedin.com/company/joinlaboro/posts/'
-              className='footer-social-container'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <LinkedinIcon classname='footer-social-icon' />
-            </a>
+              <a
+                href='https://www.linkedin.com/company/joinlaboro/posts/'
+                className='footer-social-container'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <LinkedinIcon classname='footer-social-icon' />
+              </a>
             </div>
           </div>
 

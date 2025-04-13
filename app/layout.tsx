@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Inter, Montserrat, Jura } from "next/font/google";
+import { Inter, Montserrat, Jura, Josefin_Sans } from "next/font/google";
 import { Viewport } from "next";
 import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
@@ -16,6 +16,10 @@ const montserrat = Montserrat({
 const jura = Jura({
   subsets: ['latin'],
   variable: '--font-jura',
+});
+const josefinSans = Josefin_Sans({
+  subsets: ['latin'],
+  variable: '--font-josefin-sans',
 });
 
 export const viewport: Viewport = {
@@ -34,7 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang='en'
       data-theme={config.colors.theme}
-      className={`${font.className} ${montserrat.variable} ${jura.variable}`}
+      className={`${font.className} ${montserrat.variable} ${jura.variable} ${josefinSans.variable}`}
       suppressHydrationWarning
     >
       {config.domainName && (

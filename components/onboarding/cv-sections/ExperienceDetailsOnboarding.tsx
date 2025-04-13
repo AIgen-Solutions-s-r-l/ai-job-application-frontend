@@ -51,7 +51,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
         className="add-nested"
         onClick={() => append("")}
       >
-        <span className="text-2xl">+</span> 
+        <span className="text-2xl">+</span>
         <p className="text-base">Add Responsibility</p>
       </button>
     </>

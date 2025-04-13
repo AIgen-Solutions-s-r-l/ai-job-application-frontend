@@ -36,6 +36,7 @@ module.exports = {
       fontFamily: {
         jura: ['var(--font-jura)'],
         montserrat: ['var(--font-montserrat)'],
+        josefinSans: ['var(--font-josefin-sans)'],
         kanit: ['Kanit', 'serif'],
         roboto: ['Roboto', 'serif'],
         poppins: ['Poppins', 'serif'],
@@ -61,6 +62,7 @@ module.exports = {
         float: 'float 3s ease-in-out infinite, rotate 3s ease-in-out infinite',
         fadeIn: 'fadeIn 1s ease-out forwards',
         scaleIn: 'scaleIn 1s ease-out forwards',
+        moveIn: 'moveIn 1s ease-out forwards',
       },
       gap: {
         'form': '30px',
@@ -118,6 +120,10 @@ module.exports = {
           '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
+        moveIn: {
+          '0%': { transform: 'translateX(-100px)' },
+          '100%': { transform: 'translateX(0px)' }
+        }
       },
     },
   },

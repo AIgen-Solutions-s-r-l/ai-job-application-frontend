@@ -58,17 +58,17 @@ export const JobFeedList: FC<Props> = ({
     const allJobs = [
       ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
         ...pendingJobs[key],
-        posted_date: pendingJobs[key].posted_date || nullDate.toString(),
+        timestamp: pendingJobs[key].timestamp || null,
         status: 'Pending'
       })) : []),
       ...(appliedJobs ? Object.keys(appliedJobs).map(key => ({
         ...appliedJobs[key],
-        posted_date: appliedJobs[key].posted_date || nullDate.toString(),
+        timestamp: appliedJobs[key].timestamp || null,
         status: 'Applied'
       })) : []),
       ...(failedJobs ? Object.keys(failedJobs).map(key => ({
         ...failedJobs[key],
-        posted_date: failedJobs[key].posted_date || nullDate.toString(),
+        timestamp: failedJobs[key].timestamp || null,
         status: 'Failed'
       })) : [])
     ];
@@ -76,8 +76,8 @@ export const JobFeedList: FC<Props> = ({
     // Sort the combined array
     return {
       all: sortBy === 'latest'
-        ? sortArrayByDate(allJobs, 'posted_date', 'desc')
-        : allJobs.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
+        ? sortArrayByDate(allJobs, 'timestamp', 'desc')
+        : allJobs.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())),
     };
   }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
 
@@ -110,7 +110,11 @@ export const JobFeedList: FC<Props> = ({
       )}
 
       <div>
-        {/* <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
+        <div className="mb-5 font-montserrat">
+          <p className="text-gray-500">You can view all your submitted applications here. <strong>Please note that we retain your applications on file for 90 days.</strong></p>
+        </div>
+
+        <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
           Sort by:
           <button onClick={() => setSortBy('latest')}>
             {underlineOrParagraph('Latest', sortBy === 'latest')}
@@ -122,10 +126,8 @@ export const JobFeedList: FC<Props> = ({
               sortBy === 'alphabetically'
             )}
           </button>
-        </div> */}
-        <div className="mb-5 font-montserrat">
-          <p className="text-gray-500">You can view all your submitted applications here. <strong>Please note that we retain your applications on file for 90 days.</strong></p>
         </div>
+
 
         <div className={typography.tabs.content}>
           {isLoading ? (
@@ -142,10 +144,10 @@ export const JobFeedList: FC<Props> = ({
             ) : (
               <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">
                 <p className='font-montserrat font-xl text-base xl:text-xl font-bold'>
-                Your application history is empty.
+                  Your application history is empty.
                 </p>
                 <p className='font-montserrat font-medium text-base xl:text-lg'>
-                  Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click? 
+                  Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click?
                 </p>
                 <p className='font-montserrat font-medium text-base xl:text-lg'>
                   Let us do the heavy lifting for you!

@@ -2,7 +2,6 @@
 
 import { apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
-import { filter } from "motion/dist/react-client";
 
 export async function fetchMatchingJobs(queryString: string): Promise<any> {
   try {
@@ -23,42 +22,3 @@ export async function fetchMatchingJobs(queryString: string): Promise<any> {
   }
 }
 
-export async function locationQuery(query: string): Promise<any> {
-  try {
-    const response = await apiClientJwt.get(`https://nominatim.openstreetmap.org/search`, {
-      params: {
-        'q': query,
-        format: "json",
-        addressdetails: 1,
-      },
-      headers: {
-        "Accept-Language": "en"
-      },
-    });
-
-    const filteredResults = response.data.filter((location: any) => {
-      return location.addresstype === 'city' || location.addresstype === 'country' || location.addresstype === 'town' || location.addresstype === 'village';
-    });
-
-    const uniqueLocations = filteredResults.reduce((acc: any[], current: any) => {
-      const locationName = current.address.city || current.address.town || current.address.village;
-      const country = current.address.country;
-
-      const isDuplicate = acc.find((item: any) => {
-        const itemLocationName = item.address.city || item.address.town || item.address.village;
-        return itemLocationName === locationName && item.address.country === country;
-      });
-
-      if (!isDuplicate) {
-        acc.push(current);
-      }
-      return acc;
-    }, []);
-
-    return uniqueLocations;
-
-  } catch (error) {
-    console.error("API Error", error);
-    return null;
-  }
-}

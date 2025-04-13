@@ -242,16 +242,16 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
                 title={'Country'}
                 {...register(`experienceDetails.${index}.location.country`, { required: 'country is required' })}
                 placeholder="e.g., Italy"
-                error={!!errors.experienceDetails?.[index]?.location.country}
-                errorMessage={errors.experienceDetails?.[index]?.location.country?.message}
+                error={!!errors.experienceDetails?.[index]?.location?.country}
+                errorMessage={errors.experienceDetails?.[index]?.location?.country?.message}
                 className='w-[164px]'
               />
               <FormInput
                 title={'City'}
                 {...register(`experienceDetails.${index}.location.city`, { required: 'City is required' })}
                 placeholder="e.g., Milan"
-                error={!!errors.experienceDetails?.[index]?.location.city}
-                errorMessage={errors.experienceDetails?.[index]?.location.city?.message}
+                error={!!errors.experienceDetails?.[index]?.location?.city}
+                errorMessage={errors.experienceDetails?.[index]?.location?.city?.message}
                 className='w-[164px]'
               />
             </InputWrapper>

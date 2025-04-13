@@ -5,11 +5,13 @@ import { motion, useTransform, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 import { useWindowSize } from "@/lib/hooks";
 import { LandingContainer } from './LandingContainer';
+import { Hero } from "./Hero";
 
 const MobileFeatures: FC = () => {
   return (
     <section className="py-12 px-4">
       {/* Header */}
+      <Hero />
       <div className="flex flex-col items-center gap-6 mb-12">
         <h2 className="text-3xl font-medium text-center text-white">
           All the jobs on the internet, in one place.
@@ -122,23 +124,25 @@ export const DesktopFeatures: FC = () => {
     stiffness: 400
   });
 
-  const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-60%']);
+  const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-20%']);
 
   return (
-    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[200vh] pt-[80px] 2xl:pt-[100px]" ref={containerRef}>
-      <motion.div
-        className="sticky top-[30%]"
-        style={{ x: translateX }}
+    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[200vh] pt-[80px] 2xl:pt-[100px]">
+      <div
+        className="sticky top-[-50%]"
       >
-        <div
-          className="flex flex-row gap-4 h-[33vh]"
+        <Hero />
+        <motion.div
+          ref={containerRef}
+          style={{ x: translateX }}
+          className="flex flex-row gap-4 h-[320px]"
         >
           <div
             className="features-slide justify-end font-montserra"
           >
             <Image src='/landing/feature-1.png' alt='feature-1' width={305} height={100} />
 
-            <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">300K+ Followers</p>
+            <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">400K+ Followers</p>
 
             <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">
               on social platforms (
@@ -189,15 +193,15 @@ export const DesktopFeatures: FC = () => {
             </p>
           </div>
 
-          <div
+          {/* <div
             className="features-slide items-center justify-center font-montserrat"
           >
             <p className="text-white text-[22px] 2xl:text-[28px] leading-none">Companies hiring now</p>
 
             <Image src='/landing/feature-4.svg' alt='feature-4' width={300} height={264} className="mt-4" />
-          </div>
-        </div>
-      </motion.div>
+          </div> */}
+        </motion.div>
+      </div>
     </section >
   );
 };

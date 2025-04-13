@@ -83,7 +83,7 @@ progress::-webkit-progress-value {
   }
 
   .pill {
-    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary-light-purple-gray rounded-full font-jura font-semibold
+    @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary-deep-purple-gray rounded-full font-jura font-semibold
   }
   
   .pill-container {
@@ -96,7 +96,7 @@ progress::-webkit-progress-value {
   }
 
   .job-select-box {
-    @apply bg-splash-green border-2 border-my-neutral-7 text-black
+    @apply bg-splash-green border-2 border-my-neutral-green rounded-[20px]
   }
   
   .scrollable {
@@ -117,6 +117,69 @@ progress::-webkit-progress-value {
 
   .cover-letter-input {
     @apply w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto;
+  }
+
+  @keyframes bounce-horizontal {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10px); /* You can adjust the distance of the bounce */
+    }
+  }
+  
+  .animate-bounce-horizontal {
+    animation: bounce-horizontal 1s ease-in-out infinite;
+  }
+
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 50% 50%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
+  .animate-gradient {
+    background: linear-gradient(to bottom, white, #8783D1); /* from-white to-primary-light-purple-gray */
+    background-size: 200% 200%;
+    animation: gradient-animation 5s ease infinite;
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.25);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .pop-once {
+    animation: pop 0.2s ease-in-out;
+  }
+
+  @keyframes pop-small {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .pop-once-small {
+    animation: pop-small 0.2s ease-in-out;
   }
   
   .my-x-scrollable {

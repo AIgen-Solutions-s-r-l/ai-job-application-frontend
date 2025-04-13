@@ -83,35 +83,50 @@ const Signup = () => {
         </div>
 
         <form className='auth-form-form' onSubmit={handleSubmit(onSubmit)}>
-          <FormField error={errors.email?.message}>
+            <FormField error={errors.email?.message}>
             <input
               type='email'
               autoComplete='email'
               className='auth-form-input'
               placeholder='Enter your email'
               {...register('email', {
-                required: 'Required field',
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
-                  message: 'Please enter a valid email',
-                },
+              required: 'Required field',
+              pattern: {
+              value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+              message: 'Please enter a valid email',
+              },
+              // validate: (value: string) => {
+              // const allowedDomains = [
+              //   'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
+              //   'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
+              //   'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
+              //   'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
+              //   'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
+              // ];
+              // const domain = value.split('@')[1];
+              // return allowedDomains.includes(domain) || 'Please enter a valid email';
+              // },
               })}
             />
-          </FormField>
-          <FormField error={errors.password?.message}>
+            </FormField>
+            <FormField error={errors.password?.message}>
             <input
               type='password'
               className='auth-form-input'
               placeholder='Create a password'
               {...register('password', {
-                required: 'Required field',
-                minLength: {
-                  message: 'Minimum length 8 characters',
-                  value: 8,
-                },
+              required: 'Required field',
+              minLength: {
+                message: 'Minimum length 8 characters',
+                value: 8,
+              },
+              pattern: {
+                value: /^(?=.*\d).+$/,
+                message: 'Password must contain at least one number',
+              },
               })}
             />
-          </FormField>
+            </FormField>
           <FormField error={errors.confirmPassword?.message}>
             <input
               type='password'
@@ -134,16 +149,16 @@ const Signup = () => {
                 })}
                 className="mt-1.5 scale-125 accent-primary"
               />
-              <span>
+                <span>
                 I agree to the{' '}
-                <Link href="/terms" className="text-primary underline">
+                <a href="https://drive.google.com/file/d/1GJZ2moJmJ8KBSrzVPcD9Slg6Kx_gTDSM/view" className="text-primary underline" target="_blank" rel="noopener noreferrer">
                   Terms of Service
-                </Link>{' '}
+                </a>{' '}
                 and{' '}
-                <Link href="/privacy" className="text-primary underline">
-                  Privacy Policy
-                </Link>.
-              </span>
+                <a href="https://drive.google.com/file/d/1M7AMuOOO6OAIXViYxY5gCVcnhYx6xQEB/view" className="text-primary underline" target="_blank" rel="noopener noreferrer">
+                  Privacy & Cookie Policy
+                </a>.
+                </span>
             </label>
           </FormField>
           

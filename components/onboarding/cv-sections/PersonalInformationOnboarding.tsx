@@ -106,14 +106,30 @@ export const PersonalInformationOnboarding: FC = () => {
           />
           <FormInput
             title={'Email'}
-            {...register('personalInfo.email')}
-            type="email"
-            placeholder="e.g., john.doe@example.com"
-            error={!!errors.personalInfo?.email}
-            errorMessage={errors.personalInfo?.email?.message}
-            className='grow lg:w-[579px]'
-          />
-        </InputWrapper>
+            type='email'
+            autoComplete='email'
+            className='auth-form-input grow lg:w-[579px]'
+            placeholder='e.g., john.doe@example.com'
+            {...register('personalInfo.email', {
+            required: 'Required field',
+            pattern: {
+              value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+              message: 'Please enter a valid email',
+            },
+            validate: (value: string) => {
+              const allowedDomains = [
+              'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
+              'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
+              'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
+              'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
+              'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
+              ];
+              const domain = value.split('@')[1];
+              return allowedDomains.includes(domain) || 'Please enter a valid email domain';
+            },
+            })}
+            />
+          </InputWrapper>
 
         {/* Socials */}
         <InputWrapper>

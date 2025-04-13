@@ -9,15 +9,18 @@ export const VerifyEmailInstruction = () => (
     <div className='auth-form-container'>
       <div className='flex flex-col gap-2'>
         <Image src='/laboro.png' alt='Logo' width={214} height={58} />
-        <h2 className='auth-form-header'>A email has been sent to you!</h2>
+        <h2 className='auth-form-header'>An email has been sent to you!</h2>
         <p>
           To complete registration, follow the link we sent you in an email.
         </p>
       </div>
 
       <div className='auth-form-footer'>
-        <Link href='/' className='btn text-primary'>
-          to main page
+        <Link
+          href='/signin'
+          className='auth-form-submit'
+        >
+          Sign in
         </Link>
       </div>
     </div>

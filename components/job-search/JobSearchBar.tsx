@@ -290,7 +290,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
           <div className='flex items-center mt-3 md:pb-1 md:mt-5 gap-16'>
             <p className='hidden md:block text-[20px] font-jura font-medium'>
-              <span className='font-bold'>{totalCount.toLocaleString('en-US')} jobs</span> found
+              <span className='font-bold'>{totalCount.toLocaleString('en-US')} jobs</span> matched
             </p>
             <div className='flex flex-wrap gap-2 lg:gap-8 text-base font-jura font-semibold'>
               <select

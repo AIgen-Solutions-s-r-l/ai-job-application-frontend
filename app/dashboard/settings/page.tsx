@@ -38,6 +38,14 @@ export default async function SettingsPage() {
           <PersonalInfo jobProfile={profileData} />
         </Suspense>
       </Tabs.Content> */}
+
+    <p className="text-center text-sm text-muted-foreground pt-72">
+      If you want to delete your account, please contact us at{' '}
+      <a href="mailto:help@laboro.co" className="text-primary underline">
+        help@laboro.co
+      </a>
+    </p>
+
     </Tabs.Root>
   );
 }

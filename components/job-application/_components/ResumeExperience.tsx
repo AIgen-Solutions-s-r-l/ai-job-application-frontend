@@ -99,7 +99,7 @@ export const ResumeExperience: FC = () => {
     <div className={template.experience.container} id="experience-section">
       {!!fields.length && (
         <h2 className={template.experience.h2}>
-          Experience
+          Professional Experience
         </h2>
       )}
       {fields.map((exp, index) => {

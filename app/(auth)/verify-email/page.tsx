@@ -54,7 +54,7 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
         <div className='flex flex-col gap-2'>
           <Image src='/laboro.png' alt='Logo' width={214} height={58} />
           <h2 className='auth-form-header'>
-            Verify an email{' '}
+            Verifying email...{' '}
             {isLoading && (
               <span className='loading loading-spinner loading-lg'></span>
             )}

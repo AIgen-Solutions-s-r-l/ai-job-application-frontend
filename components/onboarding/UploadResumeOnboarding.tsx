@@ -96,7 +96,13 @@ export const UploadResumeOnboarding: React.FC = () => {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className={`flex flex-col items-center justify-center w-full h-[408px] rounded-[22px] border border-dashed border-my-neutral-7 ${isDragging && 'bg-neutral-cold-0'}`}
+          className={`flex flex-col items-center justify-center w-full h-[408px] rounded-[22px] border border-dashed border-my-neutral-7 ${
+            isDragging 
+              ? 'bg-neutral-cold-0' 
+              : cvFile 
+              ? 'animate-gradient' 
+              : ''
+          }`}
         >
           {isDragging ? (
             <AiFillFilePdf className='text-7xl text-primary' />
@@ -111,15 +117,15 @@ export const UploadResumeOnboarding: React.FC = () => {
               >
                 {isLoading 
                 ? (
-                    <>
-                        <p>Creating Resume</p>
-                        <FaSpinner className="animate-spin" />
-                    </>
+                  <>
+                    <p>Creating Resume</p>
+                    <FaSpinner className="animate-spin" />
+                  </>
                 ) : (
-                    <>
-                        <p>Create Resume</p>
-                        <ArrowRightIcon />
-                    </>
+                  <>
+                    <p>Create Resume</p>
+                    <ArrowRightIcon classname="animate-bounce-horizontal" />
+                  </>
                 )}
               </button>
             </>

@@ -1,13 +1,12 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import { CloseButtonIcon } from "@/components/AppIcons";
 import Template1 from '../svgs/template1.svg';
 import Template2 from '../svgs/template2.svg';
 import Template3 from '../svgs/template3.svg';
-import Template4 from '../svgs/template4.svg';
 import ResumeUpload from '../svgs/ResumeUpload.svg';
 import { Dispatch, SetStateAction, DragEvent, ChangeEvent } from "react";
 import ToggleSwitch from "../common/ToggleSwitch";
@@ -42,6 +41,11 @@ const GenerateResumeModal = ({
 }: ModalProps) => {
     const [isDragging, setIsDragging] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Reset the choice when the modal is closed
+    useEffect(() => {
+        setGenerateTemplate(false);
+      }, [isModalOpen]);
 
 
     const handleConfirm = async () => {
@@ -126,7 +130,7 @@ const GenerateResumeModal = ({
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="flex flex-col items-center relative w-[700px] py-6 bg-white rounded-xl shadow-lg gap-[20px]">
-                                <div className="flex w-full justify-end items-center mb-4  px-6">
+                                <div className="flex w-full justify-end items-center mb-4 px-6">
                                     <button
                                         className="outline-none"
                                         onClick={handleCancel}
@@ -135,8 +139,13 @@ const GenerateResumeModal = ({
                                     </button>
                                 </div>
                                 <section className="pb-5 px-6">
-                                    <p className="font-jura text-[18px] font-semibold">
-                                        Generate a resume for each job post with the selected template?
+                                    <p className="font-jura text-[18px] font-semibold text-center">
+                                        {generateTemplate
+                                            ? "Select a template to generate your resume for the selected jobs."
+                                            : "Upload your resume to apply for the selected jobs."}
+                                    </p>
+                                    <p className="font-jura font-semibold text-red-500 text-center pt-5">
+                                        Note: this action is irreversible, you will not be able to undo it.
                                     </p>
                                 </section>
                                 <ToggleSwitch
@@ -147,7 +156,7 @@ const GenerateResumeModal = ({
                                 {generateTemplate ?
                                     <section className={`px-7 flex w-full py-3 h-[320px] gap-4 bg-base-100 my-x-scrollable relative`}>
                                         {
-                                            [Template1, Template2, Template3, Template4].map((template, index) => (
+                                            [Template1, Template2, Template3].map((template, index) => (
                                                 <TemplateCard
                                                     key={index + 1}
                                                     templateNumber={index + 1}

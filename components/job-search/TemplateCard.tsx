@@ -1,5 +1,4 @@
 import Image from "next/image";
-import CheckMark from '../svgs/CheckMark.svg';
 import { Check } from "lucide-react";
 
 interface TemplateCardProps {

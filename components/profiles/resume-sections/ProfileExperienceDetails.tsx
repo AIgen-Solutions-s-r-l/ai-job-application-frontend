@@ -2,7 +2,7 @@
 
 import React, { FC, ReactElement, useCallback, useEffect } from "react";
 import { JobProfile } from "@/libs/definitions";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { ArrowRight, Plus } from "lucide-react";
 import { FormInput, InputWrapper } from "@/components/ui/form-input";
 
@@ -108,7 +108,7 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
 }
 
 export const ProfileExperienceDetails: FC = (): ReactElement => {
-  const { control, register, formState: { errors } } = useFormContext<FormData>();
+  const { control, register, formState: { errors }, watch, setValue } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control, name: "experienceDetails", rules: {
       required: 'At least one experience is required',
@@ -128,6 +128,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
+      isCurrent: false,
     }
     );
 
@@ -138,7 +139,21 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
         {errors.experienceDetails && <p className="text-error text-xs lg:text-sm">Please fill out all required fields</p>}
       </div>
       <div className="collapse-content !p-0 bg-base-100">
-        {fields.map((experience, index) => (
+        {fields.map((experience, index) => {
+          // Set reciprocally Present and isCurrent
+          useEffect(() => {
+            if (watch(`experienceDetails.${index}.isCurrent`)) {
+              setValue(`experienceDetails.${index}.employment_end_date`, 'Present');
+            }
+          }, [watch(`experienceDetails.${index}.isCurrent`), setValue, index]);
+
+          useEffect(() => {
+            if (watch(`experienceDetails.${index}.employment_end_date`) === 'Present') {
+              setValue(`experienceDetails.${index}.isCurrent`, true);
+            }
+          }, [watch(`experienceDetails.${index}.employment_end_date`), watch(`experienceDetails.${index}.isCurrent`), setValue, index]);
+
+          return (
           <div key={experience.id} className="flex flex-col gap-5 mt-5">
             <div className="flex items-center gap-10">
               <div className="flex items-center gap-2">
@@ -156,7 +171,7 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
             <InputWrapper>
               <FormInput
                 title={'Company'}
-                {...register(`experienceDetails.${index}.company`, { required: 'Education level is required' })}
+                {...register(`experienceDetails.${index}.company`, { required: 'Company is required' })}
                 placeholder="e.g., Google"
                 error={!!errors.experienceDetails?.[index]?.company}
                 errorMessage={errors.experienceDetails?.[index]?.company?.message}
@@ -182,22 +197,47 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
             </InputWrapper>
 
             <InputWrapper>
-              <FormInput
+             <FormInput
                 title={'Start Date'}
-                {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
-                placeholder="e.g., June 2020 - Present"
+                {...register(`experienceDetails.${index}.employment_start_date`)}
+                placeholder="e.g., June 2020"
                 error={!!errors.experienceDetails?.[index]?.employment_start_date}
                 errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
-                className='w-[238px]'
+                className='w-[200px]'
+                type="month"
               />
+              <div className="flex flex-col w-[200px] gap-1 items-start">
               <FormInput
                 title={'End Date'}
-                {...register(`experienceDetails.${index}.employment_end_date`, { required: 'End Date is required' })}
-                placeholder="e.g., June 2020 - Present"
-                error={!!errors.experienceDetails?.[index]?.employment_end_date}
+                {...register(`experienceDetails.${index}.employment_end_date`, {
+                  validate: value => watch(`experienceDetails.${index}.isCurrent`) || !!value || 'End Date is required',
+                })}
+                placeholder="e.g., Present"
+                type={useWatch({ name: `experienceDetails.${index}.employment_end_date` }) === "Present" ? 'text' : 'month'}
+                disabled={watch(`experienceDetails.${index}.isCurrent`)}
+                error={!!errors.experienceDetails?.[index]?.employment_end_date && !watch(`experienceDetails.${index}.isCurrent`)}
                 errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
-                className='w-[238px]'
+                className={`w-[180px] ${watch(`experienceDetails.${index}.isCurrent`) ? 'text-gray-400' : ''}`}
               />
+                <div className="flex items-center gap-3 text-primary font-bold text-md mt-1">
+                <input
+                  type="checkbox"
+                  id={`isCurrentExperience-${index}`}
+                  className="scale-125 accent-primary"
+                  {...register(`experienceDetails.${index}.isCurrent` as const)}
+                  onChange={(e) => {
+                  const isChecked = e.target.checked;
+                  setValue(`experienceDetails.${index}.isCurrent`, isChecked);
+                  if (isChecked) {
+                    setValue(`experienceDetails.${index}.employment_end_date`, "Present");
+                  }
+                  else {
+                    setValue(`experienceDetails.${index}.employment_end_date`, "");
+                  }}}
+                />
+                <label htmlFor={`isCurrentExperience-${index}`}>Current</label>
+                </div>
+              </div>
               <FormInput
                 title={'Country'}
                 {...register(`experienceDetails.${index}.location.country`, { required: 'country is required' })}
@@ -227,7 +267,8 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
 
             <SkillsNestedFieldArray index={index} />
           </div>
-        ))}
+          )
+        })}
 
         <div className="flex items-center gap-4 my-5">
           <div

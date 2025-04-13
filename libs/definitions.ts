@@ -323,6 +323,7 @@ export interface Bot {
 }
 
 export interface Transaction {
+  is_subscription_active: any;
   id: number
   amount: string
   reference_id: any

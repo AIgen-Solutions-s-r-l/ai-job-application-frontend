@@ -20,7 +20,7 @@ function Subscription({ initialTransactions }: SubscriptionProps) {
                 tab={tab}
                 setTab={setTab}
             />
-            {tab === 0 && <SubscriptionTab />}
+            {tab === 0 && <SubscriptionTab transactions={initialTransactions}/>}
             {tab === 1 && <PaymentHistory transactions={initialTransactions} />}
         </>
     )

@@ -490,6 +490,7 @@ export async function addCredits(amount: number, referenceId: string, descriptio
       throw new Error("No data received from API.");
     }
 
+    // console.log("Credits added successfully:", response.data);
     return response.data;
   } catch (error: any) {
     console.error("Error adding credits:", error);
@@ -586,6 +587,7 @@ export async function getTransactions(): Promise<any> {
       throw new Error("No data received from API.");
     }
 
+    // console.log("Transactions fetched successfully:", response.data);
     return response.data;
   } catch (error: any) {
     console.error("Error fetching transactions:", error);

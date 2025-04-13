@@ -324,15 +324,15 @@ export const fetchBalanceData = async (): Promise<ServerActionResult<number>> =>
 export const fetchTransactionsData = async (): Promise<Transaction[]> => {
   try {
     const response = await getTransactions();
-
-    const creditAddedTransactions = response.transactions.filter(
-      (transaction: any) => transaction.transaction_type === 'credit_added' && 
-      transaction.description !== "Refund for failed application"
-    );
-
-    return creditAddedTransactions || [];
+    
+    // Asegurarse de que response.transactions sea un array
+    const transactions = Array.isArray(response.transactions) 
+      ? response.transactions 
+      : [];
+      
+    return transactions;
   } catch (error) {
-    console.error("Error fetching user balance:", error);
+    console.error("Error fetching user transactions:", error);
     return [];
   }
 }

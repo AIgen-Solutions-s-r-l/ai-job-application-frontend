@@ -15,8 +15,13 @@ import { addCredits } from "@/libs/api/auth";
 // Importamos la configuración central
 import { MasterCardIcon } from "../AppIconsWithImages";
 import { useSubscription } from "@/libs/hooks/useSubscription";
+import { Transaction } from "@/libs/definitions";
 
-function SubscriptionTab() {
+interface SubscriptionTabProps {
+  transactions: Transaction[];
+}
+
+function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
   const [currentApplications, setCurrentApplications] = useState(300);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   // Añadimos un estado para rastrear las transacciones ya procesadas
@@ -36,6 +41,14 @@ function SubscriptionTab() {
 
   const totals = calculateTotal(currentApplications);
   const searchParams = useSearchParams();
+
+  // Determinar si hay un plan activo basado en las transacciones
+  const activeSubscription = transactions.find(
+    tx => tx.transaction_type === 'plan_purchase' && tx.is_subscription_active === true
+  );
+  
+  // Obtener el valor del plan activo (si existe)
+  const activePlanValue = activeSubscription ? parseInt(activeSubscription.amount) : null;
 
   // Check Stripe checkout result
   useEffect(() => {
@@ -158,12 +171,12 @@ function SubscriptionTab() {
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
           />
-          {/* "Current plan" label if 500 is selected */}
-          {/* {values[sliderValue].value === "500" && (
+          {/* "Current plan" label basado en el plan activo del usuario */}
+          {activeSubscription && values[sliderValue].value === activePlanValue?.toString() && (
             <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
               Current plan
             </div>
-          )} */}
+          )}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price + purchase */}
@@ -193,51 +206,45 @@ function SubscriptionTab() {
         </div>
       </div>
 
-      {/* Billing & Subscription */}
-      {/* <div className="border border-my-neutral-3 rounded-lg p-5 flex flex-col gap-4">
-        <h3 className="font-montserrat text-xl font-semibold text-black">
-          Billing and Subscription
-        </h3>
-        <div className="flex items-center gap-2">
-          <p className="font-jura text-base font-semibold text-black">
-            Next Renewal:
-          </p>
-          <p className="font-jura text-base text-black">
-            01 March 2025
-          </p>
-        </div> */}
-
-        {/* Card info + Billing details side by side */}
-        {/* <div className="flex flex-col md:flex-row gap-6 w-full mt-2">
-          <div className="border border-my-neutral-3 rounded-lg p-4 flex-1 flex flex-col gap-3">
-            <p className="font-jura font-semibold text-base text-black">
-              Credit Card Information
+      {/* Mostrar información de suscripción activa solo si existe y estamos en plan mensual */}
+      {activeSubscription && paymentPlan === "monthly" && (
+        <div className="border border-my-neutral-3 rounded-lg p-5 flex flex-col gap-4">
+          <h3 className="font-montserrat text-xl font-semibold text-black">
+            Active Subscription
+          </h3>
+          <div className="flex items-center gap-2">
+            <p className="font-jura text-base font-semibold text-black">
+              Plan:
             </p>
-            <div className="flex items-center gap-2">
-              <MasterCardIcon />
-              <p className="text-black font-montserrat font-semibold text-lg">
-                **** **** **** 9201
-              </p>
-            </div>
-            <p className="text-black font-jura text-sm">
-              *Expires on: 08/28
+            <p className="font-jura text-base text-black">
+              {activeSubscription.amount} credits monthly
             </p>
-            <button className="text-primary-deep-purple underline text-sm w-fit">
-              Change Payment
-            </button>
+            <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-600">
+              Active
+            </span>
           </div>
-
-          <div className="border border-my-neutral-3 rounded-lg p-4 flex-1 flex flex-col gap-3">
-            <p className="font-jura font-semibold text-base text-black">
-              Billing Details
+          <div className="flex items-center gap-2">
+            <p className="font-jura text-base font-semibold text-black">
+              Next Renewal:
             </p>
-            <p className="text-black font-jura text-sm">
-              Marco Rossi <br />
-              Via Giusepe Zorzi, 22, 25138, Verona, IT
+            <p className="font-jura text-base text-black">
+              {(() => {
+                // Calcular la fecha de renovación (un mes después de la creación)
+                const creationDate = new Date(activeSubscription.created_at);
+                const renewalDate = new Date(creationDate);
+                renewalDate.setMonth(renewalDate.getMonth() + 1);
+                
+                // Formatear la fecha para mostrarla
+                return renewalDate.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                });
+              })()}
             </p>
           </div>
         </div>
-      </div> */}
+      )}
     </div>
   );
 }

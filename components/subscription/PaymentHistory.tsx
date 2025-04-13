@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import CheckMark from '../svgs/CheckMarkPurple.svg'
 import { Transaction } from '@/libs/definitions';
+import { LaboroSmileyIcon } from '../AppIcons';
 
 interface PaymentHistoryProps {
   transactions: Transaction[];
@@ -10,28 +11,57 @@ interface PaymentHistoryProps {
 function PaymentHistory({ transactions }: PaymentHistoryProps) {
     const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
-    // const paymentData = [
-    //     { id: '0323353838', date: '02/27/2025 13:59', amount: 54.00, status: 'Paid', type: 'Credit' },
-    //     { id: '0323353839', date: '02/26/2025 09:30', amount: 29.99, status: 'Paid', type: 'Debit' },
-    //     { id: '0323353840', date: '02/25/2025 15:45', amount: 149.99, status: 'Paid', type: 'Credit' },
-    //     { id: '0323353841', date: '02/24/2025 11:20', amount: 79.99, status: 'Paid', type: 'Credit' },
-    //     { id: '0323353842', date: '02/23/2025 16:15', amount: 39.99, status: 'Paid', type: 'Debit' },
-    //     { id: '0323353843', date: '02/22/2025 14:10', amount: 89.99, status: 'Paid', type: 'Credit' },
-    //     { id: '0323353844', date: '02/21/2025 10:05', amount: 199.99, status: 'Paid', type: 'Credit' },
-    //     { id: '0323353845', date: '02/20/2025 17:30', amount: 44.99, status: 'Paid', type: 'Debit' },
-    //     { id: '0323353846', date: '02/19/2025 12:45', amount: 69.99, status: 'Paid', type: 'Credit' },
-    //     { id: '0323353847', date: '02/18/2025 08:20', amount: 159.99, status: 'Paid', type: 'Credit' },
-    // ];
+    // Make sure transactions is an array
+    const transactionsArray = Array.isArray(transactions) ? transactions : [];
+    
+    // Filter transactions to show only relevant purchases (plan_purchase and one_time_purchase)
+    const purchaseTransactions = transactionsArray.filter(transaction => 
+        transaction.transaction_type === 'plan_purchase' || 
+        transaction.transaction_type === 'one_time_purchase'
+    );
 
-    const sortedTransactions = [...transactions].sort((a, b) => {
+    const sortedTransactions = [...purchaseTransactions].sort((a, b) => {
         const dateA = new Date(a.created_at).getTime();
         const dateB = new Date(b.created_at).getTime();
         return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    })
+    });
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    };
+    
+    // Simplify transaction type names
+    const getTransactionTypeName = (transaction: Transaction): string => {
+        return transaction.transaction_type === 'plan_purchase' 
+            ? 'Subscription' 
+            : 'One-time Purchase';
+    };
+
+    // Function to determine transaction status and style
+    const getTransactionStatus = (transaction: Transaction) => {
+        return {
+            label: 'Paid',
+            showCheckmark: true
+        };
+    };
+    
+    // Function to get subscription badge when applicable
+    const getSubscriptionBadge = (transaction: Transaction) => {
+        if (transaction.transaction_type !== 'plan_purchase') {
+            return null;
+        }
+        
+        const isActive = transaction.is_subscription_active;
+        return (
+            <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
+                isActive 
+                    ? 'bg-green-100 text-green-600' 
+                    : 'bg-red-100 text-red-500'
+            }`}>
+                {isActive ? 'Active' : 'Inactive'}
+            </span>
+        );
     };
     
     return (
@@ -54,31 +84,52 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                     </button>
                 </div>
             </div>
-            <table className="w-full">
-                <thead>
-                    <tr className="border-b font-jura font-semibold text-[18px]">
-                        <th className="text-left py-4">Date / Time</th>
-                        <th className="text-left py-4">Amount</th>
-                        <th className="text-left py-4">Status</th>
-                        <th className="text-left py-4">Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedTransactions.map((transaction) => (
-                        <tr key={transaction.id} className="border-b font-jura font-semibold text-[14px]">
-                            <td>{formatDate(transaction.created_at)}</td>
-                            <td>$ {parseFloat(transaction.amount).toFixed(2)}</td>
-                            <td className="py-4">
-                                <div className="flex items-center gap-2">
-                                    Paid
-                                    <Image src={CheckMark} alt="CheckMark" className="w-5 h-5 text-blue-600" />
-                                </div>
-                            </td>
-                            <td>{(transaction.description?.split("via")[0] || 'Credit Purchase').trim()}</td>
+            {sortedTransactions.length === 0 ? (
+                <div className="text-center py-8 font-jura text-gray-500">
+                    No purchase transactions found
+                </div>
+            ) : (
+                <table className="w-full table-fixed">
+                    <thead>
+                        <tr className="border-b font-jura font-semibold text-[18px]">
+                            <th className="text-left py-4 w-[25%]">Type</th>
+                            <th className="text-left py-4 w-[25%]">Status</th>
+                            <th className="text-left py-4 w-[25%]">Credits</th>
+                            <th className="text-left py-4 w-[25%]">Date / Time</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {sortedTransactions.map((transaction) => {
+                            const status = getTransactionStatus(transaction);
+                            return (
+                                <tr key={transaction.id} className="border-b font-jura font-semibold text-[14px]">
+                                    <td className="py-4">
+                                        <div className="flex items-center">
+                                            <span className='text-black'>
+                                                {getTransactionTypeName(transaction)}
+                                            </span>
+                                            {getSubscriptionBadge(transaction)}
+                                        </div>
+                                    </td>
+                                    <td className="py-4">
+                                        <div className="flex items-center gap-2">
+                                            Paid
+                                            <Image src={CheckMark} alt="CheckMark" className="w-5 h-5 text-blue-600" />
+                                        </div>
+                                    </td>
+                                    <td className="py-4">
+                                        <div className="flex items-center gap-1">
+                                            <LaboroSmileyIcon classname="w-4 h-4" />
+                                            <span>{parseFloat(transaction.amount).toFixed(0)}</span>
+                                        </div>
+                                    </td>
+                                    <td className="py-4">{formatDate(transaction.created_at)}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            )}
         </div>
     )
 }

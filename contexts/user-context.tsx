@@ -9,6 +9,8 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
+import { redirect } from 'next/navigation';
+import config from '@/config';
 import { isResumeExits } from '@/libs/api/resume';
 import { decodeToken, fetchUserData } from '@/libs/api/auth';
 import { getServerCookie } from '@/libs/cookies';
@@ -47,20 +49,26 @@ export default function UserContextProvider({
       const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
 
       timeout = setTimeout(async () => {
-        const { access_token } = await refreshToken();
-        setAccessToken(access_token);
+        try {
+          const { access_token } = await refreshToken();
+          setAccessToken(access_token);
 
-        // console.log('token updated', new Date().toLocaleString(), {
-        //   accessToken,
-        //   interval: timeout,
-        // });
+          // console.log('token updated', new Date().toLocaleString(), {
+          //   accessToken,
+          //   interval: timeout,
+          // });
+        } catch (error) {
+          console.error('error on token update', error);
+
+          redirect(config.auth.loginUrl);
+        }
       }, (tokenValiditySeconds - 60) * 1000);
 
-      //   console.log(
-      //     `timeout (${timeout}) started for refresh token after ${
-      //         tokenValiditySeconds - 60
-      //     } sec`
-      //   );
+      // console.log(
+      //   `timeout (${timeout}) started for refresh token after ${
+      //       tokenValiditySeconds - 60
+      //   } sec`
+      // );
     };
 
     if (accessToken && !timeout) {

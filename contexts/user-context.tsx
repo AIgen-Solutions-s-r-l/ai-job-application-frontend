@@ -13,7 +13,7 @@ import { redirect } from 'next/navigation';
 import config from '@/config';
 import { isResumeExits } from '@/libs/api/resume';
 import { decodeToken, fetchUserData } from '@/libs/api/auth';
-import { getServerCookie } from '@/libs/cookies';
+import { deleteServerCookie, getServerCookie } from '@/libs/cookies';
 import { refreshToken } from '@/libs/api/auth';
 
 interface User {
@@ -59,6 +59,8 @@ export default function UserContextProvider({
           // });
         } catch (error) {
           console.error('error on token update', error);
+
+          await deleteServerCookie('accessToken');
 
           redirect(config.auth.loginUrl);
         }

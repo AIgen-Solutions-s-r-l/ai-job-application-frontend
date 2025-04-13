@@ -7,7 +7,7 @@ import appConfig from '@/config'; // Assuming config is at root
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
-  const appOrigin = getAppOrigin();
+  const appOrigin = 'https://pre.laboro.co';
 
   if (code) {
     // Create a direct API request to the auth service

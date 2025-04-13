@@ -58,17 +58,17 @@ export const JobFeedList: FC<Props> = ({
     const allJobs = [
       ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
         ...pendingJobs[key],
-        posted_date: pendingJobs[key].timestamp || nullDate.toString(),
+        timestamp: pendingJobs[key].timestamp || null,
         status: 'Pending'
       })) : []),
       ...(appliedJobs ? Object.keys(appliedJobs).map(key => ({
         ...appliedJobs[key],
-        posted_date: appliedJobs[key].timestamp || nullDate.toString(),
+        timestamp: appliedJobs[key].timestamp || null,
         status: 'Applied'
       })) : []),
       ...(failedJobs ? Object.keys(failedJobs).map(key => ({
         ...failedJobs[key],
-        posted_date: failedJobs[key].timestamp || nullDate.toString(),
+        timestamp: failedJobs[key].timestamp || null,
         status: 'Failed'
       })) : [])
     ];

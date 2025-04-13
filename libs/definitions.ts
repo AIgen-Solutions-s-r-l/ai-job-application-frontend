@@ -252,6 +252,7 @@ export interface JobDetail {
   field: string
   company_logo: string
   experience: string
+  timestamp: string
   skills_required: string[]
 }
 
@@ -266,6 +267,7 @@ export interface JobSearchParams {
   keywords?: string[]
   offset?: number
   experience?: string
+  timestamp?: string
   is_remote_only?: boolean // Add new filter parameter
 }
 

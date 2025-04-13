@@ -58,17 +58,17 @@ export const JobFeedList: FC<Props> = ({
     const allJobs = [
       ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
         ...pendingJobs[key],
-        posted_date: pendingJobs[key].posted_date || nullDate.toString(),
+        posted_date: pendingJobs[key].timestamp || nullDate.toString(),
         status: 'Pending'
       })) : []),
       ...(appliedJobs ? Object.keys(appliedJobs).map(key => ({
         ...appliedJobs[key],
-        posted_date: appliedJobs[key].posted_date || nullDate.toString(),
+        posted_date: appliedJobs[key].timestamp || nullDate.toString(),
         status: 'Applied'
       })) : []),
       ...(failedJobs ? Object.keys(failedJobs).map(key => ({
         ...failedJobs[key],
-        posted_date: failedJobs[key].posted_date || nullDate.toString(),
+        posted_date: failedJobs[key].timestamp || nullDate.toString(),
         status: 'Failed'
       })) : [])
     ];
@@ -76,11 +76,12 @@ export const JobFeedList: FC<Props> = ({
     // Sort the combined array
     return {
       all: sortBy === 'latest'
-        ? sortArrayByDate(allJobs, 'posted_date', 'desc')
+        ? sortArrayByDate(allJobs, 'timestamp', 'desc')
         : allJobs.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())),
     };
   }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
 
+  console.log(jobs);
   return (
     <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
       <p className='page-header'>Job Application History</p>

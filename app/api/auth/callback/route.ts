@@ -20,10 +20,10 @@ export async function GET(req: NextRequest) {
     try {
       // Exchange the code for a JWT token
       const result = await handleGoogleCallback(code);
-      
+
       if (result.success) {
         // Successful authentication, redirect to the callback URL
-        return NextResponse.redirect('https://pre.laboro.co/' + config.auth.callbackUrl);
+        return NextResponse.redirect(requestUrl.origin + config.auth.callbackUrl);
       } else {
         // Authentication failed, redirect to login page with error
         const errorMessage = "google_auth_failed";

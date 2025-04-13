@@ -508,12 +508,12 @@ export async function addCredits(amount: number, referenceId: string, descriptio
 
 export async function getBalance(): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
-  
+
   if (!accessToken) {
     // Return a default balance for non-logged in users
     return { balance: 0, requiresLogin: true };
   }
-  
+
   const decoded: any = jwtDecode(accessToken);
 
   try {
@@ -537,19 +537,19 @@ export async function getBalance(): Promise<any> {
 
 export async function spendCredits(amount: number): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
-  
+
   if (!accessToken) {
     // Return a response indicating user needs to log in to spend credits
     return { success: false, message: "Login required to spend credits", requiresLogin: true };
   }
-  
+
   const decoded: any = jwtDecode(accessToken);
 
   try {
     const response = await apiClientJwt.post(
-      `${API_BASE_URLS.auth}/credits/use?user_id=${decoded.id}`,{
-        amount,
-      },
+      `${API_BASE_URLS.auth}/credits/use?user_id=${decoded.id}`, {
+      amount,
+    },
       { timeout: 15000 }
     );
 
@@ -568,12 +568,12 @@ export async function spendCredits(amount: number): Promise<any> {
 
 export async function getTransactions(): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
-  
+
   if (!accessToken) {
     // Return empty transactions for non-logged in users
     return { transactions: [], requiresLogin: true };
   }
-  
+
   const decoded: any = jwtDecode(accessToken);
 
   try {
@@ -605,20 +605,20 @@ export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string)
     // Use provided redirectUri or fall back to environment variable
     const redirect_uri = redirectUri || process.env.GOOGLE_REDIRECT_URI;
     const client_id = process.env.GOOGLE_CLIENT_ID;
-    
+
     // Log for debugging
     console.log('getGoogleOAuthURL called with:');
     console.log('redirect_uri:', redirect_uri);
     console.log('client_id:', client_id);
-    
+
     if (!client_id) {
       throw new ServerActionError("Google Client ID is not configured");
     }
-    
+
     if (!redirect_uri) {
       throw new ServerActionError("Google Redirect URI is not configured");
     }
-    
+
     // Try to build the URL directly if needed
     if (process.env.NODE_ENV === 'development') {
       // Build Google OAuth URL directly
@@ -630,12 +630,11 @@ export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string)
         access_type: 'offline',
         prompt: 'consent'
       });
-      
+
       const authUrl = `https://accounts.google.com/o/oauth2/auth?${params.toString()}`;
-      console.log('First One', authUrl)
       return authUrl;
     }
-    
+
     // Otherwise use the backend service
     const response = await apiClient.post(
       `${API_BASE_URLS.auth}/auth/google-auth`,
@@ -647,7 +646,6 @@ export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string)
     }
 
     // Return the authorization URL
-    console.log('Second One', response.data.authorization_url);
     return response.data.authorization_url;
   } catch (error: any) {
     console.error("Error getting Google OAuth URL:", error);

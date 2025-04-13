@@ -21,9 +21,9 @@ export const Header: FC = () => {
           <p className="text-[11px] md:text-[16px] 2xl:text-[15px] font-medium text-splash-green ml-1 md:ml-[7px] mt-1 2xl:mt-[10px]">Revolutionizing the job market with AI</p>
         </div>
         <div className="flex flex-col md:flex-row gap-2 2xl:gap-5 font-k2d mt-2 md:mt-5">
-          <Link className='order-1 md:-order-1 h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between border border-white rounded-[8px] md:rounded-[20px] gap-2' href='/'>
-            <Image src={navLeftArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
-            <p className='text-[14px] 2xl:text-[18px] font-light text-white leading-none'>Employers</p>
+          <Link className='order-1 md:-order-1 h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between border border-white rounded-[8px] md:rounded-[20px] gap-2' href='/about-us'>
+            {/* <Image src={navLeftArrow} alt="Arrow" className='hidden lg:block mt-0.5' /> */}
+            <p className='text-[14px] 2xl:text-[18px] font-light text-white leading-none'>About us</p>
           </Link>
           <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green hover:bg-my-neutral-2 transition-all ease-in duration-300 rounded-[8px] md:rounded-[20px] gap-2' href={user ? '/search' : '/signin'}>
             <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>{user && user.email ? user.email.split('@')[0] : 'Sign in'}</p>

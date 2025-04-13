@@ -77,6 +77,7 @@ export const ChangeEmail = () => {
                 required: 'Password is required',
               })}
               type='password'
+              autoComplete='current-password'
               error={!!errors.password}
               errorMessage={errors.password?.message}
               className='grow'
@@ -91,6 +92,7 @@ export const ChangeEmail = () => {
                 },
               })}
               type='email'
+              autoComplete='email'
               placeholder='e.g., john.doe@example.com'
               error={!!errors.newEmail}
               errorMessage={errors.newEmail?.message}

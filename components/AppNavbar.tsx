@@ -35,7 +35,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
       className='flex items-center justify-between pt-2 pb-1 lg:pt-[55px] lg:pb-[25px]'
     >
       <Link href='/dashboard' >
-        <Image src='/laboro.png' alt='Logo' width={214} height={58} />
+        <Image src='/laboro.png' alt='Logo' width={214} height={58} priority/>
       </Link>
       {slot}
       <div className='flex items-center gap-1 lg:gap-5 bg-primary-deep-purple rounded-full ml-2 md:ml-0 pl-[2px] pr-[10px] lg:pr-[25px] py-[1px] lg:py-[3px]'>

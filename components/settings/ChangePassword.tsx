@@ -70,6 +70,7 @@ export const ChangePassword = () => {
                 required: 'Password is required',
               })}
               type='password'
+              autoComplete='current-password'
               error={!!errors.password}
               errorMessage={errors.password?.message}
               className='grow'
@@ -80,6 +81,7 @@ export const ChangePassword = () => {
                 required: 'Password is required',
               })}
               type='password'
+              autoComplete='new-password'
               error={!!errors.newPassword}
               errorMessage={errors.newPassword?.message}
               className='grow'

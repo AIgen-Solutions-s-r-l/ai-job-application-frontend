@@ -81,7 +81,6 @@ export const JobFeedList: FC<Props> = ({
     };
   }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
 
-  console.log(jobs);
   return (
     <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
       <p className='page-header'>Job Application History</p>

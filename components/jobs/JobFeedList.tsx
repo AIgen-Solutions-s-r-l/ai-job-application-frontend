@@ -77,7 +77,7 @@ export const JobFeedList: FC<Props> = ({
     return {
       all: sortBy === 'latest'
         ? sortArrayByDate(allJobs, 'posted_date', 'desc')
-        : allJobs.toSorted((a, b) => ('' + a.title).localeCompare(b.title)),
+        : allJobs.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())),
     };
   }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
 
@@ -110,7 +110,11 @@ export const JobFeedList: FC<Props> = ({
       )}
 
       <div>
-        {/* <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
+        <div className="mb-5 font-montserrat">
+          <p className="text-gray-500">You can view all your submitted applications here. <strong>Please note that we retain your applications on file for 90 days.</strong></p>
+        </div>
+
+        <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
           Sort by:
           <button onClick={() => setSortBy('latest')}>
             {underlineOrParagraph('Latest', sortBy === 'latest')}
@@ -122,10 +126,8 @@ export const JobFeedList: FC<Props> = ({
               sortBy === 'alphabetically'
             )}
           </button>
-        </div> */}
-        <div className="mb-5 font-montserrat">
-          <p className="text-gray-500">You can view all your submitted applications here. <strong>Please note that we retain your applications on file for 90 days.</strong></p>
         </div>
+
 
         <div className={typography.tabs.content}>
           {isLoading ? (

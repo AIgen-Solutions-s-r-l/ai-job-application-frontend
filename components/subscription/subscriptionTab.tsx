@@ -217,7 +217,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
               Plan:
             </p>
             <p className="font-jura text-base text-black">
-              {activeSubscription.amount} credits monthly
+              {parseInt(activeSubscription.amount)} credits monthly
             </p>
             <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-600">
               Active

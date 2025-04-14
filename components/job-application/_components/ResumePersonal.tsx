@@ -18,8 +18,8 @@ export const ResumePersonal: FC = () => {
     <div
       data-section="personal-section"
       className={cn(
-        'border-2 hover:border-primary',
-        isActive ? 'bg-white border-primary' : 'border-transparent',
+        'entry-border',
+        isActive ? 'entry-active' : 'border-transparent',
         template.personal.header,
       )}
       onClick={() => setActiveSection('personal-section')}
@@ -36,18 +36,6 @@ export const ResumePersonal: FC = () => {
         />
       </h1>
       <div className={template.personal.contactSection}>
-        <p className={template.personal.contactItem}>
-          {/* <MapPin size={16} /> */}
-          <NullifiedInput
-            {...register('personalInfo.country')}
-            placeholder="Country"
-          />
-          ,&nbsp;
-          <NullifiedInput
-            {...register('personalInfo.city')}
-            placeholder="City"
-          />
-        </p>
         <p className={template.personal.contactItem}>
           {/* <Phone size={16} /> */}
           <NullifiedInput

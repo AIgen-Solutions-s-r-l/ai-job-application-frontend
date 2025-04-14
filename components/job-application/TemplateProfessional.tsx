@@ -73,7 +73,7 @@ export const TemplateProfessional: FC<Props> = ({
       </select> */}
       <FormProvider {...methods}>
         <div className={cn(
-          'w-full lg:w-[850px] h-[1200px] mx-auto scrollable text-black shadow-xl py-10 mb-[80px]',
+          'w-full lg:w-[850px] h-[1200px] mx-auto scrollable text-black shadow-xl py-10 mb-[80px] transition-colors duration-300 ease-in-out',
           activeSection ? 'bg-black/20' : (template.background ?? 'bg-white'))}>
           <form
             id='my-form'

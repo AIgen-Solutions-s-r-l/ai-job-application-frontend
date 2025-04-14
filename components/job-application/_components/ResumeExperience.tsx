@@ -111,8 +111,8 @@ export const ResumeExperience: FC = () => {
             data-section={activeIndex}
             className={cn(
               template.experience.entry,
-              'relative border-2 hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
+              'entry-border',
+              activeIndex === activeSection ? 'entry-active' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();

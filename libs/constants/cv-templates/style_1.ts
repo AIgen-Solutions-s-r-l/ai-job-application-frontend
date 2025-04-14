@@ -37,7 +37,7 @@ export const style_1: TemplateStyle = {
     container: '',
     h2: 'text-[11pt] font-bold uppercase border-b border-solid border-[#333] mb-[8px] text-left',
     entry: 'mb-[8px]',
-    entryHeader: 'flex justify-between mb-[3px]',
+    entryHeader: 'flex gap-1 mb-[3px]',
     entryName: 'font-bold',
     compactList: 'list-disc py-[6px] pl-[36px]',
     listItem: 'mb-[2px]',

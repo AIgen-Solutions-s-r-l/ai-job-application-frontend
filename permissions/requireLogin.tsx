@@ -23,9 +23,9 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
                 return  <></>;
             }
 
-            const { exp } = await decodeToken(accessToken);
+            const decoded = await decodeToken(accessToken);
 
-            if (exp < Math.floor(Date.now() / 1000)) {
+            if (!decoded.exp || decoded.exp < Math.floor(Date.now() / 1000)) {
                 return <LogoutAndRedirect />;
             }
 

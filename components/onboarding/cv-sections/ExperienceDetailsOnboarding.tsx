@@ -5,6 +5,7 @@ import { JobProfile } from "@/libs/definitions";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { ArrowRight, Plus } from "lucide-react";
 import { FormInput, InputWrapper } from "@/components/ui/form-input";
+import { DateOrPresentInput } from "@/components/ui/date-input";
 
 type FormData = Pick<JobProfile, "experienceDetails">
 
@@ -104,15 +105,116 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   )
 }
 
+const ExperienceDetail: FC<{ index: number, handleRemove: () => void }> = ({ index, handleRemove }) => {
+  const { register, formState: { errors }, setValue } = useFormContext<FormData>();
+  const { fields } = useFieldArray({ 
+    name: `experienceDetails.${index}` 
+  });
+
+  return (
+    <div className="flex flex-col gap-5 mt-5">
+      <div className="flex items-center gap-10">
+        <div className="flex items-center gap-2">
+          <ArrowRight size={24} />
+          <p className='text-2xl font-bold leading-none'>{index + 1}</p>
+        </div>
+        <button
+          type='button'
+          className={`upderline ${fields.length === 1 && 'hidden'}`}
+          onClick={handleRemove}
+        >
+          <p className='underline text-base leading-none'>Remove</p>
+        </button>
+      </div>
+
+      <InputWrapper>
+        <FormInput
+          title={'Company'}
+          {...register(`experienceDetails.${index}.company`)}
+          placeholder="e.g., Google"
+          error={!!errors.experienceDetails?.[index]?.company}
+          errorMessage={errors.experienceDetails?.[index]?.company?.message}
+          className='w-[194px]'
+        />
+        <FormInput
+          title={'Position'}
+          {...register(`experienceDetails.${index}.position`)}
+          placeholder="e.g., Software Engineer"
+          error={!!errors.experienceDetails?.[index]?.position}
+          errorMessage={errors.experienceDetails?.[index]?.position?.message}
+          className='grow max-w-[400px]'
+        />
+        <FormInput
+          title={'Industry'}
+          {...register(`experienceDetails.${index}.industry`)}
+          required={false}
+          placeholder="e.g., Tech"
+          // error={!!errors.experienceDetails?.[index]?.industry}
+          // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
+          className='w-[250px]'
+        />
+      </InputWrapper>
+
+      <InputWrapper>
+        <DateOrPresentInput
+          title="Start Date"
+          value={useWatch({ name: `experienceDetails.${index}.employment_start_date` })}
+          onChange={(value) => setValue(`experienceDetails.${index}.employment_start_date`, value)}
+          placeholder="e.g., 11/2024"
+          error={!!errors.experienceDetails?.[index]?.employment_start_date}
+          errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
+        />
+        <DateOrPresentInput
+          title="End Date"
+          value={useWatch({ name: `experienceDetails.${index}.employment_end_date` })}
+          onChange={(value) => setValue(`experienceDetails.${index}.employment_end_date`, value)}
+          placeholder="e.g., Present"
+          error={!!errors.experienceDetails?.[index]?.employment_end_date}
+          errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
+          present
+        />
+        
+        <FormInput
+          title={'Country'}
+          {...register(`experienceDetails.${index}.location.country`)}
+          placeholder="e.g., Italy"
+          error={!!errors.experienceDetails?.[index]?.location?.country}
+          errorMessage={errors.experienceDetails?.[index]?.location?.country?.message}
+          className='w-[182px]'
+        />
+        <FormInput
+          title={'City'}
+          {...register(`experienceDetails.${index}.location.city`)}
+          placeholder="e.g., Milan"
+          error={!!errors.experienceDetails?.[index]?.location?.city}
+          errorMessage={errors.experienceDetails?.[index]?.location?.city?.message}
+          className='w-[182px]'
+        />
+      </InputWrapper>
+
+      <div className="flex p-10 rounded-[22px] bg-white">
+        <div className="w-full">
+          <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
+            Key Responsibilities <span className="text-error ml-1">*</span>
+          </label>
+          <ResponsibilityNestedFieldArray index={index} />
+        </div>
+      </div>
+
+      <SkillsNestedFieldArray index={index} />
+    </div>
+  );
+}
+
 export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
-  const { control, register, formState: { errors }, watch, setValue } = useFormContext<FormData>();
+  const { control, formState: { errors } } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     control, name: "experienceDetails", rules: {
       required: 'At least one experience is required',
     }
   });
 
-  const handleAddExperience = () =>
+  const handleAddExperience = () => {
     append({
       position: "",
       company: "",
@@ -125,144 +227,20 @@ export const ExperienceDetailsOnboarding: FC = (): ReactElement => {
       industry: "",
       key_responsibilities: [],
       skills_acquired: [],
-      isCurrent: false,
-    }
-    );
+    });
+  }
 
   return (
     <div>
       {errors.experienceDetails?.root && <p className="text-error text-xs lg:text-sm">{errors.experienceDetails.root.message}</p>}
 
-      {fields.map((experience, index) => {
-        // Set reciprocally Present and isCurrent
-        useEffect(() => {
-          if (watch(`experienceDetails.${index}.isCurrent`)) {
-            setValue(`experienceDetails.${index}.employment_end_date`, 'Present');
-          }
-        }, [watch(`experienceDetails.${index}.isCurrent`), setValue, index]);
-
-        useEffect(() => {
-          if (watch(`experienceDetails.${index}.employment_end_date`) === 'Present') {
-            setValue(`experienceDetails.${index}.isCurrent`, true);
-          }
-        }, [watch(`experienceDetails.${index}.employment_end_date`), watch(`experienceDetails.${index}.isCurrent`), setValue, index]);
-
-        return (
-        <div key={experience.id} className="flex flex-col gap-5 mt-5">
-          <div className="flex items-center gap-10">
-            <div className="flex items-center gap-2">
-              <ArrowRight size={24} />
-              <p className='text-2xl font-bold leading-none'>{index + 1}</p>
-            </div>
-            {<button
-              className={`upderline ${fields.length === 1 && 'hidden'}`}
-              onClick={() => remove(index)}
-            >
-              <p className='underline text-base leading-none'>Remove</p>
-            </button>}
-          </div>
-
-          <InputWrapper>
-            <FormInput
-              title={'Company'}
-              {...register(`experienceDetails.${index}.company`)}
-              placeholder="e.g., Google"
-              error={!!errors.experienceDetails?.[index]?.company}
-              errorMessage={errors.experienceDetails?.[index]?.company?.message}
-              className='w-[194px]'
-            />
-            <FormInput
-              title={'Position'}
-              {...register(`experienceDetails.${index}.position`)}
-              placeholder="e.g., Software Engineer"
-              error={!!errors.experienceDetails?.[index]?.position}
-              errorMessage={errors.experienceDetails?.[index]?.position?.message}
-              className='grow max-w-[400px]'
-            />
-            <FormInput
-              title={'Industry'}
-              {...register(`experienceDetails.${index}.industry`)}
-              required={false}
-              placeholder="e.g., Tech"
-              // error={!!errors.experienceDetails?.[index]?.industry}
-              // errorMessage={errors.experienceDetails?.[index]?.industry?.message}
-              className='w-[250px]'
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <FormInput
-              title={'Start Date'}
-              {...register(`experienceDetails.${index}.employment_start_date`, { required: 'Start Date is required' })}
-              placeholder="e.g., June 2020"
-              error={!!errors.experienceDetails?.[index]?.employment_start_date}
-              errorMessage={errors.experienceDetails?.[index]?.employment_start_date?.message}
-              className='w-[200px]'
-              type="month"
-            />
-            <div className="flex flex-col w-[200px] gap-1 items-start">
-            <FormInput
-              title={'End Date'}
-              {...register(`experienceDetails.${index}.employment_end_date`, {
-                validate: value => watch(`experienceDetails.${index}.isCurrent`) || !!value || 'End Date is required',
-              })}
-              placeholder="e.g., Present"
-              type={useWatch({ name: `experienceDetails.${index}.employment_end_date` }) === "Present" ? 'text' : 'month'}
-              disabled={watch(`experienceDetails.${index}.isCurrent`)}
-              error={!!errors.experienceDetails?.[index]?.employment_end_date && !watch(`experienceDetails.${index}.isCurrent`)}
-              errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
-              className={`w-[180px] ${watch(`experienceDetails.${index}.isCurrent`) ? 'text-gray-400' : ''}`}
-            />
-            <div className="flex items-center gap-3 text-primary font-bold text-md mt-1">
-            <input
-                  type="checkbox"
-                  id={`isCurrentExperience-${index}`}
-                  className="scale-125 accent-primary"
-                  {...register(`experienceDetails.${index}.isCurrent` as const)}
-                  onChange={(e) => {
-                  const isChecked = e.target.checked;
-                  setValue(`experienceDetails.${index}.isCurrent`, isChecked);
-                  if (isChecked) {
-                    setValue(`experienceDetails.${index}.employment_end_date`, "Present");
-                  }
-                  else {
-                    setValue(`experienceDetails.${index}.employment_end_date`, "");
-                  }}}
-                />
-              <label htmlFor={`isCurrentExperience-${index}`}>Current</label>
-            </div>
-            </div>
-            <FormInput
-              title={'Country'}
-              {...register(`experienceDetails.${index}.location.country`)}
-              placeholder="e.g., Italy"
-              error={!!errors.experienceDetails?.[index]?.location?.country}
-              errorMessage={errors.experienceDetails?.[index]?.location?.country?.message}
-              className='w-[182px]'
-            />
-            <FormInput
-              title={'City'}
-              {...register(`experienceDetails.${index}.location.city`)}
-              placeholder="e.g., Milan"
-              error={!!errors.experienceDetails?.[index]?.location?.city}
-              errorMessage={errors.experienceDetails?.[index]?.location?.city?.message}
-              className='w-[182px]'
-            />
-          </InputWrapper>
-
-          <div className="flex p-10 rounded-[22px] bg-white">
-            <div className="w-full">
-              <label className="flex justify-start text-[14px] md:text-base leading-none mb-3 font-semibold">
-                Key Responsibilities <span className="text-error ml-1">*</span>
-              </label>
-              <ResponsibilityNestedFieldArray index={index} />
-            </div>
-          </div>
-
-          <SkillsNestedFieldArray index={index} />
-        </div>
-
-       )
-      })}
+      {fields.map((experience, index) => (
+        <ExperienceDetail
+          key={experience.id}
+          index={index}
+          handleRemove={() => remove(index)}
+        />
+      ))}
 
       <div className="flex items-center gap-4 my-5">
         <div

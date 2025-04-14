@@ -272,7 +272,8 @@ const ChoseLocationModal = ({
                                                 <p>Confirm</p>
                                                 <ArrowRightIcon />
                                             </>
-                                        )}
+                                        )
+                                    }
                                 </button>
                             </Dialog.Panel>
                         </Transition.Child>

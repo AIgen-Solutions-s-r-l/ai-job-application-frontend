@@ -306,10 +306,7 @@ const InterestsFieldArray: FC = (): ReactElement => {
 }
 
 export const ProfileAdditionalInfo: FC = (): ReactElement => {
-  const { register, getValues, formState: { errors } } = useFormContext<FormData>();
-
-  // const legalAuthorizations: LegalAuthorization = getValues('additionalInfo.legal_authorization');
-  // const workPreferences: WorkPreferences = getValues('additionalInfo.work_preferences');
+  const { register, formState: { errors } } = useFormContext<FormData>();
 
   return (
     <div className="collapse collapse-arrow group rounded-none">

@@ -63,6 +63,21 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
             </span>
         );
     };
+
+    // Función para formatear el importe monetario con su moneda
+    const formatMonetaryAmount = (transaction: Transaction) => {
+        if (!transaction.monetary_amount) return "—";
+        
+        const amount = parseFloat(transaction.monetary_amount);
+        const currency = transaction.currency || 'USD';
+        
+        // Usar el formateador de moneda basado en la divisa
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency,
+            minimumFractionDigits: 2
+        }).format(amount);
+    };
     
     return (
         <div className='flex flex-col gap-5 px-1 md:px-7 py-5 bg-white'>
@@ -92,10 +107,11 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                 <table className="w-full table-fixed">
                     <thead>
                         <tr className="border-b font-jura font-semibold text-[18px]">
-                            <th className="text-left py-4 w-[25%]">Type</th>
-                            <th className="text-left py-4 w-[25%]">Status</th>
-                            <th className="text-left py-4 w-[25%]">Credits</th>
-                            <th className="text-left py-4 w-[25%]">Date / Time</th>
+                            <th className="text-left py-4 w-[20%]">Type</th>
+                            <th className="text-left py-4 w-[15%]">Status</th>
+                            <th className="text-left py-4 w-[15%]">Credits</th>
+                            <th className="text-left py-4 w-[20%]">Amount</th>
+                            <th className="text-left py-4 w-[30%]">Date / Time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,6 +138,9 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                                             <LaboroSmileyIcon classname="w-4 h-4" />
                                             <span>{parseFloat(transaction.amount).toFixed(0)}</span>
                                         </div>
+                                    </td>
+                                    <td className="py-4">
+                                        {formatMonetaryAmount(transaction)}
                                     </td>
                                     <td className="py-4">{formatDate(transaction.created_at)}</td>
                                 </tr>

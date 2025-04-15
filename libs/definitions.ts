@@ -323,6 +323,9 @@ export interface Bot {
 }
 
 export interface Transaction {
+  subscription_id: any;
+  currency: string;
+  monetary_amount: any;
   is_subscription_active: any;
   id: number
   amount: string

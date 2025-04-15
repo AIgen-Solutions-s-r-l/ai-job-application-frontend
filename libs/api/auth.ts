@@ -5,6 +5,7 @@ import API_BASE_URLS from "@/libs/api/config"; // Import base URLs
 import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
+import { revalidatePath } from "next/cache";
 
 interface UserInfo {
   id: number;
@@ -490,6 +491,7 @@ export async function addCredits(amount: number, referenceId: string, descriptio
       throw new Error("No data received from API.");
     }
 
+    revalidatePath('/dashboard/subscription');
     return response.data;
   } catch (error: any) {
     console.error("Error adding credits:", error);
@@ -586,12 +588,52 @@ export async function getTransactions(): Promise<any> {
       throw new Error("No data received from API.");
     }
 
+    console.log("Transactions:", response.data);
     return response.data;
   } catch (error: any) {
     console.error("Error fetching transactions:", error);
     const status = error.response?.status;
     const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
     throw new Error(`Error ${status || "unknown"}: ${errorMessage}`);
+  }
+}
+
+/**
+ * Cancels an active user subscription
+ * @param subscriptionId ID of the subscription to cancel
+ * @returns API response
+ */
+export async function cancelSubscription(subscriptionId: number): Promise<any> {
+  let accessToken = await getServerCookie('accessToken');
+  
+  if (!accessToken) {
+    return { success: false, message: "User not logged in", requiresLogin: true };
+  }
+  
+  try {
+    const response = await apiClientJwt.post(
+      `${API_BASE_URLS.auth}/credits/subscriptions/cancel`,
+      {
+        subscription_id: subscriptionId,
+        cancel_in_stripe: true
+      },
+      { timeout: 15000 }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("No data received from API.");
+    }
+
+    revalidatePath('/dashboard/subscription');
+    return { success: true, data: response.data };
+  } catch (error: any) {
+    console.error("Error cancelling subscription:", error);
+    const status = error.response?.status;
+    const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
+    return { 
+      success: false, 
+      error: `Error ${status || "unknown"}: ${errorMessage}`
+    };
   }
 }
 

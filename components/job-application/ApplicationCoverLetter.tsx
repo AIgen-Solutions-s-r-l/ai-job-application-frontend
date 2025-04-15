@@ -12,6 +12,7 @@ import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
 import { ButtonUnderline } from '../ButtonUnderline';
 import { NullifiedInput } from '../ui/nullified-input';
+import { formatDate } from '@/libs/utils/application.util';
 
 interface Props {
   id: string;
@@ -28,7 +29,13 @@ export const ApplicationCoverLetter: FC<Props> = ({
 
   const { register, formState, handleSubmit } = useForm<CoverLetterCoverLetter>(
     {
-      defaultValues: letter.cover_letter,
+      defaultValues: {
+        ...letter.cover_letter,
+        footer: {
+          ...letter.cover_letter.footer,
+          date: formatDate(letter.cover_letter.footer.date),
+        }
+      },
     }
   );
 

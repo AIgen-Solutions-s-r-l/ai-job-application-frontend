@@ -122,3 +122,23 @@ export function fromResumeType(resumeData: Resume): any {
   };
 }
 
+export const formatDate = (dateString: string) => {
+  if (!dateString) return '';
+  
+  // Check if it's already in dd.mm.yyyy format
+  if (dateString.includes('.')) return dateString;
+  
+  // Handle yyyy-mm-dd format
+  const parts = dateString.split('-');
+  
+  if (parts.length === 3) {
+    // Full date: yyyy-mm-dd → dd.mm.yyyy
+    return `${parts[2]}.${parts[1]}.${parts[0]}`;
+  } else if (parts.length === 2) {
+    // Partial date: yyyy-mm → mm.yyyy
+    return `${parts[1]}.${parts[0]}`;
+  } else {
+    // Return original if format is unknown
+    return dateString;
+  }
+};

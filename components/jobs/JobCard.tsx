@@ -35,6 +35,7 @@ export const JobCard: FC<Props> = ({ job, status }) => {
         <div className='text-l gap-4'>
           <p className='font-bold'>{job.title}</p>
           <p>{job.company_name}</p>
+          <p className='italic'>{job.posted_date}</p>
         </div>
         <div className='flex gap-3'>
           <p className='leading-tight md:px-8'>

@@ -116,7 +116,27 @@ progress::-webkit-progress-value {
   }
 
   .cover-letter-input {
+    @apply block font-semibold;
+  }
+
+  .cover-letter-textarea {
     @apply w-full leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto;
+  }
+
+  .entry-border {
+    @apply relative border-2 hover:border-primary -mx-5 px-5;
+  }
+
+  .entry-active {
+    @apply bg-white border-primary;
+  }
+
+  [data-section] {
+    transition: all 300ms ease-in-out;
+  }
+
+  [data-section]:not(.active) {
+    opacity: 0.95;
   }
 
   @keyframes bounce-horizontal {

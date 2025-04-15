@@ -21,15 +21,18 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
         </div>
 
         <div
-          className="hidden xl:flex w-[493px]  -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white"
+          className="hidden xl:flex w-[493px] -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white"
         >
           {/* <div className="flex gap-[8px] items-center">
             <p className='text-[24px] leading-[32px] font-medium'>{job.title}</p>
           </div> */}
-          <div className='flex items-center justify-between'>
-            <h3 className="font-montserrat text-base md:text-xl font-medium">{job.title}</h3>
+          <div className='flex justify-between'>
+            <div className="">
+              <h3 className="font-montserrat text-base md:text-xl font-medium mb-3">{job.title}</h3>
+              <p className='font-montserrat text-base md:text-xl font-normal'>{job.company_name}</p>
+            </div>
             {job.company_logo && (
-              <div className='w-[80px] h-[40px]'>
+              <div className='w-[160px] h-[80px]'>
                 <img
                   src={job.company_logo}
                   alt='Logo'
@@ -38,7 +41,6 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
               </div>
             )}
           </div>
-          <p className='font-montserrat text-base md:text-xl font-normal'>{job.company_name}</p>
           {job.location && (
             <div className="flex gap-[8px] items-end ">
               <MapPin size={20} />

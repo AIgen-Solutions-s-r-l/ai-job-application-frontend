@@ -1,17 +1,13 @@
 import { FormInput, InputWrapper } from '@/components/ui/form-input';
 import { JobProfile } from '@/libs/definitions';
 import { ArrowRight, Plus } from 'lucide-react';
-import { FC, ReactElement } from 'react';
+import { FC } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { useEffect } from 'react';
+import { DateOrPresentInput } from '@/components/ui/date-input';
 
 type FormData = Pick<JobProfile, "educationDetails">
 
-const ExamNestedFieldArray: FC<{ index: number; }> = ({
-  index,
-}: {
-  index: number;
-}): ReactElement => {
+const ExamNestedFieldArray: FC<{ index: number }> = ({ index }) => {
   const { register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
@@ -75,11 +71,111 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
   )
 }
 
-export const EducationDetailsOnboarding: FC = () => {
-  const { control, register, formState: { errors }, watch, setValue } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({ control, name: "educationDetails", rules: { required: 'At least one education is required' } });
+const EducationDetail: FC<{ index: number, handleRemove: () => void }> = ({ index, handleRemove }) => {
+  const { register, formState: { errors }, setValue } = useFormContext<FormData>();
+  const { fields } = useFieldArray({ 
+    name: `educationDetails.${index}` 
+  });
+  
+  return (
+    <div className="flex flex-col gap-5 mt-5">
+      <div className="flex items-center gap-10">
+        <div className="flex items-center gap-2">
+          <ArrowRight size={24} />
+          <p className='text-2xl font-bold leading-none'>{index + 1}</p>
+        </div>
+        <button
+          type='button'
+          className={`upderline ${fields.length === 1 && 'hidden'}`}
+          onClick={handleRemove}
+        >
+          <p className='underline text-base leading-none'>Remove</p>
+        </button>
+      </div>
 
-  const addEducation = () =>
+      {/* Institution */}
+      <InputWrapper>
+        <FormInput
+          title={'Education Level'}
+          {...register(`educationDetails.${index}.education_level`)}
+          placeholder="e.g., Bachelor's Degree"
+          error={!!errors.educationDetails?.[index]?.education_level}
+          errorMessage={errors.educationDetails?.[index]?.education_level?.message}
+          className='w-[242px]'
+        />
+        <FormInput
+          title={'Institution'}
+          {...register(`educationDetails.${index}.institution`)}
+          placeholder="e.g., Harvard University"
+          error={!!errors.educationDetails?.[index]?.institution}
+          errorMessage={errors.educationDetails?.[index]?.institution?.message}
+          className='grow'
+        />
+        <FormInput
+          title={'Field of Study'}
+          {...register(`educationDetails.${index}.field_of_study`)}
+          placeholder="e.g., Computer Science"
+          error={!!errors.educationDetails?.[index]?.field_of_study}
+          errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
+          className='grow lg:w-[429px]'
+        />
+      </InputWrapper>
+
+      <InputWrapper>
+        <DateOrPresentInput
+          title="Start Date"
+          value={useWatch({ name: `educationDetails.${index}.start_date` })}
+          onChange={(value) => setValue(`educationDetails.${index}.start_date`, value)}
+          placeholder="e.g., 09/2019"
+          error={!!errors.educationDetails?.[index]?.start_date}
+          errorMessage={errors.educationDetails?.[index]?.start_date?.message}
+        />
+        <DateOrPresentInput
+          title="End Date"
+          value={useWatch({ name: `educationDetails.${index}.year_of_completion` })}
+          onChange={(value) => setValue(`educationDetails.${index}.year_of_completion`, value)}
+          placeholder="e.g., 05/2023"
+          error={!!errors.educationDetails?.[index]?.year_of_completion}
+          errorMessage={errors.educationDetails?.[index]?.year_of_completion?.message}
+          present
+        />
+
+        <FormInput
+          title={'Grade'}
+          {...register(`educationDetails.${index}.final_evaluation_grade`)}
+          placeholder="e.g., 3.8/4.0"
+          error={!!errors.educationDetails?.[index]?.final_evaluation_grade}
+          errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
+          className='w-[149px]'
+        />
+        <FormInput
+          title={'Country'}
+          {...register(`educationDetails.${index}.location.country`)}
+          placeholder="e.g., Italy"
+          error={!!errors.educationDetails?.[index]?.location?.country}
+          errorMessage={errors.educationDetails?.[index]?.location?.country?.message}
+          className='w-[182px]'
+        />
+        <FormInput
+          title={'City'}
+          {...register(`educationDetails.${index}.location.city`)}
+          placeholder='e.g., Rome'
+          error={!!errors.educationDetails?.[index]?.location?.city}
+          errorMessage={errors.educationDetails?.[index]?.location?.city?.message}
+          className='w-[182px]'
+        />
+      </InputWrapper>
+
+      <ExamNestedFieldArray index={index} />
+    </div>
+  )
+}
+
+export const EducationDetailsOnboarding: FC = () => {
+  const { control, formState: { errors } } = useFormContext<FormData>();
+  const { fields, append, remove } = useFieldArray({ control, name: "educationDetails", rules: { required: 'At least one education is required' } });
+  
+  const addEducation = () => {
     append({
       education_level: "",
       institution: "",
@@ -97,142 +193,21 @@ export const EducationDetailsOnboarding: FC = () => {
           grade: "",
         }
       ],
-      isCurrent: false,
     });
-
+  };
+    
   return (
     <div className="">
       {errors.educationDetails?.root && <p className="text-error text-xs lg:text-sm">{errors.educationDetails.root.message}</p>}
 
       {fields.map((education, index) => {
-        useEffect(() => {
-          if (watch(`educationDetails.${index}.isCurrent`)) {
-            setValue(`educationDetails.${index}.year_of_completion`, 'Present');
-          }
-        }, [watch(`educationDetails.${index}.isCurrent`), setValue, index]);
-
-        useEffect(() => {
-          if (watch(`educationDetails.${index}.year_of_completion`) === 'Present') {
-            setValue(`educationDetails.${index}.isCurrent`, true);
-          }
-        }, [watch(`educationDetails.${index}.year_of_completion`), watch(`educationDetails.${index}.isCurrent`), setValue, index]);
-
         return (
-        <div key={education.id} className="flex flex-col gap-5 mt-5">
-          <div className="flex items-center gap-10">
-            <div className="flex items-center gap-2">
-              <ArrowRight size={24} />
-              <p className='text-2xl font-bold leading-none'>{index + 1}</p>
-            </div>
-            {<button
-              className={`upderline ${fields.length === 1 && 'hidden'}`}
-              onClick={() => remove(index)}
-            >
-              <p className='underline text-base leading-none'>Remove</p>
-            </button>}
-          </div>
-
-          {/* Institution */}
-          <InputWrapper>
-            <FormInput
-              title={'Education Level'}
-              {...register(`educationDetails.${index}.education_level`)}
-              placeholder="e.g., Bachelor's Degree"
-              error={!!errors.educationDetails?.[index]?.education_level}
-              errorMessage={errors.educationDetails?.[index]?.education_level?.message}
-              className='w-[242px]'
-            />
-            <FormInput
-              title={'Institution'}
-              {...register(`educationDetails.${index}.institution`)}
-              placeholder="e.g., Harvard University"
-              error={!!errors.educationDetails?.[index]?.institution}
-              errorMessage={errors.educationDetails?.[index]?.institution?.message}
-              className='grow'
-            />
-            <FormInput
-              title={'Field of Study'}
-              {...register(`educationDetails.${index}.field_of_study`)}
-              placeholder="e.g., Computer Science"
-              error={!!errors.educationDetails?.[index]?.field_of_study}
-              errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
-              className='grow lg:w-[429px]'
-            />
-          </InputWrapper>
-
-          <InputWrapper>
-            <FormInput
-              title={'Start Date'}
-              {...register(`educationDetails.${index}.start_date`, { required: 'Start Date is required' })}
-              placeholder="e.g., January 2019"
-              error={!!errors.educationDetails?.[index]?.start_date}
-              errorMessage={errors.educationDetails?.[index]?.start_date?.message}
-              className='w-[200px]'
-              type="month"
-              />
-            <div className="flex flex-col w-[200px] gap-1 items-start">
-            <FormInput
-              title={'End Date'}
-              {...register(`educationDetails.${index}.year_of_completion`, {
-                validate: value => watch(`educationDetails.${index}.isCurrent`) || !!value || 'End Date is required',
-              })}
-              placeholder="e.g., December 2019"
-              type={useWatch({ name: `educationDetails.${index}.year_of_completion` }) === "Present" ? 'text' : 'month'}
-              disabled={watch(`educationDetails.${index}.isCurrent`)}
-              error={!!errors.educationDetails?.[index]?.year_of_completion && !watch(`educationDetails.${index}.isCurrent`)}
-              errorMessage={errors.educationDetails?.[index]?.year_of_completion?.message}
-              className={`w-[200px] ${watch(`educationDetails.${index}.isCurrent`) ? 'text-gray-400' : ''}`}
-            />
-
-            <div className="flex items-center gap-3 text-primary font-bold text-md mt-1">
-              <input
-                type="checkbox"
-                id={`isCurrent-${index}`}
-                className="scale-125 accent-primary"
-                {...register(`educationDetails.${index}.isCurrent` as const)}
-                onChange={(e) => {
-                const isChecked = e.target.checked;
-                setValue(`educationDetails.${index}.isCurrent`, isChecked);
-                if (isChecked) {
-                  setValue(`educationDetails.${index}.year_of_completion`, "Present");
-                } else {
-                  setValue(`educationDetails.${index}.year_of_completion`, '');
-                }
-                }}
-              />
-              <label htmlFor={`isCurrent-${index}`}>Current</label>
-            </div>
-            </div>
-
-            <FormInput
-              title={'Grade'}
-              {...register(`educationDetails.${index}.final_evaluation_grade`)}
-              placeholder="e.g., 3.8/4.0"
-              error={!!errors.educationDetails?.[index]?.final_evaluation_grade}
-              errorMessage={errors.educationDetails?.[index]?.final_evaluation_grade?.message}
-              className='w-[149px]'
-            />
-            <FormInput
-              title={'Country'}
-              {...register(`educationDetails.${index}.location.country`)}
-              placeholder="e.g., Italy"
-              error={!!errors.educationDetails?.[index]?.location?.country}
-              errorMessage={errors.educationDetails?.[index]?.location?.country?.message}
-              className='w-[182px]'
-            />
-            <FormInput
-              title={'City'}
-              {...register(`educationDetails.${index}.location.city`)}
-              placeholder='e.g., Rome'
-              error={!!errors.educationDetails?.[index]?.location?.city}
-              errorMessage={errors.educationDetails?.[index]?.location?.city?.message}
-              className='w-[182px]'
-            />
-          </InputWrapper>
-
-          <ExamNestedFieldArray index={index} />
-        </div>
-       )
+          <EducationDetail
+            key={education.id}
+            index={index}
+            handleRemove={() => remove(index)}
+          />
+        )
       })}
 
       <div className="flex items-center gap-4 my-5">

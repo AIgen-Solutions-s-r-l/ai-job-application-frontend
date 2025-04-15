@@ -155,7 +155,7 @@ const ChoseLocationModal = ({
         setIsLoading(true);
         setUser((prev) => ({ ...prev, exists: true }));
         await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
-        router.push('/search')
+        router.push(`/search?experience=${experience}`)
     };
 
     return (
@@ -272,7 +272,8 @@ const ChoseLocationModal = ({
                                                 <p>Confirm</p>
                                                 <ArrowRightIcon />
                                             </>
-                                        )}
+                                        )
+                                    }
                                 </button>
                             </Dialog.Panel>
                         </Transition.Child>

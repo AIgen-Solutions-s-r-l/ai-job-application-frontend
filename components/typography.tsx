@@ -12,7 +12,7 @@ export const typography = {
       mainText: 'text-lg font-semibold',
       secondText: 'text-gray-500',
     },
-    row: 'flex items-end gap-form',
+    row: 'flex items-start gap-form',
     input: 'input input-bordered w-full bg-white dark:bg-base-200',
     submitButton: 'btn btn-primary text-white',
     cancelButton: 'btn btn-outline',

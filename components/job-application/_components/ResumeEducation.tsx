@@ -15,7 +15,7 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
   index: number;
 }): ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, insert, remove } = useFieldArray({
+  const { fields, insert, remove } = useFieldArray({
     name: `educationDetails.${index}.exam`
   })
   const { template } = useCVTemplateContext();
@@ -46,41 +46,41 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
     [fields.length, insert, remove, index]
   );
 
-  const handleInsertExam = (respIndex: number) => {
-    insert(respIndex + 1, { subject: "", grade: "" });
-  }
+  // const handleInsertExam = (respIndex: number) => {
+  //   insert(respIndex + 1, { subject: "", grade: "" });
+  // }
 
-  const handleRemoveExam = (respIndex: number) => {
-    remove(respIndex);
-  }
+  // const handleRemoveExam = (respIndex: number) => {
+  //   remove(respIndex);
+  // }
 
   if (!fields.length) return null;
 
   return (
     <div className={cn('relative', template.education.coursesDetails)}>
-      <strong>Relevant Courses: </strong>
+      Relevant Courses:&nbsp;
       {fields.map((responsibility, respIndex) => (
         <div key={responsibility.id} className='inline group relative'>
-          <div
+          {/* <div
             className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
             onClick={() => handleRemoveExam(respIndex)}
-          >-</div>
+          >-</div> */}
           <NullifiedInput
             id={`subject-${index}-${respIndex}`}
             {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
             placeholder="Subject of Exam"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
+            className='mr-1'
           />
-          &nbsp;
           (<NullifiedInput
             {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
             placeholder="Grade"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
           />)
-          <div
+          {/* <div
             className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
             onClick={() => handleInsertExam(respIndex)}
-          >+</div>
+          >+</div> */}
           {index === fields.length - 1 ? '.' : ', '}
         </div>
       ))}
@@ -143,8 +143,8 @@ export const ResumeEducation: FC = () => {
             data-section={activeIndex}
             className={cn(
               template.education.entry,
-              'relative border-2 hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
+              'entry-border',
+              activeIndex === activeSection ? 'entry-active' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -161,7 +161,7 @@ export const ResumeEducation: FC = () => {
                 }}
               >
                 <div
-                  className='h-[40px] flex items-center gap-2 bg-base-100 px-3 text-base-content'
+                  className='h-[40px] flex items-center gap-2 bg-my-neutral-4 px-3 text-white hover:bg-my-neutral-4/90 transition-colors ease-in duration-200'
                   onClick={(e) => {
                     e.stopPropagation();
                     handleUpdateExam(index);
@@ -204,12 +204,6 @@ export const ResumeEducation: FC = () => {
                   {...register(`educationDetails.${index}.field_of_study`)}
                   placeholder="Field of Study"
                 />
-                &nbsp;|&nbsp;Grade:&nbsp;
-                <NullifiedInput
-                  {...register(`educationDetails.${index}.final_evaluation_grade`)}
-                  placeholder="Grade"
-                  className="min-w-2"
-                />
               </span>
               <span className={template.education.entryYear}>
                 <NullifiedInput
@@ -227,6 +221,15 @@ export const ResumeEducation: FC = () => {
             </div>
 
             <ExamNestedFieldArray index={index} />
+
+            <div className={template.education.gradeDetails}>
+              Final Grade:&nbsp;
+              <NullifiedInput
+                {...register(`educationDetails.${index}.final_evaluation_grade`)}
+                placeholder="Grade"
+                className="min-w-2"
+              />
+            </div>
           </div>
         )
       })}

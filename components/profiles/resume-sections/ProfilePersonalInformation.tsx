@@ -14,8 +14,8 @@ export const ProfilePersonalInformation: FC = () => {
       <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Personal Information
         {errors.personalInfo && <p className="text-error text-xs lg:text-sm">Please fill out all required fields</p>}
       </div>
-      <div className="collapse-content !p-0 bg-base-100 mb-5">
-        <div className="w-full flex flex-col gap-5">
+      <div className="collapse-content !p-0 bg-base-100">
+        <div className="w-full flex flex-col gap-5 mb-5">
           {/* Name */}
           <InputWrapper>
             <FormInput

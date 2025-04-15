@@ -25,8 +25,11 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
   return (
     <div className={cn("sticky top-5 hidden xl:flex flex-col h-[calc(100vh-100px)] bg-white rounded-xl py-8 px-10", className)}>
       <div className='flex flex-col justify-between gap-3 border-b border-b-1 border-b-primary pb-5'>
-        <div className='flex items-center justify-between'>
-          <h3 className="text-[24px] xl:text-[32px] leading-[1.2] font-montserrat font-semibold">{job.title}</h3>
+        <div className='flex justify-between'>
+          <div className="">
+            <h3 className="text-[24px] xl:text-[32px] leading-[1.2] font-montserrat font-semibold mb-3">{job.title}</h3>
+            <h3 className="text-[20px] xl:text-[27px] font-montserrat">{job.company_name}</h3>
+          </div>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>
               <img
@@ -37,7 +40,6 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             </div>
           )}
         </div>
-        <h3 className="text-[20px] xl:text-[27px] font-montserrat">{job.company_name}</h3>
         
         <div className="flex justify-between items-center">
           <p className="text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold">
@@ -53,14 +55,14 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             )}
           </p>
           <p className="text-base md:text-[18px] font-jura font-semibold">
-          {(() => {
-            const postedDate: Date = new Date(job.posted_date);
-            const now: Date = new Date();
-            const diffInMs: number = now.getTime() - postedDate.getTime();
-            const diffInWeeks: number = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
-            return `Published ${diffInWeeks} week${diffInWeeks !== 1 ? 's' : ''} ago`;
-          })()}
-        </p>
+            {(() => {
+              const postedDate: Date = new Date(job.posted_date);
+              const now: Date = new Date();
+              const diffInMs: number = now.getTime() - postedDate.getTime();
+              const diffInWeeks: number = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
+              return `Published ${diffInWeeks} week${diffInWeeks !== 1 ? 's' : ''} ago`;
+            })()}
+          </p>
         </div>
         <div className='flex gap-x-2 gap-y-1 md:gap-x-3 my-1 lg:my-2 flex-wrap overflow-hidden'>
           {!!job.skills_required.length && job.skills_required.map(

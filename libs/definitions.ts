@@ -52,7 +52,6 @@ export interface EducationDetails {
     city: string;
   };
   exam: Exam[];
-  isCurrent?: boolean; // Indica si es la educación actual
 }
 
 export interface Exam {
@@ -74,7 +73,6 @@ export interface ExperienceDetails {
   industry: string;
   key_responsibilities: string[]; // Lista de responsabilidades
   skills_acquired: string[]; // Lista de habilidades adquiridas
-  isCurrent?: boolean; // Indica si es la experiencia actual
 }
 
 export interface AdditionalInfo {

@@ -11,6 +11,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
 import { ButtonUnderline } from '../ButtonUnderline';
+import { NullifiedInput } from '../ui/nullified-input';
 
 interface Props {
   id: string;
@@ -71,27 +72,37 @@ export const ApplicationCoverLetter: FC<Props> = ({
             className='w-full h-full flex flex-col px-4 gap-9 md:px-12 py-10 text-base font-montserrat'
           >
             {/* Header */}
-            <div className=''>
-              <TextareaAutosize
-                {...register(`header.applicant_details.name`)}
-                minRows={1}
-                className='cover-letter-input font-semibold'
-              />
-              <TextareaAutosize
-                {...register(`header.applicant_details.email`)}
-                minRows={1}
-                className='cover-letter-input font-semibold'
-              />
-              <TextareaAutosize
-                {...register(`header.applicant_details.phone_number`)}
-                minRows={1}
-                className='cover-letter-input font-semibold'
-              />
-              <TextareaAutosize
-                {...register(`header.company_details.name`)}
-                minRows={1}
-                className='cover-letter-input font-semibold'
-              />
+            <div className='w-full flex justify-between'>
+              <div className="">
+                <NullifiedInput
+                  {...register(`header.company_details.name`)}
+                  className='cover-letter-input'
+                  placeholder="Company Name"
+                />
+                <NullifiedInput
+                  {...register(`footer.date`)}
+                  className='cover-letter-input'
+                  placeholder="Date (e.g., January 1, 2024)"
+                />
+              </div>
+
+              <div className="flex flex-col items-end">
+                <NullifiedInput
+                  {...register(`header.applicant_details.name`)}
+                  className='cover-letter-input'
+                  placeholder="Your Full Name"
+                />
+                <NullifiedInput
+                  {...register(`header.applicant_details.email`)}
+                  className='cover-letter-input'
+                  placeholder="your.email@example.com"
+                />
+                <NullifiedInput
+                  {...register(`header.applicant_details.phone_number`)}
+                  className='cover-letter-input'
+                  placeholder="Phone Number"
+                />
+              </div>
             </div>
 
             {/* Body */}
@@ -99,22 +110,26 @@ export const ApplicationCoverLetter: FC<Props> = ({
               <TextareaAutosize
                 {...register(`body.greeting`)}
                 minRows={1}
-                className='cover-letter-input'
+                className='cover-letter-textarea'
+                placeholder="Dear Hiring Manager,"
               />
               <TextareaAutosize
                 {...register(`body.opening_paragraph`)}
                 minRows={1}
-                className='cover-letter-input'
+                className='cover-letter-textarea'
+                placeholder="I am writing to express my strong interest in [Position] at [Company Name]..."
               />
               <TextareaAutosize
                 {...register(`body.body_paragraphs`)}
                 minRows={1}
-                className='cover-letter-input'
+                className='cover-letter-textarea'
+                placeholder="Detail your relevant experience, skills, and why you're a great fit for the role..."
               />
               <TextareaAutosize
                 {...register(`body.closing_paragraph`)}
                 minRows={1}
-                className='cover-letter-input'
+                className='cover-letter-textarea'
+                placeholder="Thank you for considering my application. I look forward to discussing how I can contribute to your team..."
               />
             </div>
 
@@ -123,17 +138,14 @@ export const ApplicationCoverLetter: FC<Props> = ({
               <TextareaAutosize
                 {...register(`footer.closing`)}
                 minRows={1}
-                className='cover-letter-input'
+                className='cover-letter-textarea'
+                placeholder="Sincerely,"
               />
               <TextareaAutosize
                 {...register(`footer.signature`)}
                 minRows={1}
-                className='cover-letter-input'
-              />
-              <TextareaAutosize
-                {...register(`footer.date`)}
-                minRows={1}
-                className='cover-letter-input'
+                className='cover-letter-textarea'
+                placeholder="Your Full Name"
               />
             </div>
           </div>

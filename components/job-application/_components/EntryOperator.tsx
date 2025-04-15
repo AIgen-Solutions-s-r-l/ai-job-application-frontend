@@ -13,9 +13,9 @@ interface Props {
 
 export const EntryOperator: FC<Props> = ({ onAdd, onRemove, itemsLength, className, children, small = false }) => {
   return (
-    <div className={cn("absolute w-max h-[40px] rounded-full flex overflow-hidden -top-[40px] left-1/2 -translate-x-1/2 bottom-0 right-0 bg-white z-30 cursor-pointer", className)}>
+    <div className={cn("absolute w-max h-[40px] rounded-full flex overflow-hidden -top-[40px] left-1/2 -translate-x-1/2 bottom-0 right-0 bg-white z-30 cursor-pointer transition-opacity duration-300 ease-in-out", className)}>
       <div
-        className='h-[40px] flex items-center gap-2 bg-primary px-3 text-white'
+        className='h-[40px] flex items-center gap-2 px-3 text-white bg-primary hover:bg-primary/90 transition-colors ease-in duration-200'
         onClick={(e) => {
           e.stopPropagation();
           onAdd();
@@ -26,6 +26,7 @@ export const EntryOperator: FC<Props> = ({ onAdd, onRemove, itemsLength, classNa
       </div>
       {children}
       <button
+        type="button"
         className={cn("h-[40px] pl-3 pr-4 flex items-center justify-center group", itemsLength === 1 && 'cursor-not-allowed')}
         disabled={itemsLength === 1}
         onClick={(e) => {
@@ -33,7 +34,7 @@ export const EntryOperator: FC<Props> = ({ onAdd, onRemove, itemsLength, classNa
           onRemove();
         }}
       >
-        <Trash2 className='font-bold text-base-content group-hover:text-secondary' size={21} strokeWidth={2} />
+        <Trash2 className='font-bold text-base-content group-hover:text-primary transition-colors ease-in duration-200' size={21} strokeWidth={2} />
       </button>
     </div>
   );

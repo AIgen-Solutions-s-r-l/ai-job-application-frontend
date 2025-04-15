@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useCallback, KeyboardEvent } from 'react';
 import { Resume } from '../../../libs/types/application.types';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { NullifiedInput } from '@/components/ui/nullified-input';
@@ -64,7 +64,7 @@ type FormData = Pick<Resume, "additionalInfo">
 
 const LanguageNestedFieldArray: FC = (): ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, insert, remove } = useFieldArray({
     name: `additionalInfo.languages`
   })
 
@@ -72,64 +72,89 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
   const section = 'languages-section';
   const { template } = useCVTemplateContext();
 
-  const handleAddAchievement = () => {
-    const newIndex = fields.length;
+  const handleAddLanguage = () => {
     append({
       language: "",
-      description: "",
+      proficiency: "",
     });
-    setActiveSection(`${section}-${newIndex}`);
   }
 
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>, respIndex: number) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        insert(respIndex + 1, { language: "", proficiency: "" });
+        setTimeout(() => {
+          const nextInputId = `language-${respIndex + 1}`;
+          const nextInput = document.getElementById(nextInputId) as HTMLInputElement | null;
+          nextInput?.focus();
+        }, 0);
+      } else if (e.key === 'Backspace' && !e.currentTarget.value) {
+        e.preventDefault();
+        if (fields.length > 1) {
+          remove(respIndex);
+          setTimeout(() => {
+            const prevInputId = `language-${respIndex - 1}`;
+            const prevInput = document.getElementById(prevInputId) as HTMLInputElement | null;
+            prevInput?.focus();
+          }, 0);
+        }
+        remove(respIndex);
+      }
+    },
+    [fields.length, insert, remove]
+  );
+  
   return fields.length ? (
     <div className={template.additional.languages}>
       <h3 className={template.additional.h3}>
         Languages
       </h3>
 
-      {fields.map((item, index) => {
-        const activeIndex = `${section}-${index}`
-
-        return (
+      <div 
+        data-section={section}
+        className={cn(
+          template.additional.languageItem,
+          'entry-border',
+          section === activeSection ? 'entry-active' : 'border-transparent'
+        )}
+        onClick={(e) => {
+          e.stopPropagation();
+          setActiveSection(section);
+        }}
+      >
+        {section === activeSection && (
+          <EntryOperator
+            itemsLength={fields.length}
+            onAdd={handleAddLanguage}
+            onRemove={() => {
+              remove(fields.length - 1);
+            }}
+          />
+        )}
+        {fields.map((item, index) => (
           <div
             key={item.id}
-            data-section={activeIndex}
-            className={cn(
-              template.additional.languageItem,
-              'inline relative border-2 border-transparent hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
-            )}
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveSection(activeIndex);
-            }}
+            className={cn('inline', template.additional.languageItem)}
           >
-            {activeIndex === activeSection && (
-              <EntryOperator
-                itemsLength={fields.length}
-                onAdd={handleAddAchievement}
-                onRemove={() => {
-                  remove(index);
-                  setActiveSection(null);
-                }}
-                small
-              />
-            )}
             <NullifiedInput
+              id={`language-${index}`}
               {...register(`additionalInfo.languages.${index}.language`)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
               placeholder="Language"
-              className='leading-none'
+              className='leading-none mr-1'
             />
-            &nbsp;
             (<NullifiedInput
               {...register(`additionalInfo.languages.${index}.proficiency`)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
               placeholder="Proficiency"
               className='leading-none'
             />)
-            {index === fields.length - 1 ? '.' : ','}
+            {index === fields.length - 1 ? '.' : ', '}
           </div>
-        )
-      })}
+          )
+        )}
+      </div>
     </div>
   ) : null;
 }
@@ -169,8 +194,8 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
             data-section={activeIndex}
             className={cn(
               template.projects.entry,
-              'relative border-2 hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
+              'entry-border',
+              activeIndex === activeSection ? 'entry-active' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();
@@ -228,7 +253,7 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
 
 const AchievementsNestedFieldArray: FC = (): ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, insert, remove } = useFieldArray({
     name: `additionalInfo.achievements`
   })
 
@@ -237,13 +262,39 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
   const { template } = useCVTemplateContext();
 
   const handleAddAchievement = () => {
-    const newIndex = fields.length;
     append({
       name: "",
       description: "",
     });
-    setActiveSection(`${section}-${newIndex}`);
   }
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        insert(respIndex + 1, {
+          name: "",
+          description: "",
+        });
+        setTimeout(() => {
+          const nextTextareaId = `achievement-${respIndex + 1}`;
+          const nextTextarea = document.getElementById(nextTextareaId) as HTMLTextAreaElement | null;
+          nextTextarea?.focus();
+        }, 0);
+      } else if (e.key === 'Backspace' && !e.currentTarget.value) {
+        if (fields.length > 1) {
+          e.preventDefault();
+          remove(respIndex);
+          setTimeout(() => {
+            const prevTextareaId = `achievement-${respIndex - 1}`;
+            const prevTextarea = document.getElementById(prevTextareaId) as HTMLTextAreaElement | null;
+            prevTextarea?.focus();
+          }, 0);
+        }
+      }
+    },
+    [fields.length, insert, remove]
+  );
 
   return fields.length ? (
     <div className={template.additional.container}>
@@ -251,60 +302,55 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
         Achievements
       </h2>
 
-      <ul className={template.additional.compactList}>
-        {fields.map((exp, index) => {
-          const activeIndex = `${section}-${index}`
-
-          return (
-            <li
-              key={exp.id}
-              data-section={activeIndex}
-              className={cn(
-                template.additional.listItem,
-                'relative border-2 hover:border-primary',
-                activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
-              )}
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveSection(activeIndex);
+      <div 
+        data-section={section}
+        className={cn(
+          'entry-border',
+          section === activeSection ? 'entry-active' : 'border-transparent'
+        )}
+        onClick={(e) => {
+          e.stopPropagation();
+          setActiveSection(section);
+        }}
+      >
+        <ul className={template.additional.compactList}>
+          {section === activeSection && (
+            <EntryOperator
+              itemsLength={fields.length}
+              onAdd={handleAddAchievement}
+              onRemove={() => {
+                remove(fields.length - 1);
               }}
-            >
-              {activeIndex === activeSection && (
-                <EntryOperator
-                  itemsLength={fields.length}
-                  onAdd={handleAddAchievement}
-                  onRemove={() => {
-                    remove(index);
-                    setActiveSection(null);
-                  }}
-                />
-              )}
-              <div className="flex items-start">
-                <strong>
-                  <NullifiedInput
+            />
+          )}
+          {fields.map((exp, index) => {
+            return (
+              <li
+                key={exp.id}
+                className={template.additional.listItem}
+              >
+                <div className="flex items-start">
+                  <TextareaAutosize
+                     id={`achievement-${index}`}
                     {...register(`additionalInfo.achievements.${index}.name`)}
-                    placeholder="Achievement Name"
+                    minRows={1}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    placeholder="Award or Recognition or Scholarship or Honor"
+                    className="w-full mt-0.5 align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
                   />
-                </strong>
-                :&nbsp;
-                <TextareaAutosize
-                  {...register(`additionalInfo.achievements.${index}.description`)}
-                  minRows={1}
-                  placeholder="Achievement Description"
-                  className="w-full mt-0.5 align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-                />
-              </div>
-            </li>
-          )
-        })}
-      </ul>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </div>
   ) : null;
 }
 
 const CertificationsNestedFieldArray: FC = (): ReactElement => {
   const { register } = useFormContext<FormData>();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, insert, remove } = useFieldArray({
     name: `additionalInfo.certifications`
   })
 
@@ -313,13 +359,39 @@ const CertificationsNestedFieldArray: FC = (): ReactElement => {
   const { template } = useCVTemplateContext();
 
   const handleAddCertification = () => {
-    const newIndex = fields.length;
     append({
       name: "",
       description: "",
     });
-    setActiveSection(`${section}-${newIndex}`);
   }
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        insert(respIndex + 1, {
+          name: "",
+          description: "",
+        });
+        setTimeout(() => {
+          const nextTextareaId = `certification-${respIndex + 1}`;
+          const nextTextarea = document.getElementById(nextTextareaId) as HTMLTextAreaElement | null;
+          nextTextarea?.focus();
+        }, 0);
+      } else if (e.key === 'Backspace' && !e.currentTarget.value) {
+        if (fields.length > 1) {
+          e.preventDefault();
+          remove(respIndex);
+          setTimeout(() => {
+            const prevTextareaId = `certification-${respIndex - 1}`;
+            const prevTextarea = document.getElementById(prevTextareaId) as HTMLTextAreaElement | null;
+            prevTextarea?.focus();
+          }, 0);
+        }
+      }
+    },
+    [fields.length, insert, remove]
+  );
 
   return fields.length ? (
     <div className={template.additional.container}>
@@ -327,53 +399,48 @@ const CertificationsNestedFieldArray: FC = (): ReactElement => {
         Certifications
       </h2>
 
-      <ul className={template.additional.compactList}>
-        {fields.map((exp, index) => {
-          const activeIndex = `${section}-${index}`
-
-          return (
-            <li
-              key={exp.id}
-              data-section={activeIndex}
-              className={cn(
-                template.additional.listItem,
-                'relative border-2 hover:border-primary',
-                activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
-              )}
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveSection(activeIndex);
+      <div 
+        data-section={section}
+        className={cn(
+          'entry-border',
+          section === activeSection ? 'entry-active' : 'border-transparent'
+        )}
+        onClick={(e) => {
+          e.stopPropagation();
+          setActiveSection(section);
+        }}
+      >
+        <ul className={template.additional.compactList}>
+          {section === activeSection && (
+            <EntryOperator
+              itemsLength={fields.length}
+              onAdd={handleAddCertification}
+              onRemove={() => {
+                remove(fields.length - 1);
               }}
-            >
-              {activeIndex === activeSection && (
-                <EntryOperator
-                  itemsLength={fields.length}
-                  onAdd={handleAddCertification}
-                  onRemove={() => {
-                    remove(index);
-                    setActiveSection(null);
-                  }}
-                />
-              )}
-              <div className='flex items-start'>
-                <strong>
-                  <NullifiedInput
+            />
+          )}
+          {fields.map((exp, index) => {
+            return (
+              <li
+                key={exp.id}
+                className={template.additional.listItem}
+              >
+                <div className='flex items-start'>
+                  <TextareaAutosize
+                     id={`certification-${index}`}
                     {...register(`additionalInfo.certifications.${index}.name`)}
+                    minRows={1}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
                     placeholder="Certification Name"
+                    className="w-full mt-0.5 align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
                   />
-                </strong>
-                :&nbsp;
-                <TextareaAutosize
-                  {...register(`additionalInfo.certifications.${index}.description`)}
-                  minRows={1}
-                  placeholder="Certification Description"
-                  className="w-full mt-0.5 align-top grow leading-none resize-none overflow-y-hidden outline-none bg-transparent hyphens-auto"
-                />
-              </div>
-            </li>
-          )
-        })}
-      </ul>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </div>
   ) : null;
 }

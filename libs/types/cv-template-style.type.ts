@@ -19,6 +19,7 @@ interface EducationStyle {
   entry: string;
   entryHeader: string;
   entryDetails: string;
+  gradeDetails?: string;
   coursesDetails?: string;
   compactList?: string;
   listItem?: string;

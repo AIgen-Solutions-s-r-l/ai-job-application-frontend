@@ -24,8 +24,8 @@ const ButtonTab = ({ text, isActive, onClick }: { text: string, isActive: boolea
     return (
         <button 
             className={`
-                rounded-t-md grow md:grow-0 md:w-[160px] h-10 flex items-center justify-center text-sm md:text-base font-light 
-                ${isActive ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple"}
+                rounded-t-md grow md:grow-0 md:w-[160px] h-10 flex items-center justify-center text-sm transition-all ease-in-out duration-200 md:text-base  
+                ${isActive ? "bg-white text-black" : "bg-my-neutral-2 text-primary-light-purple font-light"}
             `} 
             onClick={onClick}
         >{text}</button>
@@ -178,43 +178,43 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //                         }
     //                     ]
     //                 },
-    //                     "achievements": {
-    //                         "achievements": [
-    //                             {
-    //                             "name": "Eccellenza MIUR",
-    //                             "description": "Enhancement of Italian Excellence - MIUR"
-    //                             },
-    //                             {
-    //                             "name": "First FCE Certificate",
-    //                             "description": "Cambridge Assessment, awarded on 29 May 2019, Europass level B2."
-    //                             },
-    //                             {
-    //                             "name": "PET Certificate",
-    //                             "description": "Cambridge Assessment, awarded on 19/07/2018, level B1."
-    //                             }
-    //                         ]
-    //                     },
-    //                     "certifications": {
-    //                         "certifications": [
-    //                             {
-    //                             "name": "AWS Certified Solutions Architect",
-    //                             "description": "Certification demonstrating proficiency in designing distributed applications and systems on AWS."
-    //                             },
-    //                             {
-    //                             "name": "AWS Certified Developer",
-    //                             "description": "Certification demonstrating proficiency in developing and maintaining applications on AWS."
-    //                             },
-    //                             {
-    //                             "name": "AWS Certified Cloud Practitioner",
-    //                             "description": "Certification demonstrating foundational knowledge of AWS Cloud."
-    //                             },
-    //                             {
-    //                             "name": "Google Associate Android Developer",
-    //                             "description": "Certification demonstrating proficiency in Android development."
-    //                             }
-    //                         ]
-    //                     },
-    //                     "additional_skills": {
+    //                 "achievements": {
+    //                     "achievements": [
+    //                         {
+    //                         "name": "Cambridge Assessment, awarded on 29 May 2019, Europass level B2. Cambridge Assessment, awarded on 29 May 2019, Europass level B2.",
+    //                         "description": "Enhancement of Italian Excellence - MIUR"
+    //                         },
+    //                         {
+    //                         "name": "Cambridge Assessment, awarded on 29 May 2019, Europass level B2.",
+    //                         "description": "Cambridge Assessment, awarded on 29 May 2019, Europass level B2."
+    //                         },
+    //                         {
+    //                         "name": "Cambridge Assessment, awarded on 29 May 2019, Europass level B2.",
+    //                         "description": "Cambridge Assessment, awarded on 19/07/2018, level B1."
+    //                         }
+    //                     ]
+    //                 },
+    //                 "certifications": {
+    //                     "certifications": [
+    //                         {
+    //                         "name": "AWS Certified Solutions Architect",
+    //                         "description": "Certification demonstrating proficiency in designing distributed applications and systems on AWS."
+    //                         },
+    //                         {
+    //                         "name": "AWS Certified Developer",
+    //                         "description": "Certification demonstrating proficiency in developing and maintaining applications on AWS."
+    //                         },
+    //                         {
+    //                         "name": "Certification demonstrating proficiency in Android development.",
+    //                         "description": "Certification demonstrating foundational knowledge of AWS Cloud."
+    //                         },
+    //                         {
+    //                         "name": "Google Associate Android Developer",
+    //                         "description": "Certification demonstrating proficiency in Android development."
+    //                         }
+    //                     ]
+    //                 },
+    //                 "additional_skills": {
     //                         "additional_skills": [
     //                             "RESTful APIs",
     //                             "Responsive Design",
@@ -301,7 +301,7 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
     //             "Angular"
     //         ]
     //     },
-    //     "style": "style_3",
+    //     "style": "style_2",
     //     "sent": false,
     //     "gen_cv": null
     // }

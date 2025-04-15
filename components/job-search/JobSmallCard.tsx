@@ -23,7 +23,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
   // Apply the arccosine transformation, normalize by (π/6),
   // invert and scale to percentage.
   const adjustedScore = Math.round(
-    (1 - Math.acos(cosineScore) / (Math.PI / 6)) * 100
+    (1 - Math.acos(cosineScore) / (Math.PI / 4)) * 100
   );
   // Clamp negative values to 0.
   const clampedScore = Math.max(0, adjustedScore);

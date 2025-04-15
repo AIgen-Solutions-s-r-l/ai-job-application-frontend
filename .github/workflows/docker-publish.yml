@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - for-production
 
 jobs:
   build-and-push:
@@ -34,4 +35,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/aihawk-startup/frontend_service:${{ env.GITHUB_SHA_SHORT }}
-            ghcr.io/aihawk-startup/frontend_service:pre
+            ${{ github.ref == 'refs/heads/main' && 'ghcr.io/aihawk-startup/frontend_service:pre' || '' }}

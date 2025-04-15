@@ -43,7 +43,7 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}
                 <input
                   type='text'
                   id='location'
-                  placeholder='City, state, or remote'
+                  placeholder='City or Country'
                   defaultValue={location}
                   autoComplete='off'
                   className='block w-full bg-transparent focus:outline focus:outline-0'

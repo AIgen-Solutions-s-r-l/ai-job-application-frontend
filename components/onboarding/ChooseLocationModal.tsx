@@ -231,7 +231,7 @@ const ChoseLocationModal = ({
                                             <input
                                                 type='text'
                                                 id='location'
-                                                placeholder='City, state, or remote'
+                                                placeholder='City or Country'
                                                 {...register('location', {
                                                     onChange: onLocationChange,
                                                 })}

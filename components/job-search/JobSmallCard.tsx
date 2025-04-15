@@ -21,7 +21,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
   // Convert job.score (a percentage) to a decimal between 0 and 1.
   const cosineScore = job.score / 100;
   const adjustedScore = Math.round(
-    1 - (Math.acos(cosineScore) / (Math.PI / 2)) * 100
+    (1 - Math.acos(cosineScore) / (Math.PI / 2)) * 100
   );
   // Clamp negative values to 0.
   const clampedScore = Math.max(0, adjustedScore);

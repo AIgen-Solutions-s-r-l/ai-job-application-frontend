@@ -139,7 +139,7 @@ export const JobFeedList: FC<Props> = ({
           ) : (
             jobs.all.length ? (
               jobs.all.map((job, key) => (
-                <JobCard job={job} status={job.status} key={key} />
+                <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
               ))
             ) : (
               <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">

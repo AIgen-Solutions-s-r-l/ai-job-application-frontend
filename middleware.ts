@@ -15,9 +15,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/verify-email?token=${token}`, request.url));
   }
 
-  // Handle Google callback
+  const response = NextResponse.next();
 
-  return NextResponse.next();
+  // Content Security Policy (modifica secondo le tue esigenze)
+  response.headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
+  );
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+
+  return response;
 }
 
 export const config = {

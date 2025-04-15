@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:18 AS builder
+FROM node:lts AS builder
 
 LABEL org.opencontainers.image.source=https://github.com/AIHawk-Startup/frontend_service
 
@@ -10,14 +10,14 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci && npm install sharp && npx update-browserslist-db@latest
 
 # Copy the rest of the application code
 COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:18-slim
+FROM node:lts-slim AS finale
 
 WORKDIR /usr/src/app
 

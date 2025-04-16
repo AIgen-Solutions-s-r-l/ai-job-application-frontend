@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --no-lint",
+    "build:with-lint": "next lint && next build",
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
@@ -29,8 +30,6 @@
     "@radix-ui/react-tabs": "^1.1.1",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.6.0",
-    "@supabase/ssr": "^0.4.0",
-    "@supabase/supabase-js": "^2.45.0",
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",

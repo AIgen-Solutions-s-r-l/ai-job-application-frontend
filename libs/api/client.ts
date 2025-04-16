@@ -14,8 +14,8 @@ const getHeaders = (contentType: string) => {
 
   if (isDevelopment && API_KEY) {
     headers["apikey"] = API_KEY;
-    headers["api-key"] = API_KEY2;
   }
+  headers["api-key"] = API_KEY2;
 
   return headers;
 };

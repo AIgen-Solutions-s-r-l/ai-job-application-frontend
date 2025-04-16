@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
   // Content Security Policy (modifica secondo le tue esigenze)
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; img-src 'self' data: https:; script-src 'self'; style-src 'self';"
+    "default-src 'self'; img-src 'self' data: https: http:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; font-src 'self' https: http:; media-src 'self' https: http:; connect-src 'self' https: http:;"
   );
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');

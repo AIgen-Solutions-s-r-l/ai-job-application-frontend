@@ -221,10 +221,16 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
 
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
+            <p className="font-montserrat text-sm text-my-neutral-5">
+              {sliderValue === 4 
+                ? (sliderValue + 1) * 100 * 2 
+                : (sliderValue + 1) * 100} applications
+              {paymentPlan === "monthly" && " / month"}
+            </p>
             <p className="font-montserrat text-2xl font-bold text-black mr-2">
               {paymentPlan === "monthly"
-                ? `€${totals.price}`
-                : `€${totals.price}`}
+              ? `€${totals.price} / month`
+              : `€${totals.price}`}
             </p>
             <button
               onClick={handlePurchase}

@@ -63,12 +63,14 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
               const postedDate: Date = new Date(job.posted_date);
               const now: Date = new Date();
               const diffInMs: number = now.getTime() - postedDate.getTime();
-              const diffInWeeks: number = Math.floor(
-                diffInMs / (1000 * 60 * 60 * 24 * 7)
-              );
-              return `Published ${diffInWeeks} week${
-                diffInWeeks !== 1 ? 's' : ''
-              } ago`;
+              const diffInWeeks: number = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
+
+              if (diffInWeeks > 4) {
+                const diffInMonths: number = Math.floor(diffInWeeks / 4);
+                return `Published ${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
+              } else {
+                return `Published ${diffInWeeks} week${diffInWeeks !== 1 ? 's' : ''} ago`;
+              }
             })()}
           </p>
         </div>

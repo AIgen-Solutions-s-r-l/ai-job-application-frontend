@@ -3,7 +3,9 @@ import { Bot, JobRole, JobProfile } from "@/libs/definitions";
 
 interface AddBotModalProps {
   isOpen: boolean;
+  // eslint-disable-next-line no-unused-vars
   setIsOpen: (isOpen: boolean) => void;
+  // eslint-disable-next-line no-unused-vars
   onSubmit: (botData: Omit<Bot, "id" | "created_at" | "updated_at" | "total_applications" | "status">, botId?: string) => void; // Añadimos un parámetro opcional `botId`
   jobProfiles: JobProfile[];
   jobRoles: JobRole[];

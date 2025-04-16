@@ -1,5 +1,6 @@
 interface ThreeWayToggleSwitchProps {
     value: 'monthly' | 'yearly' | 'onetime';
+    // eslint-disable-next-line no-unused-vars
     onChange: (value: 'monthly' | 'yearly' | 'onetime') => void;
 }
 

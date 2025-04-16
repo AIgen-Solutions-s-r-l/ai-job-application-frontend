@@ -8,7 +8,11 @@
     "build:with-lint": "next lint && next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-types": "tsc --noemit",
+    "docker:build": "docker build --tag aihawk .",
+    "docker:start": "docker run -it --rm -p 3000:3000 aihawk",
+    "docker:sh": "docker run -it --rm -p 3000:3000 aihawk /bin/sh"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

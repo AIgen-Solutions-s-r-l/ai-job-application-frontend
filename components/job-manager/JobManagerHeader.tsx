@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 
 export const JobManagerHeader: FC = () => {
   const { isAllSelected, handleSelectAll, applications } = useJobManager();
+  // eslint-disable-next-line no-unused-vars
   const [mounted, setMounted] = useState(false);
 
   const isReady = Object.keys(applications).length > 0;

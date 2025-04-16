@@ -3,7 +3,6 @@ import Image from 'next/image';
 import HiredFlower from '@/public/landing/hired-flower.svg'
 import * as motion from "motion/react-client"
 import { useScroll, useTransform, useSpring } from "motion/react"
-import Link from 'next/link';
 import ContactsArrow from '@/public/landing/contacts-arrow.svg';
 
 export const GetHired: FC = () => {

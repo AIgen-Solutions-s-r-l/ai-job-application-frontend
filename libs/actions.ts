@@ -27,7 +27,9 @@ const secretKey = crypto.scryptSync(
 
 function encrypt(text: string) {
   const iv = crypto.randomBytes(16); // IV único por cifrado
+  // @ts-ignore
   const cipher = crypto.createCipheriv(algorithm, Buffer.from(secretKey), iv);
+  // @ts-ignore
   const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
   return `${iv.toString("hex")}:${encrypted.toString("hex")}`;
 }
@@ -361,8 +363,8 @@ export const upsertJobProfile = async (
               name: personalInfo.name,
               surname: personalInfo.surname,
               date_of_birth: personalInfo.date_of_birth,
-              country: personalInfo.location.country,
-              city: personalInfo.location.city,
+              country: personalInfo.country,
+              city: personalInfo.city,
               zip_code: personalInfo.zip_code,
               address: personalInfo.address,
               phone_prefix: personalInfo.phone_prefix,

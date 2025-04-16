@@ -124,7 +124,7 @@ const ChoseLocationModal = ({
     const handleLocationSelect = (data: any) => {
         // get only params needs for JobSearchParams
         const { city, country } = data.address;
-        const { display_name, lat: latitude, lon: longitude } = data;
+        const { lat: latitude, lon: longitude } = data;
 
         const county = data.address.city
             ? `${data.address.city}, `
@@ -155,7 +155,7 @@ const ChoseLocationModal = ({
         setIsLoading(true);
         setUser((prev) => ({ ...prev, exists: true }));
         await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
-        router.push(`/search?experience=${experience}`)
+        router.push('/search')
     };
 
     return (
@@ -231,7 +231,7 @@ const ChoseLocationModal = ({
                                             <input
                                                 type='text'
                                                 id='location'
-                                                placeholder='City, state, or remote'
+                                                placeholder='City or Country'
                                                 {...register('location', {
                                                     onChange: onLocationChange,
                                                 })}

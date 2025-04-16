@@ -18,7 +18,7 @@ const PricingPanel: FC<PlanPanelPros> = ({ subscriptions, currentType }) => {
   const onUpgrade = async (id: string): Promise<void> => {
     setLoading(true);
 
-    const { data: checkoutUrl, error } = await checkoutPlan(
+    const { data: checkoutUrl } = await checkoutPlan(
       id,
       `${window.location.origin}${window.location.pathname}`
     );

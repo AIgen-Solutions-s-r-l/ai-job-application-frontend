@@ -25,7 +25,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
     if (fields.length === 0) {
       append("");
     }
-  }, []);
+  }, [append, fields.length]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {

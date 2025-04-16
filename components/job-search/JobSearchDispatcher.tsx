@@ -8,24 +8,21 @@ export const JobSearchDispatcher = async ({
 }: {
   searchParams: JobSearchProps; 
 }) => {
-  let modifiedSearchParams = {
-    ...searchParams,
-    experience: searchParams.experience || 'Mid-level'
-  };
-  
-  if (!searchParams.country) {
+  if (!searchParams.country || !searchParams.experience) {
     const searchDataStr = await getServerCookie('lastJobSearchData');
-    if (searchDataStr) {
-      const searchData = JSON.parse(searchDataStr);
-      const country = searchData.country || undefined;
-      modifiedSearchParams = {
-        ...modifiedSearchParams,
-        ...(country && { country, location: country }),
-      };
-    } 
+    const searchData = JSON.parse(searchDataStr || '{}');
+    const country = searchParams.country || searchData.country || undefined;
+    const experience = searchParams.experience || searchData.experience || 'Mid-level';
+
+    searchParams = {
+      ...searchParams,
+      ...(country && { country, location: country }),
+      experience,
+    };
   }
 
-  const { q, location, ...jobSearchParams } = modifiedSearchParams;
+  // eslint-disable-next-line no-unused-vars
+  const { q, location, ...jobSearchParams } = searchParams;
 
   if (q) {
     jobSearchParams.keywords = q.split(' ');
@@ -33,5 +30,5 @@ export const JobSearchDispatcher = async ({
 
   const response = await getMatchingJobsData(jobSearchParams);
 
-  return <JobSearchView initialJobs={response.jobs} totalCount={response.total_count} searchParams={modifiedSearchParams} />;
+  return <JobSearchView initialJobs={response.jobs} totalCount={response.total_count} searchParams={searchParams} />;
 };

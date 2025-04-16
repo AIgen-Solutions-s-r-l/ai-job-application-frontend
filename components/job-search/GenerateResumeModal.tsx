@@ -45,7 +45,7 @@ const GenerateResumeModal = ({
     // Reset the choice when the modal is closed
     useEffect(() => {
         setGenerateTemplate(false);
-      }, [isModalOpen]);
+      }, [isModalOpen, setGenerateTemplate]);
 
 
     const handleConfirm = async () => {

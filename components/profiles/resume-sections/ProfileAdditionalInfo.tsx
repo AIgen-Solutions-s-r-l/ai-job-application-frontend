@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useCallback } from "react";
-import { JobProfile, LegalAuthorization, WorkPreferences } from "@/libs/definitions";
+import { JobProfile } from "@/libs/definitions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormInput, InputWrapper } from "@/components/ui/form-input";
 
@@ -267,6 +267,7 @@ const InterestsFieldArray: FC = (): ReactElement => {
   const { getValues, setValue } = useFormContext<FormData>();
   const interests: string[] = getValues('additionalInfo.interests');
 
+  // eslint-disable-next-line no-unused-vars
   const debounce = (func: (...args: any[]) => void, delay: number) => {
     let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
     return (...args: any[]) => {
@@ -283,6 +284,7 @@ const InterestsFieldArray: FC = (): ReactElement => {
     [setValue]
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedHandleInterestsChange = useCallback(
     debounce(handleInterestsChange, 500),
     [handleInterestsChange]

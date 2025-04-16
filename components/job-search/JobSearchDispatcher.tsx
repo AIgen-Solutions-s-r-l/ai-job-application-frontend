@@ -21,6 +21,7 @@ export const JobSearchDispatcher = async ({
     };
   }
 
+  // eslint-disable-next-line no-unused-vars
   const { q, location, ...jobSearchParams } = searchParams;
 
   if (q) {

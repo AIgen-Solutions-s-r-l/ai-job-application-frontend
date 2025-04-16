@@ -4,8 +4,10 @@ import { Controller, useForm } from "react-hook-form";
 
 interface ModalProps {
   isModalOpen: boolean;
+  // eslint-disable-next-line no-unused-vars
   setIsModalOpen: (isOpen: boolean) => void;
   existingJob?: JobRole;
+  // eslint-disable-next-line no-unused-vars
   onSubmit: (job: JobRole) => void;
 }
 

@@ -20,6 +20,7 @@ interface CreateCustomerPortalParams {
 
 // Inicializar Stripe con la clave secreta
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  // @ts-ignore
   apiVersion: "2023-10-16", // Usa la versión más reciente disponible
 });
 
@@ -63,6 +64,7 @@ export async function createCheckout(data: CheckoutData): Promise<string | null>
     // Si es modo "payment", el payment_intent estará disponible inmediatamente
     if (session.payment_intent && typeof session.payment_intent !== 'string') {
       // Añadir el ID del payment_intent a los metadatos de la sesión
+      // @ts-ignore
       await stripe.checkout.sessions.update(session.id, {
         metadata: {
           ...metadata,

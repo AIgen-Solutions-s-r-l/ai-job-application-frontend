@@ -39,6 +39,7 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
     };
 
     // Function to determine transaction status and style
+    // eslint-disable-next-line no-unused-vars
     const getTransactionStatus = (transaction: Transaction) => {
         return {
             label: 'Paid',
@@ -116,7 +117,7 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                     </thead>
                     <tbody>
                         {sortedTransactions.map((transaction) => {
-                            const status = getTransactionStatus(transaction);
+                            // const status = getTransactionStatus(transaction);
                             return (
                                 <tr key={transaction.id} className="border-b font-jura font-semibold text-[14px]">
                                     <td className="py-4">

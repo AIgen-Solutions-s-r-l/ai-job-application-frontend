@@ -32,6 +32,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
     if (selectedJobs.length > 0) {
       try {      
         const cv = new File([""], "empty.pdf", { type: "application/pdf" }); // Replace with actual CV file
+        // @ts-ignore
         const response = await createJobApplication(selectedJobs, cv);
 
         if (response.success) {

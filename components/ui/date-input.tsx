@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface DateOrPresentInputProps {
   value: string;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: string) => void;
   title?: string;
   placeholder?: string;

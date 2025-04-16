@@ -3,7 +3,7 @@ import { getMatchingJobsData } from "@/libs/data";
 import { JobSearchParams } from "@/libs/definitions";
 
 export default async function JobSearchPage({ searchParams }: { searchParams: JobSearchParams }) {
-  const matchingJobs = await getMatchingJobsData(searchParams);
+  const {jobs} = await getMatchingJobsData(searchParams);
 
-  return <JobTable jobs={matchingJobs} />;
+  return <JobTable jobs={jobs} />;
 }

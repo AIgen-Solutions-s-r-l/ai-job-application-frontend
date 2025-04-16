@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Arrow from "@/public/aboutus/Arrow.svg";
 import Line from "@/public/aboutus/line.svg";
-import Start from "@/public/aboutus/Start.svg"
 import Smily from "@/public/landing/laboro-smiley.svg";
 import Star from "./Star";
 import * as motion from "motion/react-client";

@@ -151,7 +151,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
       cleanUrlParams();
       setIsProcessingPayment(false);
     }
-  }, []);
+  }, [isProcessingPayment, processedTransactions, searchParams]);
 
   // Clean URL params - mejorado para ser más robusto
   const cleanUrlParams = () => {

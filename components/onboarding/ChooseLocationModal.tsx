@@ -124,7 +124,7 @@ const ChoseLocationModal = ({
     const handleLocationSelect = (data: any) => {
         // get only params needs for JobSearchParams
         const { city, country } = data.address;
-        const { display_name, lat: latitude, lon: longitude } = data;
+        const { lat: latitude, lon: longitude } = data;
 
         const county = data.address.city
             ? `${data.address.city}, `

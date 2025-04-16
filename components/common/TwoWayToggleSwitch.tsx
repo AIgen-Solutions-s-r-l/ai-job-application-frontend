@@ -1,5 +1,6 @@
 interface TwoWayToggleSwitchProps {
     value: 'monthly' | 'onetime';
+    // eslint-disable-next-line no-unused-vars
     onChange: (value: 'monthly' | 'onetime') => void;
   }
   

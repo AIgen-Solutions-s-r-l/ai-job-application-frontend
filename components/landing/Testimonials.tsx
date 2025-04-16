@@ -1,6 +1,5 @@
 import { FC, useRef, useState } from 'react';
 import { LandingContainer } from './LandingContainer';
-import { Carousel } from './Carousel';
 import Heart from './Heart';
 import Image from 'next/image';
 
@@ -21,7 +20,7 @@ export const Testimonials: FC = () => {
         <div className='flex items-center justify-between mb-[70px] gap-[10px] lg:w-full'>
           <Heart />
           <h2 className="text-3xl text-center md:text-[35px] 2xl:text-[40px] font-medium leading-[1.1] text-white text-center">
-            Don't take our word for it!<br />Hear it from our customers
+            Don&apos;t take our word for it!<br />Hear it from our customers
           </h2>
           <Heart />
         </div>

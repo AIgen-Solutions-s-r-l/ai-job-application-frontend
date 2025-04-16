@@ -41,11 +41,8 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           </div>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>
-              <Image
-                src={job.company_logo}
-                alt='Logo'
-                className='w-full h-full object-contain'
-              />
+             {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={job.company_logo} alt='Logo' className='w-full h-full object-contain' />
             </div>
           )}
         </div>

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { JobInfo } from '@/libs/types/application.types';
 import { MapPin } from 'lucide-react';
 import { FC } from 'react';
@@ -39,11 +38,8 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
             </div>
             {job.company_logo && (
               <div className='w-[160px] h-[80px]'>
-                <Image
-                  src={job.company_logo}
-                  alt='Logo'
-                  className='w-full h-full object-contain'
-                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={job.company_logo} alt='Logo' className='w-full h-full object-contain' />
               </div>
             )}
           </div>

@@ -1,6 +1,9 @@
 import themes from "daisyui/src/theming/themes";
 import { ConfigProps } from "./types/config";
 
+// Log NODE_ENV to help diagnose Stripe pricing issues
+console.log('🔍 [Config] NODE_ENV:', process.env.NODE_ENV);
+
 const config = {
   // REQUIRED
   appName: "laboro",

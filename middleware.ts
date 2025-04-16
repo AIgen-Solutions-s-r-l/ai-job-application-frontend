@@ -4,6 +4,9 @@ import { getAppOrigin } from './libs/utils';
 import { decodeToken } from './libs/api/auth';
 import appConfig from './config';
 export async function middleware(request: NextRequest) {
+  // Log NODE_ENV to help diagnose Stripe pricing issues
+  console.log('🔍 [Middleware] NODE_ENV:', process.env.NODE_ENV);
+  
   const { pathname, searchParams } = request.nextUrl;
   const token = searchParams.get('token');
   const code = searchParams.get('code');

@@ -37,6 +37,10 @@ export interface CheckoutData {
 
 export async function createCheckout(data: CheckoutData): Promise<string | null> {
   try {
+    // Log NODE_ENV and price ID to help diagnose Stripe pricing issues
+    console.log('🔍 [stripe.createCheckout] NODE_ENV:', process.env.NODE_ENV);
+    console.log('🔍 [stripe.createCheckout] Price ID being used:', data.priceId);
+    
     // Configurar el objeto de metadatos para incluir en la sesión
     const metadata = {
       userId: data.clientReferenceId,

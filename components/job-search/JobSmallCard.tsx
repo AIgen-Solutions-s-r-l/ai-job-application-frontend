@@ -18,15 +18,14 @@ const tooltipText =
 export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
   const { selectedJobs, handleJobSelect } = useJobSearch();
 
-  // Convert job.score (a percentage) to a decimal between 0 and 1.
+  /*
   const cosineScore = job.score / 100;
   const adjustedScore = Math.round(
     (1 - Math.acos(cosineScore) / (Math.PI / 1.4)) * 100
   );
-  // Clamp negative values to 0.
   const clampedScore = Math.max(0, adjustedScore);
 
-  //const finalScore = job.score < 95 ? clampedScore : job.score;
+  const finalScore = job.score < 95 ? clampedScore : job.score;*/
 
   return (
     <div
@@ -38,7 +37,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       onDoubleClick={(e) => handleJobSelect(job, e as any)}
     >
       <div className="flex gap-2 items-center md:mb-2">
-        <p className="text-xs font-jura font-semibold">{clampedScore}% Match / Old: {job.score}</p>
+        <p className="text-xs font-jura font-semibold">{job.score}% Match</p>
         <div className="tooltip tooltip-right" data-tip={tooltipText}>
           <Info size={18} />
         </div>

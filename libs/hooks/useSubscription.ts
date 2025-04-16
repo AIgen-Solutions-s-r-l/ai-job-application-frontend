@@ -52,9 +52,6 @@ export function useSubscription({ fromSearch = false }: UseSubscriptionProps = {
   const handlePurchase = async () => {
     setIsLoading(true);
     try {
-      // Log NODE_ENV to help diagnose Stripe pricing issues
-      console.log('🔍 [useSubscription.handlePurchase] NODE_ENV:', process.env.NODE_ENV);
-      
       // Get user info
       const userInfo = await getUserInfo();
       // Determine the credits and plan type from your UI
@@ -62,14 +59,6 @@ export function useSubscription({ fromSearch = false }: UseSubscriptionProps = {
       const planType = paymentPlan;
       // Get price ID based on selection
       const priceId = pricing[planType][numberOfApps].id;
-      
-      // Log the selected price ID and related information
-      console.log('🔍 [useSubscription.handlePurchase] Selected price details:', {
-        planType,
-        numberOfApps,
-        priceId,
-        isProduction: process.env.NODE_ENV === 'production'
-      });
       // Determine checkout mode
       const mode = planType === "monthly" ? "subscription" : "payment";
 

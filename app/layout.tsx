@@ -34,8 +34,6 @@ export const viewport: Viewport = {
 export const metadata = getSEOTags();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  // Log NODE_ENV to help diagnose Stripe pricing issues
-  console.log('🔍 [RootLayout] NODE_ENV:', process.env.NODE_ENV);
   return (
     <html
       lang='en'

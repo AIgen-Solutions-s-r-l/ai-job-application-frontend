@@ -5,6 +5,7 @@ import { MapPin, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
 interface JobSearchBarProps {
+  // eslint-disable-next-line no-unused-vars
   onSearch: (keywords: string, location: string) => void;
 }
 

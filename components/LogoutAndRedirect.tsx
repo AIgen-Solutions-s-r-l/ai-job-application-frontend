@@ -19,7 +19,7 @@ const LogoutAndRedirect = () => {
       router.replace(`${config.auth.loginUrl}/?r=${pathname}`);
     };
     handleSignOut();
-  }, [pathname, router]);
+  }, [pathname, router, setUser]);
 
   return <>Redirecting to login ...</>;
 };

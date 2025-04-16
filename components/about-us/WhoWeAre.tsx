@@ -10,7 +10,7 @@ function WhoWeAre() {
                 We are a dedicated team of 15 professionals,
                 including developers, machine learning engineers, security experts, and automation enthusiasts.
                 Driven by a passion for innovation, we are committed to
-                building deep-tech solutions that tackle the biggest challenges in today's job market.
+                building deep-tech solutions that tackle the biggest challenges in today&apos;s job market.
             </p>
             <div className="relative">
                 <Image src={Team} alt="Team" className="w-full" />

@@ -23,7 +23,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
     if (fields.length === 0) {
       append("");
     }
-  }, [fields.length]);
+  }, [append, fields.length]);
 
   return (
     <>
@@ -70,6 +70,7 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
   const { getValues, setValue } = useFormContext<FormData>();
   const skills: string[] = getValues(`experienceDetails.${index}.skills_acquired`);
 
+  // eslint-disable-next-line no-unused-vars
   const debounce = (func: (...args: any[]) => void, delay: number) => {
     let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
     return (...args: any[]) => {
@@ -86,6 +87,7 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
     [setValue]
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedHandleSkillsChange = useCallback(
     debounce(handleSkillsChange, 500),
     [handleSkillsChange]

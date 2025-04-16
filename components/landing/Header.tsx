@@ -3,7 +3,6 @@ import Image from 'next/image';
 import config from '@/config';
 import { useUserContext } from '@/contexts/user-context';
 import { LandingContainer } from './LandingContainer';
-import navLeftArrow from '@/public/landing/nav-left-arrow.svg';
 import navRightArrow from '@/public/landing/nav-right-arrow.svg';
 import Link from 'next/link';
 

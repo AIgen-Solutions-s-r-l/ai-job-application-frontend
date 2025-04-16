@@ -5,7 +5,6 @@ import Automate2 from '@/public/landing/automate-2.svg';
 import Automate3 from '@/public/landing/automate-3.svg';
 import LaboroSmiley from '@/public/landing/laboro-smiley.svg';
 import AutomateItemArrow from '@/public/landing/automate-item-arrow.svg';
-import AutomateItemCheck from '@/public/landing/automate-item-check.svg';
 import AutomateEyeBase from '@/public/landing/automate-eye-base.svg';
 import * as motion from "motion/react-client"
 import { useScroll, useTransform, useSpring } from "motion/react"

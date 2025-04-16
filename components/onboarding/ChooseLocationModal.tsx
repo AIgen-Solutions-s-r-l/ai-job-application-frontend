@@ -264,7 +264,7 @@ const ChoseLocationModal = ({
                                     {isLoading
                                         ? (
                                             <>
-                                                <p>Sumbitting</p>
+                                                <p>Submitting</p>
                                                 <FaSpinner className="animate-spin" />
                                             </>
                                         ) : (

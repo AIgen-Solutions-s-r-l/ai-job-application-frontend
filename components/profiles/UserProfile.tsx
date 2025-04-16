@@ -75,7 +75,7 @@ export const UserProfile: FC<Props> = ({ profile }) => {
             {isLoading
               ? (
                 <>
-                    <p>Sumbitting</p>
+                    <p>Submitting</p>
                     <FaSpinner className="animate-spin" />
                 </>
               ) : (

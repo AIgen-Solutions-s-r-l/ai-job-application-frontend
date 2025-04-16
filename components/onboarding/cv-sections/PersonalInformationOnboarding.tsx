@@ -108,7 +108,7 @@ export const PersonalInformationOnboarding: FC = () => {
             title={'Email'}
             type='email'
             autoComplete='email'
-            className='auth-form-input grow lg:w-[579px]'
+            className='grow lg:w-[579px]'
             placeholder='e.g., john.doe@example.com'
             {...register('personalInfo.email', {
             required: 'Required field',
@@ -128,8 +128,10 @@ export const PersonalInformationOnboarding: FC = () => {
               return allowedDomains.includes(domain) || 'Please enter a valid email domain';
             },
             })}
-            />
-          </InputWrapper>
+            error={!!errors.personalInfo?.email}
+            errorMessage={errors.personalInfo?.email?.message}
+          />
+        </InputWrapper>
 
         {/* Socials */}
         <InputWrapper>

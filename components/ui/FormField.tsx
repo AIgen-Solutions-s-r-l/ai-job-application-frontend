@@ -1,4 +1,4 @@
-import { Children, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 interface FieldProps {
   label?: string;
@@ -8,8 +8,8 @@ interface FieldProps {
   children: ReactElement;
 }
 
-export const FormField = ({ label, htmlFor, error, children }: FieldProps) => {
-  const id = htmlFor || getChildId(children);
+export const FormField = ({ error, children }: FieldProps) => {
+  // const id = htmlFor || getChildId(children);
 
   return (
     <div className='form-control'>
@@ -23,10 +23,3 @@ export const FormField = ({ label, htmlFor, error, children }: FieldProps) => {
   );
 };
 
-function getChildId(children: ReactElement) {
-  const child = Children.only(children);
-
-  if ('id' in child?.props) {
-    return child.props.id;
-  }
-}

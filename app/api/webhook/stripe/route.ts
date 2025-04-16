@@ -1,4 +1,3 @@
-import configFile from "@/config";
 import { findCheckoutSession } from "@/libs/stripe";
 import { SupabaseClient } from "@supabase/supabase-js";
 import moment, { Moment } from "moment";

@@ -4,7 +4,6 @@ import { FC, useRef, memo } from "react";
 import { motion, useTransform, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 import { useWindowSize } from "@/lib/hooks";
-import { LandingContainer } from './LandingContainer';
 import { Hero } from "./Hero";
 
 const MobileFeatures: FC = () => {

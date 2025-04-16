@@ -1,4 +1,4 @@
-import { getUserBots, getUserProfileAction, getUserJobRoles } from "@/libs/data";
+import { getUserBots, getUserProfileAction, getUserJobRoles } from "@/libs/supabase-data";
 import BotStatistics from "@/components/bots/statistics";
 import BotTable from "@/components/bots/table"; // Componente que muestra los bots
 import { getPlans } from "@/libs/pricing/data";

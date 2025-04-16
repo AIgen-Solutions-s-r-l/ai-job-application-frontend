@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { LandingContainer } from './LandingContainer';
-import Link from 'next/link';
 
 export const Spotlight: FC = () => {
   return (

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listStripePrices } from "@/libs/stripe"; // your server-side function
 
+// eslint-disable-next-line no-unused-vars
 export async function GET(req: NextRequest) {
   try {
     const prices = await listStripePrices();

@@ -1,4 +1,4 @@
-import { getUserJobRoles } from "@/libs/data";
+import { getUserJobRoles } from "@/libs/supabase-data";
 import TableActions from "./table";
 
 export default async function TableRolesServerComponent() {

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const path = request.nextUrl.searchParams.get('path');
   const supabase = createClient();
-  const { data, error } = await supabase
+  const { data } = await supabase
     .storage
     .from('job_rizzler')
     .download(path);

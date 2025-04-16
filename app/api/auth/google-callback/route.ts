@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
-import { getAppOrigin } from '@/libs/utils'; // Assuming utils is in libs
 import { decodeToken } from '@/libs/api/auth'; // Assuming auth utils are here
 import appConfig from '@/config'; // Assuming config is at root
 

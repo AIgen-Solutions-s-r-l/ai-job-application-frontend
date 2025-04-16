@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";

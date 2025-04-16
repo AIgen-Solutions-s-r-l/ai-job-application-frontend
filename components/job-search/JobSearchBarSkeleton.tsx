@@ -1,4 +1,4 @@
-import { ChevronDown, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { FC } from 'react';
 import { Container } from '../Container';
 
@@ -8,7 +8,7 @@ interface Props {
   experience?: string;
 }
 
-export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}) => {
+export const JobSearchBarSkeleton: FC<Props> = ({keywords, location}) => {
   return (
     <Container>
       <div className='hidden lg:block w-full'>
@@ -43,7 +43,7 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location, experience}
                 <input
                   type='text'
                   id='location'
-                  placeholder='City, state, or remote'
+                  placeholder='City or Country'
                   defaultValue={location}
                   autoComplete='off'
                   className='block w-full bg-transparent focus:outline focus:outline-0'

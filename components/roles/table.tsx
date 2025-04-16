@@ -63,7 +63,7 @@ const TableActions = ({
 
   const handleSaveJob = async (job: JobRole) => {
     try {
-      const { data: userData, error: userError } =
+      const { data: userData } =
         await supabase.auth.getUser();
       const jobWithProfileId = {
         ...job,

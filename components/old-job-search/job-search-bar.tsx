@@ -5,6 +5,7 @@ import { MapPin, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
 interface JobSearchBarProps {
+  // eslint-disable-next-line no-unused-vars
   onSearch: (keywords: string, location: string) => void;
 }
 
@@ -35,7 +36,7 @@ export const JobSearchBar: FC<JobSearchBarProps> = ({ onSearch }) => {
             <input
               type="text"
               id="location"
-              placeholder="City, state, or remote"
+              placeholder="City or Country"
               {...register("location")}
               className="block w-full bg-transparent focus:outline focus:outline-0"
             />

@@ -3,7 +3,7 @@
 import { Fragment, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CloseButtonIcon } from "@/components/AppIcons";
-import { Trash2, Building2, Briefcase, Trash, Delete, DeleteIcon } from "lucide-react";
+import { Trash2, Building2, Briefcase } from "lucide-react";
 import { useJobSearch } from "@/contexts/job-search-context";
 
 interface ModalProps {

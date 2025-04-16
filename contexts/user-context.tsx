@@ -45,6 +45,10 @@ export default function UserContextProvider({
     let timeout: NodeJS.Timeout;
 
     const handleStartInterval = async () => {
+      if (!accessToken) {
+        return;
+      }
+
       const { exp } = await decodeToken(accessToken);
       const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
 

@@ -28,7 +28,7 @@ export const JobFeedList: FC = () => {
       const page = Math.floor(parseInt(offset) / 25);
       setCurrentPage(page);
     }
-  }, [offset]);
+  }, [offset, setCurrentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

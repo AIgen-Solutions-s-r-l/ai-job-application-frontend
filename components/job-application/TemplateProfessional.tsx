@@ -13,6 +13,7 @@ import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonSubmit } from '@/components/ButtonSubmit';
 import { ButtonUnderline } from '../ButtonUnderline';
 import { useCVTemplateContext } from '@/contexts/cv-template-context';
+import { Check } from 'lucide-react';
 
 interface Props {
   id: string;
@@ -51,8 +52,11 @@ export const TemplateProfessional: FC<Props> = ({
   if (!resume) {
     return (
       <>
-        <div className='w-full lg:w-[940px] mx-auto mt-5 mb-[80px] px-10'>
-          <p className='font-montserrat text-base md:text-lg xl:text-xl font-medium text-black'>You have applied with your own resume</p>
+        <div className="w-full lg:w-[940px] mx-auto mt-5 mb-[80px] px-10 py-6 bg-gray-100 rounded-xl shadow-md flex items-center justify-center">
+          <p className="font-montserrat text-base md:text-lg xl:text-xl font-medium text-black flex items-center gap-3">
+            <Check className="text-green-500" size={24} />
+            You have applied with your own resume
+          </p>
         </div>
         <JobButtomSheet className='flex-none items-center justify-between'>
           <ButtonUnderline title='Go Back' handleClick={goBack} />

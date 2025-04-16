@@ -1,12 +1,7 @@
 import { FC } from 'react';
 import { JobDetail } from '@/libs/definitions';
 import { Info } from 'lucide-react';
-
-const dateOptions: Intl.DateTimeFormatOptions = {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-};
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
 interface Props {
   job: JobDetail;
@@ -15,7 +10,9 @@ interface Props {
 }
 
 export const JobCard: FC<Props> = ({ job, status, timestamp }) => {
-  const date = new Date(timestamp).toLocaleDateString(undefined, dateOptions);
+  // Convert the timestamp into a Date object
+  const date = parseISO(timestamp);
+  const relativeTime = formatDistanceToNow(date, { addSuffix: true });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -36,7 +33,7 @@ export const JobCard: FC<Props> = ({ job, status, timestamp }) => {
         <div className='text-l gap-4'>
           <p className='font-bold'>{job.title}</p>
           <p>{job.company_name}</p>
-          <p className='italic'>{date}</p>
+          <p className='italic'>sent {relativeTime}</p>
         </div>
         <div className='flex gap-3'>
           <p className='leading-tight md:px-8'>
@@ -66,15 +63,6 @@ export const JobCard: FC<Props> = ({ job, status, timestamp }) => {
             <p className={`px-5 py-1 rounded-md text-center ${getStatusColor(status)}`}>{status}</p>
           </div>
         </div>
-        {/* <div className='grow flex flex-wrap justify-end items-start gap-x-3 gap-y-1'>
-          {job.skills_required.length &&
-            <>
-              <div className='pill'>{job.skills_required[0]}</div>
-              <div className='pill'>{job.skills_required[1]}</div>
-              <div className='pill'>{job.skills_required[2]}</div>
-            </>
-          }
-        </div> */}
       </div>
     </article>
   );

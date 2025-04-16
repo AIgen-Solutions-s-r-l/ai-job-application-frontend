@@ -4,6 +4,7 @@ import { MatchingJob } from '@/libs/definitions';
 import { JobLargeCardSkeleton } from './JobLargeCardSkeleton';
 import Pin from '../svgs/Pin.svg';
 import Image from 'next/image';
+import { formatDistanceToNow, parseISO } from 'date-fns';  // Import the necessary functions
 
 interface Props {
   className?: string;
@@ -21,6 +22,10 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
   }, [job]);
 
   if (!job) return <JobLargeCardSkeleton />;
+
+  // Calculate the relative time for the posted date
+  const postedDate = parseISO(job.posted_date); // Parse the posted date
+  const relativeTime = formatDistanceToNow(postedDate, { addSuffix: true });
 
   return (
     <div
@@ -41,14 +46,14 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           </div>
           {job.company_logo && (
             <div className='w-[160px] h-[80px]'>
-             {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={job.company_logo} alt='Logo' className='w-full h-full object-contain' />
             </div>
           )}
         </div>
 
         <div className='flex justify-between items-center'>
-         <p className='text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold'>
+          <p className='text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold'>
             {job.country === 'Unknown' && job.city === 'Remote' ? (
               <>
                 <Image src={Pin} alt='pin' />
@@ -69,19 +74,8 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             )}
           </p>
           <p className='text-base md:text-[18px] font-jura font-semibold'>
-            {(() => {
-              const postedDate: Date = new Date(job.posted_date);
-              const now: Date = new Date();
-              const diffInMs: number = now.getTime() - postedDate.getTime();
-              const diffInWeeks: number = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
-
-              if (diffInWeeks > 4) {
-                const diffInMonths: number = Math.floor(diffInWeeks / 4);
-                return `Published ${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
-              } else {
-                return `Published ${diffInWeeks} week${diffInWeeks !== 1 ? 's' : ''} ago`;
-              }
-            })()}
+            {/* Display relative time */}
+            {`Published ${relativeTime}`}
           </p>
         </div>
         <div className='flex gap-x-2 gap-y-1 md:gap-x-3 my-1 lg:my-2 flex-wrap overflow-hidden'>
@@ -138,13 +132,6 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
           ))}
         </div>
       </div>
-      {/* <Link
-        href={job.apply_link}
-        target='_blank'
-        className='font-jura text-sm xl:text-[18px] leading-none px-3 py-2 xl:px-6 xl:py-4 border border-neutral-cold-1 bg-white rounded-[20px] hover:bg-primary hover:text-white transition-colors ease-in duration-200'
-      >
-        View Original Job Post
-      </Link> */}
     </div>
   );
 };

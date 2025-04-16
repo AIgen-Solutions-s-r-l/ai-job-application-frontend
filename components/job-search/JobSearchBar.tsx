@@ -62,6 +62,8 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
   const [locationError, setLocationError] = useState<string | null>(null);
   const { totalCount, setCurrentPage } = useJobSearch();
 
+  const [ghostText, setGhostText] = useState('');
+
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
     defaultValues: { ...searchParams, is_remote_only: String(searchParams.is_remote_only) === 'true' }, // Handle potential string from URL params
   });
@@ -132,11 +134,27 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       if (e.target.value.length > 2) {
         const timeoutId = setTimeout(async () => {
           const response = await locationQuery(e.target.value);
-          setDataArray(response);
+          if (response.length > 0) {
+            const topMatch = response[0];
+            const city = topMatch.address.city || topMatch.address.town || topMatch.address.village || '';
+            const country = topMatch.address.country || '';
+          
+            const fullText = `${city ? `${city}, ` : ''}${country}`;
+            
+            // Only show ghost if user input is a prefix
+            if (fullText.toLowerCase().startsWith(e.target.value.toLowerCase())) {
+              setGhostText(fullText);
+            } else {
+              setGhostText('');
+            }
+          
+            setDataArray(response);
+          }
         }, 200);
         setSearchTimeout(timeoutId);
       } else {
         setDataArray([]);
+        setGhostText('');
       }
 
       // Clear all location-related data when input is empty or too short
@@ -153,6 +171,20 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     },
     [getValues, reset, searchTimeout]
   );
+
+  const handleGhostAccept = (value: string) => {
+    const selected = dataArray.find((d) => {
+      const city = d.address.city || d.address.town || d.address.village || '';
+      const country = d.address.country || '';
+      return `${city ? `${city}, ` : ''}${country}` === value;
+    });
+  
+    if (selected) {
+      handleLocationSelect(selected);
+    }
+    setGhostText('');
+  };
+  
 
   const handleLocationSelect = (data: any) => {
     // get only params needs for JobSearchParams
@@ -236,16 +268,31 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                   getValues().country ? 'border-primary border-2' : 'border-neutral has-[input:focus-within]:border-primary' 
                 )}
               >
-                <input
-                  type='text'
-                  id='location'
-                  placeholder='City or Country'
-                  {...register('location', {
-                    onChange: onLocationChange,
-                  })}
-                  autoComplete='off'
-                  className='block w-full bg-transparent focus:outline focus:outline-0'
-                />
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    id="location"
+                    placeholder="City or Country"
+                    {...register('location', {
+                      onChange: onLocationChange,
+                    })}
+                    autoComplete="off"
+                    className="block w-full bg-transparent focus:outline focus:outline-0 relative z-10"
+                    onKeyDown={(e) => {
+                      if (ghostText && (e.key === 'Tab' || e.key === 'ArrowRight')) {
+                        e.preventDefault();
+                        handleGhostAccept(ghostText);
+                      }
+                    }}
+                  />
+                  {/* Ghost Text */}
+                  {ghostText && (
+                    <div className="absolute top-0 left-0 w-full h-full px-[inherit] py-[inherit] flex items-center pointer-events-none text-gray-400 z-0 select-none">
+                      {ghostText}
+                    </div>
+                  )}
+                </div>
+
               </div>
 
               {dataArray.length > 0 && showSuggestions && (

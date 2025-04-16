@@ -40,9 +40,9 @@ const AppNavbar: FC<Props> = ({ slot }) => {
       {slot}
       <div className='flex items-center gap-1 lg:gap-5 bg-primary-deep-purple rounded-full ml-2 md:ml-0 pl-[2px] pr-[10px] lg:pr-[25px] py-[1px] lg:py-[3px]'>
         <LaboroSmileyIcon />
-        <p className='text-white text-right font-jura text-sm lg:text-xl font-semibold leading-none tracking-tight'>
+        <Link href='/dashboard/subscription' className='text-white text-right font-jura text-sm lg:text-xl font-semibold leading-none tracking-tight'>
           {credits} Credits
-        </p>
+        </Link>
       </div>
     </div>
   );

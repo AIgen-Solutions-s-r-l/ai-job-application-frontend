@@ -10,13 +10,14 @@ import { Testimonials } from '@/components/landing/Testimonials';
 import { FAQ } from '@/components/landing/FAQ';
 import { GetHired } from '@/components/landing/GetHired';
 import { Footer } from '@/components/landing/Footer';
+import { Hero } from '@/components/landing/Hero';
 
 export default function Home() {
   return (
     <>
       <Header />
       <main>
-        {/* <Hero /> */}
+        <Hero />
         <Features />
         <Automate />
         <Clouds />

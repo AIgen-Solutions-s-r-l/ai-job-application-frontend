@@ -1,7 +1,4 @@
-import config from '@/config';
 import axios from 'axios';
-import { redirect } from 'next/navigation';
-import { refreshToken } from './auth';
 
 const API_KEY = process.env.API_KEY || '';
 const API_KEY2 = process.env.API_KEY2 || '';

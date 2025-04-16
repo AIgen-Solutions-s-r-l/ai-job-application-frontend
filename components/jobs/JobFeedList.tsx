@@ -141,7 +141,7 @@ export const JobFeedList: FC<Props> = ({
               bg-white
               text-gray-900
               placeholder-gray-400
-              focus:outline-none focus:ring-2 focus:ring-indigo-500
+              focus:outline-none focus:ring-2 focus:primary-deep-purple focus:border-primary-deep-purple
             "
             />
           </div>
@@ -161,17 +161,29 @@ export const JobFeedList: FC<Props> = ({
 
 
         <div className={typography.tabs.content}>
-          {isLoading ? (
-            <>
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-              <JobCardSkeleton />
-            </>
+        {isLoading ? (
+          <>
+            <JobCardSkeleton />
+            <JobCardSkeleton />
+            <JobCardSkeleton />
+          </>
+        ) : (
+          jobs.all.length > 0 ? (
+            jobs.all.map((job, key) => (
+              <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
+            ))
           ) : (
-            jobs.all.length ? (
-              jobs.all.map((job, key) => (
-                <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
-              ))
+            (Object.keys(appliedJobs).length ||
+            Object.keys(failedJobs).length ||
+            Object.keys(pendingJobs).length) ? (
+              <div className="w-full px-7 py-4 flex flex-col gap-3 items-start bg-white">
+                <p className='font-montserrat text-lg font-semibold'>
+                  No results found for "<span className='italic'>{searchTerm}</span>".
+                </p>
+                <p className='font-montserrat text-base text-gray-500'>
+                  Try adjusting your search term or check for typos.
+                </p>
+              </div>
             ) : (
               <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">
                 <p className='font-montserrat font-xl text-base xl:text-xl font-bold'>
@@ -188,7 +200,9 @@ export const JobFeedList: FC<Props> = ({
                 </p>
               </div>
             )
-          )}
+          )
+        )}
+
         </div>
       </div>
     </div>

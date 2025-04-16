@@ -5,6 +5,7 @@ import { JobLargeCardSkeleton } from './JobLargeCardSkeleton';
 import Pin from '../svgs/Pin.svg';
 import Image from 'next/image';
 import { formatDistanceToNow, parseISO } from 'date-fns';  // Import the necessary functions
+import { Building } from 'lucide-react';
 
 interface Props {
   className?: string;
@@ -44,10 +45,18 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
               {job.company_name}
             </h3>
           </div>
-          {job.company_logo && (
-            <div className='w-[160px] h-[80px]'>
+          {job.company_logo ? (
+            <div className="w-[160px] h-[80px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={job.company_logo} alt='Logo' className='w-full h-full object-contain' />
+              <img
+                src={job.company_logo}
+                alt="Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : (
+            <div className="w-[80px] h-[80px] flex justify-center items-center bg-gray-200">
+              <Building className="w-12 h-12 text-gray-500" />
             </div>
           )}
         </div>
@@ -74,7 +83,6 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             )}
           </p>
           <p className='text-base md:text-[18px] font-jura font-semibold'>
-            {/* Display relative time */}
             {`Published ${relativeTime}`}
           </p>
         </div>

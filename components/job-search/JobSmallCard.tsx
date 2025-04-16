@@ -38,7 +38,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       onDoubleClick={(e) => handleJobSelect(job, e as any)}
     >
       <div className="flex gap-2 items-center md:mb-2">
-        <p className="text-xs font-jura font-semibold">{clampedScore}% Match</p>
+        <p className="text-xs font-jura font-semibold">{clampedScore}% Match / Old: {job.score}</p>
         <div className="tooltip tooltip-right" data-tip={tooltipText}>
           <Info size={18} />
         </div>

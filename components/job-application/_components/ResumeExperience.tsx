@@ -25,7 +25,7 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
     if (fields.length === 0) {
       append("");
     }
-  }, []);
+  }, [append, fields.length]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLTextAreaElement>, respIndex: number) => {
@@ -111,8 +111,8 @@ export const ResumeExperience: FC = () => {
             data-section={activeIndex}
             className={cn(
               template.experience.entry,
-              'relative border-2 hover:border-primary',
-              activeIndex === activeSection ? 'bg-white border-primary' : 'border-transparent'
+              'entry-border',
+              activeIndex === activeSection ? 'entry-active' : 'border-transparent'
             )}
             onClick={(e) => {
               e.stopPropagation();

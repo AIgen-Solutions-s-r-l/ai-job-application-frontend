@@ -10,10 +10,9 @@ import SliderInput from "./sliderInput";
 import TwoWayToggleSwitch from "../common/TwoWayToggleSwitch";
 
 // Auth / API logic
-import { addCredits } from "@/libs/api/auth";
+import { addCredits, cancelSubscription } from "@/libs/api/auth";
 
 // Importamos la configuración central
-import { MasterCardIcon } from "../AppIconsWithImages";
 import { useSubscription } from "@/libs/hooks/useSubscription";
 import { Transaction } from "@/libs/definitions";
 
@@ -24,6 +23,7 @@ interface SubscriptionTabProps {
 function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
   const [currentApplications, setCurrentApplications] = useState(300);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [isCancellingSubscription, setIsCancellingSubscription] = useState(false);
   // Añadimos un estado para rastrear las transacciones ya procesadas
   const [processedTransactions, setProcessedTransactions] = useState<Set<string>>(new Set());
 
@@ -49,6 +49,38 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
   
   // Obtener el valor del plan activo (si existe)
   const activePlanValue = activeSubscription ? parseInt(activeSubscription.amount) : null;
+
+  // Manejador para cancelar la suscripción
+  const handleCancelSubscription = async () => {
+    if (!activeSubscription || !activeSubscription.subscription_id) {
+      toast.error("No active subscription found to cancel");
+      return;
+    }
+
+    // Confirmación antes de cancelar
+    if (!window.confirm("Are you sure you want to cancel your subscription? This action cannot be undone.")) {
+      return;
+    }
+
+    setIsCancellingSubscription(true);
+    
+    try {
+      const result = await cancelSubscription(activeSubscription.subscription_id);
+      
+      if (result.success) {
+        toast.success("Your subscription has been successfully cancelled");
+        // Recargar la página para actualizar los datos
+        window.location.reload();
+      } else {
+        toast.error(result.error || "Failed to cancel subscription. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error cancelling subscription:", error);
+      toast.error("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsCancellingSubscription(false);
+    }
+  };
 
   // Check Stripe checkout result
   useEffect(() => {
@@ -119,7 +151,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
       cleanUrlParams();
       setIsProcessingPayment(false);
     }
-  }, []);
+  }, [isProcessingPayment, processedTransactions, searchParams]);
 
   // Clean URL params - mejorado para ser más robusto
   const cleanUrlParams = () => {
@@ -179,7 +211,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
           )}
         </div>
 
-        {/* Row: left -> credit equivalency, right -> price + purchase */}
+        {/* Row: left -> credit equivalency, right -> price & purchase */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-2">
           {/* Left: 1 Credit = ... */}
           <div className="text-my-neutral-5 text-sm font-jura leading-5">
@@ -189,17 +221,17 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
 
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
-            <p className="font-montserrat text-2xl font-bold text-black">
+            <p className="font-montserrat text-2xl font-bold text-black mr-2">
               {paymentPlan === "monthly"
-                ? `€${totals.price} / mo`
-                : `€${totals.price} (one-time)`}
+                ? `€${totals.price}`
+                : `€${totals.price}`}
             </p>
             <button
               onClick={handlePurchase}
               disabled={isLoading}
               className="flex items-center gap-2 bg-secondary rounded-xl px-5 py-2 font-jura font-semibold disabled:opacity-70"
             >
-              {isLoading ? "Processing..." : "Purchase"}
+              {isLoading ? "Processing..." : paymentPlan === "monthly" ? "Purchase" : "One-time payment"}
               <CartIcon />
             </button>
           </div>
@@ -212,6 +244,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
           <h3 className="font-montserrat text-xl font-semibold text-black">
             Active Subscription
           </h3>
+          
           <div className="flex items-center gap-2">
             <p className="font-jura text-base font-semibold text-black">
               Plan:
@@ -223,6 +256,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
               Active
             </span>
           </div>
+          
           <div className="flex items-center gap-2">
             <p className="font-jura text-base font-semibold text-black">
               Next Renewal:
@@ -242,6 +276,22 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
                 });
               })()}
             </p>
+          </div>
+          
+          {/* Contenedor para nota y botón, con el botón alineado a la derecha */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mt-2">
+            <p className="text-xs text-my-neutral-5 md:w-2/3">
+              You will still have access until the end of your current billing period.
+            </p>
+            
+            {/* Botón para cancelar la suscripción - ahora en la esquina inferior derecha */}
+            <button
+              onClick={handleCancelSubscription}
+              disabled={isCancellingSubscription}
+              className="mt-3 md:mt-0 px-4 py-2 text-sm font-jura font-semibold border border-red-500 text-red-500 rounded-lg hover:bg-red-50 disabled:opacity-50 transition-colors"
+            >
+              {isCancellingSubscription ? "Cancelling..." : "Cancel Subscription"}
+            </button>
           </div>
         </div>
       )}

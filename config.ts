@@ -6,7 +6,7 @@ const config = {
   appName: "laboro",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "Automate your LinkedIn job applications effortlessly with laboro. Save time, apply faster, and get hired quicker.",
+    "Automate your job applications effortlessly with laboro. Save time, apply faster, and get hired quicker.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
   domainName: "laboro.co",
   crisp: {

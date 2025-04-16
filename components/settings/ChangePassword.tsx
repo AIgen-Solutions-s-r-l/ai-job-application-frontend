@@ -112,17 +112,20 @@ export const ChangePassword = () => {
                   }
                 }}
                 />
-            <button
-              type='submit'
-              className={typography.forms.submitButton}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Confirming...' : 'Confirm'}
-            </button>
           </div>
-            <Link href='/forgot-password' className='font-medium text-primary hover:underline'>
-            <p className='pt-4'> Forgot password?</p>
-            </Link>
+            <div className="flex justify-between pt-4">
+              <Link href='/forgot-password' className='font-medium text-primary hover:underline'>
+                Forgot password?
+              </Link>
+
+              <button
+                type='submit'
+                className={typography.forms.submitButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Confirming...' : 'Confirm'}
+              </button>
+            </div>
         </form>
       )}
     </div>

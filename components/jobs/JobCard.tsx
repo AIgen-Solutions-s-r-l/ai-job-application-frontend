@@ -11,10 +11,11 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 interface Props {
   job: JobDetail;
   status: string;
+  timestamp: string;
 }
 
-export const JobCard: FC<Props> = ({ job, status }) => {
-  const date = new Date(job.posted_date);
+export const JobCard: FC<Props> = ({ job, status, timestamp }) => {
+  const date = new Date(timestamp).toLocaleDateString(undefined, dateOptions);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -35,6 +36,7 @@ export const JobCard: FC<Props> = ({ job, status }) => {
         <div className='text-l gap-4'>
           <p className='font-bold'>{job.title}</p>
           <p>{job.company_name}</p>
+          <p className='italic'>{date}</p>
         </div>
         <div className='flex gap-3'>
           <p className='leading-tight md:px-8'>

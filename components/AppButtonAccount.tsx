@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import apiClient from "@/libs/api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +24,7 @@ import { useUserContext } from "@/contexts/user-context";
 import Link from "next/link";
 
 const AppButtonAccount = () => {
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const pathname = usePathname();

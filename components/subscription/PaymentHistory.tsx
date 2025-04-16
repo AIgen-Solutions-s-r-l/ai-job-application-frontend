@@ -39,6 +39,7 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
     };
 
     // Function to determine transaction status and style
+    // eslint-disable-next-line no-unused-vars
     const getTransactionStatus = (transaction: Transaction) => {
         return {
             label: 'Paid',
@@ -62,6 +63,21 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                 {isActive ? 'Active' : 'Inactive'}
             </span>
         );
+    };
+
+    // Función para formatear el importe monetario con su moneda
+    const formatMonetaryAmount = (transaction: Transaction) => {
+        if (!transaction.monetary_amount) return "—";
+        
+        const amount = parseFloat(transaction.monetary_amount);
+        const currency = transaction.currency || 'USD';
+        
+        // Usar el formateador de moneda basado en la divisa
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency,
+            minimumFractionDigits: 2
+        }).format(amount);
     };
     
     return (
@@ -92,15 +108,16 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                 <table className="w-full table-fixed">
                     <thead>
                         <tr className="border-b font-jura font-semibold text-[18px]">
-                            <th className="text-left py-4 w-[25%]">Type</th>
-                            <th className="text-left py-4 w-[25%]">Status</th>
-                            <th className="text-left py-4 w-[25%]">Credits</th>
-                            <th className="text-left py-4 w-[25%]">Date / Time</th>
+                            <th className="text-left py-4 w-[20%]">Type</th>
+                            <th className="text-left py-4 w-[15%]">Status</th>
+                            <th className="text-left py-4 w-[15%]">Credits</th>
+                            <th className="text-left py-4 w-[20%]">Amount</th>
+                            <th className="text-left py-4 w-[30%]">Date / Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {sortedTransactions.map((transaction) => {
-                            const status = getTransactionStatus(transaction);
+                            // const status = getTransactionStatus(transaction);
                             return (
                                 <tr key={transaction.id} className="border-b font-jura font-semibold text-[14px]">
                                     <td className="py-4">
@@ -122,6 +139,9 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                                             <LaboroSmileyIcon classname="w-4 h-4" />
                                             <span>{parseFloat(transaction.amount).toFixed(0)}</span>
                                         </div>
+                                    </td>
+                                    <td className="py-4">
+                                        {formatMonetaryAmount(transaction)}
                                     </td>
                                     <td className="py-4">{formatDate(transaction.created_at)}</td>
                                 </tr>

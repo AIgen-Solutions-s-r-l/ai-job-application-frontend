@@ -98,14 +98,16 @@ export const ChangeEmail = () => {
               errorMessage={errors.newEmail?.message}
               className='grow'
             />
-            <button
-              type='submit'
-              className={typography.forms.submitButton}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Confirming...' : 'Confirm'}
-            </button>
           </div>
+            <div className="flex justify-end pt-4">
+              <button
+                type='submit'
+                className={typography.forms.submitButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Confirming...' : 'Confirm'}
+              </button>
+            </div>
         </form>
       )}
     </div>

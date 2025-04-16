@@ -1,5 +1,6 @@
 interface ToggleSwitchProps {
     value: boolean;
+    // eslint-disable-next-line no-unused-vars
     onChange: (value: boolean) => void;
     label: string;
 }

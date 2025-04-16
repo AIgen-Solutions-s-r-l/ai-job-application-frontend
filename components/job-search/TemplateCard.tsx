@@ -6,6 +6,7 @@ interface TemplateCardProps {
     templateImage: any;
     isEnabled: boolean;
     isSelected: boolean;
+    // eslint-disable-next-line no-unused-vars
     onSelect: (templateNumber: number) => void;
 }
 

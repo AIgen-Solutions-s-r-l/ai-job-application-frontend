@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useUserContext } from '@/contexts/user-context';
 import EyeBase from '@/public/aboutus/EyeBase.svg';
 import Tablet from '@/public/aboutus/Tablet.svg'
 import Image from 'next/image';
 import Instagram from '@/public/aboutus/Instagram.svg';
 import LinkedIn from '@/public/aboutus/LinkedIn.svg';
+import Link from 'next/link';
 
 export const List = ({ Icon, Link }: { Icon: string, Link: string }) => {
     return (
@@ -17,6 +19,7 @@ function TheLaboro() {
     const eyeContainer = useRef<HTMLDivElement>(null);
     const eyeBall = useRef<HTMLDivElement>(null);
     const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
+    const { user } = useUserContext();
 
     const calculateEyePosition = () => {
         if (!eyeBall.current || !eyeContainer.current) return { x: 0, y: 0 };
@@ -82,7 +85,7 @@ function TheLaboro() {
                 <p className="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-[40px] font-[600] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-normal text-white">
                     We invite you to experience a more efficient and effective job application
                     process with LABORO. Find your next job with our platform and take control of your career trajectory.
-                    [Subscribe Now] to start your journey towards landing your dream job.
+                    {' '}<Link className="underline" href={user ? '/search' : '/signin'}>Subscribe Now</Link> to start your journey towards landing your dream job.
                 </p>
                 <p className="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-[40px] font-[600] leading-normal lg:leading-normal text-primary-deep-purple">
                     Connect with us and stay updated:

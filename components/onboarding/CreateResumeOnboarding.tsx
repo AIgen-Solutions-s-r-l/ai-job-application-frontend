@@ -46,7 +46,7 @@ export const CreateResumeOnboarding: React.FC = () => {
       scrollToError(methods.formState.errors);
     }
     return isValid;
-  }, [currentStep]);
+  }, [currentStep, methods]);
 
   const nextStep = async (ev: FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();

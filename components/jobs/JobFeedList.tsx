@@ -50,10 +50,9 @@ export const JobFeedList: FC<Props> = ({
     );
 
     setShowCongarts(lastCongratsDateSecond < lastAppliedDateSecond);
-  }, []);
+  }, [appliedJobs, isLoading]);
 
   const jobs = useMemo(() => {
-    const nullDate = new Date();
     // Combine and process all jobs into a single array with status
     const allJobs = [
       ...(pendingJobs ? Object.keys(pendingJobs).map(key => ({
@@ -139,7 +138,7 @@ export const JobFeedList: FC<Props> = ({
           ) : (
             jobs.all.length ? (
               jobs.all.map((job, key) => (
-                <JobCard job={job} status={job.status} key={key} />
+                <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
               ))
             ) : (
               <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">

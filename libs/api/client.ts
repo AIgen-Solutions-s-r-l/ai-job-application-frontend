@@ -1,7 +1,4 @@
-import config from '@/config';
 import axios from 'axios';
-import { redirect } from 'next/navigation';
-import { refreshToken } from './auth';
 
 const API_KEY = process.env.API_KEY || '';
 const API_KEY2 = process.env.API_KEY2 || '';
@@ -14,8 +11,8 @@ const getHeaders = (contentType: string) => {
 
   if (isDevelopment && API_KEY) {
     headers["apikey"] = API_KEY;
-    headers["api-key"] = API_KEY2;
   }
+  headers["api-key"] = API_KEY2;
 
   return headers;
 };

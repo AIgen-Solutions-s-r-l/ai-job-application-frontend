@@ -1,5 +1,5 @@
 import { JobFeedList } from '@/components/jobs/JobFeedList';
 
 export const JobFeedSkeleton = (
-  <JobFeedList appliedJobs={{}} failedJobs={{}} isLoading={true} />
+  <JobFeedList pendingJobs={{}} appliedJobs={{}} failedJobs={{}} isLoading={true} />
 );

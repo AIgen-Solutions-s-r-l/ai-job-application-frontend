@@ -13,7 +13,7 @@ import { redirect } from 'next/navigation';
 import config from '@/config';
 import { isResumeExits } from '@/libs/api/resume';
 import { decodeToken, fetchUserData } from '@/libs/api/auth';
-import { getServerCookie } from '@/libs/cookies';
+import { deleteServerCookie, getServerCookie } from '@/libs/cookies';
 import { refreshToken } from '@/libs/api/auth';
 
 interface User {
@@ -45,6 +45,10 @@ export default function UserContextProvider({
     let timeout: NodeJS.Timeout;
 
     const handleStartInterval = async () => {
+      if (!accessToken) {
+        return;
+      }
+
       const { exp } = await decodeToken(accessToken);
       const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
 
@@ -59,6 +63,8 @@ export default function UserContextProvider({
           // });
         } catch (error) {
           console.error('error on token update', error);
+
+          await deleteServerCookie('accessToken');
 
           redirect(config.auth.loginUrl);
         }

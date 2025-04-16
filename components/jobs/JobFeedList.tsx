@@ -9,6 +9,7 @@ import { JobCardSkeleton } from './JobCardSkeleton';
 import { typography } from '@/components/typography';
 import { Alert } from '@/components/Alert';
 import CongratsEmoji from '@/components/svgs/CongratsEmoji.svg';
+import { Search } from 'lucide-react';
 
 interface Props {
   appliedJobs: JobsList;
@@ -28,6 +29,7 @@ export const JobFeedList: FC<Props> = ({
   pendingJobs
 }) => {
   const [sortBy, setSortBy] = useState<'latest' | 'alphabetically'>('latest');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [showCongarts, setShowCongarts] = useState<boolean>(false);
 
   useEffect(() => {
@@ -72,13 +74,24 @@ export const JobFeedList: FC<Props> = ({
       })) : [])
     ];
 
-    // Sort the combined array
-    return {
-      all: sortBy === 'latest'
-        ? sortArrayByDate(allJobs, 'timestamp', 'desc')
-        : allJobs.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())),
-    };
-  }, [appliedJobs, failedJobs, pendingJobs, sortBy]);
+    let sorted = sortBy === 'latest'
+    ? sortArrayByDate(allJobs, 'timestamp', 'desc')
+    : allJobs.sort((a, b) =>
+        a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+      );
+
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase();
+      sorted = sorted.filter(job =>
+        job.title.toLowerCase().includes(term) ||
+        (job.company_name ?? job.company_name ?? '')
+          .toLowerCase()
+          .includes(term)
+      );
+    }
+
+    return { all: sorted };
+  }, [appliedJobs, failedJobs, pendingJobs, sortBy, searchTerm]);
 
   return (
     <div className='font-light flex flex-col gap-4 rounded-2xl font-jura'>
@@ -113,18 +126,37 @@ export const JobFeedList: FC<Props> = ({
           <p className="text-gray-500">You can view all your submitted applications here. <strong>Please note that we retain your applications on file for 90 days.</strong></p>
         </div>
 
-        <div className='px-5 py-2 flex justify-end items-center gap-1 z-10 bg-white rounded-t-lg'>
-          Sort by:
-          <button onClick={() => setSortBy('latest')}>
-            {underlineOrParagraph('Latest', sortBy === 'latest')}
-          </button>
-          |
-          <button onClick={() => setSortBy('alphabetically')}>
-            {underlineOrParagraph(
-              'Alphabetically',
-              sortBy === 'alphabetically'
-            )}
-          </button>
+        <div className="px-5 py-2 flex flex-col md:flex-row justify-between items-center gap-2 bg-white rounded-t-lg">
+          <div className="relative w-full md:w-1/3">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Search by title or company…"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            className="
+              w-full pl-10 pr-4 py-2
+              border border-gray-300
+              rounded-lg
+              bg-white
+              text-gray-900
+              placeholder-gray-400
+              focus:outline-none focus:ring-2 focus:ring-indigo-500
+            "
+            />
+          </div>
+
+          {/* Sort controls */}
+          <div className="flex items-center gap-1">
+            Sort by:
+            <button onClick={() => setSortBy('latest')}>
+              {underlineOrParagraph('Latest', sortBy === 'latest')}
+            </button>
+            |
+            <button onClick={() => setSortBy('alphabetically')}>
+              {underlineOrParagraph('Alphabetically', sortBy === 'alphabetically')}
+            </button>
+          </div>
         </div>
 
 

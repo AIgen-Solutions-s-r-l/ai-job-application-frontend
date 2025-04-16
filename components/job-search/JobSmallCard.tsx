@@ -62,15 +62,20 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       <p className='text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold'>
         {job.country === 'Unknown' && job.city === 'Remote' ? (
           <>
-        <Image src={Pin} alt='pin' />
-        Remote
+            <Image src={Pin} alt='pin' />
+            Remote | {job.workplace_type}
           </>
         ) : job.country === 'Unknown' ? (
           job.workplace_type
+        ) : job.city === 'Unknown' ? (
+          <>
+            <Image src={Pin} alt='pin' />
+            {job.country} | {job.workplace_type}
+          </>
         ) : (
           <>
-        <Image src={Pin} alt='pin' />
-        {`${job.city}, ${job.country}`} | {job.workplace_type}
+            <Image src={Pin} alt='pin' />
+            {`${job.city}, ${job.country}`} | {job.workplace_type}
           </>
         )}
       </p>

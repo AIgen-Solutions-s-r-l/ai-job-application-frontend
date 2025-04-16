@@ -57,19 +57,24 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
             const [city, country] = job.location.split(', ').map(part => part.trim());
             return country === 'Unknown' && city === 'Remote' ? (
               <>
-          <Image src={Pin} alt='pin' />
-          Remote
+                <Image src={Pin} alt='pin' />
+                Remote | {job.workplace_type}
               </>
             ) : country === 'Unknown' ? (
               job.workplace_type
+            ) : city === 'Unknown' ? (
+              <>
+                <Image src={Pin} alt='pin' />
+                {country} | {job.workplace_type}
+              </>
             ) : (
               <>
-          <Image src={Pin} alt='pin' />
-          {`${city}, ${country}`} | {job.workplace_type}
+                <Image src={Pin} alt='pin' />
+                {`${city}, ${country}`} | {job.workplace_type}
               </>
             );
           })()}
-        </p>
+      </p>
       ) : (
         <p className="text-sm md:text-base flex gap-2 items-center">
           {job.workplace_type}

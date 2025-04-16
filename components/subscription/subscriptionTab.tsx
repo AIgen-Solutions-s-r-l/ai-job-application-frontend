@@ -183,8 +183,8 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
       <div className="flex items-center gap-4">
         <TwoWayToggleSwitch value={paymentPlan} onChange={setPaymentPlan} />
         {paymentPlan === "monthly" && (
-          <div className="pill bg-green-100 text-green-600 px-2 py-1">
-            20% off
+          <div className="pill bg-green-100 text-green-700 font-semibold px-3 py-1 border border-green-300 shadow-sm animate-pulse">
+            Save 20% Instantly!
           </div>
         )}
       </div>

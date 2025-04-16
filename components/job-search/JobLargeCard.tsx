@@ -48,13 +48,18 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
         </div>
 
         <div className='flex justify-between items-center'>
-          <p className='text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold'>
-            {job.country === 'Unknown' ? (
+         <p className='text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold'>
+            {job.country === 'Unknown' && job.city === 'Remote' ? (
+              <>
+            <Image src={Pin} alt='pin' />
+            Remote
+              </>
+            ) : job.country === 'Unknown' ? (
               job.workplace_type
             ) : (
               <>
-                <Image src={Pin} alt='pin' />
-                {`${job.city}, ${job.country}`} | {job.workplace_type}
+            <Image src={Pin} alt='pin' />
+            {`${job.city}, ${job.country}`} | {job.workplace_type}
               </>
             )}
           </p>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AlertTriangle, Building2, Globe2, Search } from 'lucide-react';
 import { JobSearchProps } from '@/libs/definitions';
@@ -64,7 +64,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
   const [ghostText, setGhostText] = useState('');
 
-  const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<JobSearchProps>({
+  const { register, handleSubmit, getValues, reset, watch, formState: { errors } } = useForm<JobSearchProps>({
     defaultValues: { ...searchParams, is_remote_only: String(searchParams.is_remote_only) === 'true' }, // Handle potential string from URL params
   });
 
@@ -121,6 +121,17 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     setCurrentPage(0)
     onSearch(cleanParams);
   };
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      const triggerFields = ['is_remote_only', 'experience', 'location'];
+      if (triggerFields.includes(name ?? '')) {
+        onSubmit();
+      }
+    });
+  
+    return () => subscription.unsubscribe();
+  }, [watch, onSubmit]);
 
   const onLocationChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {

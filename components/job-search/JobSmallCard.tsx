@@ -31,7 +31,8 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
     <div
       className={cn(
         "bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8 border-b border-my-neutral-3",
-        className
+        className,
+        "transition-transform duration-300 ease-in-out transform hover:scale-105"
       )}
       onClick={onClick}
       onDoubleClick={(e) => handleJobSelect(job, e as any)}

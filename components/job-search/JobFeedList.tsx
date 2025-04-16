@@ -180,7 +180,7 @@ export const JobFeedList: FC = () => {
             </div>
           </div>
           {jobs.map((job) => (
-            <JobSmallCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob?.id === job.id ? "outline outline-1 outline-primary" : ""} />
+            <JobSmallCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob?.id === job.id ? "outline outline-2 outline-primary" : ""} />
           ))}
         </div>
 

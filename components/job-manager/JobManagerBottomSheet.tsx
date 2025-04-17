@@ -40,14 +40,10 @@ export const JobManagerBottomSheet: FC = () => {
 
   return (
     <JobButtomSheet className='justify-between gap-[50px] items-center'>
-      <div className='flex items-center gap-2 md:gap-4 lg:gap-6'>
-        <ButtonUnderline
-          title='Back to Search'
-          handleClick={() => router.push('/search')}
-        />
-        <div className='w-[1px] h-16 bg-white' />
-        <ButtonUnderline title='Cancel' handleClick={() => router.back()} />
-      </div>
+      <ButtonUnderline
+        title='Back to Search'
+        handleClick={() => router.push('/search')}
+      />
       <div className='flex items-center gap-5'>
         <div className='hidden xl:flex items-center gap-5 bg-primary-deep-purple rounded-full pl-[2px] pr-[25px] py-[3px]'>
           <Image src={LaboroSmiley} alt='LaboroSmiley' width={40} height={40} />

@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { MatchingJob } from '@/libs/definitions';
 import { cn } from '@/lib/utils';
-import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { JobSmallCard } from './JobSmallCard';
 import { JobLargeCard } from './JobLargeCard';
 import { useJobSearch } from '@/contexts/job-search-context';
@@ -13,15 +13,18 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export const JobFeedList: FC = () => {
   const { jobs, totalCount, isAllSelected, handleSelectAll, currentPage, setCurrentPage, } = useJobSearch();
   const [focusedJob, setFocusedJob] = useState<MatchingJob | undefined>();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const offset = searchParams.get('offset');
 
   useEffect(() => {
     if (jobs.length) {
-      setFocusedJob(jobs[0])
+      setFocusedJob(jobs[0]);
+      setLoading(false); // stop loading once jobs are loaded
     }
-  }, [jobs])
+  }, [jobs]);
+  
 
   useEffect(() => {
     if (offset) {
@@ -31,11 +34,14 @@ export const JobFeedList: FC = () => {
   }, [offset, setCurrentPage]);
 
   const handlePageChange = (page: number) => {
+    setLoading(true); // start loading
+  
     setCurrentPage(page);
     const params = new URLSearchParams(searchParams.toString());
     params.set('offset', String(page * 25));
     router.push(`/search?${params.toString()}`);
   };
+  
 
   const renderPaginationButtons = () => {
     const buttons = [];
@@ -133,17 +139,23 @@ export const JobFeedList: FC = () => {
   if (jobs.length === 0) {
     if (currentPage > 0) {
       return (
-        <Container className="flex gap-6 mt-3 lg:mt-5">
-          <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
-            <div className="h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
-              <div className="flex justify-center gap-2">
-                {renderPaginationButtons()}
-              </div>
+        <>
+          {loading && (
+            <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+              <Loader2 className="animate-spin text-white" size={48} />
             </div>
-            <p className='font-jura font-semibold text-base xl:text-xl'>No more jobs on this page</p>
-          </div>
-
-        </Container>
+          )}
+          <Container className="flex gap-6 mt-3 lg:mt-5">
+            <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
+              <div className="h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
+                <div className="flex justify-center gap-2">
+                  {renderPaginationButtons()}
+                </div>
+              </div>
+              <p className='font-jura font-semibold text-base xl:text-xl'>No more jobs on this page</p>
+            </div>
+          </Container>
+        </>
       );
     }
     
@@ -156,6 +168,11 @@ export const JobFeedList: FC = () => {
 
   return (
     <div className="w-full gap-5 bg-base-100 mb-[60px] py-3 lg:py-5">
+      {loading && (
+            <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+              <Loader2 className="animate-spin text-white" size={48} />
+            </div>
+      )}
       <Container className="flex gap-6">
         <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
           <div className="sticky top-5 z-10 h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
@@ -180,7 +197,7 @@ export const JobFeedList: FC = () => {
             </div>
           </div>
           {jobs.map((job) => (
-            <JobSmallCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob?.id === job.id ? "outline outline-1 outline-primary" : ""} />
+            <JobSmallCard key={job.id} job={job} onClick={() => setFocusedJob(job)} className={focusedJob?.id === job.id ? "outline outline-2 outline-primary" : ""} />
           ))}
         </div>
 

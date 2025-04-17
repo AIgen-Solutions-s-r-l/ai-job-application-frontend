@@ -31,7 +31,8 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
     <div
       className={cn(
         "bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8 border-b border-my-neutral-3",
-        className
+        className,
+        "transition-transform duration-300 ease-in-out transform hover:scale-105"
       )}
       onClick={onClick}
       onDoubleClick={(e) => handleJobSelect(job, e as any)}
@@ -59,15 +60,26 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
       <h3 className="font-montserrat text-base md:text-xl font-normal">
         {job.company_name}
       </h3>
-      {job.country === 'Unknown' ? (
-        <p className="text-sm md:text-base flex gap-2 items-center">
-          {job.workplace_type}
-        </p>
-      ) : (
-        <p className="text-sm md:text-base flex gap-2 items-center">
-          <Image src={Pin} alt="pin" /> {`${job.city}, ${job.country}`} | {job.workplace_type}
-        </p>
-      )}
+      <p className='text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold'>
+        {job.country === 'Unknown' && job.city === 'Remote' ? (
+          <>
+            <Image src={Pin} alt='pin' />
+            Remote | {job.workplace_type}
+          </>
+        ) : job.country === 'Unknown' ? (
+          job.workplace_type
+        ) : job.city === 'Unknown' ? (
+          <>
+            <Image src={Pin} alt='pin' />
+            {job.country} | {job.workplace_type}
+          </>
+        ) : (
+          <>
+            <Image src={Pin} alt='pin' />
+            {`${job.city}, ${job.country}`} | {job.workplace_type}
+          </>
+        )}
+      </p>
       <div className="flex gap-x-2 gap-y-1 my-1 lg:my-2 flex-wrap overflow-hidden">
         {!!job.skills_required.length &&
           job.skills_required.map((skill, index) => (

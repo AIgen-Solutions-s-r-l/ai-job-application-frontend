@@ -37,7 +37,7 @@ COPY --from=builder --chown=webuser:webgroup /usr/src/app/node_modules ./node_mo
 COPY --from=builder --chown=webuser:webgroup /usr/src/app/next.config.js ./
 COPY --from=builder --chown=webuser:webgroup /usr/src/app/next-sitemap.config.js ./
 COPY --from=builder --chown=webuser:webgroup /usr/src/app/tsconfig.json ./
-COPY --from=builder --chown=webuser:webgroup /usr/src/app/.env ./
+#COPY --from=builder --chown=webuser:webgroup /usr/src/app/.env ./  no file env because is all in kube deploy file
 
 
 # Switch to the new user and group

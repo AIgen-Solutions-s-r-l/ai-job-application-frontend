@@ -1,7 +1,8 @@
 'use client';
 
 import { JobInfo } from '@/libs/types/application.types';
-import { MapPin } from 'lucide-react';
+import Pin from '../svgs/Pin.svg';
+import Image from 'next/image';
 import { FC } from 'react';
 import { Container } from '../Container';
 
@@ -23,7 +24,7 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
           </p>
         </div>
 
-        <div className='hidden xl:flex w-[493px] -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none cursor-pointer bg-white'>
+        <div className='hidden xl:flex w-[493px] -mb-[48px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-xl relative p-[30px] flex-col gap-[20px] leading-none bg-white'>
           {/* <div className="flex gap-[8px] items-center">
             <p className='text-[24px] leading-[32px] font-medium'>{job.title}</p>
           </div> */}
@@ -44,12 +45,34 @@ export const JobApplicationHeader: FC<Props> = ({ job }) => {
             )}
           </div>
           {job.location && (
-            <div className='flex gap-[8px] items-end '>
-              <MapPin size={20} />
-              <p className='text-[18px] font-semibold font-jura leading-none'>
-                {job.location}
-              </p>
-            </div>
+            <div className="flex gap-[8px] items-end">
+            <p className="text-base md:text-[18px] flex gap-3 items-center font-jura font-semibold">
+              {(() => {
+                const [city, country] = job.location.split(', ').map((part) => part.trim());
+          
+                const showPin = country !== 'Unknown' || city !== 'Unknown';
+          
+                let locationText;
+                if (country === 'Unknown' && city === 'Remote') {
+                  locationText = `Remote | ${job.workplace_type}`;
+                } else if (country === 'Unknown') {
+                  locationText = job.workplace_type;
+                } else if (city === 'Unknown') {
+                  locationText = `${country} | ${job.workplace_type}`;
+                } else {
+                  locationText = `${city}, ${country} | ${job.workplace_type}`;
+                }
+          
+                return (
+                  <>
+                    {showPin && <Image src={Pin} alt="pin" />}
+                    {locationText}
+                  </>
+                );
+              })()}
+            </p>
+          </div>
+          
           )}
           {/* <div className='flex gap-x-2 gap-y-1 my-1 lg:my-2 flex-wrap overflow-hidden'>
             {!!job.skills_required.length && job.skills_required.map(

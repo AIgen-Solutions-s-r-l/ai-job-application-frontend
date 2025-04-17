@@ -45,11 +45,11 @@ export const JobSearchBottomSheet: React.FC = () => {
         const [job, credit] = await Promise.all([
           addJobsToManager(formData),
           spendCreditsAction(selectedJobs.length),
+          setSelectedJobs([]),
         ])
-
+        
         if (job.success && credit.success) {
           updateCredits();
-          setSelectedJobs([]);
           toast.success("Your application will be added to job manager soon", {
             duration: 10000,
           });

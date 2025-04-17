@@ -3,7 +3,6 @@ import HeartImage from '../svgs/Heart.svg';
 import { useState, useRef, useEffect, RefObject } from 'react';
 
 function Heart({ ClassName }: { ClassName?: string }) {
-    console.log(ClassName);
     const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
     const leftEyeBall = useRef<HTMLDivElement>(null);
     const rightEyeBall = useRef<HTMLDivElement>(null);

@@ -82,6 +82,7 @@ export const login = createServerAction(async (email: string, password: string) 
 });
 
 export async function refreshToken() {
+  console.log('iam being called')
   const cookies = require('next/headers').cookies;
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
@@ -605,11 +606,11 @@ export async function getTransactions(): Promise<any> {
  */
 export async function cancelSubscription(subscriptionId: number): Promise<any> {
   let accessToken = await getServerCookie('accessToken');
-  
+
   if (!accessToken) {
     return { success: false, message: "User not logged in", requiresLogin: true };
   }
-  
+
   try {
     const response = await apiClientJwt.post(
       `${API_BASE_URLS.auth}/credits/subscriptions/cancel`,
@@ -630,8 +631,8 @@ export async function cancelSubscription(subscriptionId: number): Promise<any> {
     console.error("Error cancelling subscription:", error);
     const status = error.response?.status;
     const errorMessage = error.response?.data?.detail || "Unexpected error occurred.";
-    return { 
-      success: false, 
+    return {
+      success: false,
       error: `Error ${status || "unknown"}: ${errorMessage}`
     };
   }

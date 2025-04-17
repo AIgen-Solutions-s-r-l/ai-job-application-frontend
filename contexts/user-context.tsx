@@ -41,7 +41,6 @@ export default function UserContextProvider({
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
     let timeout: NodeJS.Timeout;
 
     const handleStartInterval = async () => {
@@ -49,42 +48,48 @@ export default function UserContextProvider({
         return;
       }
 
-      const { exp } = await decodeToken(accessToken);
-      const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
+      try {
+        const { exp } = await decodeToken(accessToken);
+        const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
+        const FIVE_MINUTES = 10 * 60; // 10 minutes in seconds
 
-      timeout = setTimeout(async () => {
-        try {
-          const { access_token } = await refreshToken();
-          setAccessToken(access_token);
-
-          // console.log('token updated', new Date().toLocaleString(), {
-          //   accessToken,
-          //   interval: timeout,
-          // });
-        } catch (error) {
-          console.error('error on token update', error);
-
-          await deleteServerCookie('accessToken');
-
-          redirect(config.auth.loginUrl);
+        if (timeout) {
+          clearTimeout(timeout);
         }
-      }, (tokenValiditySeconds - 60) * 1000);
 
-      // console.log(
-      //   `timeout (${timeout}) started for refresh token after ${
-      //       tokenValiditySeconds - 60
-      //   } sec`
-      // );
+        if (tokenValiditySeconds > FIVE_MINUTES) {
+          timeout = setTimeout(async () => {
+            try {
+              const { access_token } = await refreshToken();
+              setAccessToken(access_token);
+            } catch (error) {
+              console.error('error on token update', error);
+              await deleteServerCookie('accessToken');
+              redirect(config.auth.loginUrl);
+            }
+          }, (tokenValiditySeconds - FIVE_MINUTES) * 1000);
+        } else {
+          try {
+            const { access_token } = await refreshToken();
+            setAccessToken(access_token);
+          } catch (error) {
+            console.error('error on token update', error);
+            await deleteServerCookie('accessToken');
+            redirect(config.auth.loginUrl);
+          }
+        }
+      } catch (error) {
+        console.error('error decoding token', error);
+        await deleteServerCookie('accessToken');
+        redirect(config.auth.loginUrl);
+      }
     };
 
-    if (accessToken && !timeout) {
-      handleStartInterval();
-    }
+    handleStartInterval();
 
     return () => {
       if (timeout) {
         clearTimeout(timeout);
-        // console.log(`timeout (${timeout}) stoped`);
       }
     };
   }, [accessToken]);

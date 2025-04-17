@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
   const requestUrl = new URL(req.url);
   const code = requestUrl.searchParams.get("code");
   const error = requestUrl.searchParams.get("error");
+  const appOrigin = process.env.SITE_URL;
 
   // Handle error from Google OAuth
   if (error) {
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest) {
       
       if (result.success) {
         // Successful authentication, redirect to the callback URL
-        return NextResponse.redirect('https://pre.laboro.co/' + config.auth.callbackUrl);
+        return NextResponse.redirect(appOrigin + config.auth.callbackUrl);
       } else {
         // Authentication failed, redirect to login page with error
         const errorMessage = "google_auth_failed";

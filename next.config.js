@@ -13,10 +13,10 @@ const nextConfig = {
   // Production optimizations
   swcMinify: true,
   compiler: {
-    // Remove console.log in production except for error and warn
-    removeConsole: {
+    // Only remove console.logs in production
+    removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn'],
-    },
+    } : false,
   },
   // Minimize bundle size
   poweredByHeader: false,

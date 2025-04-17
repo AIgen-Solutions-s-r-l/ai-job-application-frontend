@@ -41,42 +41,59 @@ export default function UserContextProvider({
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
+    let interval: NodeJS.Timeout;
     let timeout: NodeJS.Timeout;
 
-    const handleStartInterval = async () => {
-      if (!accessToken) {
-        return;
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === 'visible' && accessToken) {
+        try {
+          const { exp } = await decodeToken(accessToken);
+          const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
+          const TEN_MINUTES = 10 * 60;
+
+          if (tokenValiditySeconds <= TEN_MINUTES) {
+            const { access_token } = await refreshToken();
+            setAccessToken(access_token);
+          }
+        } catch (error) {
+          console.error('error on token update', error);
+          await deleteServerCookie('accessToken');
+          redirect(config.auth.loginUrl);
+        }
       }
+    };
+
+    const startRefreshInterval = async () => {
+      if (!accessToken) return;
 
       try {
         const { exp } = await decodeToken(accessToken);
         const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
-        const FIVE_MINUTES = 10 * 60; // 10 minutes in seconds
+        const TEN_MINUTES = 10 * 60;
 
-        if (timeout) {
-          clearTimeout(timeout);
+        if (interval) {
+          clearInterval(interval);
         }
 
-        if (tokenValiditySeconds > FIVE_MINUTES) {
-          timeout = setTimeout(async () => {
-            try {
+        interval = setInterval(async () => {
+          try {
+            const { exp: newExp } = await decodeToken(accessToken);
+            const newTokenValiditySeconds = newExp - Math.floor(Date.now() / 1000);
+
+            if (newTokenValiditySeconds <= TEN_MINUTES) {
               const { access_token } = await refreshToken();
               setAccessToken(access_token);
-            } catch (error) {
-              console.error('error on token update', error);
-              await deleteServerCookie('accessToken');
-              redirect(config.auth.loginUrl);
             }
-          }, (tokenValiditySeconds - FIVE_MINUTES) * 1000);
-        } else {
-          try {
-            const { access_token } = await refreshToken();
-            setAccessToken(access_token);
           } catch (error) {
             console.error('error on token update', error);
             await deleteServerCookie('accessToken');
             redirect(config.auth.loginUrl);
           }
+        }, 60 * 1000);
+
+        if (tokenValiditySeconds <= TEN_MINUTES) {
+          const { access_token } = await refreshToken();
+          setAccessToken(access_token);
         }
       } catch (error) {
         console.error('error decoding token', error);
@@ -85,12 +102,17 @@ export default function UserContextProvider({
       }
     };
 
-    handleStartInterval();
+    startRefreshInterval();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
       if (timeout) {
         clearTimeout(timeout);
       }
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [accessToken]);
 

@@ -183,8 +183,8 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
       <div className="flex items-center gap-4">
         <TwoWayToggleSwitch value={paymentPlan} onChange={setPaymentPlan} />
         {paymentPlan === "monthly" && (
-          <div className="pill bg-green-100 text-green-600 px-2 py-1">
-            20% off
+          <div className="pill bg-green-100 text-green-700 font-semibold px-3 py-1 border border-green-300 shadow-sm animate-pulse">
+            Save 20% Instantly!
           </div>
         )}
       </div>
@@ -221,10 +221,16 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
 
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
+            <p className="font-montserrat text-sm text-my-neutral-5">
+              {sliderValue === 4 
+                ? (sliderValue + 1) * 100 * 2 
+                : (sliderValue + 1) * 100} applications
+              {paymentPlan === "monthly" && " / month"}
+            </p>
             <p className="font-montserrat text-2xl font-bold text-black mr-2">
               {paymentPlan === "monthly"
-                ? `€${totals.price}`
-                : `€${totals.price}`}
+              ? `€${totals.price} / month`
+              : `€${totals.price}`}
             </p>
             <button
               onClick={handlePurchase}
@@ -250,7 +256,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
               Plan:
             </p>
             <p className="font-jura text-base text-black">
-              {activeSubscription.amount} credits monthly
+              {parseInt(activeSubscription.amount)} credits monthly
             </p>
             <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-600">
               Active
@@ -288,7 +294,17 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
             <button
               onClick={handleCancelSubscription}
               disabled={isCancellingSubscription}
-              className="mt-3 md:mt-0 px-4 py-2 text-sm font-jura font-semibold border border-red-500 text-red-500 rounded-lg hover:bg-red-50 disabled:opacity-50 transition-colors"
+              className="
+                mt-3 md:mt-0
+                px-4 py-2
+                text-sm font-jura font-semibold
+                border border-red-500
+                text-red-500
+                rounded-lg
+                transition-colors duration-200
+                hover:bg-red-500 hover:text-white
+                disabled:opacity-50 disabled:cursor-not-allowed
+              "
             >
               {isCancellingSubscription ? "Cancelling..." : "Cancel Subscription"}
             </button>

@@ -24,9 +24,8 @@ export default function JobManagerProvider({ children, initialApplications }: Jo
       let stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
 
       if (!stored) {
-        const initialApplicationKeys = Object.keys(initialApplications);
-        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(initialApplicationKeys));
-        stored = JSON.stringify(initialApplicationKeys);
+        stored = JSON.stringify([]);
+        sessionStorage.setItem(SESSION_STORAGE_KEY, stored);
       }
 
       return stored ? JSON.parse(stored) : [];

@@ -12,6 +12,8 @@ import { Dispatch, SetStateAction, DragEvent, ChangeEvent } from "react";
 import ToggleSwitch from "../common/ToggleSwitch";
 import TemplateCard from "./TemplateCard";
 import { AiFillFilePdf } from "react-icons/ai";
+import { DetailedPendingApplication } from '@/libs/types/response-application.types';
+import { getUserProfile } from '@/libs/data';
 
 interface ModalProps {
     isModalOpen: boolean;
@@ -24,6 +26,7 @@ interface ModalProps {
     setSelectedTemplate: Dispatch<SetStateAction<number>>;
     cvFile: File | null;
     setCVFile: Dispatch<SetStateAction<File | null>>;
+    applicationDetails?: DetailedPendingApplication;
 }
 
 // A reusable confirmation modal with a message and two buttons: Cancel and Confirm
@@ -41,12 +44,21 @@ const GenerateResumeModal = ({
 }: ModalProps) => {
     const [isDragging, setIsDragging] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [resume, setResume] = useState<any>(null);
 
     // Reset the choice when the modal is closed
-    useEffect(() => {
-        setGenerateTemplate(false);
-      }, [isModalOpen, setGenerateTemplate]);
 
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const profileWithDetails = await getUserProfile();
+            console.log('lookhere', profileWithDetails);
+            setResume(profileWithDetails);
+            setGenerateTemplate(false);
+        };
+
+        fetchProfile();
+    }, [isModalOpen, setGenerateTemplate]);
 
     const handleConfirm = async () => {
         if (isSubmitting) return;
@@ -100,6 +112,21 @@ const GenerateResumeModal = ({
         }
     };
 
+    const Templates = [
+        {
+            Text: 'Default Style',
+            src: Template1
+        },
+        {
+            Text: 'Experienced',
+            src: Template2
+        },
+        {
+            Text: 'Alternative',
+            src: Template3
+        }
+    ]
+
     return (
         <Transition appear show={isModalOpen} as={Fragment}>
             <Dialog
@@ -129,7 +156,7 @@ const GenerateResumeModal = ({
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="flex flex-col items-center relative w-[700px] py-6 bg-white rounded-xl shadow-lg gap-[20px]">
+                            <Dialog.Panel className="flex flex-col items-center relative w-full h-[95vh] py-6 bg-white rounded-xl shadow-lg gap-[20px]">
                                 <div className="flex w-full justify-end items-center mb-4 px-6">
                                     <button
                                         className="outline-none"
@@ -144,9 +171,11 @@ const GenerateResumeModal = ({
                                             ? "Select a template to generate your resume for the selected jobs."
                                             : "Upload your resume to apply for the selected jobs."}
                                     </p>
-                                    <p className="font-jura font-semibold text-red-500 text-center pt-5">
-                                        Note: this action is irreversible, you will not be able to undo it.
-                                    </p>
+                                    {generateTemplate &&
+                                        <p className="font-jura font-semibold text-red-500 text-center pt-5">
+                                            Note: this action is irreversible, you will not be able to undo it.
+                                        </p>
+                                    }
                                 </section>
                                 <ToggleSwitch
                                     value={generateTemplate}
@@ -154,22 +183,23 @@ const GenerateResumeModal = ({
                                     label="Yes, Generate"
                                 />
                                 {generateTemplate ?
-                                    <section className={`px-7 flex w-full py-3 h-[320px] gap-4 bg-base-100 my-x-scrollable relative`}>
+                                    <section className={`px-7 flex flex-wrap justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-auto relative`}>
                                         {
-                                            [Template1, Template2, Template3].map((template, index) => (
+                                            Templates.map((data, index) => (
                                                 <TemplateCard
-                                                    key={index + 1}
                                                     templateNumber={index + 1}
-                                                    templateImage={template}
+                                                    text={data.Text}
+                                                    recommended={index === 0}
                                                     isEnabled={generateTemplate}
                                                     isSelected={selectedTemplate === index + 1}
                                                     onSelect={handleTemplateSelect}
+                                                    resume={resume}
                                                 />
                                             ))
                                         }
                                     </section>
                                     :
-                                    <section className={`px-7 flex items-center justify-center w-full py-3 min-h-[320px] gap-4 bg-purple-100 relative`}>
+                                    <section className={`px-7 flex items-center justify-center w-full py-3 min-h-[60vh] gap-4 bg-purple-100 relative`}>
                                         {!cvFile ? (
                                             <div
                                                 onDragOver={handleDragOver}
@@ -215,7 +245,7 @@ const GenerateResumeModal = ({
                                         Cancel
                                     </button>
                                     <button
-                                        className='btn outline-black bg-primary hover:bg-primary hover:text-white text-black disabled:text-black disabled:cursor-not-allowed' 
+                                        className='btn outline-black bg-primary hover:bg-primary hover:text-white text-white disabled:text-black disabled:cursor-not-allowed'
                                         onClick={handleConfirm}
                                         disabled={isSubmitting}
                                     >

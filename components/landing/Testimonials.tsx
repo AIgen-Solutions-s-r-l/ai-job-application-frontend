@@ -16,9 +16,9 @@ export const Testimonials: FC = () => {
     }
   };
   const handleVideoClick2 = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsPlaying(true);
+    if (videoRef2.current) {
+      videoRef2.current.play();
+      setIsPlaying2(true);
     }
   };
 
@@ -60,7 +60,7 @@ export const Testimonials: FC = () => {
             {!isPlaying2 && (
               <div className="aspect-video w-full overflow-hidden rounded-lg">
                 <Image
-                  src="/landing/testimonial-1-cover.png"
+                  src="/landing/testimonial-2-cover.png"
                   alt="hero-content"
                   width={1000}
                   height={562}

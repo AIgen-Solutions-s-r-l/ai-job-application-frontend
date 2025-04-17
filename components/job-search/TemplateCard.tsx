@@ -27,7 +27,7 @@ const TemplateCard = ({
     const template = templateStyles[templateStyleKey as keyof typeof templateStyles];
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
             <div
                 className={cn(
                     "flex-shrink-0 flex flex-col gap-2 items-center justify-center cursor-pointer",
@@ -36,7 +36,7 @@ const TemplateCard = ({
                 onClick={() => isEnabled && onSelect(templateNumber)}
             >
                 <div className={cn(
-                    "w-[500px] h-[550px] overflow-y-auto p-4 shadow-lg",
+                    "w-[350px] md:w-[450px] h-[500px] overflow-y-clip p-4 shadow-lg",
                     template.background ?? 'bg-white'
                 )}>
                     <div className={template.body}>

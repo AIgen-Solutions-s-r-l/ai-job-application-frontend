@@ -165,25 +165,25 @@ const GenerateResumeModal = ({
                                         <CloseButtonIcon />
                                     </button>
                                 </div>
-                                <section className="pb-5 px-6">
+                                <section className="flex flex-col justify-center items-center gap-2 pb-5 px-6">
                                     <p className="font-jura text-[18px] font-semibold text-center">
                                         {generateTemplate
                                             ? "Select a template to generate your resume for the selected jobs."
                                             : "Upload your resume to apply for the selected jobs."}
                                     </p>
                                     {generateTemplate &&
-                                        <p className="font-jura font-semibold text-red-500 text-center pt-5">
+                                        <p className="font-jura font-semibold text-red-500 text-center">
                                             Note: this action is irreversible, you will not be able to undo it.
                                         </p>
                                     }
+                                    <ToggleSwitch
+                                        value={generateTemplate}
+                                        onChange={setGenerateTemplate}
+                                        label="Yes, Generate"
+                                    />
                                 </section>
-                                <ToggleSwitch
-                                    value={generateTemplate}
-                                    onChange={setGenerateTemplate}
-                                    label="Yes, Generate"
-                                />
                                 {generateTemplate ?
-                                    <section className={`px-7 flex flex-wrap justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-auto relative`}>
+                                    <section className={`px-0 md:px-7 flex flex-wrap justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-auto relative`}>
                                         {
                                             Templates.map((data, index) => (
                                                 <TemplateCard
@@ -199,7 +199,7 @@ const GenerateResumeModal = ({
                                         }
                                     </section>
                                     :
-                                    <section className={`px-7 flex items-center justify-center w-full py-3 min-h-[60vh] gap-4 bg-purple-100 relative`}>
+                                    <section className={`px-0 md:px-7 flex flex-wrap justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-hidden relative`}>
                                         {!cvFile ? (
                                             <div
                                                 onDragOver={handleDragOver}
@@ -225,7 +225,7 @@ const GenerateResumeModal = ({
                                             </div>
                                         ) : (
                                             <div className="flex flex-col items-center justify-center">
-                                                <Image src={ResumeUpload} alt='Resume' />
+                                                <Image src={ResumeUpload} alt='Resume' className="h-[180px] md:h-[290px]" />
                                                 <p className="font-jura text-lg mt-2 font-bold">{cvFile.name.length > 30 ? cvFile.name.slice(0, 30) + '...' : cvFile.name}</p>
                                                 <div
                                                     onClick={() => setCVFile(null)}

@@ -6,7 +6,7 @@ import appConfig from '@/config'; // Assuming config is at root
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
-  const appOrigin = 'https://pre.laboro.co';
+  const appOrigin = process.env.SITE_URL;
 
   if (code) {
     // Create a direct API request to the auth service
@@ -52,11 +52,11 @@ export async function GET(request: NextRequest) {
           console.log(`[Google Callback] Redirecting to: ${redirectUrl}`); // Added log
           return NextResponse.redirect(redirectUrl);
         } else {
-           // Handle case where token is missing in response
-           console.error('Google callback successful but no access token received');
-           return NextResponse.redirect(
-             `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
-           );
+          // Handle case where token is missing in response
+          console.error('Google callback successful but no access token received');
+          return NextResponse.redirect(
+            `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
+          );
         }
       } else {
         // Auth failed, redirect to login page

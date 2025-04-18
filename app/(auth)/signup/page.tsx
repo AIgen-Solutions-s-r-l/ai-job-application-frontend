@@ -52,19 +52,23 @@ const Signup = () => {
     }
   };
 
-  const handleGoogleOath = async () => {
+  const handleGoogleOauth = async () => {
     setIsGoogleLoading(true);
     try {
-      const redirectURL = window.location.origin + "/api/auth/callback";
-      const result = await getGoogleOAuthURL(redirectURL);
+      // Use the environment variable for redirect URI
+      const result = await getGoogleOAuthURL();
+
       if (result.success && result.value) {
-        window.location.href = result.value;
+        // Redirect to the Google authorization URL
+        window.location.href = result.value as string;
       } else {
-        toast.error("Failed to initiate Google authentication");
+        // Type assertion to access the error property
+        const errorResult = result as { success: false; error: string };
+        toast.error(errorResult.error || 'Failed to initiate Google authentication');
       }
-    } catch (error) {
-      console.error("Error starting Google authentication:", error);
-      toast.error("Error starting Google authentication");
+    } catch (error: any) {
+      console.error('Error starting Google authentication:', error);
+      toast.error(error.message || 'Error starting Google authentication');
     } finally {
       setIsGoogleLoading(false);
     }
@@ -83,50 +87,50 @@ const Signup = () => {
         </div>
 
         <form className='auth-form-form' onSubmit={handleSubmit(onSubmit)}>
-            <FormField error={errors.email?.message}>
+          <FormField error={errors.email?.message}>
             <input
               type='email'
               autoComplete='email'
               className='auth-form-input'
               placeholder='Enter your email'
               {...register('email', {
-              required: 'Required field',
-              pattern: {
-              value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
-              message: 'Please enter a valid email',
-              },
-              // validate: (value: string) => {
-              // const allowedDomains = [
-              //   'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
-              //   'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
-              //   'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
-              //   'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
-              //   'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
-              // ];
-              // const domain = value.split('@')[1];
-              // return allowedDomains.includes(domain) || 'Please enter a valid email';
-              // },
+                required: 'Required field',
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]{4,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]+$/,
+                  message: 'Please enter a valid email',
+                },
+                // validate: (value: string) => {
+                // const allowedDomains = [
+                //   'gmail.com', 'yahoo.com', 'hotmail.com', 'aol.com', 'hotmail.co.uk', 
+                //   'hotmail.fr', 'msn.com', 'yahoo.fr', 'wanadoo.fr', 'orange.fr', 
+                //   'comcast.net', 'yahoo.co.uk', 'yahoo.com.br', 'yahoo.co.in', 
+                //   'live.com', 'rediffmail.com', 'free.fr', 'gmx.de', 'web.de', 
+                //   'yandex.ru', 'ymail.com', 'libero.it', 'outlook.com'
+                // ];
+                // const domain = value.split('@')[1];
+                // return allowedDomains.includes(domain) || 'Please enter a valid email';
+                // },
               })}
             />
-            </FormField>
-            <FormField error={errors.password?.message}>
+          </FormField>
+          <FormField error={errors.password?.message}>
             <input
               type='password'
               className='auth-form-input'
               placeholder='Create a password'
               {...register('password', {
-              required: 'Required field',
-              minLength: {
-                message: 'Minimum length 8 characters',
-                value: 8,
-              },
-              pattern: {
-                value: /^(?=.*\d).+$/,
-                message: 'Password must contain at least one number',
-              },
+                required: 'Required field',
+                minLength: {
+                  message: 'Minimum length 8 characters',
+                  value: 8,
+                },
+                pattern: {
+                  value: /^(?=.*\d).+$/,
+                  message: 'Password must contain at least one number',
+                },
               })}
             />
-            </FormField>
+          </FormField>
           <FormField error={errors.confirmPassword?.message}>
             <input
               type='password'
@@ -149,7 +153,7 @@ const Signup = () => {
                 })}
                 className="mt-1.5 scale-125 accent-primary"
               />
-                <span>
+              <span>
                 I agree to the{' '}
                 <a href="https://drive.google.com/file/d/1GJZ2moJmJ8KBSrzVPcD9Slg6Kx_gTDSM/view" className="text-primary underline" target="_blank" rel="noopener noreferrer">
                   Terms of Service
@@ -158,10 +162,10 @@ const Signup = () => {
                 <a href="https://drive.google.com/file/d/1M7AMuOOO6OAIXViYxY5gCVcnhYx6xQEB/view" className="text-primary underline" target="_blank" rel="noopener noreferrer">
                   Privacy & Cookie Policy
                 </a>.
-                </span>
+              </span>
             </label>
           </FormField>
-          
+
           <button
             type='submit'
             className='auth-form-submit'
@@ -177,8 +181,8 @@ const Signup = () => {
 
         <div className="divider text-sm text-gray-500">OR</div>
 
-        <button 
-          onClick={handleGoogleOath}
+        <button
+          onClick={handleGoogleOauth}
           className="btn btn-outline w-full flex items-center justify-center gap-2"
           disabled={isGoogleLoading}
         >

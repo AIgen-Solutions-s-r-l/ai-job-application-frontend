@@ -8,24 +8,30 @@ import config from '@/config';
 import Image from 'next/image';
 import { fetchUserData, verifyEmail } from '@/libs/api/auth'; // Importa la función register
 import { useUserContext } from '@/contexts/user-context';
+import { useSearchParams } from 'next/navigation';
 
-const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
+const VerifyEmail = () => {
   const hasRun = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
   const { setUser } = useUserContext();
   const router = useRouter();
 
   const verify = async () => {
+    if (!token) {
+      toast.error("No token found in URL.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const result = await verifyEmail(searchParams.token);
+      const result = await verifyEmail(token);
 
       if (result.success) {
         toast.success('Login successful!');
-
         const me = await fetchUserData();
-
         setUser({ ...me });
         router.replace('/onboarding');
       } else {
@@ -42,11 +48,9 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
 
   useEffect(() => {
     if (hasRun.current) return;
-
     hasRun.current = true;
     verify();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
 
   return (
     <main className='auth-form-main' data-theme={config.colors.theme}>
@@ -59,7 +63,6 @@ const VerifyEmail = ({ searchParams }: { searchParams: { token: string } }) => {
               <span className='loading loading-spinner loading-lg'></span>
             )}
           </h2>
-
           <div className='auth-form-footer'>
             <p>
               If you are already a member, please{' '}

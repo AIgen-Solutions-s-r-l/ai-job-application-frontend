@@ -1,10 +1,11 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Inter, Montserrat, Jura, Josefin_Sans } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
 import { Providers } from "./providers";
 import "./globals.css";
+import Script from "next/script";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -41,8 +42,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       {config.domainName && (
-        <head>
-        </head>
+         <head>
+         {/* Google tag (gtag.js) */}
+         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-541WEFSN8Y" strategy="afterInteractive" />
+         <Script id="google-analytics" strategy="afterInteractive">
+           {`
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'G-541WEFSN8Y');
+           `}
+         </Script>
+       </head>
       )}
       <body>
         <Providers>{children}</Providers>

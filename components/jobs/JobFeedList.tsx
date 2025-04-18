@@ -75,8 +75,8 @@ export const JobFeedList: FC<Props> = ({
     ];
 
     let sorted = sortBy === 'latest'
-    ? sortArrayByDate(allJobs, 'timestamp', 'desc')
-    : allJobs.sort((a, b) =>
+      ? sortArrayByDate(allJobs, 'timestamp', 'desc')
+      : allJobs.sort((a, b) =>
         a.title.toLowerCase().localeCompare(b.title.toLowerCase())
       );
 
@@ -128,13 +128,13 @@ export const JobFeedList: FC<Props> = ({
 
         <div className="px-5 py-2 flex flex-col md:flex-row justify-between items-center gap-2 bg-white rounded-t-lg">
           <div className="relative w-full md:w-1/3">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search by title or company…"
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-            className="
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search by title or company…"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              className="
               w-full pl-10 pr-4 py-2
               border border-gray-300
               rounded-lg
@@ -161,47 +161,45 @@ export const JobFeedList: FC<Props> = ({
 
 
         <div className={typography.tabs.content}>
-        {isLoading ? (
-          <>
-            <JobCardSkeleton />
-            <JobCardSkeleton />
-            <JobCardSkeleton />
-          </>
-        ) : (
-          jobs.all.length > 0 ? (
-            jobs.all.map((job, key) => (
-              <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
-            ))
+          {isLoading ? (
+            <>
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+              <JobCardSkeleton />
+            </>
           ) : (
-            (Object.keys(appliedJobs).length ||
-            Object.keys(failedJobs).length ||
-            Object.keys(pendingJobs).length) ? (
-              <div className="w-full px-7 py-4 flex flex-col gap-3 items-start bg-white">
-                <p className='font-montserrat text-lg font-semibold'>
-                  No results found for "<span className='italic'>{searchTerm}</span>".
-                </p>
-                <p className='font-montserrat text-base text-gray-500'>
-                  Try adjusting your search term or check for typos.
-                </p>
-              </div>
+            jobs.all.length > 0 ? (
+              jobs.all.map((job, key) => (
+                <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
+              ))
             ) : (
-              <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">
-                <p className='font-montserrat font-xl text-base xl:text-xl font-bold'>
-                  Your application history is empty.
-                </p>
-                <p className='font-montserrat font-medium text-base xl:text-lg'>
-                  Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click?
-                </p>
-                <p className='font-montserrat font-medium text-base xl:text-lg'>
-                  Let us do the heavy lifting for you!
-                </p>
-                <p className='font-montserrat font-medium text-base xl:text-lg text-primary-deep-purple font-bold'>
-                  <strong><a href='/search'>Start apply here</a></strong>
-                </p>
-              </div>
+              searchTerm ? (
+                <div className="w-full px-7 py-4 flex flex-col gap-3 items-start bg-white">
+                  <p className='font-montserrat text-lg font-semibold'>
+                    No results found for "<span className='italic'>{searchTerm}</span>".
+                  </p>
+                  <p className='font-montserrat text-base text-gray-500'>
+                    Try adjusting your search term or check for typos.
+                  </p>
+                </div>
+              ) : (
+                <div className="w-full px-7 py-4 flex flex-col gap-5 bg-white">
+                  <p className='font-montserrat font-xl text-base xl:text-xl font-bold'>
+                    Your application history is empty.
+                  </p>
+                  <p className='font-montserrat font-medium text-base xl:text-lg'>
+                    Why not get started by generating a tailored resume for your preferred job and apply instantly with just a click?
+                  </p>
+                  <p className='font-montserrat font-medium text-base xl:text-lg'>
+                    Let us do the heavy lifting for you!
+                  </p>
+                  <p className='font-montserrat font-medium text-base xl:text-lg text-primary-deep-purple font-bold'>
+                    <strong><a href='/search'>Start apply here</a></strong>
+                  </p>
+                </div>
+              )
             )
-          )
-        )}
+          )}
 
         </div>
       </div>

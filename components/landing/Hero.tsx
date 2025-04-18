@@ -89,14 +89,29 @@ export const Hero: FC = () => {
                 <div className='relative w-full aspect-[1078/676]'>
                   <div className="absolute inset-0 shadow-custominset pointer-events-none z-10"></div>
                   {!isPlaying && (
-                    <Image
-                      src="/landing/hero-content.png"
-                      alt="hero-content"
-                      width={1078}
-                      height={676}
-                      className='w-full h-full object-contain cursor-pointer'
-                      onClick={handleVideoClick}
-                    />
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/landing/hero-content.png"
+                        alt="hero-content"
+                        width={1078}
+                        height={676}
+                        className='w-full h-full object-contain'
+                      />
+                      <div
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
+                        onClick={handleVideoClick}
+                      >
+                        <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px]">
+                          <div className="absolute inset-0 bg-my-neutral-0/20 rounded-full group-hover:bg-my-neutral-0/30 transition-opacity duration-300"></div>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2 group-hover:scale-110 transition-transform duration-300"></div>
+                          </div>
+                        </div>
+                        <div className="mt-2 bg-my-neutral-0/20 rounded-full px-3 py-1">
+                          <p className="text-white text-center text-sm sm:text-base font-montserrat font-medium">30 sec</p>
+                        </div>
+                      </div>
+                    </div>
                   )}
                   <video
                     ref={videoRef}

@@ -2,12 +2,11 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { decodeToken } from '@/libs/api/auth'; // Assuming auth utils are here
 import appConfig from '@/config'; // Assuming config is at root
-import { getAppOrigin } from '@/libs/utils';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
-  const appOrigin = getAppOrigin();
+  const appOrigin = process.env.SITE_URL;
 
   if (code) {
     // Create a direct API request to the auth service

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, FC } from 'react';
 import Image from 'next/image';
 import { LandingContainer } from './LandingContainer';
 import ContactsArrow from '@/public/landing/contacts-arrow.svg';
 import Stars from '@/public/landing/Stars.svg';
 import Faces from '@/public/landing/Faces.svg';
 
-export const Hero: React.FC = () => {
+export const Hero: FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [scrollRotation, setScrollRotation] = useState(15);
   const browserRef = useRef<HTMLDivElement>(null);

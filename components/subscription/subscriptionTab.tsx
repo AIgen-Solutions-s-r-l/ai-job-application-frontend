@@ -197,7 +197,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
         </h2>
 
         {/* Slider */}
-        <div className="relative">
+        <div className="relative pb-6">
           <SliderInput
             values={values}
             sliderValue={sliderValue}
@@ -205,7 +205,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
           />
           {/* "Current plan" label basado en el plan activo del usuario */}
           {activeSubscription && values[sliderValue].value === activePlanValue?.toString() && (
-            <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
+            <div className="text-primary-deep-purple text-sm font-semibold absolute left-0 right-0 bottom-2 text-center">
               Current plan
             </div>
           )}

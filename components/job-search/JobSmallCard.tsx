@@ -30,7 +30,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
   return (
     <div
       className={cn(
-        "bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8 border-b border-my-neutral-3",
+        "bg-white rounded-xl relative p-5 flex flex-col gap-1 lg:gap-3 leading-none cursor-pointer lg:pb-8 border-b border-my-neutral-3 overflow-visible hover:z-10",
         className,
         "transition-transform duration-300 ease-in-out transform hover:scale-105"
       )}
@@ -39,7 +39,7 @@ export const JobSmallCard: FC<Props> = ({ className, job, onClick }) => {
     >
       <div className="flex gap-2 items-center md:mb-2">
         <p className="text-xs font-jura font-semibold">{job.score}% Match</p>
-        <div className="tooltip tooltip-right" data-tip={tooltipText}>
+        <div className="tooltip tooltip-right z-50" data-tip={tooltipText}>
           <Info size={18} />
         </div>
       </div>

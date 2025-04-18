@@ -1,16 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation'; // Importa el router
+import { useRouter } from 'next/navigation';
 import config from '@/config';
 import Image from 'next/image';
-import { fetchUserData, verifyEmail } from '@/libs/api/auth'; // Importa la función register
+import { fetchUserData, verifyEmail } from '@/libs/api/auth';
 import { useUserContext } from '@/contexts/user-context';
 import { useSearchParams } from 'next/navigation';
 
-const VerifyEmail = () => {
+const VerifyEmailContent = () => {
   const hasRun = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
@@ -53,32 +53,40 @@ const VerifyEmail = () => {
   }, [token]);
 
   return (
-    <main className='auth-form-main' data-theme={config.colors.theme}>
-      <div className='auth-form-container'>
-        <div className='flex flex-col gap-2'>
-          <Image src='/laboro.png' alt='Logo' width={214} height={58} />
-          <h2 className='auth-form-header'>
-            Verifying email...{' '}
-            {isLoading && (
-              <span className='loading loading-spinner loading-lg'></span>
-            )}
-          </h2>
-          <div className='auth-form-footer'>
-            <p>
-              If you are already a member, please{' '}
-              <Link href={config.auth.loginUrl} className='text-primary'>
-                Sign in
-              </Link>
-            </p>
-            <p>
-              If token has expired, You can{' '}
-              <Link href='/resend-verification' className='text-primary'>
-                request re-verification
-              </Link>
-            </p>
-          </div>
+    <div className='auth-form-container'>
+      <div className='flex flex-col gap-2'>
+        <Image src='/laboro.png' alt='Logo' width={214} height={58} />
+        <h2 className='auth-form-header'>
+          Verifying email...{' '}
+          {isLoading && (
+            <span className='loading loading-spinner loading-lg'></span>
+          )}
+        </h2>
+        <div className='auth-form-footer'>
+          <p>
+            If you are already a member, please{' '}
+            <Link href={config.auth.loginUrl} className='text-primary'>
+              Sign in
+            </Link>
+          </p>
+          <p>
+            If token has expired, You can{' '}
+            <Link href='/resend-verification' className='text-primary'>
+              request re-verification
+            </Link>
+          </p>
         </div>
       </div>
+    </div>
+  );
+};
+
+const VerifyEmail = () => {
+  return (
+    <main className='auth-form-main' data-theme={config.colors.theme}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <VerifyEmailContent />
+      </Suspense>
     </main>
   );
 };

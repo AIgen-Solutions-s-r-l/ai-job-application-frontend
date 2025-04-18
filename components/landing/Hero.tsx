@@ -1,11 +1,16 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useEffect, FC } from 'react';
 import Image from 'next/image';
 import { LandingContainer } from './LandingContainer';
+import ContactsArrow from '@/public/landing/contacts-arrow.svg';
+import Stars from '@/public/landing/Stars.svg';
+import Faces from '@/public/landing/Faces.svg';
 
-export const Hero: React.FC = () => {
+export const Hero: FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [scrollRotation, setScrollRotation] = useState(15);
+  const browserRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoClick = () => {
@@ -15,43 +20,97 @@ export const Hero: React.FC = () => {
     }
   };
 
-  return (
-    <LandingContainer className='mb:px-[20vw]'>
-      <section className='flex flex-col items-center gap-[20px] md:gap-[25px] 2xl:gap-[35px] font-montserrat pt-[50px] 2xl:pt-[45px]'>
-        <h1 className="text-heading animate-fadeIn">Auto-apply fast with AI.<br /> Get your dream job while sleeping</h1>
-        <div className="relative w-[100%] md:w-[68%] max-w-[1204px] animate-scaleIn">
-          <Image src="/landing/hero-screen.png" alt="hero-screen" width={1204} height={1042} className='w-full h-auto max-w-[1204px] z-2' />
-          <div className="absolute top-[5%] left-1/2 transform -translate-x-1/2 w-[90%] max-w-[1078px] z-1">
-            {!isPlaying && (
-              <Image
-                src="/landing/hero-content.png"
-                alt="hero-content"
-                width={1078}
-                height={676}
-                className='w-full h-auto cursor-pointer'
-                onClick={handleVideoClick}
-              />
-            )}
-            <video
-              ref={videoRef}
-              className={`w-full h-auto ${!isPlaying ? 'hidden' : ''}`}
-              controls={isPlaying}
-              playsInline
-            >
-              <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/hero-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
+  useEffect(() => {
+    const handleScroll = () => {
+      if (browserRef.current) {
+        const scrollPosition = window.scrollY;
+        const maxRotation = 15;
+        const scrollThreshold = 500;
+        const rotation = Math.max(maxRotation - (scrollPosition / scrollThreshold) * maxRotation, 0);
+        setScrollRotation(rotation);
+      }
+    };
 
-          {/* {!isPlaying && (
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <LandingContainer className='pt-[5vh]'>
+      <section className='flex flex-col items-center gap-[15px] sm:gap-[20px] md:gap-[25px] 2xl:gap-[35px] font-montserrat px-4 sm:px-6 md:px-8'>
+        <h1 className="text-heading animate-fadeIn text-[32px] sm:text-[40px] md:text-[50px] text-center leading-tight">
+          <span className='text-splash-green'>Auto-apply fast</span> with AI.<br className="hidden sm:block" /> Get your dream job while sleeping
+        </h1>
+        <h2 className="text-center text-[20px] sm:text-[24px] md:text-[30px] font-montserrat font-normal font-[300] leading-[110%] tracking-[-0.66px] text-neutral-cold-1 max-w-[800px]">
+          Automate your job search & land interviews 24/7.<br className="hidden sm:block" />Apply 1000s of jobs instantly.
+        </h2>
+        <a
+          href="/signup"
+          className="bg-splash-green h-[50px] sm:h-[55px] md:h-[60px] px-[20px] sm:px-[25px] md:px-[30px] flex items-center justify-center sm:justify-between rounded-[20px] gap-[30px] sm:gap-[40px] md:gap-[50px] w-full sm:w-auto"
+        >
+          <p className="text-[20px] sm:text-[24px] md:text-[27px] lg:text-[32px] font-light font-k2d text-my-neutral-7 leading-none">Get Started</p>
+          <div className='hidden sm:block'>
             <Image
-              src="/landing/hero-click.png"
-              alt="hero-click"
-              width={133}
-              height={142}
-              className='w-[50px] md:w-[100px] 2xl:w-[133px] h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              src={ContactsArrow}
+              alt="signup-arrow"
+              className="mt-1"
             />
-          )} */}
+          </div>
+        </a>
+        <div className='flex gap-2 items-center'>
+          <Image src={Faces} alt='Faces' className="w-[40px] sm:w-[50px] md:w-auto" />
+          <div className='flex flex-col'>
+            <Image src={Stars} alt='Stars' className="w-[80px] sm:w-[100px] md:w-auto" />
+            <p className="text-white font-montserrat text-sm sm:text-base font-normal font-medium leading-[110%] text-my-neutral-1">Trusted by 400K job seekers </p>
+          </div>
+        </div>
+        <div className="relative w-full md:w-[100%] max-w-[1204px] animate-scaleIn mt-4 sm:mt-6 md:mt-8">
+          <div
+            ref={browserRef}
+            className="relative rounded-[34px] overflow-hidden bg-[#E9E3EE] border-[6px] border-[#D9D9D9] shadow-browser"
+            style={{
+              transform: `translateX(-50%) perspective(1200px) rotateX(${scrollRotation}deg)`,
+              transformOrigin: 'center top',
+              left: '50%'
+            }}
+          >
+            <div className="flex gap-4 h-[60px] bg-[#E9E3EE] border-b border-[#E5E5E5] flex items-center px-14 py-4">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                <div className="w-3 h-3 rounded-full bg-[#28C840]"></div>
+              </div>
+              <div className="w-full bg-[#DFD0EB] px-4 py-1 rounded-[36px] text-sm text-gray-600 flex items-center">
+                <span>laboro.co</span>
+              </div>
+            </div>
+            <div className="relative w-full aspect-[1204/805] overflow-hidden">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1078px]">
+                <div className='relative w-full aspect-[1078/676]'>
+                  <div className="absolute inset-0 shadow-custominset pointer-events-none z-10"></div>
+                  {!isPlaying && (
+                    <Image
+                      src="/landing/hero-content.png"
+                      alt="hero-content"
+                      width={1078}
+                      height={676}
+                      className='w-full h-full object-contain cursor-pointer'
+                      onClick={handleVideoClick}
+                    />
+                  )}
+                  <video
+                    ref={videoRef}
+                    className={`w-full h-full object-contain ${!isPlaying ? 'hidden' : ''}`}
+                    controls={isPlaying}
+                    playsInline
+                  >
+                    <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/hero-video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </LandingContainer>

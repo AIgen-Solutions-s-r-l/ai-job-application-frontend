@@ -36,16 +36,16 @@ const MobileFeatures: FC = () => {
           <p className="mt-4 text-2xl font-light text-white text-center">
             300K+ Followers
           </p>
-            <p className="mt-2 text-lg font-medium text-white text-center">
+          <p className="mt-2 text-lg font-medium text-white text-center">
             on social platforms (
             <a href="https://www.instagram.com/interview_scouter" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
               Instagram
-            </a>, 
+            </a>,
             <a href="https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
               Github
             </a>
             )
-            </p>
+          </p>
         </div>
 
         {/* Feature 2 */}
@@ -126,11 +126,11 @@ export const DesktopFeatures: FC = () => {
   const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-20%']);
 
   return (
-    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[200vh] pt-[80px] 2xl:pt-[100px]">
+    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[50vh] pt-[80px] 2xl:pt-[100px]">
       <div
         className="sticky top-[-50%]"
       >
-        <Hero />
+        {/* <Hero /> */}
         <motion.div
           ref={containerRef}
           style={{ x: translateX }}
@@ -149,7 +149,7 @@ export const DesktopFeatures: FC = () => {
                 Instagram
               </a>&nbsp;&amp;&nbsp;
               <a href="https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
-              Github
+                Github
               </a>
               )
             </p>

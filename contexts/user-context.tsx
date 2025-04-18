@@ -41,51 +41,78 @@ export default function UserContextProvider({
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
+    let interval: NodeJS.Timeout;
     let timeout: NodeJS.Timeout;
 
-    const handleStartInterval = async () => {
-      if (!accessToken) {
-        return;
-      }
-
-      const { exp } = await decodeToken(accessToken);
-      const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
-
-      timeout = setTimeout(async () => {
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === 'visible' && accessToken) {
         try {
-          const { access_token } = await refreshToken();
-          setAccessToken(access_token);
+          const { exp } = await decodeToken(accessToken);
+          const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
+          const TEN_MINUTES = 10 * 60;
 
-          // console.log('token updated', new Date().toLocaleString(), {
-          //   accessToken,
-          //   interval: timeout,
-          // });
+          if (tokenValiditySeconds <= TEN_MINUTES) {
+            const { access_token } = await refreshToken();
+            setAccessToken(access_token);
+          }
         } catch (error) {
           console.error('error on token update', error);
-
           await deleteServerCookie('accessToken');
-
           redirect(config.auth.loginUrl);
         }
-      }, (tokenValiditySeconds - 60) * 1000);
-
-      // console.log(
-      //   `timeout (${timeout}) started for refresh token after ${
-      //       tokenValiditySeconds - 60
-      //   } sec`
-      // );
+      }
     };
 
-    if (accessToken && !timeout) {
-      handleStartInterval();
-    }
+    const startRefreshInterval = async () => {
+      if (!accessToken) return;
+
+      try {
+        const { exp } = await decodeToken(accessToken);
+        const tokenValiditySeconds = exp - Math.floor(Date.now() / 1000);
+        const TEN_MINUTES = 10 * 60;
+
+        if (interval) {
+          clearInterval(interval);
+        }
+
+        interval = setInterval(async () => {
+          try {
+            const { exp: newExp } = await decodeToken(accessToken);
+            const newTokenValiditySeconds = newExp - Math.floor(Date.now() / 1000);
+
+            if (newTokenValiditySeconds <= TEN_MINUTES) {
+              const { access_token } = await refreshToken();
+              setAccessToken(access_token);
+            }
+          } catch (error) {
+            console.error('error on token update', error);
+            await deleteServerCookie('accessToken');
+            redirect(config.auth.loginUrl);
+          }
+        }, 60 * 1000);
+
+        if (tokenValiditySeconds <= TEN_MINUTES) {
+          const { access_token } = await refreshToken();
+          setAccessToken(access_token);
+        }
+      } catch (error) {
+        console.error('error decoding token', error);
+        await deleteServerCookie('accessToken');
+        redirect(config.auth.loginUrl);
+      }
+    };
+
+    startRefreshInterval();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
       if (timeout) {
         clearTimeout(timeout);
-        // console.log(`timeout (${timeout}) stoped`);
       }
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [accessToken]);
 

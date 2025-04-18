@@ -52,11 +52,11 @@ export async function GET(request: NextRequest) {
           console.log(`[Google Callback] Redirecting to: ${redirectUrl}`); // Added log
           return NextResponse.redirect(redirectUrl);
         } else {
-           // Handle case where token is missing in response
-           console.error('Google callback successful but no access token received');
-           return NextResponse.redirect(
-             `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
-           );
+          // Handle case where token is missing in response
+          console.error('Google callback successful but no access token received');
+          return NextResponse.redirect(
+            `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
+          );
         }
       } else {
         // Auth failed, redirect to login page

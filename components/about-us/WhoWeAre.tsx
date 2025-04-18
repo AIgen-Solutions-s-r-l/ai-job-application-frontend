@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Team from '@/public/aboutus/Team.png';
 import Heart from "../landing/Heart";
+import Comunity from '@/public/aboutus/Comunity.svg';
 
 function WhoWeAre() {
     return (
@@ -13,7 +13,7 @@ function WhoWeAre() {
                 building deep-tech solutions that tackle the biggest challenges in today&apos;s job market.
             </p>
             <div className="relative">
-                <Image src={Team} alt="Team" className="w-full" />
+                <Image src={Comunity} alt="Team" className="w-full rounded-[20px]" />
                 <Heart ClassName="absolute -bottom-4 sm:-bottom-6 md:-bottom-10 -right-4 sm:-right-6 md:-right-10" />
                 <Heart ClassName="absolute -bottom-4 sm:-bottom-6 md:-bottom-10 -left-4 sm:-left-6 md:-left-10" />
             </div>

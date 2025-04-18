@@ -6,11 +6,19 @@ import Image from 'next/image';
 export const Testimonials: FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying2, setIsPlaying2] = useState(false);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
 
   const handleVideoClick = () => {
     if (videoRef.current) {
       videoRef.current.play();
       setIsPlaying(true);
+    }
+  };
+  const handleVideoClick2 = () => {
+    if (videoRef2.current) {
+      videoRef2.current.play();
+      setIsPlaying2(true);
     }
   };
 
@@ -26,7 +34,7 @@ export const Testimonials: FC = () => {
         </div>
 
         <div className="flex flex-col xl:flex-row justify-between gap-6 w-full">
-          <div className="w-full xl:w-1/2 p-4 bg-white/10 rounded-2xl shadow-lg backdrop-blur-sm">
+          <div className="w-full xl:w-1/2 p-4 bg-white/10 rounded-2xl shadow-lg backdrop-blur-sm flex flex-col">
             {!isPlaying && (
               <div className="aspect-video w-full overflow-hidden rounded-lg">
                 <Image
@@ -48,33 +56,31 @@ export const Testimonials: FC = () => {
               Your browser does not support the video tag.
             </video>
           </div>
-
-          <div className="w-full xl:w-1/2 p-4 bg-white/10 rounded-2xl shadow-lg backdrop-blur-sm">
-            {/* <video
-              ref={videoRef}
-              className="w-full h-auto rounded-lg"
+          <div className="w-full xl:w-1/2 p-4 bg-white/10 rounded-2xl shadow-lg backdrop-blur-sm flex flex-col">
+            {!isPlaying2 && (
+              <div className="aspect-video w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/landing/testimonial-2-cover.png"
+                  alt="hero-content"
+                  width={1000}
+                  height={562}
+                  className='w-full h-full object-cover cursor-pointer'
+                  onClick={handleVideoClick2}
+                />
+              </div>
+            )}
+            <video
+              ref={videoRef2}
+              className={`w-full aspect-video ${!isPlaying2 ? 'hidden' : ''} rounded-lg`}
               controls
               autoPlay={false}
               playsInline
             >
-              <source src="" type="video/mp4" />
+              <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/Testimonial+2.mp4" type="video/mp4" />
               Your browser does not support the video tag.
-            </video> */}
+            </video>
           </div>
         </div>
-
-        {/* Optional click image */}
-        {/* {!isPlaying && (
-          <Image
-            src="/landing/hero-click.png"
-            alt="hero-click"
-            width={133}
-            height={142}
-            className='w-[50px] md:w-[100px] 2xl:w-[133px] h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
-          />
-        )} */}
-
-        {/* <Carousel /> */}
       </LandingContainer>
     </section>
   );

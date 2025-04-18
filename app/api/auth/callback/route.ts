@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     try {
       // Exchange the code for a JWT token
       const result = await handleGoogleCallback(code);
-      
+
       if (result.success) {
         // Successful authentication, redirect to the callback URL
         return NextResponse.redirect(appOrigin + config.auth.callbackUrl);

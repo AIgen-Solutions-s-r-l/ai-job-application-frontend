@@ -126,11 +126,10 @@ export const DesktopFeatures: FC = () => {
   const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-20%']);
 
   return (
-    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[50vh] pt-[80px] 2xl:pt-[100px]">
+    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[530px] pt-[80px] 2xl:pt-[100px]">
       <div
         className="sticky top-[-50%]"
       >
-        {/* <Hero /> */}
         <motion.div
           ref={containerRef}
           style={{ x: translateX }}

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { Inter, Montserrat, Jura, Josefin_Sans } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
@@ -6,6 +6,7 @@ import config from "@/config";
 import { Providers } from "./providers";
 import "./globals.css";
 import Script from "next/script";
+import { StagingBanner } from './staging-banner'; // adjust import path if needed
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -57,11 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
        </head>
       )}
       <body>
-        {process.env.NEXT_PUBLIC_SITE_URL?.includes('pre') && (
-          <div className='absolute top-4 right-4 bg-my-neutral-7 text-white px-6 py-2 rounded-lg text-2xl font-bold uppercase'>
-            STAGING
-          </div>
-        )}
+        <StagingBanner />
         <Providers>{children}</Providers>
       </body>
     </html>

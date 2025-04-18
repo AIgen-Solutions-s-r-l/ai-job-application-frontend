@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
        </head>
       )}
       <body>
-        {process.env.SITE_URL?.includes('pre') && (
+        {process.env.NEXT_PUBLIC_SITE_URL?.includes('pre') && (
           <div className='absolute top-4 right-4 bg-my-neutral-7 text-white px-6 py-2 rounded-lg text-2xl font-bold uppercase'>
             STAGING
           </div>

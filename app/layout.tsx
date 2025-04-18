@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Inter, Montserrat, Jura, Josefin_Sans } from "next/font/google";
 import { Viewport } from "next";
-import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
 import { Providers } from "./providers";
@@ -43,7 +42,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       {config.domainName && (
         <head>
-          <PlausibleProvider domain={config.domainName} />
         </head>
       )}
       <body>

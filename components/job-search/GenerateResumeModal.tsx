@@ -47,22 +47,17 @@ const GenerateResumeModal = ({
     const [resume, setResume] = useState<any>(null);
 
     // Reset the choice when the modal is closed
-
-
     useEffect(() => {
         const fetchProfile = async () => {
             const profileWithDetails = await getUserProfile();
-            console.log('lookhere', profileWithDetails);
             setResume(profileWithDetails);
             setGenerateTemplate(false);
         };
-
         fetchProfile();
     }, [isModalOpen, setGenerateTemplate]);
 
     const handleConfirm = async () => {
         if (isSubmitting) return;
-
         try {
             setIsSubmitting(true);
             await onConfirm();
@@ -76,7 +71,6 @@ const GenerateResumeModal = ({
 
     const handleCancel = () => {
         if (isSubmitting) return;
-
         if (onCancel) {
             onCancel();
         }
@@ -199,7 +193,7 @@ const GenerateResumeModal = ({
                                         }
                                     </section>
                                     :
-                                    <section className={`px-0 md:px-7 flex flex-wrap justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-hidden relative`}>
+                                    <section className={`px-0 md:px-7 flex flex-wrap justify-center items-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-hidden relative`}>
                                         {!cvFile ? (
                                             <div
                                                 onDragOver={handleDragOver}

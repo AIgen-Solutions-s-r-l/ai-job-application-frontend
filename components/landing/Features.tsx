@@ -10,7 +10,6 @@ const MobileFeatures: FC = () => {
   return (
     <section className="py-12 px-4">
       {/* Header */}
-      <Hero />
       <div className="flex flex-col items-center gap-6 mb-12">
         <h2 className="text-3xl font-medium text-center text-white">
           All the jobs on the internet, in one place.

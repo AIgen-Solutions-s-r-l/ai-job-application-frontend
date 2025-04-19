@@ -10,14 +10,14 @@ export const ProfilePersonalInformationSkeleton = () => (
     <div>
       <div className='flex flex-col gap-5'>
         {/* Name */}
-        <InputWrapper>
+        <InputWrapper profile>
           <FormInputSkeleton className='grow' />
           <FormInputSkeleton className='grow' />
           <FormInputSkeleton className='w-[298px]' />
         </InputWrapper>
 
         {/* Address */}
-        <InputWrapper>
+        <InputWrapper profile>
           <FormInputSkeleton className='w-[194px]' />
           <FormInputSkeleton className='grow' />
           <FormInputSkeleton className='w-[149px]' />
@@ -26,14 +26,14 @@ export const ProfilePersonalInformationSkeleton = () => (
         </InputWrapper>
 
         {/* Contacts */}
-        <InputWrapper>
+        <InputWrapper profile>
           <FormInputSkeleton className='w-[194px]' />
           <FormInputSkeleton className='w-[186px]' />
           <FormInputSkeleton className='w-[579px]' />
         </InputWrapper>
 
         {/* Socials */}
-        <InputWrapper>
+        <InputWrapper profile>
           <FormInputSkeleton className='Gribuna ' />
           <FormInputSkeleton className='w-[579px]' />
         </InputWrapper>

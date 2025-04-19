@@ -17,7 +17,7 @@ export const ProfilePersonalInformation: FC = () => {
       <div className="collapse-content !p-0 bg-base-100">
         <div className="w-full flex flex-col gap-5 mb-5">
           {/* Name */}
-          <InputWrapper>
+          <InputWrapper profile>
             <FormInput
               title={'First Name'}
               {...register('personalInfo.name', { required: 'First Name is required' })}
@@ -46,8 +46,7 @@ export const ProfilePersonalInformation: FC = () => {
             />
           </InputWrapper>
 
-          {/* Address */}
-          <InputWrapper>
+          <InputWrapper profile>
             <FormInput
               title={'City'}
               {...register('personalInfo.city', { required: 'City is required' })}
@@ -64,14 +63,6 @@ export const ProfilePersonalInformation: FC = () => {
               errorMessage={errors.personalInfo?.address?.message}
               className='grow'
             />
-            {/* <FormInput
-              title={'State / Province'}
-              // {...register('personalInfo.state')}
-              placeholder="N/A"
-              // error={!!errors.personalInfo?.state}
-              // errorMessage={errors.personalInfo?.state?.message}
-              className='w-[149px]'
-            /> */}
             <FormInput
               title={'Zip / Postal'}
               {...register('personalInfo.zip_code', { required: 'Zip / Postal is required' })}
@@ -90,8 +81,7 @@ export const ProfilePersonalInformation: FC = () => {
             />
           </InputWrapper>
 
-          {/* Contacts */}
-          <InputWrapper>
+          <InputWrapper profile>
             <FormInput
               title={'Phone prefix'}
               {...register('personalInfo.phone_prefix', { required: 'Phone prefix is required' })}
@@ -121,12 +111,11 @@ export const ProfilePersonalInformation: FC = () => {
               placeholder="e.g., john.doe@example.com"
               error={!!errors.personalInfo?.email}
               errorMessage={errors.personalInfo?.email?.message}
-              className='grow lg:w-[579px]'
+              className='grow'
             />
           </InputWrapper>
 
-          {/* Socials */}
-          <InputWrapper>
+          <InputWrapper profile>
             <FormInput
               title={'Github'}
               {...register('personalInfo.github', {
@@ -141,7 +130,7 @@ export const ProfilePersonalInformation: FC = () => {
               placeholder="e.g., https://github.com/johndoe"
               error={!!errors.personalInfo?.github}
               errorMessage={errors.personalInfo?.github?.message}
-              className='grow lg:w-[402px]'
+              className='grow'
             />
             <FormInput
               title={'Linkedin'}
@@ -157,7 +146,7 @@ export const ProfilePersonalInformation: FC = () => {
               placeholder="e.g., https://linkedin.com/in/johndoe"
               error={!!errors.personalInfo?.linkedin}
               errorMessage={errors.personalInfo?.linkedin?.message}
-              className='grow lg:w-[579px]'
+              className='grow'
             />
           </InputWrapper>
         </div>

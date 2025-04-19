@@ -212,6 +212,11 @@ progress::-webkit-progress-value {
     overflow-x: scroll;
   }
 
+  .collapse-arrow > .collapse-title:after {
+    top: 50px !important;
+    inset-inline-end: 30px !important;
+  }
+
   @media (width <= 767px) {
     .my-collapse-plus > .collapse-title:after {
       position: absolute;

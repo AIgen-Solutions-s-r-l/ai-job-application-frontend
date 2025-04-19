@@ -98,7 +98,7 @@ const EducationDetail: FC<{ index: number, handleRemove: () => void }> = ({ inde
       </div>
 
       {/* Institution */}
-      <InputWrapper>
+      <InputWrapper profile>
         <FormInput
           title={'Education Level'}
           {...register(`educationDetails.${index}.education_level`, { required: 'Education level is required' })}
@@ -121,12 +121,12 @@ const EducationDetail: FC<{ index: number, handleRemove: () => void }> = ({ inde
           placeholder="e.g., Computer Science"
           error={!!errors.educationDetails?.[index]?.field_of_study}
           errorMessage={errors.educationDetails?.[index]?.field_of_study?.message}
-          className='grow lg:w-[429px]'
+          className='grow 2xl:w-[429px]'
         />
       </InputWrapper>
 
       {/* Dates */}
-      <InputWrapper>
+      <InputWrapper profile>
         <DateOrPresentInput
           title="Start Date"
           value={useWatch({ name: `educationDetails.${index}.start_date` })}

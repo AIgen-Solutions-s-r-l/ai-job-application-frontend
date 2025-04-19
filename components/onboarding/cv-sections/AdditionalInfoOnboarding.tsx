@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from "react";
+import React, { FC, ReactElement, useCallback, useEffect } from "react";
 import { JobProfile } from "@/libs/definitions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormInput } from "@/components/ui/form-input";
@@ -90,6 +90,12 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
   const { control, register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.projects` });
 
+  useEffect(() => {
+    if (fields.length === 0) {
+      append({ name: "", description: "", link: "" });
+    }
+  }, [append, fields.length]);
+  
   return (
     <div className="flex flex-col p-10 rounded-[22px] bg-white">
       {fields.map((project, index) => (
@@ -97,7 +103,6 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
           <div className="flex gap-2 mb-4 w-full">
             <button
               type="button"
-              disabled={fields.length === 1}
               className="remove-nested mt-[36px]"
               onClick={() => remove(index)}
             >

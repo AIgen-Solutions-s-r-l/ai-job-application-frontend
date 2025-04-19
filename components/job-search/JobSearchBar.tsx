@@ -273,12 +273,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                   </div>
                 )}
               </div>
-              <div 
-                className={cn(
-                  'mt-3 h-12 flex-1 bg-white flex items-center border rounded-md px-5',
-                  getValues().country ? 'border-primary border-2' : 'border-neutral has-[input:focus-within]:border-primary' 
-                )}
-              >
+              <div className='mt-3 h-12 flex-1 bg-white flex items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
                 <div className="relative w-full">
                   <input
                     type="text"

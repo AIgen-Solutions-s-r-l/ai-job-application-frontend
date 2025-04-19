@@ -47,5 +47,4 @@ USER webuser:webgroup
 EXPOSE 3000
 
 # Start the application
-ENV NODE_ENV=development
 CMD ["npm", "start"]

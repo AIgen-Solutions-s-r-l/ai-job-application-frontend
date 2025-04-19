@@ -20,45 +20,45 @@ const config = {
     pricing: {
       monthly: {
         "100": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG",
           amount: 39.00
         },
         "200": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QwoUbRwjs1Ksbvt2GTzE3Ec" : "price_1R0iVcRwjs1KsbvtK3hFIzVG",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QwoUbRwjs1Ksbvt2GTzE3Ec" : "price_1R0iVcRwjs1KsbvtK3hFIzVG",
           amount: 59.00
         },
         "300": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QwoV4Rwjs1KsbvtpCV0OIfU" : "price_1R0iXjRwjs1KsbvtlrGsjlq8",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QwoV4Rwjs1KsbvtpCV0OIfU" : "price_1R0iXjRwjs1KsbvtlrGsjlq8",
           amount: 74.00
         },
         "500": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QwoVSRwjs1KsbvtHfSnJvv4" : "price_1R0iYuRwjs1Ksbvt04IxJfpM",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QwoVSRwjs1KsbvtHfSnJvv4" : "price_1R0iYuRwjs1Ksbvt04IxJfpM",
           amount: 105.00
         },
         "1000": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QwoVuRwjs1Ksbvtmpxx2KgP" : "price_1R0iZkRwjs1Ksbvttrg1BoLb",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QwoVuRwjs1Ksbvtmpxx2KgP" : "price_1R0iZkRwjs1Ksbvttrg1BoLb",
           amount: 160.00
         }
       },
       onetime: {
         "100": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QyZ11Rwjs1KsbvtHsJnKlAP" : "price_1R0iaERwjs1KsbvtLR7ZGywu",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QyZ11Rwjs1KsbvtHsJnKlAP" : "price_1R0iaERwjs1KsbvtLR7ZGywu",
           amount: 49.00
         },
         "200": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QyZ2mRwjs1KsbvtHs6pHIXs" : "price_1R0ibbRwjs1KsbvtUaTwEjYy",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QyZ2mRwjs1KsbvtHs6pHIXs" : "price_1R0ibbRwjs1KsbvtUaTwEjYy",
           amount: 74.00
         },
         "300": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QyZ3yRwjs1KsbvtAUS7hrhr" : "price_1R0icBRwjs1KsbvtxxGqqdao",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QyZ3yRwjs1KsbvtAUS7hrhr" : "price_1R0icBRwjs1KsbvtxxGqqdao",
           amount: 89.00
         },
         "500": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QyZAERwjs1KsbvtqSj1yIvw" : "price_1R0ienRwjs1KsbvtTd6n0k06",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QyZAERwjs1KsbvtqSj1yIvw" : "price_1R0ienRwjs1KsbvtTd6n0k06",
           amount: 115.00
         },
         "1000": {
-          id: process.env.NODE_ENV === 'production' ? "price_1QyZBlRwjs1Ksbvt4T4t3pOd" : "price_1R0j22Rwjs1KsbvtAltBEhzf",
+          id: process.env.TARGET_ENV === 'production' ? "price_1QyZBlRwjs1Ksbvt4T4t3pOd" : "price_1R0j22Rwjs1KsbvtAltBEhzf",
           amount: 199.00
         }
       }
@@ -67,7 +67,7 @@ const config = {
     plans: [
       {
         // Monthly plan for 100 applications
-        priceId: process.env.NODE_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG",
+        priceId: process.env.TARGET_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG",
         name: "100 Applications - Monthly",
         description:
           "Get 100 applications per month with our Career Boost Package.",
@@ -77,7 +77,7 @@ const config = {
       },
       {
         // Monthly plan for 500 applications
-        priceId: process.env.NODE_ENV === 'production' ? "price_1QwoVSRwjs1KsbvtHfSnJvv4" : "price_1R0iYuRwjs1Ksbvt04IxJfpM",
+        priceId: process.env.TARGET_ENV === 'production' ? "price_1QwoVSRwjs1KsbvtHfSnJvv4" : "price_1R0iYuRwjs1Ksbvt04IxJfpM",
         name: "500 Applications - Monthly",
         description:
           "Get 500 applications per month with our Elite Package.",
@@ -87,7 +87,7 @@ const config = {
       },
       {
         // One-time payment plan for 100 applications
-        priceId: process.env.NODE_ENV === 'production' ? "price_1QyZ11Rwjs1KsbvtHsJnKlAP" : "price_1R0iaERwjs1KsbvtLR7ZGywu",
+        priceId: process.env.TARGET_ENV === 'production' ? "price_1QyZ11Rwjs1KsbvtHsJnKlAP" : "price_1R0iaERwjs1KsbvtLR7ZGywu",
         name: "100 Applications - One-Time Payment",
         description: "One-time purchase for 100 applications.",
         price: 49.00,

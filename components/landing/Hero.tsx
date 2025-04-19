@@ -37,7 +37,7 @@ export const Hero: FC = () => {
 
   return (
     <LandingContainer className='pt-[5vh]'>
-      <section className='flex flex-col items-center gap-[15px] sm:gap-[20px] md:gap-[25px] 2xl:gap-[35px] font-montserrat px-0 sm:px-6 md:px-8'>
+      <section className='flex flex-col items-center gap-[15px] sm:gap-[20px] md:gap-[25px] 2xl:gap-[35px] font-montserrat px-0 sm:px-6 md:px-8 pb-[80px] lg:pb-[0px]'>
         <h1 className="text-heading animate-fadeIn text-[26px] sm:text-[40px] md:text-[50px] text-center leading-tight">
           <span className='text-splash-green'>Auto-apply fast</span> with AI.<br className="hidden sm:block" /> Get your dream job while sleeping
         </h1>
@@ -46,7 +46,7 @@ export const Hero: FC = () => {
         </h2>
         <a
           href="/signup"
-          className="bg-splash-green h-[50px] sm:h-[55px] md:h-[60px] px-[20px] sm:px-[25px] md:px-[30px] flex items-center justify-center sm:justify-between rounded-[20px] gap-[30px] sm:gap-[40px] md:gap-[50px] w-[60vw] sm:w-auto"
+          className="bg-splash-green h-[40px] sm:h-[55px] md:h-[60px] px-[20px] sm:px-[25px] md:px-[30px] flex items-center justify-center sm:justify-between rounded-[20px] gap-[30px] sm:gap-[40px] md:gap-[50px] w-[55vw] sm:w-auto"
         >
           <p className="text-[20px] sm:text-[24px] md:text-[27px] lg:text-[32px] font-light font-k2d text-my-neutral-7 leading-none">Get Started</p>
           <div className='hidden sm:block'>
@@ -58,7 +58,7 @@ export const Hero: FC = () => {
           </div>
         </a>
         <div className='flex gap-2 items-center'>
-          <Image src={Faces} alt='Faces' className="w-[40px] sm:w-[50px] md:w-auto" />
+          <Image src={Faces} alt='Faces' className="w-[55px] sm:w-[50px] md:w-auto" />
           <div className='flex flex-col'>
             <Image src={Stars} alt='Stars' className="w-[80px] sm:w-[100px] md:w-auto" />
             <p className="text-white font-montserrat text-sm sm:text-base font-normal font-medium leading-[110%] text-my-neutral-1">Trusted by 400K job seekers </p>

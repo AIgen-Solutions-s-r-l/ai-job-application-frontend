@@ -102,12 +102,12 @@ export const Hero: FC = () => {
                         onClick={handleVideoClick}
                       >
                         <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px]">
-                          <div className="absolute inset-0 bg-my-neutral-0/20 rounded-full group-hover:bg-my-neutral-0/30 transition-opacity duration-300"></div>
+                          <div className="absolute inset-0 bg-my-neutral-5/90 rounded-full group-hover:bg-my-neutral-5/90 transition-all duration-300 border-[8px] group-hover:border-[12px] border-my-neutral-7/90"></div>
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2 group-hover:scale-110 transition-transform duration-300"></div>
                           </div>
                         </div>
-                        <div className="mt-2 bg-my-neutral-0/20 rounded-full px-3 py-1">
+                        <div className="mt-2 bg-my-neutral-5/90 rounded-full px-3 py-1 border-my-neutral-7/90">
                           <p className="text-white text-center text-sm sm:text-base font-montserrat font-medium">30 sec</p>
                         </div>
                       </div>

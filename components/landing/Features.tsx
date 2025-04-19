@@ -1,10 +1,9 @@
 'use client';
 
-import { FC, useRef, memo } from "react";
-import { motion, useTransform, useScroll, useSpring } from "motion/react";
+import { FC, useRef, memo, useEffect, useState } from "react";
 import Image from "next/image";
 import { useWindowSize } from "@/lib/hooks";
-import { Hero } from "./Hero";
+import { cn } from "@/lib/utils";
 
 const MobileFeatures: FC = () => {
   return (
@@ -110,96 +109,91 @@ const MobileFeatures: FC = () => {
 
 export const DesktopFeatures: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [start, setStart] = useState(false);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "center start"]
-  });
+  useEffect(() => {
+    if (containerRef.current && scrollerRef.current) {
+      const scrollerContent = Array.from(scrollerRef.current.children);
 
-  // Create smooth scroll progress
-  const smoothProgress = useSpring(scrollYProgress, {
-    damping: 50,
-    stiffness: 400
-  });
+      scrollerContent.forEach((item) => {
+        const duplicatedItem = item.cloneNode(true);
+        if (scrollerRef.current) {
+          scrollerRef.current.appendChild(duplicatedItem);
+        }
+      });
 
-  const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-20%']);
+      setStart(true);
+    }
+  }, []);
+
+  const renderFeatures = () => (
+    <>
+      <div className="features-slide justify-end font-montserra min-w-[400px] shrink-0">
+        <Image src='/landing/feature-1.png' alt='feature-1' width={305} height={100} />
+        <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">400K+ Followers</p>
+        <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">
+          on social platforms (
+          <a href="https://www.instagram.com/interview_scouter" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
+            Instagram
+          </a>&nbsp;&amp;&nbsp;
+          <a href="https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
+            Github
+          </a>
+          )
+        </p>
+      </div>
+
+      <div className="features-slide flex-row bg-primary-deep-purple items-center justify-center gap-[15px] font-montserrat min-w-[400px] shrink-0">
+        <div className="w-[335px]">
+          <p className="text-[18px] 2xl:text-[20px] leading-[1.1] text-primary-light-purple-gray">
+            Your chance to<br />
+            <span className="text-splash-orange">get hired</span> with<br />
+            our <span className="text-splash-green">AI-automated</span><br />
+            job application<br />
+            system is <span className='text-splash-orange'>higher</span>, since you can apply to many jobs with <span className="text-white">perfectly matching resume & cover letters.</span>
+          </p>
+        </div>
+        <Image src='/landing/feature-5.png' alt='feature-5' width={200} height={277} />
+      </div>
+
+      <div className="features-slide justify-end relative overflow-visible font-k2d min-w-[400px] shrink-0">
+        <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[20px] left-0 z-20' />
+        <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]"><span>1</span><span className="ml-3">- Upload your resume</span></p>
+        <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]"><span>2</span><span className="ml-1">- Find matching jobs</span></p>
+        <p className="text-[20px] 2xl:text-[24px] font-semibold text-white leading-[1.2]"><span>3</span><span className="ml-1">- Laboro creates a set of resume and cover letter for each job application</span></p>
+        <p className="text-[20px] 2xl:text-[24px] font-semibold text-splash-green leading-[1.2]"><span>4</span><span className="ml-1">- Auto-apply to many jobs at once!</span></p>
+      </div>
+
+      <div className="flex items-center features-slide font-k2d justify-start min-w-[400px] shrink-0">
+        <p className="text-[35px] 2xl:text-[40px] leading-[1.1] font-thin text-white">
+          We currently have<br />
+          +1M Job Posts,<br />
+          from <span className='text-splash-green'>+30K companies!</span>
+        </p>
+      </div>
+    </>
+  );
 
   return (
     <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[530px] pt-[80px] 2xl:pt-[100px]">
-      <div
-        className="sticky top-[-50%]"
-      >
-        <motion.div
+      <div className="sticky top-[-50%]">
+        <div
           ref={containerRef}
-          style={{ x: translateX }}
-          className="flex flex-row gap-4 h-[320px]"
+          className="scroller relative z-20 max-w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_5%,white_90%,transparent)]"
         >
           <div
-            className="features-slide justify-end font-montserra"
+            ref={scrollerRef}
+            className={cn(
+              "flex w-max min-w-full shrink-0 flex-nowrap gap-4 h-[300px]",
+              start && "animate-scroll"
+            )}
           >
-            <Image src='/landing/feature-1.png' alt='feature-1' width={305} height={100} />
-
-            <p className="mt-[33px] text-[20px] xl:text-[34px] font-light leading-[1.1] text-white">400K+ Followers</p>
-
-            <p className="mt-[8px] text-[20px] xl:text-[20px] font-medium leading-none text-white">
-              on social platforms (
-              <a href="https://www.instagram.com/interview_scouter" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
-                Instagram
-              </a>&nbsp;&amp;&nbsp;
-              <a href="https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk" target="_blank" rel="noopener noreferrer" className="text-splash-green underline">
-                Github
-              </a>
-              )
-            </p>
+            {renderFeatures()}
           </div>
-
-          <div
-            className="features-slide flex-row bg-primary-deep-purple items-center justify-center gap-[15px] font-montserrat"
-          >
-            <div className="w-[335px]">
-              <p className="text-[18px] 2xl:text-[20px] leading-[1.1] text-primary-light-purple-gray">
-                Your chance to<br />
-                <span className="text-splash-orange">get hired</span> with<br />
-                our <span className="text-splash-green">AI-automated</span><br />
-                job application<br />
-                system is <span className='text-splash-orange'>higher</span>, since you can apply to many jobs with <span className="text-white">perfectly matching resume & cover letters.</span>
-              </p>
-            </div>
-
-            <Image src='/landing/feature-5.png' alt='feature-5' width={200} height={277} />
-          </div>
-
-          <div
-            className="features-slide justify-end relative overflow-visible font-k2d"
-          >
-            <Image src='/landing/feature-2.png' alt='feature-2' width={755} height={82} className='scale-125 absolute top-[20px] left-0 z-20' />
-
-            <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]"><span>1</span><span className="ml-3">- Upload your resume</span></p>
-            <p className="text-[20px] 2xl:text-[25px] font-thin text-white leading-[1.2]"><span>2</span><span className="ml-1">- Find matching jobs</span></p>
-            <p className="text-[20px] 2xl:text-[24px] font-semibold text-white leading-[1.2]"><span>3</span><span className="ml-1">- Laboro creates a set of resume and cover letter for each job application</span></p>
-            <p className="text-[20px] 2xl:text-[24px] font-semibold text-splash-green leading-[1.2]"><span>4</span><span className="ml-1">- Auto-apply to many jobs at once!</span></p>
-          </div>
-
-          <div
-            className="flex items-center features-slide font-k2d justify-start"
-          >
-            <p className="text-[35px] 2xl:text-[40px] leading-[1.1] font-thin text-white">
-              We currently have<br />
-              +1M Job Posts,<br />
-              from <span className='text-splash-green'>+30K companies!</span>
-            </p>
-          </div>
-
-          {/* <div
-            className="features-slide items-center justify-center font-montserrat"
-          >
-            <p className="text-white text-[22px] 2xl:text-[28px] leading-none">Companies hiring now</p>
-
-            <Image src='/landing/feature-4.svg' alt='feature-4' width={300} height={264} className="mt-4" />
-          </div> */}
-        </motion.div>
+        </div>
       </div>
-    </section >
+    </section>
   );
 };
 
@@ -207,7 +201,7 @@ export const Features: FC = () => {
   const { width } = useWindowSize();
   const isMobile = width <= 1024;
 
-  const MemoizedMobileFeatures = memo(MobileFeatures);
+  // const MemoizedMobileFeatures = memo(MobileFeatures);
   const MemoizedDesktopFeatures = memo(DesktopFeatures);
 
   if (!width) {

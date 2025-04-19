@@ -5,6 +5,8 @@ import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
 import { Providers } from "./providers";
 import "./globals.css";
+import Script from "next/script";
+import { StagingBanner } from './staging-banner'; // adjust import path if needed
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -41,10 +43,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       {config.domainName && (
-        <head>
-        </head>
+         <head>
+         {/* Google tag (gtag.js) */}
+         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-541WEFSN8Y" strategy="afterInteractive" />
+         <Script id="google-analytics" strategy="afterInteractive">
+           {`
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'G-541WEFSN8Y');
+           `}
+         </Script>
+       </head>
       )}
       <body>
+        <StagingBanner />
         <Providers>{children}</Providers>
       </body>
     </html>

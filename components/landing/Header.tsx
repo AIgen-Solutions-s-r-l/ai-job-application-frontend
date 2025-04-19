@@ -11,7 +11,7 @@ export const Header: FC = () => {
 
   return (
     <header className='bg-primary-light-purple font-montserrat pt-4 md:pt-[30px] 2xl:pt-[50px]'>
-      <LandingContainer className='flex gap-10 px-[5vw] md:px-[10vw] xl:px-[10vw] 2xl:px-[10vw] justify-between'>
+      <LandingContainer className='flex gap-10 px-[5vw] md:px-[10vw] xl:px-[10vw] 2xl:px-[10vw] justify-between items-center'>
         <div>
           <Link
             href="/"

@@ -1,7 +1,5 @@
-import { Check } from "lucide-react";
 import { Resume } from "@/libs/types/application.types";
 import { cn } from "@/lib/utils";
-import { useCVTemplateContext } from "@/contexts/cv-template-context";
 import { templateStyles, templateStyleByIndex } from "@/libs/utils/resume-template-utils";
 
 interface TemplateCardProps {
@@ -36,7 +34,7 @@ const TemplateCard = ({
                 onClick={() => isEnabled && onSelect(templateNumber)}
             >
                 <div className={cn(
-                    "w-[350px] md:w-[450px] h-[500px] overflow-y-clip p-4 shadow-lg",
+                    "w-[350px] md:w-[450px] h-[50vh] overflow-y-clip p-4 shadow-lg",
                     template.background ?? 'bg-white'
                 )}>
                     <div className={template.body}>
@@ -59,38 +57,40 @@ const TemplateCard = ({
                             <div className={template.education.container}>
                                 <h2 className={template.education.h2}>Education</h2>
                                 {resume?.educationDetails.map((edu, index) => (
-                                    <div key={index} className={template.education.entry}>
-                                        <div className={template.education.entryHeader}>
-                                            <span className={template.education.entryName}>{edu.institution}</span>
-                                            <span className={template.education.entryLocation}>
-                                                {edu.location?.city}, {edu.location?.country}
-                                            </span>
-                                        </div>
-                                        <div className={template.education.entryDetails}>
-                                            <span className={template.education.entryTitle}>
-                                                {edu.education_level} in {edu.field_of_study}
-                                            </span>
-                                            <span className={template.education.entryYear}>
-                                                {edu.start_date} &nbsp;&#8209;&nbsp; {edu.year_of_completion}
-                                            </span>
-                                        </div>
-                                        {edu.exam && edu.exam.length > 0 && (
-                                            <div className={template.education.coursesDetails}>
-                                                Relevant Courses:&nbsp;
-                                                {edu.exam.map((exam, examIndex) => (
-                                                    <span key={examIndex}>
-                                                        {exam.subject} ({exam.grade})
-                                                        {examIndex === edu.exam.length - 1 ? '.' : ', '}
-                                                    </span>
-                                                ))}
+                                    index === 1 && (
+                                        <div key={index} className={template.education.entry}>
+                                            <div className={template.education.entryHeader}>
+                                                <span className={template.education.entryName}>{edu.institution}</span>
+                                                <span className={template.education.entryLocation}>
+                                                    {edu.location?.city}, {edu.location?.country}
+                                                </span>
                                             </div>
-                                        )}
-                                        {edu.final_evaluation_grade && (
-                                            <div className={template.education.gradeDetails}>
-                                                Final Grade:&nbsp;{edu.final_evaluation_grade}
+                                            <div className={template.education.entryDetails}>
+                                                <span className={template.education.entryTitle}>
+                                                    {edu.education_level} in {edu.field_of_study}
+                                                </span>
+                                                <span className={template.education.entryYear}>
+                                                    {edu.start_date} &nbsp;&#8209;&nbsp; {edu.year_of_completion}
+                                                </span>
                                             </div>
-                                        )}
-                                    </div>
+                                            {edu.exam && edu.exam.length > 0 && (
+                                                <div className={template.education.coursesDetails}>
+                                                    Relevant Courses:&nbsp;
+                                                    {edu.exam.map((exam, examIndex) => (
+                                                        <span key={examIndex}>
+                                                            {exam.subject} ({exam.grade})
+                                                            {examIndex === edu.exam.length - 1 ? '.' : ', '}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                            {edu.final_evaluation_grade && (
+                                                <div className={template.education.gradeDetails}>
+                                                    Final Grade:&nbsp;{edu.final_evaluation_grade}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )
                                 ))}
                             </div>
                         )}
@@ -100,27 +100,29 @@ const TemplateCard = ({
                             <div className={template.experience.container}>
                                 <h2 className={template.experience.h2}>Professional Experience</h2>
                                 {resume?.experienceDetails.map((exp, index) => (
-                                    <div key={index} className={template.experience.entry}>
-                                        <div className={template.experience.entryHeader}>
-                                            <span className={template.experience.entryName}>{exp.company}</span>
-                                            <span className={template.experience.entryLocation}>
-                                                {exp.location?.city}, {exp.location?.country}
-                                            </span>
+                                    index === 1 && (
+                                        <div key={index} className={template.experience.entry}>
+                                            <div className={template.experience.entryHeader}>
+                                                <span className={template.experience.entryName}>{exp.company}</span>
+                                                <span className={template.experience.entryLocation}>
+                                                    {exp.location?.city}, {exp.location?.country}
+                                                </span>
+                                            </div>
+                                            <div className={template.experience.entryDetails}>
+                                                <span className={template.experience.entryTitle}>{exp.position}</span>
+                                                <span className={template.experience.entryYear}>
+                                                    {exp.employment_start_date} &nbsp; - &nbsp; {exp.employment_end_date}
+                                                </span>
+                                            </div>
+                                            <ul className={template.experience.compactList}>
+                                                {exp.key_responsibilities.map((responsibility, i) => (
+                                                    <li key={i} className={template.experience.listItem}>
+                                                        {responsibility}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        <div className={template.experience.entryDetails}>
-                                            <span className={template.experience.entryTitle}>{exp.position}</span>
-                                            <span className={template.experience.entryYear}>
-                                                {exp.employment_start_date} &nbsp; - &nbsp; {exp.employment_end_date}
-                                            </span>
-                                        </div>
-                                        <ul className={template.experience.compactList}>
-                                            {exp.key_responsibilities.map((responsibility, i) => (
-                                                <li key={i} className={template.experience.listItem}>
-                                                    {responsibility}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    )
                                 ))}
                             </div>
                         )}
@@ -159,7 +161,7 @@ const TemplateCard = ({
                 </div>
             </div>
             <p className="flex items-center font-montserrat text-[30px]">
-                {text} {recommended && <span className="text-[18px]">(Suggested)</span>}
+                {text} {recommended && <span className="text-[18px]">&nbsp;&nbsp;(Suggested)</span>}
             </p>
         </div>
     );

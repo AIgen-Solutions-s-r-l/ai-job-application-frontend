@@ -59,7 +59,7 @@ export const FAQ: FC = () => {
   const pathY = useTransform(smoothProgress, [0, 0.3, 0.4, 0.6, 0.9], [0, 0, 110, 110, 245]);
 
   return (
-    <section ref={sectionRef} className='bg-primary-light-purple pt-[150px] md:pt-[200px] xl:pt-[240px]'>
+    <section ref={sectionRef} className='bg-primary-light-purple pt-[90px] md:pt-[200px] xl:pt-[240px]'>
       <div className="relative w-max mx-auto">
         <div className="w-[199px] h-[224px]" style={{ backgroundImage: `url(${FaqQuestion.src})` }} ></div>
         <div className="flex gap-5 items-center mt-4 mb-[48px] md:mb-[78px]">

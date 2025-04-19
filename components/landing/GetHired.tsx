@@ -30,7 +30,7 @@ export const GetHired: FC = () => {
   );
 
   return (
-    <section className='flex flex-col items-center bg-primary-light-purple pt-[100px] md:pt-[140px] xl:pt-[191px] pb-[150px]'>
+    <section className='flex flex-col items-center bg-primary-light-purple pt-[65px] md:pt-[140px] xl:pt-[191px] pb-[70px] pb-[150px]'>
       <motion.div style={{ rotate: rotationSpring }}>
         <Image src={HiredFlower} alt='hired-flower' width={250} height={250} />
       </motion.div>
@@ -52,7 +52,7 @@ export const GetHired: FC = () => {
       <motion.a
         ref={buttonRef}
         href="/signup"
-        className="mt-20 h-[60px] md:h-[65px] px-[30px] flex items-center justify-between rounded-[20px] gap-[50px]"
+        className="mt-12 sm:mt-20 h-[60px] md:h-[65px] px-[30px] flex items-center justify-between rounded-[20px] gap-[50px]"
         style={{ backgroundColor }}
       >
         <p className="text-[27px] md:text-[32px] font-light font-k2d text-my-neutral-7 leading-none">Sign up</p>

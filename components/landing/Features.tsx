@@ -10,16 +10,15 @@ const MobileFeatures: FC = () => {
   return (
     <section className="py-12 px-4">
       {/* Header */}
-      <Hero />
       <div className="flex flex-col items-center gap-6 mb-12">
-        <h2 className="text-3xl font-medium text-center text-white">
+        {/* <h2 className="text-[24px] font-medium text-center text-white">
           All the jobs on the internet, in one place.
-        </h2>
-        <p className="text-base text-primary-deep-purple text-center">
+        </h2> */}
+        {/* <p className="text-[14px] text-splash-green text-center">
           Laboro collects opportunities from every website and job board,
           automates your applications, and matches you with the perfect role,
           saving you time and effort.
-        </p>
+        </p> */}
       </div>
 
       {/* Features Grid */}
@@ -34,7 +33,7 @@ const MobileFeatures: FC = () => {
             className="w-full max-w-[300px] mx-auto"
           />
           <p className="mt-4 text-2xl font-light text-white text-center">
-            300K+ Followers
+            400K+ Followers
           </p>
           <p className="mt-2 text-lg font-medium text-white text-center">
             on social platforms (
@@ -126,11 +125,10 @@ export const DesktopFeatures: FC = () => {
   const translateX = useTransform(smoothProgress, [0, 1], ['0%', '-20%']);
 
   return (
-    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[50vh] pt-[80px] 2xl:pt-[100px]">
+    <section className="flex px-12 mb:px-[20vw] flex-col relative pb-[200px] overflow-x-clip h-[530px] pt-[80px] 2xl:pt-[100px]">
       <div
         className="sticky top-[-50%]"
       >
-        {/* <Hero /> */}
         <motion.div
           ref={containerRef}
           style={{ x: translateX }}
@@ -218,5 +216,5 @@ export const Features: FC = () => {
     );
   }
 
-  return isMobile ? <MemoizedMobileFeatures /> : <MemoizedDesktopFeatures />;
+  return !isMobile && <MemoizedDesktopFeatures />;
 };

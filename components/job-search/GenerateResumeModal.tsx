@@ -181,6 +181,7 @@ const GenerateResumeModal = ({
                                         {
                                             Templates.map((data, index) => (
                                                 <TemplateCard
+                                                    key={index}
                                                     templateNumber={index + 1}
                                                     text={data.Text}
                                                     recommended={index === 0}

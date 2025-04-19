@@ -1,19 +1,19 @@
 import { TemplateStyle } from "@/libs/types/cv-template-style.type";
 
 export const style_2: TemplateStyle = {
-  body: 'font-calibri leading-[1.2] text-[#333] max-w-[700px] mx-auto px-[10px] py-0 text-[10pt]',
+  body: 'font-calibri leading-[1.2] text-[#333] max-w-[700px] mx-auto px-[10px] py-0 text-[10pt] flex flex-col',
   personal: {
-    header: 'text-center mb-[20px]',
+    header: 'text-center mb-[20px] order-0',
     h1: 'text-[21pt] leading-[1] font-medium mb-[8px]',
     contactSection: 'flex flex justify-center flex-wrap font-normal',
     contactItem: '[&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[4px]',
   },
   education: {
-    container: '',
+    container: 'order-2',
     h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
     entry: 'mb-[8px]',
     entryHeader: 'flex justify-between mb-[3px]',
-    entryDetails: 'flex justify-between gap-5s mb-[4px]',
+    entryDetails: 'flex justify-between gap-5 mb-[4px]',
     coursesDetails: 'mb-[3px]',
     entryName: 'font-bold',
     entryLocation: 'shrink-0',
@@ -22,11 +22,11 @@ export const style_2: TemplateStyle = {
     listItem: 'mb-[2px]',
   },
   experience: {
-    container: '',
+    container: 'order-1',
     h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
     entry: 'mb-[8px]',
     entryHeader: 'flex justify-between mb-[3px]',
-    entryDetails: 'flex justify-between gap-5s mb-[4px]',
+    entryDetails: 'flex justify-between gap-5 mb-[4px]',
     entryName: 'font-bold',
     entryLocation: 'shrink-0',
     entryYear: 'italic shrink-0',
@@ -34,7 +34,7 @@ export const style_2: TemplateStyle = {
     listItem: 'mb-[2px]',
   },
   projects: {
-    container: '',
+    container: 'order-3',
     h2: 'text-[11pt] font-bold uppercase border-b-2 border-solid border-[#333] mb-[12px] pb-[3px] text-left',
     entry: 'mb-[8px]',
     entryHeader: 'flex gap-1 mb-[3px]',

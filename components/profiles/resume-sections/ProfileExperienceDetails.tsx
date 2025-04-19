@@ -132,7 +132,7 @@ const ExperienceDetail: FC<{ index: number, handleRemove: () => void }> = ({ ind
         </button>
       </div>
 
-      <InputWrapper>
+      <InputWrapper profile>
         <FormInput
           title={'Company'}
           {...register(`experienceDetails.${index}.company`, { required: 'Company is required' })}
@@ -160,7 +160,7 @@ const ExperienceDetail: FC<{ index: number, handleRemove: () => void }> = ({ ind
         />
       </InputWrapper>
 
-      <InputWrapper>
+      <InputWrapper profile>
         <DateOrPresentInput
           title="Start Date"
           value={useWatch({ name: `experienceDetails.${index}.employment_start_date` })}

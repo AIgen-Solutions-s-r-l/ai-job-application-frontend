@@ -33,8 +33,13 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
 )
 FormInput.displayName = "FormInput"
 
-const InputWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return <div className="flex flex-col xl:flex-row gap-form p-10 rounded-[22px] bg-white">
+type InputWrapperProps = {
+  children: React.ReactNode,
+  profile?: boolean,
+}
+
+const InputWrapper: React.FC<InputWrapperProps> = ({ children, profile = false }) => {
+  return <div className={`flex flex-col gap-form p-10 rounded-[22px] bg-white ${profile ? 'xl:flex-row flex-wrap' : 'lg:flex-row'}`}>
     {children}
   </div>
 }

@@ -133,7 +133,7 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
         },
         {
           name: 'Need help?',
-          href: 'mailto:help@laboro.co',
+          href: 'https://tally.so/r/w2R0rM',
           icon: CircleHelp,
         },
       ],

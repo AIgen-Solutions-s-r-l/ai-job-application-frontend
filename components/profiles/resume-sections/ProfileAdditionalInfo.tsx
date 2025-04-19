@@ -48,17 +48,24 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
               </div>
               <div className="w-full">
                 <select
-                  {...register(`additionalInfo.languages.${index}.proficiency`, { required: 'Proficiency is required' })}
-                  // className="w-full h-10 bg-base-100 outline-none border-[1px] border-secondary focus:border-primary-light-purple px-[10px] rounded-md text-base"
-                  className={
-                    `w-full h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base
-                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "border-error" : "border-my-neutral-4"}`
-                  }
+                  {...register(`additionalInfo.languages.${index}.proficiency`)}
+                  className={`
+                    w-full h-10 bg-white px-[10px] rounded-md text-base
+                    outline outline-1 outline-my-neutral-4 focus:outline-primary-light-purple
+                    border-r-[10px] border-r-white
+                    ${errors.additionalInfo?.languages?.[index]?.proficiency ? "outline-error" : "outline-my-neutral-4"}
+                  `}
                 >
                   <option value="" disabled>Select Proficiency</option>
                   <option value="Native">Native or Bilingual</option>
-                  <option value="Fluent">Fluent</option>
+                  <option value="Proficient">Proficient</option>
+                  <option value="Advanced">Advanced</option>
+                  <option value="Intermediate">Intermediate</option>
                   <option value="Beginner">Beginner</option>
+                  {fields[index].proficiency && 
+                    !["Native", "Proficient", "Advanced", "Intermediate", "Beginner"].includes(fields[index].proficiency) && (
+                    <option value={fields[index].proficiency}>{fields[index].proficiency}</option>
+                  )}
                 </select>
                 {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
               </div>
@@ -324,7 +331,7 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
 
           <CertificationsNestedFieldArray />
 
-          <InputWrapper>
+          <InputWrapper profile>
             {/* <FormInput
               title={'Availability'}
               {...register('additionalInfo.availability.notice_period')}

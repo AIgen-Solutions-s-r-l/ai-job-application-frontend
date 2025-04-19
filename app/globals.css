@@ -82,6 +82,10 @@ progress::-webkit-progress-value {
     @apply !pb-[34px]
   }
 
+  .my-collapse-plus:not(.collapse-close) > input[type="checkbox"]:checked ~ .collapse-content {
+    @apply !pb-[34px]
+  }
+
   .pill {
     @apply h-[20px] md:h-[32px] flex-none text-sm md:text-base leading-none text-center text-white px-2 md:px-4 lg:px-6 py-[3px] lg:py-[4px] bg-primary-deep-purple-gray rounded-full font-jura font-semibold
   }
@@ -230,6 +234,10 @@ progress::-webkit-progress-value {
     {
       transform: rotate(45deg);
     }
+    .my-collapse-plus:not(.collapse-close) > input[type="checkbox"]:checked ~ .collapse-title:after 
+    {
+      transform: rotate(45deg);
+    }
   }
 
   @media (width > 767px) {
@@ -251,6 +259,10 @@ progress::-webkit-progress-value {
     }
 
     .my-collapse-plus:not(.collapse-close) > input[type="radio"]:checked ~ .collapse-title:after 
+    {
+      transform: rotate(45deg);
+    }
+    .my-collapse-plus:not(.collapse-close) > input[type="checkbox"]:checked ~ .collapse-title:after 
     {
       transform: rotate(45deg);
     }

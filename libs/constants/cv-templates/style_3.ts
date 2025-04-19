@@ -9,7 +9,7 @@ export const style_3: TemplateStyle = {
     contactItem: '[&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[5px]',
   },
   education: {
-    container: 'order-2',
+    container: 'order-1',
     h2: 'text-[12pt] font-bold uppercase border-b border-solid border-[#333] mb-[10px] text-left',
     entry: 'mb-[10px]',
     entryHeader: 'flex mb-[3px]',
@@ -23,7 +23,7 @@ export const style_3: TemplateStyle = {
     listItem: 'mb-[2px]',
   },
   experience: {
-    container: 'order-1',
+    container: 'order-2',
     h2: 'text-[12pt] font-bold uppercase border-b border-solid border-[#333] mb-[10px] text-left',
     entry: 'mb-[10px]',
     entryHeader: 'flex mb-[3px]',

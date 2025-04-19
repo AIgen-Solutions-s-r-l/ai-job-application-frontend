@@ -11,7 +11,7 @@ export const List = ({ Icon, Link }: { Icon: string, Link: string }) => {
     return (
         <div className='flex items-center gap-2 sm:gap-3 md:gap-6 lg:gap-12'>
             <Image src={Icon} alt='Social media' className='w-6 sm:w-8 md:w-10 lg:w-auto' />
-            <a href={Link} className="font-montserrat text-base sm:text-xl md:text-2xl lg:text-[36px] font-[400] leading-normal lg:leading-relaxed text-black hover:text-primary-purple break-all">{Link}</a>
+            <a href={Link} className="font-montserrat text-base sm:text-[18px] md:text-[20px] lg:text-[28px] font-[400] leading-normal lg:leading-relaxed text-black hover:text-primary-purple break-all">{Link}</a>
         </div>
     )
 }
@@ -52,7 +52,7 @@ function TheLaboro() {
 
     return (
         <div>
-            <div className="w-[200px] sm:w-[280px] md:w-[340px] lg:w-[405px] relative mx-auto mb-[90px] sm:mb-[120px] md:mb-[150px] lg:mb-[100px]">
+            <div className="w-[200px] sm:w-[280px] md:w-[340px] lg:w-[405px] relative mx-auto mb-[100px] sm:mb-[140px] md:mb-[150px] lg:mb-[160px]">
                 <div className="w-max relative mx-auto">
                     <Image
                         src={EyeBase}
@@ -78,19 +78,19 @@ function TheLaboro() {
                     className='w-[200px] sm:w-[280px] md:w-[340px] lg:w-[405px] absolute top-[50px] sm:top-[60px] md:top-[80px] lg:top-[100px]'
                 />
             </div>
-            <div className='flex flex-col rounded-[15px] sm:rounded-[20px] md:rounded-[30px] lg:rounded-[40px] w-full min-h-[400px] sm:min-h-[450px] md:min-h-[500px] bg-primary-light-purple-gray px-4 sm:px-8 md:px-16 lg:px-24 py-8 sm:py-12 md:py-24 lg:py-40 gap-4 sm:gap-6 md:gap-12 lg:gap-24'>
-                <p className="font-montserrat text-xl sm:text-2xl md:text-3xl lg:text-[50px] font-[600] leading-snug sm:leading-snug md:leading-snug lg:leading-tight text-splash-green">
+            <div className='flex flex-col rounded-[12px] sm:rounded-[16px] md:rounded-[24px] lg:rounded-[32px] w-full min-h-[300px] sm:min-h-[350px] md:min-h-[400px] bg-primary-light-purple-gray px-3 sm:px-6 md:px-12 lg:px-20 py-6 sm:py-8 md:py-16 lg:py-24 gap-3 sm:gap-4 md:gap-8 lg:gap-16'>
+                <p className="font-montserrat text-base sm:text-lg md:text-xl lg:text-[32px] font-[600] leading-snug sm:leading-snug md:leading-snug lg:leading-tight text-splash-green">
                     Experience a Smarter Way to Apply for Jobs with Laboro
                 </p>
-                <p className="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-[40px] font-[600] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-normal text-white">
+                <p className="font-montserrat text-sm sm:text-base md:text-lg lg:text-[24px] font-[600] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-normal text-white">
                     We invite you to experience a more efficient and effective job application
                     process with LABORO. Find your next job with our platform and take control of your career trajectory.
                     {' '}<Link className="underline" href={user ? '/search' : '/signin'}>Subscribe Now</Link> to start your journey towards landing your dream job.
                 </p>
-                <p className="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-[40px] font-[600] leading-normal lg:leading-normal text-primary-deep-purple">
+                <p className="font-montserrat text-sm sm:text-base md:text-lg lg:text-[24px] font-[600] leading-normal lg:leading-normal text-primary-deep-purple">
                     Connect with us and stay updated:
                 </p>
-                <div className='flex flex-col gap-3 sm:gap-4 md:gap-6 lg:gap-8'>
+                <div className='flex flex-col gap-3 sm:gap-4 md:gap-6 lg:gap-4'>
                     <List Icon={Instagram} Link='https://www.instagram.com/interview_scouter' />
                     <List Icon={LinkedIn} Link='https://www.linkedin.com/company/joinlaboro' />
                 </div>

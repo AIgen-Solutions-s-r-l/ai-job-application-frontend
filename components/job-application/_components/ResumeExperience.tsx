@@ -140,11 +140,13 @@ export const ResumeExperience: FC = () => {
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.location.city`)}
                   placeholder="City"
+                  className="min-w-2 max-w-60"
                 />
                 ,&nbsp;
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.location.country`)}
                   placeholder="Country"
+                  className="min-w-2 max-w-40"
                 />
               </span>
             </div>
@@ -159,11 +161,13 @@ export const ResumeExperience: FC = () => {
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.employment_start_date`)}
                   placeholder="Start Date"
+                  className="min-w-2 max-w-28"
                 />
                 &nbsp; - &nbsp;
                 <NullifiedInput
                   {...register(`experienceDetails.${index}.employment_end_date`)}
                   placeholder="End Date"
+                  className="min-w-2 max-w-28"
                 />
               </span>
             </div>

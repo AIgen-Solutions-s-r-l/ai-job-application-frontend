@@ -182,13 +182,13 @@ export const ResumeEducation: FC = () => {
                 <NullifiedInput
                   {...register(`educationDetails.${index}.location.city`)}
                   placeholder="City"
-                  className="min-w-2"
+                  className="min-w-2 max-w-60"
                 />
                 ,&nbsp;
                 <NullifiedInput
                   {...register(`educationDetails.${index}.location.country`)}
                   placeholder="Country"
-                  className="min-w-2"
+                  className="min-w-2 max-w-40"
                 />
               </span>
             </div>
@@ -209,13 +209,13 @@ export const ResumeEducation: FC = () => {
                 <NullifiedInput
                   {...register(`educationDetails.${index}.start_date`)}
                   placeholder="Start Date"
-                  className="min-w-2"
+                  className="min-w-2 max-w-28"
                 />
                 &nbsp;&#8209;&nbsp;
                 <NullifiedInput
                   {...register(`educationDetails.${index}.year_of_completion`)}
                   placeholder="End Date"
-                  className="min-w-2"
+                  className="min-w-2 max-w-28"
                 />
               </span>
             </div>

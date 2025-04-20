@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { setServerCookie } from '@/libs/cookies';
 import { useUserContext } from '@/contexts/user-context';
 import { FaSpinner } from "react-icons/fa";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Building2, Globe2 } from 'lucide-react';
 
 interface MyLocation {
     city?: string
@@ -88,6 +88,18 @@ const ChoseLocationModal = ({
         }
     });
 
+    const onSubmit = async () => {
+        const { location, country, experience } = getValues()
+        if (location && !country) {
+            setLocationError('Please select a location from the dropdown');
+            return;
+        }
+        setIsLoading(true);
+        setUser((prev) => ({ ...prev, exists: true }));
+        await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
+        router.push('/search')
+    };
+
     const onLocationChange = useCallback(
         async (e: React.ChangeEvent<HTMLInputElement>) => {
             if (searchTimeout) {
@@ -100,7 +112,9 @@ const ChoseLocationModal = ({
             if (e.target.value.length > 2) {
                 const timeoutId = setTimeout(async () => {
                     const response = await locationQuery(e.target.value);
-                    setDataArray(response);
+                    if (response.length > 0) {
+                        setDataArray(response);
+                    }
                 }, 200);
                 setSearchTimeout(timeoutId);
             } else {
@@ -123,7 +137,7 @@ const ChoseLocationModal = ({
 
     const handleLocationSelect = (data: any) => {
         // get only params needs for JobSearchParams
-        const { city, country } = data.address;
+        const { country } = data.address;
         const { lat: latitude, lon: longitude } = data;
 
         const county = data.address.city
@@ -135,7 +149,7 @@ const ChoseLocationModal = ({
                     : '';
 
         reset({
-            city,
+            city: county,
             country,
             latitude,
             longitude,
@@ -146,16 +160,13 @@ const ChoseLocationModal = ({
         setLocationError(null);
     };
 
-    const onSubmit = async () => {
-        const { location, country, experience } = getValues()
-        if (location && !country) {
-            setLocationError('Please select a location from the dropdown');
-            return;
+    const getIcon = (addresstype: any) => {
+        switch (addresstype) {
+        case 'country':
+            return <Globe2 size={16} className="text-neutral-400" />;
+        default:
+            return <Building2 size={16} className="text-neutral-400" />;
         }
-        setIsLoading(true);
-        setUser((prev) => ({ ...prev, exists: true }));
-        await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
-        router.push('/search')
     };
 
     return (
@@ -247,7 +258,13 @@ const ChoseLocationModal = ({
                                                         onClick={() => handleLocationSelect(data)}
                                                         className='w-full box-border flex items-center py-1 hover:text-blue-500 cursor-pointer text-[16px] font-semibold leading-[20px]'
                                                     >
-                                                        {data.display_name}
+                                                        <div className="flex items-center gap-2">
+                                                            {getIcon(data.addresstype)}
+                                                            <span className="text-neutral-500 text-sm">
+                                                                {data.display_name}
+                                                                {/* {`${location}${data.address.country}`} */}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>

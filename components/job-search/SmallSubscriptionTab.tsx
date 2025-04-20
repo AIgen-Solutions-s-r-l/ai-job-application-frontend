@@ -70,10 +70,18 @@ function SmallSubscriptionTab() {
 
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
-            <p className="font-montserrat text-2xl font-bold text-black">
+          <p className="font-montserrat text-sm text-my-neutral-5">
+              {(sliderValue === 4 
+              ? (sliderValue + 1) * 100 * 2 
+              : sliderValue === 3 
+              ? (sliderValue + 1) * 100 + 100 
+              : (sliderValue + 1) * 100)} applications
+              {paymentPlan === "monthly" && " / month"}
+            </p>
+            <p className="font-montserrat text-2xl font-bold text-black mr-2">
               {paymentPlan === "monthly"
-                ? `€${totals.price} / mo`
-                : `€${totals.price} (one-time)`}
+              ? `€${totals.price} / month`
+              : `€${totals.price}`}
             </p>
             <button
               onClick={handlePurchase}

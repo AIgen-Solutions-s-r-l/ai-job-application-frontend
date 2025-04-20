@@ -20,7 +20,7 @@ const config = {
     pricing: {
       monthly: {
         "100": {
-          id: process.env.NEXT_PUBLIC_TARGET_ENV === 'production' ? "price_1QwoTpRwjs1KsbvtvJsfY6Mh" : "price_1R0iUvRwjs1KsbvtM3plVfZG",
+          id: `price_100_monthly_${process.env.NEXT_PUBLIC_TARGET_ENV}`,
           amount: 39.00
         },
         "200": {

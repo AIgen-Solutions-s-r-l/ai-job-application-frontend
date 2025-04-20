@@ -91,11 +91,11 @@ export const DateOrPresentInput: FC<DateOrPresentInputProps> = ({
         <div className="absolute z-10 w-64 mt-1 bg-white rounded-lg shadow-lg">
           <div className="p-2">
             {/* Year Controls */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between px-1 mb-4">
               <button
                 onClick={() => handleYearChange(-1)}
                 type="button"
-                className="p-1 hover:bg-gray-100 rounded-full"
+                className="p-3 hover:bg-gray-100 rounded-full"
               >
                 <ChevronLeftIcon className="w-5 h-5" />
               </button>
@@ -107,7 +107,7 @@ export const DateOrPresentInput: FC<DateOrPresentInputProps> = ({
               <button
                 onClick={() => handleYearChange(1)}
                 type="button"
-                className="p-1 hover:bg-gray-100 rounded-full"
+                className="p-3 hover:bg-gray-100 rounded-full"
               >
                 <ChevronRightIcon className="w-5 h-5" />
               </button>

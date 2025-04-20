@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
 import { setServerCookie } from '@/libs/cookies';
 import { useJobSearch } from '@/contexts/job-search-context';
-import { cn } from '@/lib/utils';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
@@ -80,7 +79,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     router.push(`?${params.toString()}`);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     const { q, location, country, city, latitude, longitude, experience, is_remote_only } = getValues(); // Get is_remote_only value
 
     // Validate location if there's any input
@@ -120,11 +119,11 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     setCurrentPage(0)
     onSearch(cleanParams);
-  };
+  }, [getValues, onSearch, setCurrentPage]);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
-      const triggerFields = ['is_remote_only', 'experience', 'location'];
+      const triggerFields = ['is_remote_only', 'experience'];
       if (triggerFields.includes(name ?? '')) {
         onSubmit();
       }
@@ -195,7 +194,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
     }
     setGhostText('');
   };
-  
 
   const handleLocationSelect = (data: any) => {
     // get only params needs for JobSearchParams
@@ -298,7 +296,6 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                     </div>
                   )}
                 </div>
-
               </div>
 
               {dataArray.length > 0 && showSuggestions && (

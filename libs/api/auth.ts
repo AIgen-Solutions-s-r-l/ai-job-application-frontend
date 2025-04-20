@@ -6,6 +6,8 @@ import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import config from "@/config";
 
 interface UserInfo {
   id: number;
@@ -88,7 +90,9 @@ export async function refreshToken() {
   const accessToken = cookieStore.get('accessToken')?.value;
 
   if (!accessToken) {
-    throw new Error("No accessToken were found");
+    // throw new Error("No accessToken were found");
+    console.error('no token bro', accessToken);
+    redirect(`${config.auth.loginUrl}`);
   }
 
   try {

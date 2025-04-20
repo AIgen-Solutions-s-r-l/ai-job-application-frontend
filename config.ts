@@ -20,7 +20,7 @@ const config = {
     pricing: {
       monthly: {
         "100": {
-          id: `price_100_monthly_${process.env.NEXT_PUBLIC_TARGET_ENV}`,
+          id: `price_100_monthly_${process.env.NEXT_PUBLIC_TARGET_ENV}_and_${process.env.AUTH_API_URL}`,
           amount: 39.00
         },
         "200": {

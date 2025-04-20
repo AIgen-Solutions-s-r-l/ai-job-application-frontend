@@ -84,14 +84,12 @@ export const login = createServerAction(async (email: string, password: string) 
 });
 
 export async function refreshToken() {
-  console.log('iam being called')
   const cookies = require('next/headers').cookies;
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
   if (!accessToken) {
     // throw new Error("No accessToken were found");
-    console.error('no token bro', accessToken);
     redirect(`${config.auth.loginUrl}`);
   }
 

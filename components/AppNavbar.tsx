@@ -38,7 +38,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
         <Image src='/laboro.png' alt='Logo' width={214} height={58} priority/>
       </Link>
       
-      <div className='flex items-center gap-[10px] lg:gap-[30px] font-jura'>
+      <div className='flex items-center gap-3 md:gap-5 lg:gap-7 xl:gap-9 font-jura'>
           {slot}
 
           <Link

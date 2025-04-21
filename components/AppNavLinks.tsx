@@ -63,7 +63,7 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
           icon: Search,
           jsx: (
             <button
-              className={`my-btn-green ${classMenuButton}`}
+              className={`my-btn-green md:hidden ${classMenuButton}`}
               onClick={() => {
                 router.push('/search');
               }}

@@ -29,7 +29,7 @@ export default function AppSidenav() {
       {!isOpen && (
         <button
           onClick={toggleDrawer}
-          className='btn btn-square btn-ghost fixed top-4 left-4 z-50 md:hidden'
+          className='btn btn-square btn-ghost fixed top-2 left-3 z-50 md:hidden'
         >
           <Menu />
         </button>
@@ -54,7 +54,7 @@ export default function AppSidenav() {
 
         {!isCollapse && (
           <Link
-            className='page-header mb-[25px] pr-[3rem] p-3 md:p-0'
+            className='page-header pr-[3rem] p-3 md:p-0'
             href='/dashboard'
           >
             Dashboard

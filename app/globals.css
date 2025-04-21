@@ -46,6 +46,10 @@ progress::-webkit-progress-value {
     @apply h-[48px] px-2 md:px-5 flex items-center justify-between bg-splash-green rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
   }
 
+  .my-btn-ghost {
+    @apply h-[48px] px-2 md:px-5 flex items-center justify-between bg-transparent rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
+  }
+
   .my-btn-clear {
     @apply h-[56px] px-2 md:px-5 flex items-center justify-between border border-my-neutral-7 rounded-[20px] hover:bg-my-neutral-2 transition-all ease-in duration-300;
   }

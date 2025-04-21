@@ -5,6 +5,9 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "NodeJS": true
+  },
   "rules": {
     // Your specific rules.
     "no-unused-vars": "warn"

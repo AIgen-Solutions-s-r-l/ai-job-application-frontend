@@ -6,6 +6,8 @@ import { setServerCookie, getServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import config from "@/config";
 
 interface UserInfo {
   id: number;
@@ -82,13 +84,13 @@ export const login = createServerAction(async (email: string, password: string) 
 });
 
 export async function refreshToken() {
-  console.log('iam being called')
   const cookies = require('next/headers').cookies;
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
   if (!accessToken) {
-    throw new Error("No accessToken were found");
+    // throw new Error("No accessToken were found");
+    redirect(`${config.auth.loginUrl}`);
   }
 
   try {

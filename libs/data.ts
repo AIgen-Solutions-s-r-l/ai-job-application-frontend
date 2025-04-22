@@ -64,7 +64,6 @@ export async function fetchPassesData() {
 }
 
 export async function getMatchingJobsData(params?: JobSearchParams): Promise<MatchingJobsResponse> {
-  try {
     const queryString = Object.entries(params)
       .map(([key, value]) => {
         if (Array.isArray(value)) {
@@ -81,10 +80,6 @@ export async function getMatchingJobsData(params?: JobSearchParams): Promise<Mat
       jobs: response.jobs || [],
       total_count: response.total_count || 0
     };
-  } catch (error) {
-    console.error("Error fetching matching jobs from API:", error);
-    return { jobs: [], total_count: 0 };
-  }
 }
 
 export async function getPendingApplicationsData(): Promise<PendingApplicationRecord> {

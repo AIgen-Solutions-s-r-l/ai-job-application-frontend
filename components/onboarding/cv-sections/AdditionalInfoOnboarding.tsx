@@ -62,10 +62,6 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   <option value="Advanced">Advanced</option>
                   <option value="Intermediate">Intermediate</option>
                   <option value="Beginner">Beginner</option>
-                  {fields[index].proficiency && 
-                    !["Native", "Proficient", "Advanced", "Intermediate", "Beginner"].includes(fields[index].proficiency) && (
-                    <option value={fields[index].proficiency}>{fields[index].proficiency}</option>
-                  )}
                 </select>
                 {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
               </div>

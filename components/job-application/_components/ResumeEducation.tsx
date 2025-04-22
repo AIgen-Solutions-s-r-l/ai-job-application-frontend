@@ -70,12 +70,13 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
             {...register(`educationDetails.${index}.exam.${respIndex}.subject`)}
             placeholder="Subject of Exam"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
-            className='mr-1'
+            className='mr-1 small-autocomplete'
           />
           (<NullifiedInput
             {...register(`educationDetails.${index}.exam.${respIndex}.grade`)}
             placeholder="Grade"
             onKeyDown={(e) => handleKeyDown(e, respIndex)}
+            className='small-autocomplete'
           />)
           {/* <div
             className="ml-1 hidden group-hover:inline-flex w-[20px] h-[20px] bg-neutral-content items-center justify-center rounded-full text-lg leading-none cursor-pointer"
@@ -182,13 +183,13 @@ export const ResumeEducation: FC = () => {
                 <NullifiedInput
                   {...register(`educationDetails.${index}.location.city`)}
                   placeholder="City"
-                  className="min-w-2 max-w-60"
+                  className="min-w-2 max-w-60 small-autocomplete"
                 />
                 ,&nbsp;
                 <NullifiedInput
                   {...register(`educationDetails.${index}.location.country`)}
                   placeholder="Country"
-                  className="min-w-2 max-w-40"
+                  className="min-w-2 max-w-40 small-autocomplete"
                 />
               </span>
             </div>
@@ -209,13 +210,13 @@ export const ResumeEducation: FC = () => {
                 <NullifiedInput
                   {...register(`educationDetails.${index}.start_date`)}
                   placeholder="Start Date"
-                  className="min-w-2 max-w-28"
+                  className="min-w-2 max-w-28 small-autocomplete"
                 />
                 &nbsp;&#8209;&nbsp;
                 <NullifiedInput
                   {...register(`educationDetails.${index}.year_of_completion`)}
                   placeholder="End Date"
-                  className="min-w-2 max-w-28"
+                  className="min-w-2 max-w-28 small-autocomplete"
                 />
               </span>
             </div>
@@ -227,7 +228,7 @@ export const ResumeEducation: FC = () => {
               <NullifiedInput
                 {...register(`educationDetails.${index}.final_evaluation_grade`)}
                 placeholder="Grade"
-                className="min-w-2"
+                className="min-w-2 small-autocomplete"
               />
             </div>
           </div>

@@ -142,13 +142,13 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
               {...register(`additionalInfo.languages.${index}.language`)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               placeholder="Language"
-              className='leading-none mr-1 max-w-40'
+              className='leading-none mr-1 max-w-40 small-autocomplete'
             />
             (<NullifiedInput
               {...register(`additionalInfo.languages.${index}.proficiency`)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               placeholder="Proficiency"
-              className='leading-none max-w-40'
+              className='leading-none max-w-40 small-autocomplete'
             />)
             {index === fields.length - 1 ? '.' : ', '}
           </div>

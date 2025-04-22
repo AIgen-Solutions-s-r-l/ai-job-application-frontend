@@ -14,7 +14,7 @@ const NullifiedInput = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         style={{ fontStyle: "inherit" }}
         className={cn(
-          "field-sizing-content min-w-4 border-b-2 border-transparent outline-none bg-transparent",
+          "field-sizing-content min-w-4 border-b-2 border-transparent outline-none bg-transparent nullify-autocomplete",
           error && "placeholder-shown:border-error",
           className
         )}

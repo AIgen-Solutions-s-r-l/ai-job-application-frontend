@@ -206,7 +206,7 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
               {activeIndex === activeSection ? (
                 <>
                   <EntryOperator
-                    itemsLength={fields.length}
+                    itemsLength={fields.length+1}
                     onAdd={handleAddProject}
                     onRemove={() => {
                       remove(index);
@@ -316,7 +316,7 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
         <ul className={template.additional.compactList}>
           {section === activeSection && (
             <EntryOperator
-              itemsLength={fields.length}
+              itemsLength={fields.length+1}
               onAdd={handleAddAchievement}
               onRemove={() => {
                 remove(fields.length - 1);
@@ -413,7 +413,7 @@ const CertificationsNestedFieldArray: FC = (): ReactElement => {
         <ul className={template.additional.compactList}>
           {section === activeSection && (
             <EntryOperator
-              itemsLength={fields.length}
+              itemsLength={fields.length+1}
               onAdd={handleAddCertification}
               onRemove={() => {
                 remove(fields.length - 1);

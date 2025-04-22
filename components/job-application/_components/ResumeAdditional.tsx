@@ -142,13 +142,13 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
               {...register(`additionalInfo.languages.${index}.language`)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               placeholder="Language"
-              className='leading-none mr-1 max-w-40'
+              className='leading-none mr-1 max-w-40 small-autocomplete'
             />
             (<NullifiedInput
               {...register(`additionalInfo.languages.${index}.proficiency`)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               placeholder="Proficiency"
-              className='leading-none max-w-40'
+              className='leading-none max-w-40 small-autocomplete'
             />)
             {index === fields.length - 1 ? '.' : ', '}
           </div>
@@ -206,7 +206,7 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
               {activeIndex === activeSection ? (
                 <>
                   <EntryOperator
-                    itemsLength={fields.length}
+                    itemsLength={fields.length+1}
                     onAdd={handleAddProject}
                     onRemove={() => {
                       remove(index);
@@ -316,7 +316,7 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
         <ul className={template.additional.compactList}>
           {section === activeSection && (
             <EntryOperator
-              itemsLength={fields.length}
+              itemsLength={fields.length+1}
               onAdd={handleAddAchievement}
               onRemove={() => {
                 remove(fields.length - 1);
@@ -413,7 +413,7 @@ const CertificationsNestedFieldArray: FC = (): ReactElement => {
         <ul className={template.additional.compactList}>
           {section === activeSection && (
             <EntryOperator
-              itemsLength={fields.length}
+              itemsLength={fields.length+1}
               onAdd={handleAddCertification}
               onRemove={() => {
                 remove(fields.length - 1);

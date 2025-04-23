@@ -45,7 +45,6 @@ export const JobSearchDispatcher = async ({
 
   } catch (err) {
     console.error('Failed to fetch jobs after multiple retries:', err);
-    // If all retries fail, return an Alert component
-    return <Alert>Could not load jobs. Please try again later.</Alert>;
+    return <JobSearchView initialJobs={[]} totalCount={0} searchParams={searchParams} />;
   }
 };

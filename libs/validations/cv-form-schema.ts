@@ -102,15 +102,11 @@ export const experienceSchema = z.object({
 
 export const additionalInfoSchema = z.object({
   languages: z.array(z.object({
-    language: z.string().nullable()
-      .refine((val) => val !== null && /^[a-zA-Z\s]*$/.test(val) && val.length >= 2, {
-        message: 'Language is required and cannot contain numbers'
-      })
+    language: z.string()
+      .min(1, 'Language is required')
       .transform(val => val || ''),
-    proficiency: z.string().nullable()
-      .refine((val) => val !== null && /^[a-zA-Z\s]*$/.test(val) && val.length >= 2, {
-        message: 'Proficiency is required and cannot contain numbers'
-      })
+    proficiency: z.string()
+      .min(1, 'Proficiency level is required')
       .transform(val => val || ''),
   })),
   projects: z.array(z.object({

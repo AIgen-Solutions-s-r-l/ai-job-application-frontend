@@ -1,7 +1,7 @@
 import { TemplateStyle } from "@/libs/types/cv-template-style.type";
 
 export const style_1: TemplateStyle = {
-  body: 'font-calibri leading-[1.2] text-[#333] max-w-[700px] mx-auto px-[10px] py-[5px] text-[10pt]',
+  body: 'font-liberation-sans leading-[1.2] text-[#333] max-w-[700px] mx-auto px-[10px] py-[5px] text-[10pt]',
   personal: {
     header: 'text-center mb-[20px]',
     h1: 'text-[24pt] leading-[1] font-bold mb-[8px]',

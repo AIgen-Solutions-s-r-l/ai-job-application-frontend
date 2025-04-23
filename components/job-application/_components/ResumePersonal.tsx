@@ -41,11 +41,12 @@ export const ResumePersonal: FC = () => {
           <NullifiedInput
             {...register('personalInfo.phone_prefix')}
             placeholder="+1"
-            className="min-w-1"
+            className="min-w-1 max-w-10 small-autocomplete"
           />
           <NullifiedInput
             {...register('personalInfo.phone')}
             placeholder="1234567890"
+            className="min-w-2 max-w-28 small-autocomplete"
           />
         </p>
         <p className={template.personal.contactItem}>

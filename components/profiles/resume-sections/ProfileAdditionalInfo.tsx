@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback } from "react";
+import React, { FC, ReactElement, useCallback, useEffect } from "react";
 import { JobProfile } from "@/libs/definitions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormInput, InputWrapper } from "@/components/ui/form-input";
@@ -10,7 +10,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
   const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.languages` });
 
   return (
-    <div className="flex flex-col p-10 rounded-[22px] bg-white">
+    <div className="flex flex-col p-10 rounded-[22px] bg-white font-jura">
       <div className="flex gap-2 mb-3">
         <div className="w-10"></div>
         <div className="w-full grid grid-cols-2 gap-form">
@@ -53,8 +53,11 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                     w-full h-10 bg-white px-[10px] rounded-md text-base
                     outline outline-1 outline-my-neutral-4 focus:outline-primary-light-purple
                     border-r-[10px] border-r-white
+                    [&:has(option[value=""]:checked)]:text-gray-400
+                    [&>option:not([value=""])]:text-black
                     ${errors.additionalInfo?.languages?.[index]?.proficiency ? "outline-error" : "outline-my-neutral-4"}
                   `}
+                  defaultValue=""
                 >
                   <option value="" disabled>Select Proficiency</option>
                   <option value="Native">Native or Bilingual</option>
@@ -62,10 +65,6 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   <option value="Advanced">Advanced</option>
                   <option value="Intermediate">Intermediate</option>
                   <option value="Beginner">Beginner</option>
-                  {fields[index].proficiency && 
-                    !["Native", "Proficient", "Advanced", "Intermediate", "Beginner"].includes(fields[index].proficiency) && (
-                    <option value={fields[index].proficiency}>{fields[index].proficiency}</option>
-                  )}
                 </select>
                 {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
               </div>
@@ -90,6 +89,12 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
   const { control, register } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({ control, name: `additionalInfo.projects` });
 
+  useEffect(() => {
+    if (fields.length === 0) {
+      append({ name: "", description: "", link: "" });
+    }
+  }, [append, fields.length]);
+
   return (
     <div className="flex flex-col p-10 rounded-[22px] bg-white">
       {fields.map((project, index) => (
@@ -97,7 +102,6 @@ export const ProjectsNestedFieldArray: FC = (): ReactElement => {
           <div className="flex gap-2 mb-2 w-full">
             <button
               type="button"
-              disabled={fields.length === 1}
               className="remove-nested mt-[36px]"
               onClick={() => remove(index)}
             >

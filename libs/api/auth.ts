@@ -665,33 +665,38 @@ export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string)
     }
 
     // Try to build the URL directly if needed
-    if (process.env.NODE_ENV === 'development') {
-      // Build Google OAuth URL directly
-      const params = new URLSearchParams({
-        client_id,
-        redirect_uri,
-        scope: 'openid email profile',
-        response_type: 'code',
-        access_type: 'offline',
-        prompt: 'consent'
-      });
+    // if (process.env.NODE_ENV === 'development') {
+    //   // Build Google OAuth URL directly
+    //   const params = new URLSearchParams({
+    //     client_id,
+    //     redirect_uri,
+    //     scope: 'openid email profile',
+    //     response_type: 'code',
+    //     access_type: 'offline',
+    //     prompt: 'consent'
+    //   });
 
-      const authUrl = `https://accounts.google.com/o/oauth2/auth?${params.toString()}`;
-      return authUrl;
-    }
+    //   const authUrl = `https://accounts.google.com/o/oauth2/auth?${params.toString()}`;
+    //   return authUrl;
+    // }
 
-    // Otherwise use the backend service
-    const response = await apiClient.post(
-      `${API_BASE_URLS.auth}/auth/google-auth`,
-      { redirect_uri }
-    );
+    // // Otherwise use the backend service
+    // const response = await apiClient.post(
+    //   `${API_BASE_URLS.auth}/auth/google-auth`,
+    //   { redirect_uri }
+    // );
+    const params = new URLSearchParams({
+      client_id,
+      redirect_uri,
+      scope: 'openid email profile',
+      response_type: 'code',
+      access_type: 'offline',
+      prompt: 'consent'
+    });
 
-    if (!response || !response.data || !response.data.authorization_url) {
-      throw new ServerActionError("No authentication URL received from the API");
-    }
+    const authUrl = `https://accounts.google.com/o/oauth2/auth?${params.toString()}`;
+    return authUrl;
 
-    // Return the authorization URL
-    return response.data.authorization_url;
   } catch (error: any) {
     console.error("Error getting Google OAuth URL:", error);
     const errorMessage = error.response?.data?.detail || "Error processing Google authentication request.";

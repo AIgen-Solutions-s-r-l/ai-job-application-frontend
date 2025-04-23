@@ -14,7 +14,7 @@ export const JobSearchDispatcher = async ({
     const searchDataStr = await getServerCookie('lastJobSearchData');
     const searchData = JSON.parse(searchDataStr || '{}');
     const country = searchParams.country || searchData.country || undefined;
-    const experience = searchParams.experience || searchData.experience || 'Mid-level';
+    const experience = searchParams.experience || searchData.experience || 'Entry-level';
 
     searchParams = {
       ...searchParams,

@@ -28,7 +28,7 @@ export const Testimonials: FC = () => {
         <div className='flex items-center justify-between mb-[70px] gap-[10px] lg:w-full'>
           <Heart />
           <h2 className="text-3xl text-center md:text-[35px] 2xl:text-[40px] font-medium leading-[1.1] text-white text-center">
-            Don&apos;t take our word for it!<br />Hear it from our customers
+            Our success stories:
           </h2>
           <Heart />
         </div>

@@ -14,7 +14,7 @@ export const JobSearchDispatcher = async ({
     const searchDataStr = await getServerCookie('lastJobSearchData');
     const searchData = JSON.parse(searchDataStr || '{}');
     const country = searchParams.country || searchData.country || undefined;
-    const experience = searchParams.experience || searchData.experience || 'Mid-level';
+    const experience = searchParams.experience || searchData.experience || 'Entry-level';
 
     searchParams = {
       ...searchParams,
@@ -36,7 +36,7 @@ export const JobSearchDispatcher = async ({
       return await getMatchingJobsData(jobSearchParams);
     }, {
       retries: 3, // Retry 3 times
-      minTimeout: 200, // Start with 200ms delay
+      minTimeout: 500, // Start with 200ms delay
       factor: 2, // Exponential backoff factor
     });
 
@@ -45,7 +45,6 @@ export const JobSearchDispatcher = async ({
 
   } catch (err) {
     console.error('Failed to fetch jobs after multiple retries:', err);
-    // If all retries fail, return an Alert component
-    return <Alert>Could not load jobs. Please try again later.</Alert>;
+    return <JobSearchView initialJobs={[]} totalCount={0} searchParams={searchParams} />;
   }
 };

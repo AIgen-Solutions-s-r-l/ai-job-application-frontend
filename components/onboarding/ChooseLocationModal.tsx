@@ -84,7 +84,7 @@ const ChoseLocationModal = ({
         defaultValues: {
             location: defaultLocation,
             country: defaultLocation,
-            experience: "Mid-level",
+            experience: "Entry-level",
         }
     });
 
@@ -217,7 +217,7 @@ const ChoseLocationModal = ({
                                             <select
                                                 id='experience'
                                                 {...register('experience')}
-                                                className='w-full mt-3 h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-[10px] rounded-md text-base form-select'
+                                                className='w-full mt-3 h-10 bg-white outline-none border-[1px] border-my-neutral-4 focus:border-primary-light-purple px-3 rounded-md text-base form-select'
                                             >
                                                 <option value="Entry-level">Entry-level</option>
                                                 <option value="Mid-level">Mid-level</option>

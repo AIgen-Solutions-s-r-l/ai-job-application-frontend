@@ -260,12 +260,12 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               </div>
             </div>
             <div className='relative flex-1'>
-              <div className="flex gap-2">
+              <div className="flex items-end gap-2">
                 <label htmlFor='location' className='hidden md:block text-base leading-none'>
                   Location
                 </label>
                 {locationError && (
-                  <div className='text-red-500 text-sm flex items-center'>
+                  <div className='text-red-500 mt-2 md:mt-0 text-sm flex items-end leading-none'>
                     <AlertTriangle size={16} className='mr-2' />
                     {locationError}
                   </div>
@@ -330,7 +330,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
                 </div>
               )}
             </div>
-            <div className='md:w-[162px] lg:w-[222px] mt-3 md:mt-0 bg-white h-14 flex-0 flex items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
+            <div className='hidden md:flex md:w-[162px] lg:w-[222px] mt-3 md:mt-0 bg-white h-14 flex-0 items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
               <button
                 type='submit'
                 className='w-full h-full flex items-center justify-between pl-5'

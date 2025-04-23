@@ -8,7 +8,6 @@ import {
   ExperienceDetails,
 } from '../definitions';
 
-
 export function toJobProfile(resumeData: any): JobProfile {
   if (!resumeData) {
     return defaultJobProfile;
@@ -83,7 +82,7 @@ export function toJobProfile(resumeData: any): JobProfile {
     projects: projects?.length ? projects : defaultJobProfile.additionalInfo.projects,
     achievements: achievements?.length ? achievements : defaultJobProfile.additionalInfo.achievements,
     certifications: certifications?.length ? certifications : defaultJobProfile.additionalInfo.certifications,
-    languages: languages?.length ? languages : defaultJobProfile.additionalInfo.languages,
+    languages: transformLanguages(languages),
     interests: interests || [],
     self_identification: toSelfIdentification(self_identification),
     legal_authorization: toLegalAuthorization(legal_authorization),
@@ -134,6 +133,19 @@ export function fromJobProfile(jobProfile: JobProfile): any {
     // "salary_expectations": jobProfile.additionalInfo.salary_expectations
   };
 }
+
+const validProficiencyLevels = ['Native', 'Proficient', 'Advanced', 'Intermediate', 'Beginner'];
+
+const transformLanguages = (languages: any[] | undefined) => {
+  if (!languages?.length) {
+    return defaultJobProfile.additionalInfo.languages;
+  }
+
+  return languages.map(lang => ({
+    language: lang.language || '',
+    proficiency: validProficiencyLevels.includes(lang.proficiency) ? lang.proficiency : ''
+  }));
+};
 
 const toSelfIdentification = (data: any): SelfIdentification => ({
   ...data,

@@ -53,8 +53,11 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                     w-full h-10 bg-white px-[10px] rounded-md text-base
                     outline outline-1 outline-my-neutral-4 focus:outline-primary-light-purple
                     border-r-[10px] border-r-white
+                    [&:has(option[value=""]:checked)]:text-gray-400
+                    [&>option:not([value=""])]:text-black
                     ${errors.additionalInfo?.languages?.[index]?.proficiency ? "outline-error" : "outline-my-neutral-4"}
                   `}
+                  defaultValue=""
                 >
                   <option value="" disabled>Select Proficiency</option>
                   <option value="Native">Native or Bilingual</option>

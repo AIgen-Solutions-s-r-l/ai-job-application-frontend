@@ -54,7 +54,7 @@ export const UserProfile: FC<Props> = ({ profile }) => {
 
       <FormProvider {...methods}>
         <form
-          className="w-full flex flex-col md:p-6 lg:p-8"
+          className="w-full flex flex-col md:p-6 lg:p-8 font-jura"
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault();

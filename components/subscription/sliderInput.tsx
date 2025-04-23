@@ -14,7 +14,7 @@ function SliderInput({
     setSliderValue(Number(e.target.value));
   };
   return (
-    <div className='w-[35vw] max-w-[600px] space-y-3'>
+    <div className='w-full max-w-[600px] space-y-3'>
       <div className='flex justify-between text-xs font-medium text-slate-500 px-5 mb-[-20px]'>
         {values.map((values, index) => (
           <div key={index} className='flex flex-col items-center'>

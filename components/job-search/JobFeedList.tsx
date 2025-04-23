@@ -24,7 +24,7 @@ export const JobFeedList: FC = () => {
       setLoading(false); // stop loading once jobs are loaded
     }
   }, [jobs]);
-  
+
 
   useEffect(() => {
     if (offset) {
@@ -35,26 +35,26 @@ export const JobFeedList: FC = () => {
 
   const handlePageChange = (page: number) => {
     setLoading(true); // start loading
-  
+
     setCurrentPage(page);
     const params = new URLSearchParams(searchParams.toString());
     params.set('offset', String(page * 25));
     router.push(`/search?${params.toString()}`);
   };
-  
+
 
   const renderPaginationButtons = () => {
     const buttons = [];
     const itemsPerPage = 25;
     const totalPages = Math.ceil(totalCount / itemsPerPage);
     const maxVisiblePages = 5;
-    
+
     // Prev button
     buttons.push(
-      <button 
-        key="prev" 
-        onClick={() => handlePageChange(currentPage - 1)} 
-        className="px-2 py-1 rounded-md border disabled:cursor-not-allowed"
+      <button
+        key="prev"
+        onClick={() => handlePageChange(currentPage - 1)}
+        className="px-1 sm:px-2 py-1 rounded-md border disabled:cursor-not-allowed"
         disabled={currentPage === 0}
       >
         <ChevronLeft size={20} />
@@ -68,7 +68,7 @@ export const JobFeedList: FC = () => {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
+            className={`px-2 sm:px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
           >
             {i + 1}
           </button>
@@ -80,7 +80,7 @@ export const JobFeedList: FC = () => {
         <button
           key={0}
           onClick={() => handlePageChange(0)}
-          className={`px-3 py-1 rounded-md border ${currentPage === 0 ? 'bg-primary text-white' : ''}`}
+          className={`px-2 sm:px-3 py-1 rounded-md border ${currentPage === 0 ? 'bg-primary text-white' : ''}`}
         >
           1
         </button>
@@ -98,7 +98,7 @@ export const JobFeedList: FC = () => {
             <button
               key={i}
               onClick={() => handlePageChange(i)}
-              className={`px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
+              className={`px-2 sm:px-3 py-1 rounded-md border ${currentPage === i ? 'bg-primary text-white' : ''}`}
             >
               {i + 1}
             </button>
@@ -123,10 +123,10 @@ export const JobFeedList: FC = () => {
     // Next button (only if not on last page)
     if (currentPage < totalPages - 1) {
       buttons.push(
-        <button 
-          key="next" 
-          onClick={() => handlePageChange(currentPage + 1)} 
-          className="px-2 py-1 rounded-md border"
+        <button
+          key="next"
+          onClick={() => handlePageChange(currentPage + 1)}
+          className="px-1 sm:px-2 py-1 rounded-md border"
         >
           <ChevronRight size={20} />
         </button>
@@ -135,7 +135,7 @@ export const JobFeedList: FC = () => {
 
     return buttons;
   };
-  
+
   if (jobs.length === 0) {
     if (currentPage > 0) {
       return (
@@ -158,7 +158,7 @@ export const JobFeedList: FC = () => {
         </>
       );
     }
-    
+
     return (
       <Container className='h-full mt-3 lg:mt-5'>
         <p className='font-jura font-semibold text-base xl:text-xl'>No jobs matched</p>
@@ -169,30 +169,30 @@ export const JobFeedList: FC = () => {
   return (
     <div className="w-full gap-5 bg-base-100 mb-[60px] py-3 lg:py-5">
       {loading && (
-            <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
-              <Loader2 className="animate-spin text-white" size={48} />
-            </div>
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+          <Loader2 className="animate-spin text-white" size={48} />
+        </div>
       )}
       <Container className="flex gap-6">
         <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
-          <div className="sticky top-5 z-10 h-16 drop-shadow-md flex items-center gap-5 bg-white justify-between rounded-xl px-4 border border-1 border-neutral">
+          <div className="sticky top-5 z-10 h-16 drop-shadow-md flex items-center gap-1 sm:gap-5 bg-white justify-between rounded-xl px-2 sm:px-4 border border-1 border-neutral">
             <div className="flex justify-center gap-2">
               {renderPaginationButtons()}
             </div>
             <div className="flex items-center gap-5">
               <p className='hidden md:block font-jura font-semibold text-[18px]'>Select All</p>
-              <div 
-              className="h-10 w-10 rounded-md flex items-center text-black justify-center cursor-pointer job-select-box" 
-              onClick={handleSelectAll}
-              >
               <div
-                className={cn(
-                "transition-transform duration-100 ease-in-out",
-                isAllSelected() ? "scale-100" : "scale-0"
-                )}
+                className="h-10 w-10 rounded-md flex items-center text-black justify-center cursor-pointer job-select-box"
+                onClick={handleSelectAll}
               >
-                <Check size={32} strokeWidth={2.5} />
-              </div>
+                <div
+                  className={cn(
+                    "transition-transform duration-100 ease-in-out",
+                    isAllSelected() ? "scale-100" : "scale-0"
+                  )}
+                >
+                  <Check size={32} strokeWidth={2.5} />
+                </div>
               </div>
             </div>
           </div>

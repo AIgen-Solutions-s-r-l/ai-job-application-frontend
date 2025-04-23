@@ -46,7 +46,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
   const activeSubscription = transactions.find(
     tx => tx.transaction_type === 'plan_purchase' && tx.is_subscription_active === true
   );
-  
+
   // Obtener el valor del plan activo (si existe)
   const activePlanValue = activeSubscription ? parseInt(activeSubscription.amount) : null;
 
@@ -63,10 +63,10 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
     }
 
     setIsCancellingSubscription(true);
-    
+
     try {
       const result = await cancelSubscription(activeSubscription.subscription_id);
-      
+
       if (result.success) {
         toast.success("Your subscription has been successfully cancelled");
         // Recargar la página para actualizar los datos
@@ -118,7 +118,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
         })
         .then(data => {
           const referenceId = data.subscriptionId || data.paymentIntentId || sessionId;
-        
+
           return addCredits(
             creditsAmount,
             referenceId,
@@ -180,7 +180,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
   return (
     <div className="bg-white p-6 rounded-xl flex flex-col gap-6">
       {/* Toggle row */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-center gap-4">
         <TwoWayToggleSwitch value={paymentPlan} onChange={setPaymentPlan} />
         {paymentPlan === "monthly" && (
           <div className="pill bg-green-100 text-green-700 font-semibold px-3 py-1 border border-green-300 shadow-sm animate-pulse">
@@ -222,17 +222,17 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
             <p className="font-montserrat text-sm text-my-neutral-5">
-              {(sliderValue === 4 
-              ? (sliderValue + 1) * 100 * 2 
-              : sliderValue === 3 
-              ? (sliderValue + 1) * 100 + 100 
-              : (sliderValue + 1) * 100)} applications
+              {(sliderValue === 4
+                ? (sliderValue + 1) * 100 * 2
+                : sliderValue === 3
+                  ? (sliderValue + 1) * 100 + 100
+                  : (sliderValue + 1) * 100)} applications
               {paymentPlan === "monthly" && " / month"}
             </p>
             <p className="font-montserrat text-2xl font-bold text-black mr-2">
               {paymentPlan === "monthly"
-              ? `€${totals.price} / month`
-              : `€${totals.price}`}
+                ? `€${totals.price} / month`
+                : `€${totals.price}`}
             </p>
             <button
               onClick={handlePurchase}
@@ -252,7 +252,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
           <h3 className="font-montserrat text-xl font-semibold text-black">
             Active Subscription
           </h3>
-          
+
           <div className="flex items-center gap-2">
             <p className="font-jura text-base font-semibold text-black">
               Plan:
@@ -264,7 +264,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
               Active
             </span>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <p className="font-jura text-base font-semibold text-black">
               Next Renewal:
@@ -275,7 +275,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
                 const creationDate = new Date(activeSubscription.created_at);
                 const renewalDate = new Date(creationDate);
                 renewalDate.setMonth(renewalDate.getMonth() + 1);
-                
+
                 // Formatear la fecha para mostrarla
                 return renewalDate.toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -285,13 +285,13 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
               })()}
             </p>
           </div>
-          
+
           {/* Contenedor para nota y botón, con el botón alineado a la derecha */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mt-2">
             <p className="text-xs text-my-neutral-5 md:w-2/3">
               You will still have access until the end of your current billing period.
             </p>
-            
+
             {/* Botón para cancelar la suscripción - ahora en la esquina inferior derecha */}
             <button
               onClick={handleCancelSubscription}

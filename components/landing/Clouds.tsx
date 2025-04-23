@@ -56,7 +56,7 @@ export const Clouds: FC = () => {
       </motion.div>
 
       <LandingContainer>
-        <div className="mt-[70%] lg:mt-[25%] text-[25px] font-medium leading-[1.1] text-center text-white lg:text-[40px]">
+        <div className="mt-[70%] lg:mt-[35%] text-[25px] font-medium leading-[1.1] text-center text-white lg:text-[40px]">
           <p>
             As Seen In Leading Publications
           </p>

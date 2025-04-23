@@ -36,7 +36,7 @@ export const JobSearchDispatcher = async ({
       return await getMatchingJobsData(jobSearchParams);
     }, {
       retries: 3, // Retry 3 times
-      minTimeout: 200, // Start with 200ms delay
+      minTimeout: 500, // Start with 200ms delay
       factor: 2, // Exponential backoff factor
     });
 

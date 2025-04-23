@@ -48,6 +48,8 @@ module.exports = {
         cambria: ['Cambria', 'serif'],
         'josefin-sans': ['Josefin Sans', 'serif'],
         'open-sans': ['Open Sans', 'serif'],
+        'liberation-sans': ['Liberation Sans', 'serif'],
+        'liberation-serif': ['Liberation Serif', 'serif'],
       },
       backgroundImage: {
         gradient:

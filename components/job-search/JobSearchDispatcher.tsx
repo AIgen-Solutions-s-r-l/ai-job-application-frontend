@@ -35,8 +35,8 @@ export const JobSearchDispatcher = async ({
       console.log('Attempting to fetch jobs...'); // Optional: Add logging
       return await getMatchingJobsData(jobSearchParams);
     }, {
-      retries: 3, // Retry 3 times
-      minTimeout: 500, // Start with 200ms delay
+      retries: 5, // Retry 3 times
+      minTimeout: 1000, // Start with 200ms delay
       factor: 2, // Exponential backoff factor
     });
 

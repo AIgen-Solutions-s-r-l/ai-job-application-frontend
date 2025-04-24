@@ -224,11 +224,11 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
                   />
                 </>
               ) : (
-                <a href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline text-blue-500 relative">
+                <a href={side_projects[index].link} target="_blank" rel="noopener noreferrer" className="font-normal inline relative">
                   <NullifiedInput
                     {...register(`additionalInfo.projects.${index}.name`)}
                     placeholder="Project Name"
-                    className='text-blue-500'
+                    className={cn(side_projects[index].link ? 'text-blue-500' : '')}
                   />
                 </a>
               )}

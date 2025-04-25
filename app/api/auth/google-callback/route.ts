@@ -29,7 +29,10 @@ export async function GET(request: NextRequest) {
       );
 
       if (response.ok) {
-        const data = await response.json();
+        // Log raw response body before consuming it with .json()
+        const rawBody = await response.clone().text();
+        console.log('[Google Callback] Raw response body from auth_service:', rawBody);
+        const data = await response.json(); // Now consume the original response body
 
         if (data.access_token) {
           // Set the JWT token as a cookie
@@ -48,16 +51,17 @@ export async function GET(request: NextRequest) {
             const response = NextResponse.redirect(redirectUrl);
 
             // Set the cookie on the response object
-            console.log('[Google Callback] Attempting to set access token cookie on redirect response.');
-            response.cookies.set('accessToken', data.access_token, {
+            const cookieOptions = {
               httpOnly: true,
               secure: process.env.NODE_ENV === 'production',
-              sameSite: 'lax',
+              sameSite: 'lax' as const, // Explicitly type 'lax'
               path: '/', // Ensure cookie is available for all paths
               expires: expirationDate instanceof Date ? expirationDate : undefined, // Use undefined for session cookie if date is invalid
-            });
+            };
+            console.log('[Google Callback] Attempting to set access token cookie with options:', cookieOptions);
+            response.cookies.set('accessToken', data.access_token, cookieOptions);
 
-            console.log(`[Google Callback] Redirecting to: ${redirectUrl} with cookie potentially set.`);
+            console.log(`[Google Callback] Final redirect URL: ${redirectUrl}. Cookie should be attached to this response.`);
             return response; // Return the response object with the cookie attached
 
           } catch (cookieError) {

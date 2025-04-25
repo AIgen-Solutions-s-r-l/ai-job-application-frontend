@@ -88,6 +88,8 @@ export async function refreshToken() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
+  console.log("Refreshing token...");
+  console.log("Access token:", accessToken);
   if (!accessToken) {
     // throw new Error("No accessToken were found");
     redirect(`${config.auth.loginUrl}`);
@@ -647,6 +649,8 @@ export async function cancelSubscription(subscriptionId: number): Promise<any> {
  */
 export const getGoogleOAuthURL = createServerAction(async (redirectUri?: string) => {
   try {
+    console.log("getGoogleOAuthURL called");
+    // Check if the redirect URI is provided
     // Use provided redirectUri or fall back to environment variable
     const redirect_uri = redirectUri || process.env.GOOGLE_REDIRECT_URI;
     const client_id = process.env.GOOGLE_CLIENT_ID;

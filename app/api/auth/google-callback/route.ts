@@ -33,28 +33,43 @@ export async function GET(request: NextRequest) {
 
         if (data.access_token) {
           // Set the JWT token as a cookie
-          const { expirationDate } = await decodeToken(data.access_token);
-          const cookieStore = cookies(); // Use cookies() from next/headers - Note: We'll set on the response object directly.
+          try {
+            const { expirationDate } = await decodeToken(data.access_token);
+            console.log('[Google Callback] Decoded token expiration:', expirationDate); // Log the expiration date
 
-          // Create the redirect response *first*
-          const redirectUrl = `${appOrigin}/search`;
-          const response = NextResponse.redirect(redirectUrl);
+            // Validate expirationDate - if it's invalid/past, cookie might not set correctly
+            if (!expirationDate || !(expirationDate instanceof Date) || expirationDate.getTime() < Date.now()) {
+              console.warn('[Google Callback] Invalid or past expirationDate received from decodeToken. Cookie might not be set correctly or will be session-based.');
+              // Optionally handle this case, e.g., by omitting expires for a session cookie or setting a default duration
+            }
 
-          // Set the cookie on the response object
-          console.log('[Google Callback] Setting access token cookie on redirect response.'); // Updated log
-          response.cookies.set('accessToken', data.access_token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            path: '/', // Ensure cookie is available for all paths
-            expires: expirationDate,
-          });
+            // Create the redirect response *first*
+            const redirectUrl = `${appOrigin}/search`; // TODO: Consider making redirect dynamic?
+            const response = NextResponse.redirect(redirectUrl);
 
-          console.log(`[Google Callback] Redirecting to: ${redirectUrl} with cookie set.`); // Updated log
-          return response; // Return the response object with the cookie attached
+            // Set the cookie on the response object
+            console.log('[Google Callback] Attempting to set access token cookie on redirect response.');
+            response.cookies.set('accessToken', data.access_token, {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'lax',
+              path: '/', // Ensure cookie is available for all paths
+              expires: expirationDate instanceof Date ? expirationDate : undefined, // Use undefined for session cookie if date is invalid
+            });
+
+            console.log(`[Google Callback] Redirecting to: ${redirectUrl} with cookie potentially set.`);
+            return response; // Return the response object with the cookie attached
+
+          } catch (cookieError) {
+            console.error('[Google Callback] Error during token decoding or cookie setting:', cookieError);
+            // Redirect to login with a specific error for this phase
+            return NextResponse.redirect(
+              `${appOrigin}${appConfig.auth.loginUrl}?error=google_cookie_set_failed`
+            );
+          }
         } else {
           // Handle case where token is missing in response
-          console.error('Google callback successful but no access token received');
+          console.error('[Google Callback] Auth service response OK but no access_token found in data:', data);
           return NextResponse.redirect(
             `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
           );
@@ -68,9 +83,13 @@ export async function GET(request: NextRequest) {
         );
       }
     } catch (error) {
-      console.error('Error in Google callback route handler:', error);
+      console.error('[Google Callback] General error in callback handler:', error);
+      // Ensure error object is logged properly
+      if (error instanceof Error) {
+          console.error(`[Google Callback] Error details: ${error.message}`, error.stack);
+      }
       return NextResponse.redirect(
-        `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed`
+        `${appOrigin}${appConfig.auth.loginUrl}?error=google_callback_handler_error`
       );
     }
   } else {

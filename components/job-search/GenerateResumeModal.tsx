@@ -173,7 +173,7 @@ const GenerateResumeModal = ({
                                     <ToggleSwitch
                                         value={generateTemplate}
                                         onChange={setGenerateTemplate}
-                                        label="Yes, Generate"
+                                        label="Generate with AI"
                                     />
                                 </section>
                                 {generateTemplate ?

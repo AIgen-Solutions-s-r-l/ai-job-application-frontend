@@ -57,7 +57,7 @@ export async function createCheckout(data: CheckoutData): Promise<string | null>
       client_reference_id: data.clientReferenceId,
       customer_email: data.user.email,
       metadata: metadata,
-      // Solicitar explícitamente que se expanda el objeto payment_intent
+      allow_promotion_codes: true,
       expand: ["payment_intent"],
     });
 

@@ -6,7 +6,7 @@ const url =
     ? window.location.href
     : process.env.SITE_URL || "";
 
-const isProductionUrl = !url.includes("pre");
+const isProductionUrl = !url.includes("pre") && !url.includes("localhost");
 
 const config = {
   // REQUIRED

@@ -45,14 +45,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       {config.domainName && (
          <head>
          {/* Google tag (gtag.js) */}
-         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-541WEFSN8Y" strategy="afterInteractive" />
+         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Q03TPGL5QF" strategy="afterInteractive" />
          <Script id="google-analytics" strategy="afterInteractive">
            {`
              window.dataLayer = window.dataLayer || [];
              function gtag(){dataLayer.push(arguments);}
              gtag('js', new Date());
 
-             gtag('config', 'G-541WEFSN8Y');
+             gtag('config', 'G-Q03TPGL5QF');
            `}
          </Script>
        </head>

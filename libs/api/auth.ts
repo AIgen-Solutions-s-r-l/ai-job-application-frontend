@@ -91,8 +91,8 @@ export async function refreshToken() {
   console.log("Refreshing token...");
   console.log("Access token:", accessToken);
   if (!accessToken) {
-    // throw new Error("No accessToken were found");
-    redirect(`${config.auth.loginUrl}`);
+    throw new Error("No accessToken were found");
+    // redirect(`${config.auth.loginUrl}`);
   }
 
   try {

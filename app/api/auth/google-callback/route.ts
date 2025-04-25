@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
 
           cookieStore.set('accessToken', data.access_token, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             path: '/', // Ensure cookie is available for all paths
             expires: expirationDate

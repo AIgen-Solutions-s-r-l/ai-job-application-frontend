@@ -86,7 +86,7 @@ export const JobSearchBottomSheet: React.FC = () => {
           </p>
         </div>
         <ButtonApply
-          title='Apply'
+          title='Apply jobs'
           handleApply={() => checkSubscription(selectedJobs.length)}
           disabled={!selectedJobs.length}
         />

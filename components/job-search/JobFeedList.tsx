@@ -175,7 +175,7 @@ export const JobFeedList: FC = () => {
       )}
       <Container className="flex gap-6">
         <div className="w-full xl:w-[540px] min-h-[calc(100vh-100px)] flex flex-col gap-5 shrink-0 relative">
-          <div className="sticky top-5 z-10 h-16 drop-shadow-md flex items-center gap-1 sm:gap-5 bg-white justify-between rounded-xl px-2 sm:px-4 border border-1 border-neutral">
+          <div className="sticky top-5 z-50 h-16 drop-shadow-md flex items-center gap-1 sm:gap-5 bg-white justify-between rounded-xl px-2 sm:px-4 border border-1 border-neutral">
             <div className="flex justify-center gap-2">
               {renderPaginationButtons()}
             </div>

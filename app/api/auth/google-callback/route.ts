@@ -29,31 +29,51 @@ export async function GET(request: NextRequest) {
       );
 
       if (response.ok) {
-        const data = await response.json();
+        // Log raw response body before consuming it with .json()
+        const rawBody = await response.clone().text();
+        console.log('[Google Callback] Raw response body from auth_service:', rawBody);
+        const data = await response.json(); // Now consume the original response body
 
         if (data.access_token) {
           // Set the JWT token as a cookie
-          const { expirationDate } = await decodeToken(data.access_token);
-          const cookieStore = cookies(); // Use cookies() from next/headers
-          console.log('[Google Callback] Attempting to set access token cookie.'); // Added log
+          try {
+            const { expirationDate } = await decodeToken(data.access_token);
+            console.log('[Google Callback] Decoded token expiration:', expirationDate); // Log the expiration date
 
-          cookieStore.set('accessToken', data.access_token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            path: '/', // Ensure cookie is available for all paths
-            expires: expirationDate
-          });
-          console.log('[Google Callback] Cookie setting function called.'); // Added log
+            // Validate expirationDate - if it's invalid/past, cookie might not set correctly
+            if (!expirationDate || !(expirationDate instanceof Date) || expirationDate.getTime() < Date.now()) {
+              console.warn('[Google Callback] Invalid or past expirationDate received from decodeToken. Cookie might not be set correctly or will be session-based.');
+              // Optionally handle this case, e.g., by omitting expires for a session cookie or setting a default duration
+            }
 
-          // Redirect to dashboard
-          // Redirect to search page as requested
-          const redirectUrl = `${appOrigin}/search`;
-          console.log(`[Google Callback] Redirecting to: ${redirectUrl}`); // Added log
-          return NextResponse.redirect(redirectUrl);
+            // Create the redirect response *first*
+            const redirectUrl = `${appOrigin}/search`; // TODO: Consider making redirect dynamic?
+            const response = NextResponse.redirect(redirectUrl);
+
+            // Set the cookie on the response object
+            const cookieOptions = {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'lax' as const, // Explicitly type 'lax'
+              path: '/', // Ensure cookie is available for all paths
+              expires: expirationDate instanceof Date ? expirationDate : undefined, // Use undefined for session cookie if date is invalid
+            };
+            console.log('[Google Callback] Attempting to set access token cookie with options:', cookieOptions);
+            response.cookies.set('accessToken', data.access_token, cookieOptions);
+
+            console.log(`[Google Callback] Final redirect URL: ${redirectUrl}. Cookie should be attached to this response.`);
+            return response; // Return the response object with the cookie attached
+
+          } catch (cookieError) {
+            console.error('[Google Callback] Error during token decoding or cookie setting:', cookieError);
+            // Redirect to login with a specific error for this phase
+            return NextResponse.redirect(
+              `${appOrigin}${appConfig.auth.loginUrl}?error=google_cookie_set_failed`
+            );
+          }
         } else {
           // Handle case where token is missing in response
-          console.error('Google callback successful but no access token received');
+          console.error('[Google Callback] Auth service response OK but no access_token found in data:', data);
           return NextResponse.redirect(
             `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed_no_token`
           );
@@ -67,9 +87,13 @@ export async function GET(request: NextRequest) {
         );
       }
     } catch (error) {
-      console.error('Error in Google callback route handler:', error);
+      console.error('[Google Callback] General error in callback handler:', error);
+      // Ensure error object is logged properly
+      if (error instanceof Error) {
+          console.error(`[Google Callback] Error details: ${error.message}`, error.stack);
+      }
       return NextResponse.redirect(
-        `${appOrigin}${appConfig.auth.loginUrl}?error=google_auth_failed`
+        `${appOrigin}${appConfig.auth.loginUrl}?error=google_callback_handler_error`
       );
     }
   } else {

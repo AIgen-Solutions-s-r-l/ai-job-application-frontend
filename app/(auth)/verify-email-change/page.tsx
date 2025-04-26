@@ -38,12 +38,9 @@ const VerifyEmailChange = ({
   };
 
   useEffect(() => {
-    if (hasRun.current) return;
-
-    hasRun.current = true;
+    if (!searchParams.token) return;
     verify();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams.token]);
 
   return (
     <main className='auth-form-main' data-theme={config.colors.theme}>

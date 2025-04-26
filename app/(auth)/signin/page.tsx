@@ -78,6 +78,7 @@ const Login = () => {
     try {
       // Use the environment variable for redirect URI
       const result = await getGoogleOAuthURL();
+      console.log('Google OAuth URL:', result);
       
       if (result.success && result.value) {
         // Redirect to the Google authorization URL

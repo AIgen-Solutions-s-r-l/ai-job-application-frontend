@@ -6,11 +6,11 @@ export const style_3: TemplateStyle = {
     header: 'text-center mb-[20px] order-0',
     h1: 'text-[25pt] leading-[1] font-bold mb-[7px]',
     contactSection: 'flex flex justify-center flex-wrap font-normal',
-    contactItem: '[&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[5px]',
+    contactItem: '[&:first-child:before]:content-["+"] [&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[5px]',
   },
   education: {
     container: 'order-1',
-    h2: 'text-[12pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
+    h2: 'text-[14pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
     entry: 'mb-[10px]',
     entryHeader: 'flex mb-[3px]',
     entryDetails: 'flex justify-between gap-5 mb-[4px]',
@@ -24,7 +24,7 @@ export const style_3: TemplateStyle = {
   },
   experience: {
     container: 'order-2',
-    h2: 'text-[12pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
+    h2: 'text-[14pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
     entry: 'mb-[10px]',
     entryHeader: 'flex mb-[3px]',
     entryDetails: 'flex justify-between gap-5 mb-[4px]',
@@ -37,7 +37,7 @@ export const style_3: TemplateStyle = {
   },
   projects: {
     container: 'order-3',
-    h2: 'text-[12pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
+    h2: 'text-[14pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
     entry: 'mb-[10px]',
     entryHeader: 'flex gap-1 mb-[3px]',
     entryName: 'font-bold',
@@ -46,8 +46,8 @@ export const style_3: TemplateStyle = {
   },
   additional: {
     container: '',
-    h2: 'text-[12pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
-    h3: 'text-[11pt] font-bold mt-[10px] mb-[4px] text-left',
+    h2: 'text-[14pt] font-bold border-b border-solid border-[#333] mb-[10px] text-left',
+    h3: 'text-[12pt] font-bold mt-[10px] mb-[4px] text-left',
     compactList: 'list-disc pl-[15px]',
     listItem: 'mb-[2px]',
   },

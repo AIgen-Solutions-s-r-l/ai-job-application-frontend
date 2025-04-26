@@ -397,6 +397,10 @@ progress::-webkit-progress-value {
     background-position: right 0.7rem center;
   }
 
+  .entry-operator-container {
+    @apply absolute w-max h-[40px] rounded-full flex overflow-hidden -top-[40px] left-1/2 -translate-x-1/2 bottom-0 right-0 bg-white z-30 cursor-pointer transition-opacity duration-300 ease-in-out;
+  }
+
   /* :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;

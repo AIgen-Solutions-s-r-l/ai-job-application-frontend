@@ -112,8 +112,8 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
 
 const ExperienceDetail: FC<{ index: number, handleRemove: () => void }> = ({ index, handleRemove }) => {
   const { register, formState: { errors }, setValue } = useFormContext<FormData>();
-  const { fields } = useFieldArray({ 
-    name: `experienceDetails.${index}` 
+  const { fields } = useFieldArray({
+    name: `experienceDetails.${index}`
   });
 
   return (
@@ -178,7 +178,7 @@ const ExperienceDetail: FC<{ index: number, handleRemove: () => void }> = ({ ind
           errorMessage={errors.experienceDetails?.[index]?.employment_end_date?.message}
           present
         />
-        
+
         <FormInput
           title={'Country'}
           {...register(`experienceDetails.${index}.location.country`, { required: 'country is required' })}
@@ -238,15 +238,15 @@ export const ProfileExperienceDetails: FC = (): ReactElement => {
   return (
     <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Experience Details
+      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100 flex items-center justify-between">Experience Details
         {errors.experienceDetails && <p className="text-error text-xs lg:text-sm">Please fill out all required fields</p>}
       </div>
       <div className="collapse-content !p-0 bg-base-100">
         {fields.map((experience, index) => (
-          <ExperienceDetail 
-            key={experience.id} 
-            index={index} 
-            handleRemove={() => remove(index)} 
+          <ExperienceDetail
+            key={experience.id}
+            index={index}
+            handleRemove={() => remove(index)}
           />
         ))}
 

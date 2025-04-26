@@ -324,7 +324,7 @@ export const ProfileAdditionalInfo: FC = (): ReactElement => {
   return (
     <div className="collapse collapse-arrow group rounded-none">
       <input type="checkbox" name="my-accordion-2" />
-      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100">Additional Information
+      <div className="collapse-title !pl-5 text-base md:text-lg lg:text-xl font-montserrat font-medium bg-my-neutral-2 group-has-[input:checked]:bg-base-100 flex items-center justify-between">Additional Information
         {errors.additionalInfo && <p className="text-error text-xs lg:text-sm">Please fill out all required fields</p>}
       </div>
       <div className="collapse-content !p-0 bg-base-100">

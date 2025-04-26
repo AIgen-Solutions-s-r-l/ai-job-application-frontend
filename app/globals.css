@@ -122,6 +122,11 @@ progress::-webkit-progress-value {
     scrollbar-width: thin;
     overflow-y: scroll;
   }
+  .my-x-scrollable {
+    scrollbar-color: #8783D1 #E9E3EE;
+    scrollbar-width: thin;
+    overflow-x: auto;
+  }
 
   .cover-letter-input {
     @apply block font-semibold;
@@ -208,12 +213,6 @@ progress::-webkit-progress-value {
   
   .pop-once-small {
     animation: pop-small 0.2s ease-in-out;
-  }
-  
-  .my-x-scrollable {
-    scrollbar-color: #8783D1 #E9E3EE;
-    scrollbar-width: thin;
-    overflow-x: scroll;
   }
 
   .collapse-arrow > .collapse-title:after {

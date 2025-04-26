@@ -178,7 +178,7 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl flex flex-col gap-6">
+    <div className="bg-white p-0 py-6 md:p-6 rounded-xl flex flex-col gap-6">
       {/* Toggle row */}
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <TwoWayToggleSwitch value={paymentPlan} onChange={setPaymentPlan} />

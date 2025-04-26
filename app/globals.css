@@ -120,7 +120,7 @@ progress::-webkit-progress-value {
   .my-scrollable {
     scrollbar-color: #8783D1 #E9E3EE;
     scrollbar-width: thin;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
   .my-x-scrollable {
     scrollbar-color: #8783D1 #E9E3EE;

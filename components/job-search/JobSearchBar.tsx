@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Container } from '../Container';
 import { setServerCookie } from '@/libs/cookies';
 import { useJobSearch } from '@/contexts/job-search-context';
+import { on } from 'events';
 
 interface JobSearchBarProps {
   searchParams: JobSearchProps;
@@ -128,7 +129,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
         onSubmit();
       }
     });
-  
+
     return () => subscription.unsubscribe();
   }, [watch, onSubmit]);
 
@@ -148,16 +149,16 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
             const topMatch = response[0];
             const city = topMatch.address.city || topMatch.address.town || topMatch.address.village || '';
             const country = topMatch.address.country || '';
-          
+
             const fullText = `${city ? `${city}, ` : ''}${country}`;
-            
+
             // Only show ghost if user input is a prefix
             if (fullText.toLowerCase().startsWith(e.target.value.toLowerCase())) {
               setGhostText(fullText);
             } else {
               setGhostText('');
             }
-          
+
             setDataArray(response);
           }
         }, 200);
@@ -188,7 +189,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
       const country = d.address.country || '';
       return `${city ? `${city}, ` : ''}${country}` === value;
     });
-  
+
     if (selected) {
       handleLocationSelect(selected);
     }
@@ -222,6 +223,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
 
     setShowSuggestions(false);
     setLocationError(null);
+    onSubmit();
   };
 
   const getIcon = (addresstype: any) => {
@@ -250,7 +252,7 @@ export const JobSearchBar: React.FC<JobSearchBarProps> = ({
               </label>
               <div className='mt-3 h-12 flex bg-white items-center border border-1 border-neutral has-[input:focus-within]:border-primary rounded-md px-5'>
                 <input
-                  type='text'
+                  type='search'
                   id='q'
                   placeholder='Job title, keyword, or company'
                   {...register('q')}

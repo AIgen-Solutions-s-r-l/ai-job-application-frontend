@@ -26,7 +26,7 @@ export const Header: FC = () => {
             <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>Home</p>
           </Link>
           <Link className='h-[30px] md:h-[50px] px-5 flex items-center justify-center md:justify-between bg-splash-green hover:bg-my-neutral-2 transition-all ease-in duration-300 rounded-[8px] md:rounded-[20px] gap-2' href={user ? '/search' : '/signin'}>
-            <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none'>{user && user.email ? user.email.split('@')[0] : 'Sign in'}</p>
+            <p className='text-[14px] 2xl:text-[18px] font-light text-my-neutral-7 leading-none whitespace-nowrap'>{user && user.email ? user.email.split('@')[0] : 'Sign in'}</p>
             <Image src={navRightArrow} alt="Arrow" className='hidden lg:block mt-0.5' />
           </Link>
         </div>

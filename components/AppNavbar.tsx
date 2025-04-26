@@ -32,7 +32,7 @@ const AppNavbar: FC<Props> = ({ slot }) => {
     <div
       role='navigation'
       aria-label='Navbar'
-      className='flex items-center justify-between pt-2 pb-1 lg:pt-[55px] lg:pb-[25px]'
+      className='flex items-center justify-between pt-2 pb-1 px-2 md:px-0 lg:pt-[55px] lg:pb-[25px]'
     >
       <Link href='/dashboard' >
         <Image src='/laboro.png' alt='Logo' width={214} height={58} priority />

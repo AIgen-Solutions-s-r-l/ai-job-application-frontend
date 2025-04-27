@@ -17,10 +17,10 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
         const checkAuthentication = useCallback(async () => {
             const accessToken = await getServerCookie('accessToken');
             setIsAuthenticated(!!accessToken);
-            
+
             if (!accessToken) {
                 router.replace(config.auth.loginUrl);
-                return  <></>;
+                return <></>;
             }
 
             const decoded = await decodeToken(accessToken);
@@ -31,9 +31,9 @@ const RequireLogin = <P extends object>(Component: ComponentType<P>, Resume: boo
 
             if (user) {
                 if (user.exists && !Resume) {
-                    router.replace("/waaa");
+                    window.location.href = "/search";
                 } else if (!user.exists && Resume) {
-                    router.replace("/onboarding");
+                    window.location.href = "/onboarding";
                 }
             }
         }, [router, user]);

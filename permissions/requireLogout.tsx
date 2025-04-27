@@ -20,10 +20,9 @@ const RequireLogout = <P extends object>(Component: ComponentType<P>): React.FC<
                 if (user) {
 
                     if (user.exists) {
-                        router.replace("/brrbrrpatapim");
-
+                        window.location.href = "/search";
                     } else {
-                        router.replace("/onboarding");
+                        window.location.href = "/onboarding";
                     }
                 }
             }

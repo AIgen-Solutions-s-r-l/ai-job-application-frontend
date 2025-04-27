@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { cookies } from 'next/headers';
 import { decodeToken } from '@/libs/api/auth'; // Assuming auth utils are here
 import appConfig from '@/config'; // Assuming config is at root
-
+import { isResumeExits } from '@/libs/api/resume';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
@@ -46,8 +45,19 @@ export async function GET(request: NextRequest) {
               // Optionally handle this case, e.g., by omitting expires for a session cookie or setting a default duration
             }
 
+            // Check if the user already has resume
+            const [exists] = await Promise.all([
+              isResumeExits(),
+            ]);
+
+            let redirectUrl = ``;
+            if (exists) {
+              redirectUrl = `${appOrigin}/search`;
+            } else {
+              redirectUrl = `${appOrigin}/onboarding`;
+            }
+
             // Create the redirect response *first*
-            const redirectUrl = `${appOrigin}/sium`; // TODO: Consider making redirect dynamic?
             const response = NextResponse.redirect(redirectUrl);
 
             // Set the cookie on the response object
@@ -90,7 +100,7 @@ export async function GET(request: NextRequest) {
       console.error('[Google Callback] General error in callback handler:', error);
       // Ensure error object is logged properly
       if (error instanceof Error) {
-          console.error(`[Google Callback] Error details: ${error.message}`, error.stack);
+        console.error(`[Google Callback] Error details: ${error.message}`, error.stack);
       }
       return NextResponse.redirect(
         `${appOrigin}${appConfig.auth.loginUrl}?error=google_callback_handler_error`

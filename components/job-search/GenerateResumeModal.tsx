@@ -151,7 +151,7 @@ const GenerateResumeModal = ({
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="flex flex-col items-center relative w-full h-[95vh] py-6 bg-white rounded-xl shadow-lg gap-[20px]">
-                                <div className="flex w-full justify-end items-center mb-4 px-6">
+                                <div className="absolute top-6 right-6">
                                     <button
                                         className="outline-none"
                                         onClick={handleCancel}
@@ -177,7 +177,7 @@ const GenerateResumeModal = ({
                                     />
                                 </section>
                                 {generateTemplate ?
-                                    <section className={`px-0 md:px-7 flex 2xl:justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 my-x-scrollable relative`}>
+                                    <section className={`px-0 md:px-7 flex 2xl:justify-center w-full py-3 grow gap-16 bg-base-100 my-x-scrollable relative`}>
                                         {
                                             Templates.map((data, index) => (
                                                 <TemplateCard

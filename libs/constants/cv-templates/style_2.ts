@@ -6,7 +6,7 @@ export const style_2: TemplateStyle = {
     header: 'text-center mb-[20px] order-0',
     h1: 'text-[21pt] leading-[1] font-medium mb-[8px]',
     contactSection: 'flex flex justify-center flex-wrap font-normal',
-    contactItem: '[&:first-child:before]:content-["+"] [&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[4px]',
+    contactItem: '[&:not(:first-child):before]:content-["|"] [&:not(:first-child):before]:mx-[4px]',
   },
   education: {
     container: 'order-2',

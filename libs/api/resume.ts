@@ -3,6 +3,9 @@
 import { apiClient, apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
 import { JobProfile } from '../definitions';
+import { getServerCookie } from "../cookies";
+import { redirect } from "next/navigation";
+import config from "@/config";
 
 export async function fetchUserResume(): Promise<any> {
   try {
@@ -122,5 +125,17 @@ export async function pdfToJson(formData: FormData): Promise<{ data: any; error?
   } catch (error) {
     console.error('Error parsing PDF', error);
     return { data: null, error: error.message };
+  }
+}
+
+export async function checkPermission() {
+  try {
+    const exists = await isResumeExits();
+
+    if (!exists.exists) {
+      redirect("/onboarding");
+    }
+  } catch (error) {
+    console.error("User is not authenticated");
   }
 }

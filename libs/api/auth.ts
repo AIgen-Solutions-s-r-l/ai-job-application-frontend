@@ -122,6 +122,14 @@ export async function refreshToken() {
   }
 }
 
+export async function checkAuth() {
+  const accessToken = await getServerCookie('accessToken');
+
+  if (!accessToken) {
+    redirect(`${config.auth.loginUrl}`);
+  }
+} 
+
 export async function fetchUserData(): Promise<any> {
   try {
     const response = await apiClientJwt.get(`${API_BASE_URLS.auth}/auth/me`, {

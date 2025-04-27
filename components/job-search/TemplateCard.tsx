@@ -160,8 +160,8 @@ const TemplateCard = ({
                     </div>
                 </div>
             </div>
-            <p className="flex items-center font-montserrat text-[30px]">
-                {text} {recommended && <span className="text-[18px]">&nbsp;&nbsp;(Suggested)</span>}
+            <p className="flex items-center font-montserrat text-lg md:text-xl lg:text-2xl xl:text-[27px]">
+                {text} {recommended && <span className="text-base lg:text-[18px]">&nbsp;&nbsp;(Suggested)</span>}
             </p>
         </div>
     );

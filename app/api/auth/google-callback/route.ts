@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
             const exists = await isResumeExitsJWT(data.access_token);
 
             let redirectUrl = ``;
-            if (exists) {
+            if (exists.exists) {
               redirectUrl = `${appOrigin}/search`;
             } else {
               redirectUrl = `${appOrigin}/onboarding`;

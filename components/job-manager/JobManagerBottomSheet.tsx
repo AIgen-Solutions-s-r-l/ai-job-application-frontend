@@ -39,7 +39,7 @@ export const JobManagerBottomSheet: FC = () => {
   }, [router, selectedApplications]);
 
   return (
-    <JobButtomSheet className='justify-between gap-[50px] items-center'>
+    <JobButtomSheet className='justify-between items-center'>
       <ButtonUnderline
         title='Back to Search'
         handleClick={() => router.push('/search')}

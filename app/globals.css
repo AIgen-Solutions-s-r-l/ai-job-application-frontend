@@ -475,3 +475,8 @@ progress::-webkit-progress-value {
 .animate-scroll {
   animation: scroll 40s linear infinite;
 }
+
+.collapse-arrow > .collapse-title:after{
+  position: static !important;
+  margin-top: 10px !important;
+}

@@ -70,7 +70,7 @@ export const ChangeEmail = () => {
         </Alert>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={typography.forms.row}>
+          <div className={`${typography.forms.row} flex flex-col md:flex-row gap-4`}>
             <FormInput
               title={'Current Password'}
               {...register('password', {
@@ -80,7 +80,7 @@ export const ChangeEmail = () => {
               autoComplete='current-password'
               error={!!errors.password}
               errorMessage={errors.password?.message}
-              className='grow'
+              className='w-full'
             />
             <FormInput
               title={'New Email'}
@@ -96,18 +96,18 @@ export const ChangeEmail = () => {
               placeholder='e.g., john.doe@example.com'
               error={!!errors.newEmail}
               errorMessage={errors.newEmail?.message}
-              className='grow'
+              className='w-full'
             />
           </div>
-            <div className="flex justify-end pt-4">
-              <button
-                type='submit'
-                className={typography.forms.submitButton}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Confirming...' : 'Confirm'}
-              </button>
-            </div>
+          <div className="flex justify-end pt-4">
+            <button
+              type='submit'
+              className={typography.forms.submitButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Confirming...' : 'Confirm'}
+            </button>
+          </div>
         </form>
       )}
     </div>

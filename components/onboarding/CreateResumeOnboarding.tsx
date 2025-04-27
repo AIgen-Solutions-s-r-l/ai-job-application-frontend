@@ -123,9 +123,9 @@ export const CreateResumeOnboarding: React.FC = () => {
           >
             <p>test</p>
           </button> */}
-          <div className="flex gap-5 font-jura text-sm md:text-lg">
+          <div className="flex gap-2 md:gap-5 font-jura text-sm md:text-lg">
             <button
-              className="my-btn-clay gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
+              className="my-btn-clay gap-1 md:gap-10 text-[18px] font-jura text-white font-semibold disabled:hidden"
               type="button"
               onClick={prevStep}
               disabled={currentStep === 1 || methods.formState.isSubmitting}
@@ -135,7 +135,7 @@ export const CreateResumeOnboarding: React.FC = () => {
             </button>
             {currentStep < 4 ? (
               <button
-                className="my-btn-green gap-10 font-semibold text-[18px] font-jura"
+                className="my-btn-green gap-1 md:gap-10 font-semibold text-[18px] font-jura"
                 type="button"
                 onClick={nextStep}
               >
@@ -144,7 +144,7 @@ export const CreateResumeOnboarding: React.FC = () => {
               </button>
             ) : (
               <button
-                className="my-btn-green gap-10 font-semibold text-[18px] font-jura"
+                className="my-btn-green gap-1 md:gap-10 font-semibold text-[18px] font-jura"
                 form='my-form'
                 type="submit"
                 disabled={methods.formState.isSubmitting}

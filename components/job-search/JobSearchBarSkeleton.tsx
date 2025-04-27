@@ -8,7 +8,7 @@ interface Props {
   experience?: string;
 }
 
-export const JobSearchBarSkeleton: FC<Props> = ({keywords, location}) => {
+export const JobSearchBarSkeleton: FC<Props> = ({ keywords, location }) => {
   return (
     <Container>
       <div className='hidden lg:block w-full'>
@@ -50,11 +50,11 @@ export const JobSearchBarSkeleton: FC<Props> = ({keywords, location}) => {
                 />
               </div>
             </div>
-            
-            <div className='md:w-[162px] lg:w-[222px] mt-3 md:mt-0 bg-white h-14 flex-0 flex items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
+
+            <div className='hidden md:flex md:w-[162px] lg:w-[222px] mt-3 md:mt-0 bg-white h-14 flex-0 items-center border border-1 border-neutral-cold text-base-content hover:text-white hover:border-primary hover:bg-primary rounded-3xl'>
               <button
                 type='submit'
-                className='w-full h-full flex items-center justify-between pl-5'
+                className='flex w-full h-full items-center justify-between pl-5'
               >
                 <p className='text-[18px]'>Search</p>
                 <Search className='mx-4' size={27} />

@@ -24,7 +24,7 @@ export const JobManagerHeader: FC = () => {
         <h2 className='font-montserrat font-normal text-[18px]'>
           Your applications will appear here after we generate resume and cover letter for them.
           <br />
-          Please wait for a while and refresh the page.
+          <span className='hidden md:block'>Please wait for a while and refresh the page.</span>
         </h2>
       </Container>
     );
@@ -45,8 +45,8 @@ export const JobManagerHeader: FC = () => {
           >
             <div
               className={cn(
-              "transition-transform duration-100 ease-in-out",
-              isAllSelected() ? "scale-100" : "scale-0"
+                "transition-transform duration-100 ease-in-out",
+                isAllSelected() ? "scale-100" : "scale-0"
               )}
             >
               <Check size={32} strokeWidth={2.5} />

@@ -2,11 +2,11 @@
 // eslint-disable-next-line no-unused-vars
 export const Tab = ({ active, text, setTab, tab }: { active: boolean | null, setTab: (tab: number) => void, text: string, tab: number }) => {
     return (
-        <div onClick={() => setTab(tab)} className={`${tab === 0 ? 'w-[220px] text-center' : 'flex-1'} cursor-pointer px-5 py-3 text-my-neutral-7 font-jura font-semibold text-[18px] ${active ? 'bg-white' : 'bg-my-neutral-2'} rounded-t-[5px] bg-black`}>{text}</div>
+        <div onClick={() => setTab(tab)} className={`${tab === 0 ? 'w-[160px] md:w-[220px] text-center' : 'flex-1'} cursor-pointer px-3 md:px-5 py-3 text-my-neutral-7 font-jura font-semibold whitespace-nowrap text-[14px] md:text-[18px] ${active ? 'bg-white' : 'bg-my-neutral-2'} rounded-t-[5px] bg-black`}>{text}</div>
     )
 }
 
-function SubscriptionNav({ tab, setTab}: {
+function SubscriptionNav({ tab, setTab }: {
     tab: number | null,
     // eslint-disable-next-line no-unused-vars
     setTab: (tab: number) => void,

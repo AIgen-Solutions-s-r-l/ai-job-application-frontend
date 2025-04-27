@@ -29,7 +29,7 @@ export default function AppSidenav() {
       {!isOpen && (
         <button
           onClick={toggleDrawer}
-          className='btn btn-square btn-ghost fixed top-2 left-3 z-50 md:hidden'
+          className='btn btn-square btn-ghost absolute top-2 left-3 z-50 md:hidden'
         >
           <Menu />
         </button>
@@ -44,8 +44,8 @@ export default function AppSidenav() {
         {/* Collapse button */}
         <button
           className={`hidden p-1 rounded-md hover:bg-base-300 ${isCollapse
-              ? 'md:flex flex-col items-center py-4'
-              : 'md:block absolute right-0 top-0'
+            ? 'md:flex flex-col items-center py-4'
+            : 'md:block absolute right-0 top-0'
             }`}
           onClick={toggleCollapse}
         >

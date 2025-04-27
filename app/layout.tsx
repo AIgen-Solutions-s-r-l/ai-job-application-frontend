@@ -7,6 +7,7 @@ import { Providers } from "./providers";
 import "./globals.css";
 import Script from "next/script";
 import { StagingBanner } from './staging-banner'; // adjust import path if needed
+import ScrollToTop from "@/components/ScrollToTop";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -43,23 +44,26 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       {config.domainName && (
-         <head>
-         {/* Google tag (gtag.js) */}
-         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Q03TPGL5QF" strategy="afterInteractive" />
-         <Script id="google-analytics" strategy="afterInteractive">
-           {`
+        <head>
+          {/* Google tag (gtag.js) */}
+          <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Q03TPGL5QF" strategy="afterInteractive" />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
              window.dataLayer = window.dataLayer || [];
              function gtag(){dataLayer.push(arguments);}
              gtag('js', new Date());
 
              gtag('config', 'G-Q03TPGL5QF');
            `}
-         </Script>
-       </head>
+          </Script>
+        </head>
       )}
       <body>
         <StagingBanner />
-        <Providers>{children}</Providers>
+        <Providers>
+          <ScrollToTop />
+          {children}
+        </Providers>
       </body>
     </html>
   );

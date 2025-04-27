@@ -69,7 +69,7 @@ export const ChangePassword = () => {
         </Alert>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={typography.forms.row}>
+          <div className={`${typography.forms.row} flex flex-col md:flex-row gap-4`}>
             <FormInput
               title={'Current Password'}
               {...register('password', {
@@ -79,56 +79,56 @@ export const ChangePassword = () => {
               autoComplete='current-password'
               error={!!errors.password}
               errorMessage={errors.password?.message}
-              className='grow'
+              className='w-full'
             />
             <FormInput
-                title={'New Password'}
-                {...register('newPassword', {
+              title={'New Password'}
+              {...register('newPassword', {
                 required: 'New Password is required',
                 pattern: {
                   value: /^(?=.*\d).{8,}$/,
                   message: 'Password must be at least 8 characters long and contain at least one number',
                 },
-                })}
-                type='password'
-                autoComplete='new-password'
+              })}
+              type='password'
+              autoComplete='new-password'
               error={!!errors.newPassword}
-                errorMessage={errors.newPassword?.message}
-                className='grow'
-                />
-                <FormInput
-                title={'Confirm New Password'}
-                {...register('newPasswordConfirm', {
-                  required: 'Confirm Password is required',
-                })}
-                type='password'
-                error={!!errors.newPasswordConfirm}
-                errorMessage={
-                  watch('newPasswordConfirm') !== watch('newPassword')
+              errorMessage={errors.newPassword?.message}
+              className='w-full'
+            />
+            <FormInput
+              title={'Confirm New Password'}
+              {...register('newPasswordConfirm', {
+                required: 'Confirm Password is required',
+              })}
+              type='password'
+              error={!!errors.newPasswordConfirm}
+              errorMessage={
+                watch('newPasswordConfirm') !== watch('newPassword')
                   ? 'The passwords do not match'
                   : undefined
-                }
-                className='grow'
-                onChange={() => {
-                  if (watch('newPasswordConfirm') === watch('newPassword')) {
+              }
+              className='w-full'
+              onChange={() => {
+                if (watch('newPasswordConfirm') === watch('newPassword')) {
                   errors.newPasswordConfirm = undefined;
-                  }
-                }}
-                />
+                }
+              }}
+            />
           </div>
-            <div className="flex justify-between pt-4">
-              <Link href='/forgot-password' className='font-medium text-primary hover:underline'>
-                Forgot password?
-              </Link>
+          <div className="flex justify-between pt-4">
+            <Link href='/forgot-password' className='font-medium text-primary hover:underline'>
+              Forgot password?
+            </Link>
 
-              <button
-                type='submit'
-                className={typography.forms.submitButton}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Confirming...' : 'Confirm'}
-              </button>
-            </div>
+            <button
+              type='submit'
+              className={typography.forms.submitButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Confirming...' : 'Confirm'}
+            </button>
+          </div>
         </form>
       )}
     </div>

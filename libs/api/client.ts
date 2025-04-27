@@ -96,7 +96,7 @@ const responseInterceptor = (response: any) => response;
 const errorInterceptor = async (error: any) => {
   const originalRequest = error.config;
 
-  if (error?.response?.status === 401 && !originalRequest._retry) {
+  /*if (error?.response?.status === 401 && !originalRequest._retry) {
     originalRequest._retry = true;
 
     try {
@@ -108,7 +108,7 @@ const errorInterceptor = async (error: any) => {
     } catch (refreshError) {
       return Promise.reject(refreshError);
     }
-  }
+  }*/
 
   return Promise.reject(error);
 };

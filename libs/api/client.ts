@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { refreshToken } from './auth';
+import { checkAuth } from './auth';
 
 const API_KEY = process.env.API_KEY || '';
 const API_KEY2 = process.env.API_KEY2 || '';
@@ -74,46 +74,18 @@ apiClientMultipart.interceptors.request.use(
 
 const responseInterceptor = (response: any) => response;
 
-// const errorInterceptor = async (error: any) => {
-//   // TODO: Uncomment - Backend api ends up in an infinite loop when the token expires.
-//   // if (error?.response?.status === 401 && accessToken) {
-//   //   try {
-//   //     await refreshToken();
-//   //     const originalRequest = error.config;
-//   //     return apiClientJwt(originalRequest);
-//   //   } catch (refreshError) {
-//   //     redirect(`${config.auth.loginUrl}/`);
-//   //   }
-//   // }
-
-//   if ([401, 403].includes(error?.response?.status)) {
-//     // redirect(`${config.auth.loginUrl}/`)
-//   }
-
-//   return Promise.reject(error);
-// };
-
 const errorInterceptor = async (error: any) => {
   const originalRequest = error.config;
 
   if (error?.response?.status === 401 && !originalRequest._retry) {
     originalRequest._retry = true;
 
-    try {
-      const data = await refreshToken();
-
-      originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
-
-      return apiClientJwt(originalRequest);
-    } catch (refreshError) {
-      return Promise.reject(refreshError);
-    }
+    await checkAuth();
   }
 
   return Promise.reject(error);
 };
 
-apiClient.interceptors.response.use(responseInterceptor, errorInterceptor);
 apiClientJwt.interceptors.response.use(responseInterceptor, errorInterceptor);
 apiClientMultipart.interceptors.response.use(responseInterceptor, errorInterceptor);
 

@@ -1,6 +1,5 @@
 import { JobSearchProps } from '@/libs/definitions';
 import retry from 'async-retry'; // Import retry
-import { Alert } from '@/components/Alert'; // Import Alert component
 import { JobSearchView } from './JobSearchView';
 import { getMatchingJobsData } from '@/libs/data';
 import { getServerCookie } from '@/libs/cookies';
@@ -35,7 +34,7 @@ export const JobSearchDispatcher = async ({
       console.log('Attempting to fetch jobs...'); // Optional: Add logging
       return await getMatchingJobsData(jobSearchParams);
     }, {
-      retries: 7, // Retry 7 times
+      retries: 5, // Retry 5 times
       minTimeout: 1500, // Start with 1500ms delay
       factor: 2, // Exponential backoff factor
     });

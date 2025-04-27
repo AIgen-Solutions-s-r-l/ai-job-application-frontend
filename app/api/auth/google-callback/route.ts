@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
             }
 
             // Create the redirect response *first*
-            const redirectUrl = `${appOrigin}/search`; // TODO: Consider making redirect dynamic?
+            const redirectUrl = `${appOrigin}/sium`; // TODO: Consider making redirect dynamic?
             const response = NextResponse.redirect(redirectUrl);
 
             // Set the cookie on the response object

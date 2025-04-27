@@ -125,6 +125,7 @@ export default function UserContextProvider({
         setAccessToken(null);
         localStorage.removeItem('selectedJobs');
         router.replace(config.auth.loginUrl);
+        localStorage.removeItem('logout');
       }
     };
     window.addEventListener('storage', syncLogout);

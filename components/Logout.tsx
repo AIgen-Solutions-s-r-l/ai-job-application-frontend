@@ -16,6 +16,7 @@ const Logout = () => {
       setUser(null);
       setAccessToken(null);
       localStorage.removeItem('selectedJobs');
+      localStorage.setItem('logout', Date.now().toString());
       router.replace('/');
     };
     handleSignOut();

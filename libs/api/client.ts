@@ -94,21 +94,21 @@ const responseInterceptor = (response: any) => response;
 // };
 
 const errorInterceptor = async (error: any) => {
-  const originalRequest = error.config;
+  // const originalRequest = error.config;
 
-  if (error?.response?.status === 401 && !originalRequest._retry) {
-    originalRequest._retry = true;
+  // if (error?.response?.status === 401 && !originalRequest._retry) {
+  //   originalRequest._retry = true;
 
-    try {
-      const data = await refreshToken();
+  //   try {
+  //     const data = await refreshToken();
 
-      originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
+  //     originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
 
-      return apiClientJwt(originalRequest);
-    } catch (refreshError) {
-      return Promise.reject(refreshError);
-    }
-  }
+  //     return apiClientJwt(originalRequest);
+  //   } catch (refreshError) {
+  //     return Promise.reject(refreshError);
+  //   }
+  // }
 
   return Promise.reject(error);
 };

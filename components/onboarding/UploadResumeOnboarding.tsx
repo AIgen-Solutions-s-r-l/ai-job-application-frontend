@@ -11,6 +11,7 @@ import { AiFillFilePdf } from "react-icons/ai";
 import { ArrowRightIcon } from '@/components/AppIcons';
 import { FaSpinner } from 'react-icons/fa';
 import { useWindowSize } from '@/lib/hooks';
+import toast from 'react-hot-toast';
 
 export const UploadResumeOnboarding: React.FC = () => {
   const [cvFile, setCVFile] = useState<File | null>(null);
@@ -36,14 +37,36 @@ export const UploadResumeOnboarding: React.FC = () => {
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files[0];
-    if (file && file.type === 'application/pdf') {
-      setCVFile(file);
+    if (file) {
+      const isPDF = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+      if (isPDF) {
+        setCVFile(file);
+      }
+      else {
+        toast.error('Please upload a valid PDF file.');
+      }
+    }
+    else {
+      toast.error('An error occurred while uploading the file. Please try again.');
     }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
-    if (file) setCVFile(file);
+    if (file) {
+      const isPDF = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+      if (isPDF) {
+        setCVFile(file);
+        toast.success('File uploaded successfully!');
+      }
+      else {
+        e.target.files = null;
+        toast.error('Please upload a valid PDF file.');
+      }
+    }
+    else {
+      toast.error('An error occurred while uploading the file. Please try again.');
+    }
   };
 
   const handleUpload = async (ev: FormEvent<HTMLButtonElement>) => {
@@ -140,8 +163,9 @@ export const UploadResumeOnboarding: React.FC = () => {
                 <ArrowRightIcon />
                 <input
                   type="file"
-                  accept=".pdf"
+                  accept=".pdf,application/pdf"
                   onChange={handleFileChange}
+                  value={''}
                   className="hidden"
                 />
               </label>

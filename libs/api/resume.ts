@@ -1,6 +1,6 @@
 "use server";
 
-import { apiClientJwt } from "@/libs/api/client";
+import { apiClient, apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config";
 import { JobProfile } from '../definitions';
 
@@ -25,6 +25,23 @@ export async function isResumeExits(): Promise<{ exists: boolean }> {
     const response = await apiClientJwt.get(`${API_BASE_URLS.resumes}/resumes/exists`, {
       headers: {
         Accept: "application/json",
+      },
+      timeout: 30000,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Existenss of Resume:", error);
+    throw error;
+  }
+}
+
+export async function isResumeExitsJWT(JWT: string): Promise<{ exists: boolean }> {
+  try {
+    const response = await apiClient.get(`${API_BASE_URLS.resumes}/resumes/exists`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${JWT}`,
       },
       timeout: 30000,
     });

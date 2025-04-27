@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { decodeToken } from '@/libs/api/auth'; // Assuming auth utils are here
 import appConfig from '@/config'; // Assuming config is at root
-import { isResumeExits } from '@/libs/api/resume';
+import { isResumeExitsJWT } from '@/libs/api/resume';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
@@ -46,9 +46,7 @@ export async function GET(request: NextRequest) {
             }
 
             // Check if the user already has resume
-            const [exists] = await Promise.all([
-              isResumeExits(),
-            ]);
+            const exists = await isResumeExitsJWT(data.access_token);
 
             let redirectUrl = ``;
             if (exists) {

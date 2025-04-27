@@ -152,6 +152,7 @@ const GenerateResumeModal = ({
                         >
                             <Dialog.Panel className="flex flex-col items-center relative w-full h-[95vh] py-6 bg-white rounded-xl shadow-lg gap-[20px]">
                                 <div className="flex w-full justify-end items-center mb-4 px-6">
+                                {/* <div className="absolute top-6 right-6"> */}
                                     <button
                                         className="outline-none"
                                         onClick={handleCancel}

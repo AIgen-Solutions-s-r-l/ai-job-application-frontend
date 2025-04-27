@@ -15,6 +15,7 @@ import { isResumeExits } from '@/libs/api/resume';
 import { decodeToken, fetchUserData } from '@/libs/api/auth';
 import { deleteServerCookie, getServerCookie } from '@/libs/cookies';
 import { refreshToken } from '@/libs/api/auth';
+import { useRouter } from 'next/navigation';
 
 interface User {
   id: string;
@@ -37,6 +38,7 @@ export default function UserContextProvider({
 }: {
   children: ReactNode;
 }) {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
@@ -115,6 +117,19 @@ export default function UserContextProvider({
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [accessToken]);
+
+  useEffect(() => {
+    const syncLogout = (event: StorageEvent) => {
+      if (event.key === 'logout') {
+        setUser(null);
+        setAccessToken(null);
+        localStorage.removeItem('selectedJobs');
+        router.replace(config.auth.loginUrl);
+      }
+    };
+    window.addEventListener('storage', syncLogout);
+    return () => window.removeEventListener('storage', syncLogout);
+  }, [router, setAccessToken, setUser]);
 
   const getUserData = async () => {
     const token = await getServerCookie('accessToken');

@@ -177,7 +177,7 @@ const GenerateResumeModal = ({
                                     />
                                 </section>
                                 {generateTemplate ?
-                                    <section className={`px-0 md:px-7 flex flex-wrap justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 overflow-y-auto relative`}>
+                                    <section className={`px-0 md:px-7 flex 2xl:justify-center w-full py-3 h-[60vh] gap-16 bg-base-100 my-x-scrollable relative`}>
                                         {
                                             Templates.map((data, index) => (
                                                 <TemplateCard

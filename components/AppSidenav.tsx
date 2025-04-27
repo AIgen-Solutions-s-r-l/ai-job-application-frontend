@@ -37,8 +37,8 @@ export default function AppSidenav() {
 
       {/* Drawer */}
       <div
-        className={`drawer-menu h-full shrink-0 fixed top-0 left-0- z-10 md:relative flex flex-col bg-base-100 z-40 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          } transition-transform duration-300 ease-in-out md:translate-x-0 overflow-y-auto ${isOpen ? 'min-h-screen' : ''
+        className={`drawer-menu h-full shrink-0 fixed top-0 left-0 md:relative flex flex-col bg-base-100 z-40 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } transition-transform duration-300 ease-in-out md:translate-x-0 my-scrollable ${isOpen ? 'min-h-screen' : ''
           } ${!isCollapse && `w-[${minWidth}px]`}`}
       >
         {/* Collapse button */}

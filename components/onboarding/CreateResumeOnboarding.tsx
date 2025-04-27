@@ -52,11 +52,13 @@ export const CreateResumeOnboarding: React.FC = () => {
     ev.preventDefault();
     if (await validateStep())
       setCurrentStep((prev) => prev + 1)
+    window.scrollTo({ top: 200, behavior: 'smooth' });
   };
 
   const prevStep = (ev: FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();
     setCurrentStep((prev) => prev - 1);
+    window.scrollTo({ top: 200, behavior: 'smooth' });
   }
 
   const handleProfileSubmit = async (jobProfile: JobProfile) => {

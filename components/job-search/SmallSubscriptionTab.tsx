@@ -29,7 +29,7 @@ function SmallSubscriptionTab() {
   return (
     <div className="bg-white p-6 rounded-xl flex flex-col gap-6">
       {/* Toggle row */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <TwoWayToggleSwitch value={paymentPlan} onChange={setPaymentPlan} />
         {paymentPlan === "monthly" && (
           <div className="pill bg-green-100 text-green-700 font-semibold px-3 py-1 border border-green-300 shadow-sm animate-pulse">
@@ -70,18 +70,18 @@ function SmallSubscriptionTab() {
 
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
-          <p className="font-montserrat text-sm text-my-neutral-5">
-              {(sliderValue === 4 
-              ? (sliderValue + 1) * 100 * 2 
-              : sliderValue === 3 
-              ? (sliderValue + 1) * 100 + 100 
-              : (sliderValue + 1) * 100)} applications
+            <p className="font-montserrat text-sm text-my-neutral-5">
+              {(sliderValue === 4
+                ? (sliderValue + 1) * 100 * 2
+                : sliderValue === 3
+                  ? (sliderValue + 1) * 100 + 100
+                  : (sliderValue + 1) * 100)} applications
               {paymentPlan === "monthly" && " / month"}
             </p>
             <p className="font-montserrat text-2xl font-bold text-black mr-2">
               {paymentPlan === "monthly"
-              ? `€${totals.price} / month`
-              : `€${totals.price}`}
+                ? `€${totals.price} / month`
+                : `€${totals.price}`}
             </p>
             <button
               onClick={handlePurchase}

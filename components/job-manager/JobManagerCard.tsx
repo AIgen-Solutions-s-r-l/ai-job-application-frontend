@@ -9,6 +9,8 @@ import Image from 'next/image';
 import Pin from '../svgs/Pin.svg';
 import { useJobManager } from '@/contexts/job-manager-context';
 import Document from '../svgs/Document.svg';
+import { useWindowSize } from '@/lib/hooks';
+import toast from 'react-hot-toast';
 
 interface Props {
   id: string;
@@ -20,6 +22,8 @@ interface Props {
 export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
   const { selectedApplications, handleApplicationSelect } = useJobManager();
   const [mounted, setMounted] = useState(false);
+  const { width } = useWindowSize();
+  const isMobile = width <= 1024;
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +39,17 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
 
     onClick();
     handleApplicationSelect(id, e);
+  };
+
+  const handleEditClick = (e: React.MouseEvent) => {
+    if (isMobile) {
+      e.preventDefault();
+      e.stopPropagation();
+      toast.error('You can only edit resume and cover letter on desktop');
+      return false;
+    }
+    e.stopPropagation();
+    return true;
   };
 
   return (
@@ -74,7 +89,7 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
               </>
             );
           })()}
-      </p>
+        </p>
       ) : (
         <p className="text-sm md:text-base flex gap-2 items-center">
           {job.workplace_type}
@@ -116,8 +131,8 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
 
       {/* Prevent this link from bubbling up */}
       <Link
-        href={`/manager/${id}`}
-        onClick={(e) => e.stopPropagation()}
+        href={isMobile ? '#' : `/manager/${id}`}
+        onClick={handleEditClick}
         className="btn mt-4 lg:mt-8 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white"
       >
         Edit Resume & Cover Letter

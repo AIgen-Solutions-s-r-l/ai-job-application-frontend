@@ -47,7 +47,7 @@ export const JobSearchBottomSheet: React.FC = () => {
           spendCreditsAction(selectedJobs.length),
           setSelectedJobs([]),
         ])
-        
+
         if (job.success && credit.success) {
           updateCredits();
           toast.success("Your application will be added to job manager soon", {
@@ -72,11 +72,11 @@ export const JobSearchBottomSheet: React.FC = () => {
       setIsModalOpen(true)
     }
   }
- 
+
   return (
     <>
       <JobButtomSheet className='justify-end items-center gap-2 md:gap-8 lg:gap-10'>
-        <div 
+        <div
           className="flex items-center gap-2 group cursor-pointer"
           onClick={() => setIsSelectedJobsModal(true)}
         >
@@ -103,7 +103,7 @@ export const JobSearchBottomSheet: React.FC = () => {
         cvFile={cvFile}
         setCVFile={setCVFile}
       />
-      
+
       <SubscriptionModal
         isModalOpen={isSubscriptionModal}
         setIsModalOpen={setIsSubscriptionModal}

@@ -16,28 +16,12 @@ export default async function SettingsPage() {
       <p className='page-header'>Account Information</p>
 
       <Tabs.List className={typography.tabs.list} aria-label='Profile data'>
-        {/* <Tabs.Trigger className={typography.tabs.trigger} value='profile'>
-          <User />
-          Auth
-        </Tabs.Trigger> */}
-        {/* <Tabs.Trigger
-          className={`${typography.tabs.trigger} px-9`}
-          value='info'
-        >
-          <FileUser />
-          Personal
-        </Tabs.Trigger> */}
       </Tabs.List>
 
       <Tabs.Content className={typography.tabs.content} value='profile'>
         <ChangePassword />
         <ChangeEmail />
       </Tabs.Content>
-      {/* <Tabs.Content className={typography.tabs.content} value='info'>
-        <Suspense fallback={<ProfilePersonalInformationSkeleton />}>
-          <PersonalInfo jobProfile={profileData} />
-        </Suspense>
-      </Tabs.Content> */}
 
     <p className="text-center text-sm text-muted-foreground pt-72">
       If you want to delete your account, please contact us at{' '}

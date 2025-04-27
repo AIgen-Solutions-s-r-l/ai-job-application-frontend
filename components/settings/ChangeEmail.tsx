@@ -42,7 +42,7 @@ export const ChangeEmail = () => {
 
       if (response.success) {
         toast.success('Link for change email sent to your current Email.');
-        router.replace('/logout');
+        setTimeout(() => { router.replace('/logout'); }, 2000);
       } else {
         toast.error('Error updating email.');
         console.error('Error updating email:', response.error);

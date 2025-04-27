@@ -8,6 +8,7 @@ import { changePassword } from '@/libs/api/auth';
 import { useUserContext } from '@/contexts/user-context'; // Import user context hook
 import { Alert } from '@/components/Alert'; // Import the custom Alert component
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type FormData = {
   password: string;
@@ -17,6 +18,7 @@ type FormData = {
 
 export const ChangePassword = () => {
   const { user } = useUserContext(); // Get user from context
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -39,6 +41,7 @@ export const ChangePassword = () => {
 
       if (response.success) {
         toast.success('Password changed successfully.');
+        setTimeout(() => { router.replace('/logout'); }, 2000);
       } else {
         toast.error('Error updating password.');
         console.error('Error updating password:', response.error);

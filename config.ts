@@ -10,10 +10,10 @@ const isProductionUrl = !url.includes("pre") && !url.includes("localhost");
 
 const config = {
   // REQUIRED
-  appName: "laboro",
+  appName: "LABORO",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "Automate your job applications effortlessly with laboro. Save time, apply faster, and get hired quicker.",
+    "Automate your Job Application and land interview 24/7.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
   domainName: process.env.SITE_URL,
   crisp: {

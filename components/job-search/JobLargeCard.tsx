@@ -31,7 +31,7 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
   return (
     <div
       className={cn(
-        'sticky top-5 hidden xl:flex flex-col h-[calc(100vh-100px)] bg-white rounded-xl py-8 px-10',
+        'sticky top-5 hidden xl:flex flex-col h-[calc(100vh-100px)] bg-white rounded-xl pt-8 px-10',
         className
       )}
     >

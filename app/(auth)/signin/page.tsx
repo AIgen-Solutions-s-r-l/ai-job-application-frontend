@@ -46,7 +46,7 @@ const Login = () => {
 
           setUser({ ...exists, ...me });
           setAccessToken(result.value.access_token);
-          router.replace(exists.exists ? '/search' : '/onboarding');
+          router.replace(exists.exists ? '/porcodio' : '/onboarding');
         } catch (error) {
           router.replace('/onboarding');
         }

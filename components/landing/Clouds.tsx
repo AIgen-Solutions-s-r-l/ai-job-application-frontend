@@ -60,9 +60,6 @@ export const Clouds: FC = () => {
           <p>
             As Seen In Leading Publications
           </p>
-          <p className='text-[25px] lg:text-[30px] mt-[25px] hidden md:block'>
-            Our hiring transformation journey has been<br /> featured in major media.
-          </p>
         </div>
       </LandingContainer>
     </section>

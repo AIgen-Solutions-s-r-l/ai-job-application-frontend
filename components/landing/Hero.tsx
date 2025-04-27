@@ -46,9 +46,9 @@ export const Hero: FC = () => {
         </h2>
         <a
           href="/signup"
-          className="bg-splash-green h-[40px] sm:h-[55px] md:h-[60px] px-[20px] sm:px-[25px] md:px-[30px] flex items-center justify-center sm:justify-between rounded-[20px] gap-[30px] sm:gap-[40px] md:gap-[50px] w-[55vw] sm:w-auto"
+          className="hover:bg-my-neutral-2 transition-all ease-in duration-300 bg-splash-green h-[40px] sm:h-[55px] md:h-[60px] px-[20px] sm:px-[25px] md:px-[30px] flex items-center justify-center sm:justify-between rounded-[20px] gap-[30px] sm:gap-[40px] md:gap-[50px] w-[55vw] sm:w-auto"
         >
-          <p className="text-[20px] sm:text-[24px] md:text-[27px] lg:text-[32px] font-light font-k2d text-my-neutral-7 leading-none">Get Started</p>
+          <p className="text-[20px] sm:text-[24px] md:text-[27px] lg:text-[32px] font-light font-k2d text-my-neutral-7 leading-none ">Get Started</p>
           <div className='hidden sm:block'>
             <Image
               src={ContactsArrow}

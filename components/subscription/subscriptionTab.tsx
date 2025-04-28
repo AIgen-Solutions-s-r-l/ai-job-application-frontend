@@ -197,31 +197,13 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
         </h2>
 
         {/* Slider */}
-        <div className="relative pb-10">      {/* give a little extra vertical room */}
+        <div className="relative pb-6">
           <SliderInput
             values={values}
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
+            activePlanValue={activeSubscription && paymentPlan === "monthly" && values[sliderValue].value === activePlanValue?.toString() ? activePlanValue : null}
           />
-
-          {/* “Current plan” label – sits right below the selected slider step */}
-          {activeSubscription &&
-            values[sliderValue].value === activePlanValue?.toString() && (
-              <div
-                className="
-                  absolute -bottom-5   /* distance from the slider track */
-                  text-primary-deep-purple text-sm font-semibold
-                  whitespace-nowrap pointer-events-none select-none
-                "
-                style={{
-                  /* 0 % for first step … 100 % for last.  translateX(-50 %) centers it. */
-                  left: `${(sliderValue / (values.length - 1)) * 100}%`,
-                  transform: "translateX(-50%)",
-                }}
-              >
-                Current plan
-              </div>
-            )}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price & purchase */}

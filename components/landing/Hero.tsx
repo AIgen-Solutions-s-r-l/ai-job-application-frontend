@@ -39,7 +39,7 @@ export const Hero: FC = () => {
     <LandingContainer className='pt-[5vh]'>
       <section className='flex flex-col items-center gap-[15px] sm:gap-[20px] md:gap-[25px] 2xl:gap-[35px] font-montserrat px-0 sm:px-6 md:px-8 pb-[80px] lg:pb-[0px]'>
         <h1 className="text-heading animate-fadeIn text-[26px] sm:text-[40px] md:text-[50px] text-center leading-tight">
-          <span className='text-splash-green'>Auto-apply fast</span> with AI.<br className="hidden sm:block" /> Get your dream job while sleeping
+          <span className='text-splash-green'>Auto-apply fast</span> with AI.<br className="hidden sm:block" /> Get your dream job while sleeping.
         </h1>
         <h2 className="text-center text-[16px] sm:text-[24px] md:text-[30px] font-montserrat font-normal font-[300] leading-[110%] tracking-[-0.66px] text-neutral-cold-1 max-w-[800px]">
           Automate your job search & land interviews 24/7.<br className="hidden sm:block" /><p className='hidden sm:block'>Apply 1000s of jobs instantly.</p>
@@ -49,18 +49,18 @@ export const Hero: FC = () => {
           className="hover:bg-my-neutral-2 transition-all ease-in duration-300 bg-splash-green h-[40px] sm:h-[55px] md:h-[60px] px-[20px] sm:px-[25px] md:px-[30px] flex items-center justify-center sm:justify-between rounded-[20px] gap-[30px] sm:gap-[40px] md:gap-[50px] w-[55vw] sm:w-auto"
         >
           <p className="text-[20px] sm:text-[24px] md:text-[27px] lg:text-[32px] font-light font-k2d text-my-neutral-7 leading-none ">Get Started</p>
-          <div className='hidden sm:block'>
+            <div className='hidden sm:block'>
             <Image
               src={ContactsArrow}
               alt="signup-arrow"
-              className="mt-1"
+              className="mt-1 w-[150px] h-[100px]"
             />
-          </div>
+            </div>
         </a>
         <div className='flex gap-2 items-center'>
           <Image src={Faces} alt='Faces' className="w-[55px] sm:w-[50px] md:w-auto" />
           <div className='flex flex-col'>
-            <Image src={Stars} alt='Stars' className="w-[80px] sm:w-[100px] md:w-auto" />
+            <Image src={Stars} alt='Stars' className="w-[80px] sm:w-[100px] md:w-[150px]" />
             <p className="text-white font-montserrat text-sm sm:text-base font-normal font-medium leading-[110%] text-my-neutral-1">Trusted by 400K job seekers </p>
           </div>
         </div>
@@ -102,12 +102,12 @@ export const Hero: FC = () => {
                         onClick={handleVideoClick}
                       >
                         <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px]">
-                          <div className="absolute inset-0 bg-my-neutral-5/90 rounded-full group-hover:bg-my-neutral-5/90 transition-all duration-300 border-[8px] group-hover:border-[12px] border-my-neutral-7/90"></div>
+                          <div className="absolute inset-0 bg-my-neutral-5/90 rounded-full group-hover:bg-my-neutral-5/90 transition-all duration-300 border-[8px] group-hover:border-[12px] border-primary-light-purple border-[10px]"></div>
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2 group-hover:scale-110 transition-transform duration-300"></div>
                           </div>
                         </div>
-                        <div className="mt-2 bg-my-neutral-5/90 rounded-full px-3 py-1 border-my-neutral-7/90">
+                        <div className="mt-2 bg-my-neutral-5/90 rounded-full px-3 py-1 border-primary-light-purple border-[3px]">
                           <p className="text-white text-center text-sm sm:text-base font-montserrat font-medium">30 sec</p>
                         </div>
                       </div>

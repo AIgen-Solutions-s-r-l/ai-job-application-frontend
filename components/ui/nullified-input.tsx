@@ -1,29 +1,72 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-    error?: boolean;
-  }
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean;
+}
 
 const NullifiedInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, ...props }, ref) => {
+  ({ className, type, error, value, defaultValue, ...props }, ref) => {
+    const localRef = React.useRef<HTMLInputElement>(null)
+
+    // Combine the forwarded ref (from register) with our local ref
+    React.useEffect(() => {
+      if (!ref) return
+      
+      if (typeof ref === 'function') {
+        ref(localRef.current)
+      } else {
+        ref.current = localRef.current
+      }
+    }, [ref])
+
+    // Initialize and set up event listener
+    React.useEffect(() => {
+      if (!localRef.current) return
+
+      // Handle width adjustment
+      const adjustWidth = () => {
+        if (!localRef.current) return
+        
+        const span = document.createElement('span')
+        span.style.visibility = 'hidden'
+        span.style.position = 'absolute'
+        span.style.whiteSpace = 'pre'
+        span.style.font = window.getComputedStyle(localRef.current).font
+        
+        const text = localRef.current.value || localRef.current.placeholder || ''
+        span.textContent = text
+        
+        document.body.appendChild(span)
+        const width = span.getBoundingClientRect().width
+        document.body.removeChild(span)
+        
+        localRef.current.style.width = `${Math.max(width, 4)}px`
+      }
+      
+      adjustWidth()
+      const input = localRef.current
+      input.addEventListener('input', adjustWidth)
+      
+      return () => input.removeEventListener('input', adjustWidth)
+    }, [value, defaultValue])
+
     return (
       <input
         type={type}
+        ref={localRef}
         style={{ fontStyle: "inherit" }}
         className={cn(
-          "field-sizing-content min-w-4 border-b-2 border-transparent outline-none bg-transparent nullify-autocomplete",
+          "border-b-2 border-transparent outline-none bg-transparent nullify-autocomplete",
           error && "placeholder-shown:border-error",
           className
         )}
-        ref={ref}
         {...props}
       />
     )
   }
 )
+
 NullifiedInput.displayName = "NullifiedInput"
 
 export { NullifiedInput }

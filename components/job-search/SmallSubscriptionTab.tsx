@@ -87,15 +87,8 @@ function SmallSubscriptionTab() {
             values={values}
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
+            activePlanValue={activeSubscription && paymentPlan === "monthly" && values[sliderValue].value === activePlanValue?.toString() ? activePlanValue : null}
           />
-          {/* "Current plan" label -- shown only when the user’s real
-            subscription matches the current slider step            */}
-          {activeSubscription &&
-            values[sliderValue].value === activePlanValue?.toString() && (
-              <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
-                Current plan
-              </div>
-            )}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price + purchase */}

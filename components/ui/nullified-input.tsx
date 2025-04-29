@@ -1,16 +1,15 @@
-import * as React from "react"
 import { cn } from "@/lib/utils"
-
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+import { forwardRef, InputHTMLAttributes, useEffect, useLayoutEffect, useRef } from "react";
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
 }
 
-const NullifiedInput = React.forwardRef<HTMLInputElement, InputProps>(
+const NullifiedInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, error, value, defaultValue, ...props }, ref) => {
-    const localRef = React.useRef<HTMLInputElement>(null)
+    const localRef = useRef<HTMLInputElement>(null)
 
     // Combine the forwarded ref (from register) with our local ref
-    React.useEffect(() => {
+    useEffect(() => {
       if (!ref) return
       
       if (typeof ref === 'function') {
@@ -21,7 +20,7 @@ const NullifiedInput = React.forwardRef<HTMLInputElement, InputProps>(
     }, [ref])
 
     // Initialize and set up event listener
-    React.useEffect(() => {
+    useLayoutEffect(() => {
       if (!localRef.current) return
 
       // Handle width adjustment

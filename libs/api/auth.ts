@@ -131,6 +131,7 @@ export async function checkAuth() {
 
   if (typeof window !== 'undefined') {
     await deleteServerCookie('accessToken');
+    redirect(`${config.auth.loginUrl}`);
   }
 } 
 

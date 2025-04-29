@@ -202,13 +202,8 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
             values={values}
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
+            activePlanValue={activeSubscription && paymentPlan === "monthly" && values[sliderValue].value === activePlanValue?.toString() ? activePlanValue : null}
           />
-          {/* "Current plan" label basado en el plan activo del usuario */}
-          {activeSubscription && values[sliderValue].value === activePlanValue?.toString() && (
-            <div className="text-primary-deep-purple text-sm font-semibold absolute left-0 right-0 bottom-2 text-center">
-              Current plan
-            </div>
-          )}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price & purchase */}
@@ -222,11 +217,15 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
             <p className="font-montserrat text-sm text-my-neutral-5">
-              {(sliderValue === 4
-                ? (sliderValue + 1) * 100 * 2
+                {sliderValue === 0
+                ? 50
+                : sliderValue === 1
+                ? 100
+                : sliderValue === 2
+                ? 200
                 : sliderValue === 3
-                  ? (sliderValue + 1) * 100 + 100
-                  : (sliderValue + 1) * 100)} applications
+                ? 300
+                : 500} applications
               {paymentPlan === "monthly" && " / month"}
             </p>
             <p className="font-montserrat text-2xl font-bold text-black mr-2">

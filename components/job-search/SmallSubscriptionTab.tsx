@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 // Icons and images
 import { CartIcon } from "@/components/AppIcons";
@@ -9,9 +9,20 @@ import TwoWayToggleSwitch from "../common/TwoWayToggleSwitch";
 // Importamos la configuración central
 import SliderInput from "../subscription/sliderInput";
 import { useSubscription } from "@/libs/hooks/useSubscription";
+import { fetchTransactionsData } from "@/libs/data";
+import { Transaction } from "@/libs/definitions";
 
 function SmallSubscriptionTab() {
   const [currentApplications] = useState(300);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const tsx = await fetchTransactionsData();
+      setTransactions(tsx);
+    })();
+  }, []);
+
   const {
     sliderValue,
     setSliderValue,
@@ -25,6 +36,31 @@ function SmallSubscriptionTab() {
   } = useSubscription({ fromSearch: true });
 
   const totals = calculateTotal(currentApplications);
+
+  const activeSubscription = useMemo(
+    () =>
+      transactions.find(
+        (tx) =>
+          tx.transaction_type === "plan_purchase" && tx.is_subscription_active
+      ),
+    [transactions]
+  );
+
+  const activePlanValue = activeSubscription
+    ? Number(activeSubscription.amount)
+    : null;
+
+  useEffect(() => {
+    if (activePlanValue) {
+      const idx = values.findIndex(
+        (v) => Number(v.value) === activePlanValue
+      );
+      if (idx !== -1) {
+        setSliderValue(idx);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activePlanValue]);
 
   return (
     <div className="bg-white p-6 rounded-xl flex flex-col gap-6">
@@ -52,12 +88,14 @@ function SmallSubscriptionTab() {
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
           />
-          {/* "Current plan" label if 500 is selected */}
-          {values[sliderValue].value === "500" && (
-            <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
-              Current plan
-            </div>
-          )}
+          {/* "Current plan" label -- shown only when the user’s real
+            subscription matches the current slider step            */}
+          {activeSubscription &&
+            values[sliderValue].value === activePlanValue?.toString() && (
+              <div className="text-primary-deep-purple text-sm font-semibold flex justify-center mt-2">
+                Current plan
+              </div>
+            )}
         </div>
 
         {/* Row: left -> credit equivalency, right -> price + purchase */}
@@ -71,11 +109,15 @@ function SmallSubscriptionTab() {
           {/* Right: Price & Purchase */}
           <div className="flex flex-col items-start md:items-end gap-2">
             <p className="font-montserrat text-sm text-my-neutral-5">
-              {(sliderValue === 4
-                ? (sliderValue + 1) * 100 * 2
-                : sliderValue === 3
-                  ? (sliderValue + 1) * 100 + 100
-                  : (sliderValue + 1) * 100)} applications
+              {sliderValue === 0
+                ? 50
+                : sliderValue === 1
+                  ? 100
+                  : sliderValue === 2
+                    ? 200
+                    : sliderValue === 3
+                      ? 300
+                      : 500} applications
               {paymentPlan === "monthly" && " / month"}
             </p>
             <p className="font-montserrat text-2xl font-bold text-black mr-2">

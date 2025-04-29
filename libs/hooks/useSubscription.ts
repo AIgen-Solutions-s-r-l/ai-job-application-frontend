@@ -16,11 +16,11 @@ export function useSubscription({ fromSearch = false }: UseSubscriptionProps = {
 
   // Slider steps
   const values = [
+    { value: "50" },
     { value: "100" },
     { value: "200" },
     { value: "300" },
     { value: "500" },
-    { value: "1000" },
   ];
 
   // Utilizando la configuración de precios desde config.ts

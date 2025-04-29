@@ -49,12 +49,13 @@ const AppNavbar: FC<Props> = ({ slot }) => {
           <MagniferIcon />
         </Link>
 
-        <div className='flex items-center gap-1 lg:gap-5 bg-primary-deep-purple rounded-full ml-2 md:ml-0 pl-[2px] pr-[10px] lg:pr-[25px] py-[1px] lg:py-[3px] transform transition-transform duration-300 hover:scale-105'>
+        <Link
+          href='/dashboard/subscription'
+          className='flex items-center gap-1 lg:gap-5 bg-primary-deep-purple rounded-full ml-2 md:ml-0 pl-[2px] pr-[10px] lg:pr-[25px] py-[1px] lg:py-[3px] transform transition-transform duration-300 hover:scale-105 text-white text-right font-jura text-sm lg:text-xl font-semibold leading-none tracking-tight'
+        >
           <LaboroSmileyIcon />
-          <Link href='/dashboard/subscription' className='text-white text-right font-jura text-sm lg:text-xl font-semibold leading-none tracking-tight'>
-            {credits} Credits
-          </Link>
-        </div>
+          {credits} Credits
+        </Link>
       </div>
     </div>
   );

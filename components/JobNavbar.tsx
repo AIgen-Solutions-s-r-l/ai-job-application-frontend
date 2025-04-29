@@ -21,12 +21,10 @@ export const JobNavbar = () => {
           <Image src='/laboro.png' alt='Logo' width={214} height={58} />
         </Link>
         <div className='flex items-center gap-[10px] lg:gap-[20px] xl:gap-[30px] font-jura'>
-          <div className='flex items-center gap-1 lg:gap-5 bg-primary-deep-purple rounded-full ml-2 md:ml-0 pl-[2px] pr-[10px] lg:pr-[25px] py-[1px] lg:py-[3px] transform transition-transform duration-300 hover:scale-105'>
+            <Link href='/dashboard/subscription' className='flex items-center gap-1 lg:gap-5 bg-primary-deep-purple rounded-full ml-2 md:ml-0 pl-[2px] pr-[10px] lg:pr-[25px] py-[1px] lg:py-[3px] transform transition-transform duration-300 hover:scale-105 text-white text-right font-jura text-[12px] lg:text-xl font-semibold leading-none tracking-tight whitespace-nowrap'>
             <LaboroSmileyIcon />
-            <Link href='/dashboard/subscription' className='text-white text-right font-jura text-[12px] lg:text-xl font-semibold leading-none tracking-tight whitespace-nowrap'>
-              {credits} Credits
+            <span>{credits} Credits</span>
             </Link>
-          </div>
 
           <Link
             key='Dashboard'

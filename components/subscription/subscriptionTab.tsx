@@ -16,6 +16,8 @@ import { addCredits, cancelSubscription } from "@/libs/api/auth";
 import { useSubscription } from "@/libs/hooks/useSubscription";
 import { Transaction } from "@/libs/definitions";
 
+import { useRef } from "react";
+
 interface SubscriptionTabProps {
   transactions: Transaction[];
 }
@@ -41,6 +43,8 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
 
   const totals = calculateTotal(currentApplications);
   const searchParams = useSearchParams();
+
+  const hasSetInitialSlider = useRef(false);
 
   // Determinar si hay un plan activo basado en las transacciones
   const activeSubscription = transactions.find(
@@ -176,6 +180,22 @@ function SubscriptionTab({ transactions = [] }: SubscriptionTabProps) {
       }
     }
   };
+
+  useEffect(() => {
+    if (
+      !hasSetInitialSlider.current &&
+      activePlanValue &&
+      values.length > 0
+    ) {
+      const matchedIndex = values.findIndex(
+        (v) => parseInt(v.value) === activePlanValue
+      );
+      if (matchedIndex !== -1) {
+        setSliderValue(matchedIndex);
+        hasSetInitialSlider.current = true;
+      }
+    }
+  }, [activePlanValue, values, setSliderValue]);
 
   return (
     <div className="bg-white p-0 py-6 md:p-6 rounded-xl flex flex-col gap-6">

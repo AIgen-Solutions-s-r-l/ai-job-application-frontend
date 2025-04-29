@@ -60,7 +60,7 @@ export const Hero: FC = () => {
         <div className='flex gap-2 items-center'>
           <Image src={Faces} alt='Faces' className="w-[55px] sm:w-[50px] md:w-auto" />
           <div className='flex flex-col'>
-            <Image src={Stars} alt='Stars' className="w-[80px] sm:w-[100px] md:w-[150px]" />
+            <Image src={Stars} alt='Stars' className="w-[80px] sm:w-[100px] md:w-[125px]" />
             <p className="text-white font-montserrat text-sm sm:text-base font-normal font-medium leading-[110%] text-my-neutral-1">Trusted by 400K job seekers </p>
           </div>
         </div>

@@ -12,6 +12,8 @@ import { useSubscription } from "@/libs/hooks/useSubscription";
 import { fetchTransactionsData } from "@/libs/data";
 import { Transaction } from "@/libs/definitions";
 
+import { useRef } from "react";
+
 function SmallSubscriptionTab() {
   const [currentApplications] = useState(300);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -36,7 +38,8 @@ function SmallSubscriptionTab() {
   } = useSubscription({ fromSearch: true });
 
   const totals = calculateTotal(currentApplications);
-
+  const hasSetInitialSlider = useRef(false);
+  
   const activeSubscription = useMemo(
     () =>
       transactions.find(
@@ -61,6 +64,22 @@ function SmallSubscriptionTab() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activePlanValue]);
+
+  useEffect(() => {
+      if (
+        !hasSetInitialSlider.current &&
+        activePlanValue &&
+        values.length > 0
+      ) {
+        const matchedIndex = values.findIndex(
+          (v) => parseInt(v.value) === activePlanValue
+        );
+        if (matchedIndex !== -1) {
+          setSliderValue(matchedIndex);
+          hasSetInitialSlider.current = true;
+        }
+      }
+    }, [activePlanValue, values, setSliderValue]);
 
   return (
     <div className="bg-white p-6 rounded-xl flex flex-col gap-6">

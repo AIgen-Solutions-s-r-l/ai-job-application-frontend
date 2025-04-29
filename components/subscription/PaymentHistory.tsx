@@ -81,12 +81,11 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
         if (!transaction.monetary_amount) return "—";
 
         const amount = parseFloat(transaction.monetary_amount);
-        const currency = transaction.currency || 'USD';
 
         // Usar el formateador de moneda basado en la divisa
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: currency,
+            currency: 'EUR',
             minimumFractionDigits: 2
         }).format(amount);
     };

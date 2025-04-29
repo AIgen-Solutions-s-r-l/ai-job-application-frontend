@@ -2,7 +2,7 @@
 
 import { apiClient, apiClientJwt } from "@/libs/api/client";
 import API_BASE_URLS from "@/libs/api/config"; // Import base URLs
-import { setServerCookie, getServerCookie } from "../cookies";
+import { setServerCookie, getServerCookie, deleteServerCookie } from "../cookies";
 import { jwtDecode } from "jwt-decode";
 import { createServerAction, ServerActionError } from "../action-utils";
 import { revalidatePath } from "next/cache";
@@ -127,6 +127,10 @@ export async function checkAuth() {
 
   if (!accessToken) {
     redirect(`${config.auth.loginUrl}`);
+  }
+
+  if (typeof window !== 'undefined') {
+    await deleteServerCookie('accessToken');
   }
 } 
 

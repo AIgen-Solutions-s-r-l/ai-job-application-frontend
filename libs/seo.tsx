@@ -33,18 +33,10 @@ export const getSEOTags = ({
     ),
 
     openGraph: {
-      title: openGraph?.title || config.appName,
-      description: openGraph?.description || config.appDescription,
-      url: openGraph?.url || `https://${config.domainName}/`,
-      siteName: openGraph?.title || config.appName,
-      // If you add an opengraph-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
-      // images: [
-      //   {
-      //     url: `https://${config.domainName}/share.png`,
-      //     width: 1200,
-      //     height: 660,
-      //   },
-      // ],
+      title: String(openGraph?.title || config.appName),
+      description: String(openGraph?.description || config.appDescription),
+      url: String(openGraph?.url || `https://${config.domainName}/`),
+      siteName: String(openGraph?.title || config.appName),
       locale: "en_US",
       type: "website",
     },
@@ -110,3 +102,26 @@ export const renderSchemaTags = () => {
     ></script>
   );
 };
+
+export const renderBreadcrumbSchema = (items: { name: string; url: string }[]) => {
+  const breadcrumbItems = items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  }));
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: breadcrumbItems,
+        }),
+      }}
+    />
+  );
+};
+

@@ -1,5 +1,6 @@
 'use client';
 
+import { renderBreadcrumbSchema } from "@/libs/seo"; // Adjust path if different
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
@@ -79,6 +80,11 @@ const Signup = () => {
   }
 
   return (
+    <>
+    {renderBreadcrumbSchema([
+      { name: "Automate your Job Applications", url: "https://laboro.co/" },
+      { name: "Sign up to LABORO", url: "https://laboro.co/signup" },
+    ])}
     <main className='auth-form-main' data-theme={config.colors.theme}>
       <div className='auth-form-container'>
         <div className='flex flex-col gap-2'>
@@ -211,6 +217,7 @@ const Signup = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 

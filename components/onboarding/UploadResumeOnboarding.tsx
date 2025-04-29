@@ -117,8 +117,7 @@ export const UploadResumeOnboarding: React.FC = () => {
   return (
     <Container className="flex flex-col">
       <h4 className="text-xl font-montserrat leading-none font-medium">Upload your resume</h4>
-
-      <div className="w-full mt-[120px] p-[30px] rounded-[22px] bg-my-neutral-0">
+      <div className="w-full mt-[50px] md:mt-[120px] p-[30px] rounded-[22px] bg-my-neutral-0">
         <div
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}

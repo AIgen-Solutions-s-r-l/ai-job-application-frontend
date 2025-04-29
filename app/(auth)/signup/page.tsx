@@ -1,5 +1,7 @@
 'use client';
 
+import { renderBreadcrumbSchema, getSEOTags } from "@/libs/seo"; // Adjust path if different
+import type { Metadata } from "next";
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
@@ -10,6 +12,12 @@ import { getGoogleOAuthURL, register as sendRegister } from '@/libs/api/auth'; /
 import RequireLogout from '@/permissions/requireLogout';
 import { VerifyEmailInstruction } from '@/components/VerifyEmailInstruction';
 import { FormField } from '@/components/ui/FormField';
+
+export const metadata: Metadata = getSEOTags({
+  title: "Sign Up | LABORO",
+  description: "Create an account to access personalized career support with LABORO.",
+  canonicalUrlRelative: "/signup",
+});
 
 type FormValues = {
   email: string;
@@ -79,6 +87,11 @@ const Signup = () => {
   }
 
   return (
+    <>
+    {renderBreadcrumbSchema([
+      { name: "Automate your Job Applications", url: "https://laboro.co/" },
+      { name: "Sign up to LABORO", url: "https://laboro.co/signup" },
+    ])}
     <main className='auth-form-main' data-theme={config.colors.theme}>
       <div className='auth-form-container'>
         <div className='flex flex-col gap-2'>
@@ -211,6 +224,7 @@ const Signup = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 

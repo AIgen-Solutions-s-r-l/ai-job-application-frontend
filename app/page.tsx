@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Head from 'next/head';
 import { Header } from "@/components/landing/Header";
 import { Features } from '@/components/landing/Features';
 import { Clouds } from '@/components/landing/Clouds';
@@ -11,14 +12,23 @@ import { FAQ } from '@/components/landing/FAQ';
 import { GetHired } from '@/components/landing/GetHired';
 import { Footer } from '@/components/landing/Footer';
 import { Hero } from '@/components/landing/Hero';
-import { renderBreadcrumbSchema} from "@/libs/seo";
+import { renderBreadcrumbSchema } from "@/libs/seo";
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>LABORO | AI-Driven Job Board</title>
+        <meta
+          name="description"
+          content="LABORO is an AI-powered job application engine that finds the best jobs for your profile and generates tailored CVs."
+        />
+      </Head>
+
       {renderBreadcrumbSchema([
         { name: "Automate Your Job Applications with AI", url: "https://laboro.co/" },
       ])}
+      
       <Header />
       <main>
         <Hero />

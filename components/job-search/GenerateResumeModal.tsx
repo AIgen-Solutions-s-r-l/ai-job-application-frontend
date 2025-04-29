@@ -8,6 +8,9 @@ import Template1 from '../svgs/template1.svg';
 import Template2 from '../svgs/template2.svg';
 import Template3 from '../svgs/template3.svg';
 import ResumeUpload from '../svgs/ResumeUpload.svg';
+import TEMPLATE1_truncated from '@/public/templates/TEMPLATE1_truncated.png';
+import TEMPLATE2_truncated from '@/public/templates/TEMPLATE2_truncated.png';
+import TEMPLATE3_truncated from '@/public/templates/TEMPLATE3_truncated.png';
 import { Dispatch, SetStateAction, DragEvent, ChangeEvent } from "react";
 import ToggleSwitch from "../common/ToggleSwitch";
 import TemplateCard from "./TemplateCard";
@@ -109,15 +112,18 @@ const GenerateResumeModal = ({
     const Templates = [
         {
             Text: 'Default Style',
-            src: Template1
+            src: Template1,
+            imageSrc: TEMPLATE1_truncated
         },
         {
             Text: 'Experienced',
-            src: Template2
+            src: Template2,
+            imageSrc: TEMPLATE2_truncated
         },
         {
             Text: 'Alternative',
-            src: Template3
+            src: Template3,
+            imageSrc: TEMPLATE3_truncated
         }
     ]
 
@@ -177,7 +183,7 @@ const GenerateResumeModal = ({
                                     />
                                 </section>
                                 {generateTemplate ?
-                                    <section className={`px-0 md:px-7 flex 2xl:justify-center w-full py-3 grow gap-16 bg-base-100 my-x-scrollable relative`}>
+                                    <section className={`px-0 md:px-7 flex flex-col md:flex-row 2xl:justify-center w-full py-3 grow gap-16 bg-base-100 my-x-scrollable my-y-scrollable relative`}>
                                         {
                                             Templates.map((data, index) => (
                                                 <TemplateCard
@@ -189,6 +195,7 @@ const GenerateResumeModal = ({
                                                     isSelected={selectedTemplate === index + 1}
                                                     onSelect={handleTemplateSelect}
                                                     resume={resume}
+                                                    imageSrc={data.imageSrc}
                                                 />
                                             ))
                                         }

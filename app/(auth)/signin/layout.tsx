@@ -4,7 +4,7 @@ import { getSEOTags } from "@/libs/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = getSEOTags({
-  title: `Sign in to ${config.appName}`,
+  title: `Sign in | ${config.appName}`,
   description: `Access your account to manage your job applications and career support with ${config.appName}.`,
   canonicalUrlRelative: "/signin",
 });

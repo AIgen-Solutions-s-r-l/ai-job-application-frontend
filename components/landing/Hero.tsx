@@ -42,7 +42,7 @@ export const Hero: FC = () => {
           <span className='text-splash-green'>Auto-apply fast</span> with AI.<br className="hidden sm:block" /> Get your dream job while sleeping.
         </h1>
         <h2 className="text-center text-[16px] sm:text-[24px] md:text-[30px] font-montserrat font-normal font-[300] leading-[110%] tracking-[-0.66px] text-neutral-cold-1 max-w-[800px]">
-          Automate your job search & land interviews 24/7.<br className="hidden sm:block" /><p className='hidden sm:block'>Apply 1000s of jobs instantly.</p>
+          <strong>Find & Apply</strong> 1000s of Jobs instantly.
         </h2>
         <a
           href="/signup"

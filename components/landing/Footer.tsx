@@ -60,8 +60,7 @@ export const Footer: FC = () => {
           </div>
 
           <div className=" py-[36px] px-[12px] xl:px-[60px] flex flex-col gap-[32px] ">
-            <p className="text-[8px] md:text-[12px] xl:text-[16px] font-small text-white font-montserrat md:ml-[10px] xl:ml-[24px] mt-[12px] xl:mt-[22px]">Via Guglielmo Marconi, 45, 40122 Bologna BO</p>
-            <p className="text-[8px] md:text-[12px] xl:text-[16px] font-small text-white font-montserrat md:ml-[10px] xl:ml-[24px] mt-[12px] xl:mt-[22px]">P.IVA: 04284191204</p>
+            <p className="text-[8px] md:text-[12px] xl:text-[16px] font-small text-white font-montserrat md:ml-[10px] xl:ml-[20px] mt-[12px] xl:mt-[22px]">Via Guglielmo Marconi, 45, 40122 Bologna BO, VAT code: 04284191204</p>
           </div>
 
         </div>

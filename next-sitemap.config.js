@@ -1,7 +1,21 @@
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://laboro.co",
   generateRobotsTxt: true,
-  exclude: ["/twitter-image.*", "/opengraph-image.*", "/icon.*"],
+  exclude: [
+    "/api/*",
+    "/logout",
+    "/resend-verification",
+    "/verify-email",
+    "/forgot-password",
+    "/dashboard/*",
+    "/onboarding",
+    "/twitter-image.*",
+    "/opengraph-image.*",
+    "/icon.*",
+    "/apple-icon.png",
+    "/favicon.*",
+    "/_next/*",
+  ],
   transform: async (config, path) => {
     const priorities = {
       "/signup": 1.0,

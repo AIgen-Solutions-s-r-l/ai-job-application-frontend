@@ -1,7 +1,6 @@
 'use client';
 
-import { renderBreadcrumbSchema, getSEOTags } from "@/libs/seo"; // Adjust path if different
-import type { Metadata } from "next";
+import { renderBreadcrumbSchema } from "@/libs/seo"; // Adjust path if different
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
@@ -12,12 +11,6 @@ import { getGoogleOAuthURL, register as sendRegister } from '@/libs/api/auth'; /
 import RequireLogout from '@/permissions/requireLogout';
 import { VerifyEmailInstruction } from '@/components/VerifyEmailInstruction';
 import { FormField } from '@/components/ui/FormField';
-
-export const metadata: Metadata = getSEOTags({
-  title: "Sign Up | LABORO",
-  description: "Create an account to access personalized career support with LABORO.",
-  canonicalUrlRelative: "/signup",
-});
 
 type FormValues = {
   email: string;

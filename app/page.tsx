@@ -11,14 +11,7 @@ import { FAQ } from '@/components/landing/FAQ';
 import { GetHired } from '@/components/landing/GetHired';
 import { Footer } from '@/components/landing/Footer';
 import { Hero } from '@/components/landing/Hero';
-import { renderBreadcrumbSchema, getSEOTags } from "@/libs/seo"; // adjust path if needed
-import type { Metadata } from "next";
-
-export const metadata: Metadata = getSEOTags({
-  title: "LABORO | Automate Your Job Applications with AI",
-  description: "LABORO helps you streamline job applications and interview prep with AI.",
-  canonicalUrlRelative: "/",
-});
+import { renderBreadcrumbSchema} from "@/libs/seo";
 
 export default function Home() {
   return (

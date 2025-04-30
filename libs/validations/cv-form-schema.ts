@@ -33,7 +33,7 @@ export const personalInfoSchema = z.object({
   phone_prefix: z.string()
     .regex(/^\+?\d{1,4}$/, 'Invalid phone prefix format'),
   phone: z.string()
-    .regex(/^(?:\D*\d){6,15}\D*$/, 'Phone number must be between 6 and 15 digits and cannot contain letters or special characters'),
+    .regex(/^[\d()\-]{6,15}$/, 'Phone number must be between 6 and 15 digits and cannot contain letters or special characters'),
   email: z.string()
     .email('Invalid email format'),
   github: z.string()

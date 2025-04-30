@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { PendingApplication } from '@/libs/definitions';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Pin from '../svgs/Pin.svg';
@@ -128,12 +128,22 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
           </div>
         )}
       </div>
-
+      <div className="font-jura text-sm md:text-base lg:text-lg text-primary">
+        <a
+          href={job.apply_link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 underline hover:text-primary-light-purple"
+        >
+          View original job posting
+          <ArrowRight size={20} />
+        </a>
+      </div>
       {/* Prevent this link from bubbling up */}
       <Link
         href={isMobile ? '#' : `/manager/${id}`}
         onClick={handleEditClick}
-        className="btn mt-4 lg:mt-8 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white"
+        className="btn lg:mt-2 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white"
       >
         Edit Resume & Cover Letter
         <Image src={Document} alt="Document" />

@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { JobInfo } from '@/libs/types/application.types';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonUnderline } from '../ButtonUnderline';
+import { ArrowRight } from 'lucide-react';
 
 interface Props {
   job: JobInfo;
@@ -35,6 +36,15 @@ export const ApplicationJobInfo: FC<Props> = ({
             ))}
           </p>
         </div>
+        <a
+        href={job.apply_link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn mt-2 lg:mt-4 font-jura text-sm md:text-base lg:text-lg border border-1 border-primary rounded-2xl flex justify-between bg-neutral-content hover:bg-primary hover:text-white"
+        >
+        View original job posting
+        <ArrowRight size={20} />
+      </a>
       </div>
       <JobButtomSheet className='flex-none items-center justify-between'>
         <ButtonUnderline title='Go Back' handleClick={goBack} />

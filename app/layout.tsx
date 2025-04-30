@@ -59,11 +59,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
              gtag('config', 'G-Q03TPGL5QF');
            `}
           </Script>
-          <Script
+          {/* <Script
             type="text/javascript"
             src="//cdn.cookie-script.com/s/1ad5d807b9ce5fd6458239751c3070e0.js" // this is a placeholder, for PRE
             strategy="afterInteractive"
-          />
+          /> */}
         </head>
       )}
       <body>

@@ -59,17 +59,13 @@ const ResponsibilityNestedFieldArray: FC<{ index: number; }> = ({
   )
 }
 
-const SkillsNestedFieldArray: FC<{ index: number; }> = ({
-  index,
-}: {
-  index: number;
-}): ReactElement => {
-  const { getValues, setValue } = useFormContext<FormData>();
+
+const SkillsNestedFieldArray: FC<{ index: number }> = ({ index }) => {
+  const { getValues, setValue, register, formState: { errors } } = useFormContext<FormData>();
   const skills: string[] = getValues(`experienceDetails.${index}.skills_acquired`);
 
-  // eslint-disable-next-line no-unused-vars
   const debounce = (func: (...args: any[]) => void, delay: number) => {
-    let timeout: ReturnType<typeof setTimeout> | undefined; // Correct type
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     return (...args: any[]) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => func(...args), delay);
@@ -84,7 +80,6 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
     [setValue]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedHandleSkillsChange = useCallback(
     debounce(handleSkillsChange, 500),
     [handleSkillsChange]
@@ -97,15 +92,23 @@ const SkillsNestedFieldArray: FC<{ index: number; }> = ({
           Skills
         </label>
         <textarea
-          onChange={(e) => debouncedHandleSkillsChange(index, e.target.value)} // Use the debounced function
-          defaultValue={skills ? skills.join(', ') : ''}
-          placeholder="e.g., React, TypeScript, Node.js, Git (separate skills with commas)"
-          className="w-full bg-white outline-none border border-my-neutral-4 focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base h-20 px-[10px] pt-3 rounded-md text-[18px] font-jura"
+          onChange={(e) => debouncedHandleSkillsChange(index, e.target.value)}
+          defaultValue={Array.isArray(skills) && skills.every(skill => typeof skill === 'string') ? skills.join(', ') : ''}
+          placeholder="e.g., React, TypeScript, Node.js, Git"
+          className={`w-full bg-white outline-none border ${
+            errors.experienceDetails?.[index]?.skills_acquired ? 'border-error' : 'border-my-neutral-4'
+          } focus:border-primary-light-purple placeholder-shown:border-my-neutral-4 placeholder:text-base h-20 px-[10px] pt-3 rounded-md text-[18px] font-jura`}
         />
+        {errors.experienceDetails?.[index]?.skills_acquired && (
+          <p className="text-error text-sm mt-1">
+            {errors.experienceDetails[index]?.skills_acquired?.message}
+          </p>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
+
 
 const ExperienceDetail: FC<{ index: number, handleRemove: () => void }> = ({ index, handleRemove }) => {
   const { register, formState: { errors }, setValue } = useFormContext<FormData>();

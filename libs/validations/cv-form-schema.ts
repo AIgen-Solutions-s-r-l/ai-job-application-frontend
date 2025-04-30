@@ -10,10 +10,10 @@ const isNotFutureDate = (date: Date) => {
 export const personalInfoSchema = z.object({
   name: z.string()
     .min(2, 'Name must be at least 2 characters')
-    .regex(/^[a-zA-Z\s]*$/, 'Name can only contain letters'),
+    .regex(/^[\p{L}\s'-]+$/u, 'Name cannot contain numbers or special characters'),
   surname: z.string()
     .min(2, 'Surname must be at least 2 characters')
-    .regex(/^[a-zA-Z\s]*$/, 'Surname can only contain letters'),
+    .regex(/^[\p{L}\s'-]+$/u, 'Surname cannot contain numbers or special characters'),
   date_of_birth: z.string()
     .min(2, 'Date of birth is required')
     .refine((date) => isNotFutureDate(new Date(date)), {
@@ -24,11 +24,11 @@ export const personalInfoSchema = z.object({
     }),
   city: z.string()
     .min(2, 'City is required')
-    .regex(/^[a-zA-Z\s]*$/, 'City can only contain letters'),
+    .regex(/^[\p{L}\s'-]+$/u, 'City cannot contain numbers or special characters'),
   address: z.string().min(3, 'Address is required'),
   country: z.string()
     .min(2, 'Country is required')
-    .regex(/^[a-zA-Z\s]*$/, 'Country can only contain letters'),
+    .regex(/^[\p{L}\s'-]+$/u, 'Country cannot contain numbers or special characters'),
   zip_code: z.string().min(2, 'Zip / Postal code is required'),
   phone_prefix: z.string()
     .regex(/^\+?\d{1,4}$/, 'Invalid phone prefix format'),
@@ -60,14 +60,14 @@ export const educationSchema = z.object({
   location: z.object({
     country: z.string()
       .min(2, 'Country is required')
-      .regex(/^[a-zA-Z\s]*$/, 'Country cannot contain numbers'),
+      .regex(/^[\p{L}\s'-]+$/u, 'Country cannot contain numbers and special characters'),
     city: z.string()
       .min(2, 'City is required')
-      .regex(/^[a-zA-Z\s]*$/, 'City cannot contain numbers')
+      .regex(/^[\p{L}\s'-]+$/u, 'City cannot contain numbers and special characters'),
   }),
   exam: z.array(z.object({
     subject: z.string()
-      .regex(/^[a-zA-Z\s]*$/, 'Subject cannot contain numbers')
+      .regex(/^[\p{L}\d\s'-]+$/u, 'Subject can only contain letters, numbers, apostrophes, hyphens, and spaces')
       .optional(),
     grade: z.string().optional()
   }))
@@ -76,27 +76,24 @@ export const educationSchema = z.object({
 export const experienceSchema = z.object({
   company: z.string().min(2, 'Company name is required'),
   position: z.string()
-    .min(2, 'Position is required')
-    .regex(/^[a-zA-Z\s\W]*$/, 'Position cannot contain numbers'),
+    .min(2, 'Position is required'),
   employment_start_date: z.string().min(4, 'Start date is required'),
   employment_end_date: z.string().min(4, 'End date is required'),
   location: z.object({
     country: z.string()
       .min(2, 'Country is required')
-      .regex(/^[a-zA-Z\s]*$/, 'Country cannot contain numbers'),
+      .regex(/^[\p{L}\s'-]+$/u, 'Country cannot contain numbers and special characters'),
     city: z.string()
       .min(2, 'City is required')
-      .regex(/^[a-zA-Z\s]*$/, 'City cannot contain numbers'),
+      .regex(/^[\p{L}\s'-]+$/u, 'City cannot contain numbers and special characters'),
   }),
   industry: z.string()
-    .regex(/^[a-zA-Z\s\W]*$/, 'Industry cannot contain numbers')
     .optional(),
   key_responsibilities: z.array(
     z.string().min(1, 'Responsibility is required')
   ).min(1, 'At least one responsibility is required'),
   skills_acquired: z.array(
     z.string()
-      .regex(/^[a-zA-Z\s\W]*$/, 'Skill cannot contain numbers')
   )
 });
 
@@ -104,9 +101,11 @@ export const additionalInfoSchema = z.object({
   languages: z.array(z.object({
     language: z.string()
       .min(1, 'Language is required')
+      .regex(/^[\p{L}\s'-]+$/u, 'Language cannot contain numbers and special characters')
       .transform(val => val || ''),
     proficiency: z.string()
       .min(1, 'Proficiency level is required')
+      .regex(/^[\p{L}\s'-]+$/u, 'Proficiency cannot contain numbers and special characters')
       .transform(val => val || ''),
   })),
   projects: z.array(z.object({

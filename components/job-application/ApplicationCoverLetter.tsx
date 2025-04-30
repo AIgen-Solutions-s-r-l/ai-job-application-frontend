@@ -80,7 +80,7 @@ export const ApplicationCoverLetter: FC<Props> = ({
           >
             {/* Header */}
             <div className='w-full flex justify-between'>
-              <div className="">
+              <div className="flex flex-col">
                 <NullifiedInput
                   {...register(`header.company_details.name`)}
                   className='cover-letter-input'

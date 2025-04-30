@@ -105,7 +105,6 @@ export async function refreshToken() {
     }
 
     const { expirationDate } = await decodeToken(response.data.access_token)
-    expirationDate.setHours(expirationDate.getHours() + 1);
 
     setServerCookie("accessToken", response.data.access_token, {
       httpOnly: true,

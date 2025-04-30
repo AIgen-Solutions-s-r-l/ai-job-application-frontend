@@ -60,7 +60,7 @@ export const JobCard: FC<Props> = ({ job, status, timestamp }) => {
             )}
             <span>{status}</span>
           </div>
-          <p className="text-sm text-gray-600 text-center text-[15px]">sent {relativeTime}</p>
+            <p className="text-sm text-gray-600 text-center text-[15px]">sent {relativeTime.replace(' in ', ' ')}</p>
         </div>
       </div>
     </article>

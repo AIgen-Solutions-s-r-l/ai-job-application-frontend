@@ -82,9 +82,6 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
               </>
             )}
           </p>
-          <p className='text-base md:text-[18px] font-jura font-semibold'>
-            {`Published ${relativeTime}`}
-          </p>
         </div>
         <div className='flex gap-x-2 gap-y-1 md:gap-x-3 my-1 lg:my-2 flex-wrap overflow-hidden'>
           {!!job.skills_required.length &&

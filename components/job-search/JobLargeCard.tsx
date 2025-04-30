@@ -6,6 +6,7 @@ import Pin from '../svgs/Pin.svg';
 import Image from 'next/image';
 import { formatDistanceToNow, parseISO } from 'date-fns';  // Import the necessary functions
 import { Building } from 'lucide-react';
+import { ImageWithFallback } from '../common/ImageWithFallback';
 
 interface Props {
   className?: string;
@@ -46,14 +47,13 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
             </h3>
           </div>
           {job.company_logo ? (
-            <div className="w-[160px] h-[80px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={job.company_logo}
-                alt="Logo"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <ImageWithFallback 
+              src={job.company_logo} 
+              alt={job.company_name || 'Company'} 
+              width={160}
+              height={80}
+              className='object-contain' 
+            />
           ) : (
             <div className="w-[80px] h-[80px] flex justify-center items-center bg-gray-200">
               <Building className="w-12 h-12 text-gray-500" />

@@ -26,7 +26,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
+.env.*
 .env*.local
+!.env.example
 
 # vercel
 .vercel
@@ -43,8 +46,6 @@ public/robots.txt
 public/sitemap.xml
 public/sitemap-0.xml
 chats.db
-
-.env
 
 .roo/
 .ruru/

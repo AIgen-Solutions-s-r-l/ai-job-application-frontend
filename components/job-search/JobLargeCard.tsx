@@ -118,19 +118,24 @@ export const JobLargeCard: FC<Props> = ({ className, job }) => {
                   'Required Work Arrangement',
                 ];
 
-                const boldedLine = boldPhrases.reduce((acc, phrase) => {
-                  if (line.includes(phrase)) {
-                    return line.replace(phrase, `<strong>${phrase}</strong>`);
-                  }
-                  return acc;
-                }, line);
+                const matchedPhrase = boldPhrases.find(phrase => line.includes(phrase));
+
+                const renderLineWithBold = (text: string, phrase: string | undefined) => {
+                  if (!phrase) return text;
+                  const parts = text.split(phrase);
+                  return (
+                    <>
+                      {parts[0]}
+                      <strong>{phrase}</strong>
+                      {parts.slice(1).join(phrase)}
+                    </>
+                  );
+                };
 
                 return line.trim() ? (
-                  <p
-                    key={lIndex}
-                    className='leading-[1.4]'
-                    dangerouslySetInnerHTML={{ __html: boldedLine }}
-                  />
+                  <p key={lIndex} className='leading-[1.4]'>
+                    {renderLineWithBold(line, matchedPhrase)}
+                  </p>
                 ) : null;
               })}
             </div>

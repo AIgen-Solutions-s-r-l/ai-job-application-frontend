@@ -83,8 +83,20 @@ const items = [
   },
 ];
 
-const highlightText = (text: string) => {
-  return text.replace(/%%APP_NAME%%/g, `<span class="testimonial-text-highlight">${appName}</span>`);
+const TextWithHighlight = ({ text }: { text: string }) => {
+  const parts = text.split(/%%APP_NAME%%/g);
+  return (
+    <>
+      {parts.map((part, i) => (
+        <React.Fragment key={i}>
+          {part}
+          {i < parts.length - 1 && (
+            <span className="testimonial-text-highlight">{appName}</span>
+          )}
+        </React.Fragment>
+      ))}
+    </>
+  );
 };
 
 export const Carousel: React.FC = () => {
@@ -188,11 +200,12 @@ export const Carousel: React.FC = () => {
 
                 <motion.p
                   className="mt-[31px] text-[14px] leading-[1.2] text-my-neutral-7"
-                  dangerouslySetInnerHTML={{ __html: highlightText(item.text) }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                />
+                >
+                  <TextWithHighlight text={item.text} />
+                </motion.p>
               </div>
 
               <motion.p

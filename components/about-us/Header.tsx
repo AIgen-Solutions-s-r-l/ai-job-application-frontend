@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import Laboro from '@/public/aboutus/Laboro.svg';
+import BrandLogo from '@/public/aboutus/brand-logo.svg';
 import { LandingContainer } from '../landing/LandingContainer';
 import { useUserContext } from '@/contexts/user-context';
 import LeftArrow from '@/public/aboutus/NavLeftArrow.svg'
@@ -17,7 +17,7 @@ export const Header: FC = () => {
           <Link
             href="/"
           >
-            <Image src={Laboro} alt="Logo" width={300} height={110} />
+            <Image src={BrandLogo} alt="Logo" width={300} height={110} />
           </Link>
         </div>
         <div className="flex flex-col md:flex-row gap-2 2xl:gap-5 font-k2d mt-2 md:mt-5">

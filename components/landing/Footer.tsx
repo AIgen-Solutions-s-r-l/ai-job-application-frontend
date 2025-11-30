@@ -28,7 +28,7 @@ export const Footer: FC = () => {
             >
               Terms of Use
             </a>
-            <Link href='mailto:info@laboro.co' className='footer-link' >Contact Us</Link>
+            <Link href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@example.com'}`} className='footer-link' >Contact Us</Link>
             <div className="flex xl:mt-[20px] gap-6 text-white">
               <a
                 href='https://www.instagram.com/interview_scouter/'
@@ -40,7 +40,7 @@ export const Footer: FC = () => {
               </a>
 
               <a
-                href='https://www.linkedin.com/company/joinlaboro/posts/'
+                href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'}
                 className='footer-social-container'
                 target='_blank'
                 rel='noopener noreferrer'
@@ -64,7 +64,7 @@ export const Footer: FC = () => {
           </div>
 
         </div>
-        <p className="mt-[40px] xl:mt-[40px] px-[12px] md:text-center font-jura text-[12px] font-semibold text-my-neutral-4">All Rights Reserved. LABORO © 2025</p>
+        <p className="mt-[40px] xl:mt-[40px] px-[12px] md:text-center font-jura text-[12px] font-semibold text-my-neutral-4">All Rights Reserved. {process.env.NEXT_PUBLIC_APP_NAME || 'Job Application Platform'} © {new Date().getFullYear()}</p>
       </LandingContainer>
     </footer>
   );

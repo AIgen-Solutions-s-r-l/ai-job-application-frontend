@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: process.env.SITE_URL || "https://laboro.co",
+  siteUrl: process.env.SITE_URL || "https://example.com",
   generateRobotsTxt: true,
   exclude: [
     "/api/*",

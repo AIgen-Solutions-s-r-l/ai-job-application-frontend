@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Arrow from "@/public/aboutus/Arrow.svg";
 import Line from "@/public/aboutus/line.svg";
-import Smily from "@/public/landing/laboro-smiley.svg";
+import Smily from "@/public/landing/brand-smiley.svg";
 import Star from "./Star";
 import * as motion from "motion/react-client";
 
@@ -52,7 +52,7 @@ function OurMission() {
                     <p className="text-center lg:text-left mt-4 lg:mt-0 lg:hidden lg:bottom-0 lg:-right-12 xl:-right-0 xxl:-right-4  font-montserrat text-splash-green text-[24px] lg:text-[22px] xxl:text-[28px] font-semibold">Revolutionizing the job application process</p>
                 </div>
                 <p className="font-montserrat text-white text-[16px] lg:text-[20px] font-[500] text-center lg:text-left mt-4 lg:mt-0">
-                    LABORO aims to empower job seekers by streamlining and automating the job application process. Our mission is simple:
+                    We aim to empower job seekers by streamlining and automating the job application process. Our mission is simple:
                     eliminating inefficiencies and giving job seekers back control over their careers.
                     By automating and simplifying the application process, we help candidates focus on what truly matters—landing their dream jobs.
                 </p>

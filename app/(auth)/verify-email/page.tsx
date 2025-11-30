@@ -55,7 +55,7 @@ const VerifyEmailContent = () => {
   return (
     <div className='auth-form-container'>
       <div className='flex flex-col gap-2'>
-        <Image src='/laboro.png' alt='Logo' width={214} height={58} />
+        <Image src='/logo.png' alt='Logo' width={214} height={58} />
         <h2 className='auth-form-header'>
           Verifying email...{' '}
           {isLoading && (

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Automate1 from '@/public/landing/automate-1.svg';
 import Automate2 from '@/public/landing/automate-2.svg';
 import Automate3 from '@/public/landing/automate-3.svg';
-import LaboroSmiley from '@/public/landing/laboro-smiley.svg';
+import BrandSmiley from '@/public/landing/brand-smiley.svg';
 import AutomateItemArrow from '@/public/landing/automate-item-arrow.svg';
 import AutomateEyeBase from '@/public/landing/automate-eye-base.svg';
 import * as motion from "motion/react-client"
@@ -85,7 +85,7 @@ export const Automate: React.FC = () => {
                 top: pathY,
               }}
             >
-              <Image src={LaboroSmiley} alt='laboro-smiley' width={70} />
+              <Image src={BrandSmiley} alt='brand-smiley' width={70} />
             </motion.div>
           </div>
 

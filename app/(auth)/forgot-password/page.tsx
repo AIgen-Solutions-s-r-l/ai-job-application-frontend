@@ -46,7 +46,7 @@ export default function ResetPassword() {
     <main className='auth-form-main' data-theme={config.colors.theme}>
       <div className='auth-form-container'>
         <div className='flex flex-col'>
-          <Image src='/laboro.png' alt='Logo' width={214} height={58} />
+          <Image src='/logo.png' alt='Logo' width={214} height={58} />
           <h2 className='auth-form-header'>Reset your password</h2>
 
           {isEmailSent ? (

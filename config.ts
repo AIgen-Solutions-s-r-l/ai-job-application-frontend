@@ -9,11 +9,11 @@ const url =
 const isProductionUrl = !url.includes("pre") && !url.includes("localhost");
 
 const config = {
-  // REQUIRED
-  appName: "LABORO",
+  // REQUIRED - Set via NEXT_PUBLIC_APP_NAME environment variable
+  appName: process.env.NEXT_PUBLIC_APP_NAME || "Job Application Platform",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "Automate your Job Application and land interview 24/7.",
+    process.env.NEXT_PUBLIC_APP_DESCRIPTION || "Automate your Job Application and land interviews 24/7.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
   domainName: process.env.SITE_URL,
   crisp: {
@@ -105,21 +105,21 @@ const config = {
   },
   aws: {
     // If you use AWS S3/Cloudfront, put values in here
-    bucket: "laboro-bucket",
-    bucketUrl: `https://laboro-bucket.s3.amazonaws.com/`,
-    cdn: "https://cdn.laboro.co/",
+    bucket: process.env.AWS_S3_BUCKET || "",
+    bucketUrl: process.env.AWS_S3_BUCKET_URL || "",
+    cdn: process.env.AWS_CDN_URL || "",
   },
   mailgun: {
     // subdomain to use when sending emails
-    subdomain: "mg",
+    subdomain: process.env.MAILGUN_SUBDOMAIN || "mg",
     // REQUIRED — Email 'From' field to be used when sending magic login links
-    fromNoReply: `laboro <noreply@mg.laboro.co>`,
+    fromNoReply: process.env.MAILGUN_FROM_NOREPLY || "",
     // REQUIRED — Email 'From' field to be used when sending other emails, like abandoned carts, updates, etc.
-    fromAdmin: `David at laboro <david@mg.laboro.co>`,
+    fromAdmin: process.env.MAILGUN_FROM_ADMIN || "",
     // Email shown to customers if they need support
-    supportEmail: "help@laboro.co",
+    supportEmail: process.env.SUPPORT_EMAIL || "",
     // When someone replies to the support email, forward it to this email
-    forwardRepliesTo: "help@laboro.co",
+    forwardRepliesTo: process.env.SUPPORT_EMAIL || "",
   },
   colors: {
     // REQUIRED — The DaisyUI theme to use. Leave blank for default (light & dark mode). 

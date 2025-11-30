@@ -1,15 +1,22 @@
-# Laboro FrontEnd
+# Job Application Frontend
+
+AI-powered job application automation platform.
 
 ## Project setup
-```
-https://github.com/AIHawk-Startup/frontend_service.git
+
+```bash
+git clone <repository-url>
 cd frontend_service
 ```
+
 ### Install packages
-```
+
+```bash
 npm install
 ```
+
 ### Compiles and hot-reloads for development
-```
+
+```bash
 npm run dev
 ```

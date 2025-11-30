@@ -14,7 +14,7 @@ const Hero = () => {
 
         {/* Supporting headline explaining the how */}
         <p className="text-lg opacity-80 leading-relaxed">
-          laboro streamlines your LinkedIn applications with AI, personalizes them, and helps you apply to more jobs in less time.
+          We streamline your LinkedIn applications with AI, personalize them, and help you apply to more jobs in less time.
         </p>
 
         {/* Call to action */}

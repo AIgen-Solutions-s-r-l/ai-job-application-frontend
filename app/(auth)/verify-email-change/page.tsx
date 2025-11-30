@@ -47,7 +47,7 @@ const VerifyEmailChange = ({
       <div className='auth-form-container'>
         <div className='flex flex-col gap-2'>
           <Image
-            src='/laboro.png'
+            src='/logo.png'
             alt='Logo'
             width={214}
             height={58}

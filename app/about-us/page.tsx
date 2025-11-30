@@ -3,8 +3,8 @@ import { renderBreadcrumbSchema, getSEOTags } from "@/libs/seo"; // adjust path 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = getSEOTags({
-  title: "About Us | LABORO",
-  description: "Learn more about the team and mission behind LABORO.",
+  title: `About Us | ${process.env.NEXT_PUBLIC_APP_NAME || 'Job Application Platform'}`,
+  description: "Learn more about the team and mission behind our platform.",
   canonicalUrlRelative: "/about-us",
 });
 
@@ -12,8 +12,8 @@ const AboutUs = () => {
   return (
     <>
       {renderBreadcrumbSchema([
-        { name: "Automate your Job Applications", url: "https://laboro.co/" },
-        { name: "About Us", url: "https://laboro.co/about-us" },
+        { name: "Automate your Job Applications", url: process.env.SITE_URL || '' },
+        { name: "About Us", url: `${process.env.SITE_URL || ''}/about-us` },
       ])}
       <AboutUsPage />
     </>

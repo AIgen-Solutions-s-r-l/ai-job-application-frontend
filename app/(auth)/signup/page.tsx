@@ -82,13 +82,13 @@ const Signup = () => {
   return (
     <>
     {renderBreadcrumbSchema([
-      { name: "Automate your Job Applications", url: "https://laboro.co/" },
-      { name: "Sign up to LABORO", url: "https://laboro.co/signup" },
+      { name: "Automate your Job Applications", url: process.env.SITE_URL || '' },
+      { name: "Sign up", url: `${process.env.SITE_URL || ''}/signup` },
     ])}
     <main className='auth-form-main' data-theme={config.colors.theme}>
       <div className='auth-form-container'>
         <div className='flex flex-col gap-2'>
-          <Image src='/laboro.png' alt='Logo' width={214} height={58} />
+          <Image src='/logo.png' alt='Logo' width={214} height={58} />
           <h2 className='auth-form-header'>Create an account</h2>
         </div>
 

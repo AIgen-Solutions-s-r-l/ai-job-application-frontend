@@ -6,83 +6,85 @@ import { useWindowSize } from '@/lib/hooks';
 import * as motion from "motion/react-client"
 import { AnimatePresence } from "motion/react"
 
+const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Our platform';
+
 const items = [
   {
     id: 1,
     image: '/landing/pravatar-1.jpg',
-    text: '“%%Laboro%% helped me break into investment banking. Applying to so many roles with precision got me multiple interviews.”',
+    text: '"%%APP_NAME%% helped me break into investment banking. Applying to so many roles with precision got me multiple interviews."',
     name: '- James, Investment Banking Analyst'
   },
   {
     id: 2,
     image: '/landing/pravatar-2.jpg',
-    text: '“I finally understood what I was doing wrong in my job search. %%Laboro%% tailored my applications and got me hired fast.”',
+    text: '"I finally understood what I was doing wrong in my job search. %%APP_NAME%% tailored my applications and got me hired fast."',
     name: '- Emily, Marketing Specialist'
   },
   {
     id: 3,
     image: '/landing/pravatar-3.jpg',
-    text: '“In consulting, it’s all about standing out. %%Laboro%%’s matching system helped me land interviews at top firms.”',
+    text: '"In consulting, it's all about standing out. %%APP_NAME%%\'s matching system helped me land interviews at top firms."',
     name: '- Alex, Management Consultant'
   },
   {
     id: 4,
     image: '/landing/pravatar-4.jpg',
-    text: '“%%Laboro%% saved me from wasting time on the wrong roles. Its precision got me into a top accounting firm.”',
+    text: '"%%APP_NAME%% saved me from wasting time on the wrong roles. Its precision got me into a top accounting firm."',
     name: '- Rachel, Junior Accountant'
   },
   {
     id: 5,
     image: '/landing/pravatar-5.jpg',
-    text: '“The automation feels human, and the accuracy is unmatched. %%Laboro%% made finding my first analyst role effortless.”',
+    text: '"The automation feels human, and the accuracy is unmatched. %%APP_NAME%% made finding my first analyst role effortless."',
     name: '- Chris, Business Analyst'
   },
   {
     id: 6,
     image: '/landing/pravatar-6.jpg',
-    text: '“%%Laboro%% streamlined everything. I went from no responses to landing a competitive HR position.”',
+    text: '"%%APP_NAME%% streamlined everything. I went from no responses to landing a competitive HR position."',
     name: '- Linda, HR Manager'
   },
   {
     id: 7,
     image: '/landing/pravatar-7.jpg',
-    text: '“I didn’t know applying was a numbers game until %%Laboro%% automated the process. It changed my career trajectory.”',
+    text: '"I didn't know applying was a numbers game until %%APP_NAME%% automated the process. It changed my career trajectory."',
     name: '- Adam, Financial Analyst'
   },
   {
     id: 8,
     image: '/landing/pravatar-8.jpg',
-    text: '“%%Laboro%% was a game-changer for me. It matched me with the right roles and handled all the applications seamlessly.”',
+    text: '"%%APP_NAME%% was a game-changer for me. It matched me with the right roles and handled all the applications seamlessly."',
     name: '- Kate, Operations Coordinator'
   },
   {
     id: 9,
     image: '/landing/pravatar-9.jpg',
-    text: '“%%Laboro%% made breaking into private equity possible. I applied to 200+ internships with perfectly tailored applications and landed my top choice.”',
+    text: '"%%APP_NAME%% made breaking into private equity possible. I applied to 200+ internships with perfectly tailored applications and landed my top choice."',
     name: '- Lucas, Private Equity Intern'
   },
   {
     id: 10,
     image: '/landing/pravatar-10.jpg',
-    text: '“Internship applications felt overwhelming until %%Laboro%% streamlined the process. I got a consulting internship at a top firm in just weeks.”',
+    text: '"Internship applications felt overwhelming until %%APP_NAME%% streamlined the process. I got a consulting internship at a top firm in just weeks."',
     name: '- Mia, Consulting Intern'
   },
   {
     id: 11,
     image: '/landing/pravatar-11.jpg',
-    text: '“I didn’t know where to start with finance internships. %%Laboro%% matched me with roles I didn’t even know existed, and I got multiple offers.”',
+    text: '"I didn't know where to start with finance internships. %%APP_NAME%% matched me with roles I didn't even know existed, and I got multiple offers."',
     name: '- Nathan, Finance Intern'
   },
   {
     id: 12,
     image: '/landing/pravatar-12.jpg',
-    text: '“%%Laboro%% helped me secure a competitive marketing internship. The resume optimization showed me exactly what I was doing wrong before.”',
+    text: '"%%APP_NAME%% helped me secure a competitive marketing internship. The resume optimization showed me exactly what I was doing wrong before."',
     name: '- Sophia, Marketing Intern'
   },
 ];
 
 const highlightText = (text: string) => {
-  return text.replace(/%%Laboro%%/g, '<span class="testimonial-text-highlight">Laboro</span>');
+  return text.replace(/%%APP_NAME%%/g, `<span class="testimonial-text-highlight">${appName}</span>`);
 };
 
 export const Carousel: React.FC = () => {

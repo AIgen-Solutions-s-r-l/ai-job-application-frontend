@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useCVDataContext } from "@/contexts/cv-data-context";
 import { extractResume } from "@/libs/actions";
 import { defaultJobProfile } from "@/libs/utils/job-profile-util";
-import LaboroSmiley from '@/public/LaboroSmileyPurple.svg';
+import BrandSmiley from '@/public/brand-smiley-purple.svg';
 import { Container } from "@/components/Container";
 import { AiFillFilePdf } from "react-icons/ai";
 import { ArrowRightIcon } from '@/components/AppIcons';
@@ -184,7 +184,7 @@ export const UploadResumeOnboarding: React.FC = () => {
             >
               <span>{`${!isMobile ? progressText : ''} ${progress}%`}</span>
               <Image
-                src={LaboroSmiley}
+                src={BrandSmiley}
                 alt='Smiley Face :)'
                 className='absolute right-[-14px] bottom-0'
               />

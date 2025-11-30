@@ -25,8 +25,8 @@ export default async function SettingsPage() {
 
     <p className="text-center text-sm text-muted-foreground pt-72">
       If you want to delete your account, please contact us at{' '}
-      <a href="mailto:help@laboro.co" className="text-primary underline">
-        help@laboro.co
+      <a href={`mailto:${process.env.SUPPORT_EMAIL || 'support@example.com'}`} className="text-primary underline">
+        {process.env.SUPPORT_EMAIL || 'support@example.com'}
       </a>
     </p>
 

@@ -81,7 +81,7 @@ export const Hero: FC = () => {
                 <div className="w-3 h-3 rounded-full bg-[#28C840]"></div>
               </div>
               <div className="w-full bg-[#DFD0EB] px-4 py-1 rounded-[36px] text-sm text-gray-600 flex items-center">
-                <span>laboro.co</span>
+                <span>{process.env.SITE_URL?.replace(/^https?:\/\//, '') || 'example.com'}</span>
               </div>
             </div>
             <div className="relative w-full aspect-[1004/655] overflow-hidden">
@@ -119,7 +119,7 @@ export const Hero: FC = () => {
                     controls={isPlaying}
                     playsInline
                   >
-                    <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/landing+page+new+features.mp4" type="video/mp4" />
+                    <source src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL || ''} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>

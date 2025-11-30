@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { ButtonApply } from '@/components/ButtonAppy';
 import { JobButtomSheet } from '@/components/JobButtomSheet';
 import { ButtonUnderline } from '@/components/ButtonUnderline';
-import LaboroSmiley from '@/public/LaboroSmiley.svg';
+import BrandSmiley from '@/public/brand-smiley.svg';
 import Image from 'next/image';
 
 export const JobManagerBottomSheet: FC = () => {
@@ -46,7 +46,7 @@ export const JobManagerBottomSheet: FC = () => {
       />
       <div className='flex items-center gap-5'>
         <div className='hidden xl:flex items-center gap-5 bg-primary-deep-purple rounded-full pl-[2px] pr-[25px] py-[3px]'>
-          <Image src={LaboroSmiley} alt='LaboroSmiley' width={40} height={40} />
+          <Image src={BrandSmiley} alt='Brand Smiley' width={40} height={40} />
           <p className='text-white text-right font-jura text-xl font-semibold leading-6 tracking-tight'>
             {applications && Object.keys(applications).length} Applications
           </p>

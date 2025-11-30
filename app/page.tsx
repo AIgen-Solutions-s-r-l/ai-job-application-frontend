@@ -18,15 +18,15 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>LABORO | AI-Driven Job Board</title>
+        <title>{process.env.NEXT_PUBLIC_APP_NAME || 'Job Application Platform'} | AI-Driven Job Board</title>
         <meta
           name="description"
-          content="LABORO is an AI-powered job application engine that finds the best jobs for your profile and generates tailored CVs."
+          content="AI-powered job application engine that finds the best jobs for your profile and generates tailored CVs."
         />
       </Head>
 
       {renderBreadcrumbSchema([
-        { name: "Automate Your Job Applications with AI", url: "https://laboro.co/" },
+        { name: "Automate Your Job Applications with AI", url: process.env.SITE_URL || '' },
       ])}
       
       <Header />

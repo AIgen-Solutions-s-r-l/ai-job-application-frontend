@@ -7,38 +7,38 @@ import { useScroll, useSpring, useTransform } from "motion/react";
 const accordionItems = [
   {
     id: 1,
-    question: '1. What is Laboro?',
-    answer: 'LABORO is an AI-powered job application engine that automates your entire job search. It finds the best jobs for your profile, generates tailored CVs and cover letters, fills out all the application forms, and applies — all in one click.'
+    question: '1. What is this platform?',
+    answer: 'This is an AI-powered job application engine that automates your entire job search. It finds the best jobs for your profile, generates tailored CVs and cover letters, fills out all the application forms, and applies — all in one click.'
   },
   {
     id: 2,
-    question: '2. How can I find my next job on Laboro?',
-    answer: 'LABORO aggregates millions of companies’ websites and matches you with the most relevant roles, generate tailored applications, and apply on your behalf. You can apply to up to 1000 jobs per month with a single click.'
+    question: '2. How can I find my next job?',
+    answer: 'Our platform aggregates millions of companies' websites and matches you with the most relevant roles, generates tailored applications, and applies on your behalf. You can apply to up to 1000 jobs per month with a single click.'
   },
   {
     id: 3,
-    question: '3. How accurate is Laboro’s job-matching system?',
-    answer: 'Laboro uses advanced AI to analyze your profile and job preferences, ensuring precise matches with opportunities that align with your skills and career goals. By understanding both your resume and job descriptions, our system maximizes relevance and saves you from applying to unsuitable roles.'
+    question: '3. How accurate is the job-matching system?',
+    answer: 'We use advanced AI to analyze your profile and job preferences, ensuring precise matches with opportunities that align with your skills and career goals. By understanding both your resume and job descriptions, our system maximizes relevance and saves you from applying to unsuitable roles.'
   },
   {
     id: 4,
     question: '4. Can I customize my resume and cover letter for specific applications?',
-    answer: 'Absolutely. Laboro’s AI not only tailors your resume and cover letter for each job but also provides an editor so you can review and make changes before submitting. This middle step allows you to check every generated application and customize it further if needed. However, if you prefer Laboro allows you to use your own resume and cover letter for applications.'
+    answer: 'Absolutely. Our AI not only tailors your resume and cover letter for each job but also provides an editor so you can review and make changes before submitting. This middle step allows you to check every generated application and customize it further if needed. However, if you prefer, you can use your own resume and cover letter for applications.'
   },
   {
     id: 5,
-    question: '5. Can I track which jobs I’ve applied to through Laboro?',
-    answer: 'Yes, Laboro provides a dashboard where you can track all your submitted applications. Additionally, all jobs are sent using your email address, so you’ll receive confirmation emails directly from the companies or job boards for complete transparency.'
+    question: '5. Can I track which jobs I've applied to?',
+    answer: 'Yes, we provide a dashboard where you can track all your submitted applications. Additionally, all jobs are sent using your email address, so you'll receive confirmation emails directly from the companies or job boards for complete transparency.'
   },
   {
     id: 6,
-    question: '6. Is there a limit to how many jobs Laboro can apply for on my behalf',
-    answer: 'There’s no limit! Laboro offers various plans, including a custom plan to suit your specific needs. Our platform aggregates jobs from across the entire internet, ensuring an almost unlimited pool of opportunities for you to explore.'
+    question: '6. Is there a limit to how many jobs you can apply for on my behalf?',
+    answer: 'There's no limit! We offer various plans, including a custom plan to suit your specific needs. Our platform aggregates jobs from across the entire internet, ensuring an almost unlimited pool of opportunities for you to explore.'
   },
   {
     id: 7,
-    question: '7. How do I get started with Laboro?',
-    answer: 'Getting started is easy. Simply upload your resume, and our system will automatically parse your information to create your professional profile. From there, Laboro will take care of the rest, job matching, application customization, and submissions.'
+    question: '7. How do I get started?',
+    answer: 'Getting started is easy. Simply upload your resume, and our system will automatically parse your information to create your professional profile. From there, we'll take care of the rest—job matching, application customization, and submissions.'
   },
 ]
 

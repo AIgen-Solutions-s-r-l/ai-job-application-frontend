@@ -7,10 +7,10 @@ const WithWithout = () => {
         </h2>
 
         <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-8 md:gap-12">
-          {/* Pain points without laboro */}
+          {/* Pain points without automation */}
           <div className="bg-error/20 text-error p-8 md:p-12 rounded-lg w-full">
             <h3 className="font-bold text-lg mb-4">
-              Job Applications without laboro
+              Job Applications without automation
             </h3>
 
             <ul className="list-disc list-inside space-y-1.5">
@@ -36,10 +36,10 @@ const WithWithout = () => {
             </ul>
           </div>
 
-          {/* Benefits with laboro */}
+          {/* Benefits with our platform */}
           <div className="bg-success/20 text-success p-8 md:p-12 rounded-lg w-full">
             <h3 className="font-bold text-lg mb-4">
-              Job Applications with laboro
+              Job Applications with our platform
             </h3>
 
             <ul className="list-disc list-inside space-y-1.5">

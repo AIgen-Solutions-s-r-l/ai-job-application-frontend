@@ -52,7 +52,7 @@ export const Testimonials: FC = () => {
               className={`w-full aspect-video ${!isPlaying ? 'hidden' : ''} rounded-lg`}
               controls={isPlaying}
             >
-              <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/testimonial+v4.mp4" type="video/mp4" />
+              <source src={process.env.NEXT_PUBLIC_TESTIMONIAL_VIDEO_1_URL || ''} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -76,7 +76,7 @@ export const Testimonials: FC = () => {
               autoPlay={false}
               playsInline
             >
-              <source src="https://laborovideos.s3.eu-central-1.amazonaws.com/Testimonial+2.mp4" type="video/mp4" />
+              <source src={process.env.NEXT_PUBLIC_TESTIMONIAL_VIDEO_2_URL || ''} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

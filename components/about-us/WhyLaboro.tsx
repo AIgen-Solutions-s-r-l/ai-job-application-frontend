@@ -51,7 +51,7 @@ function WhyLaboro() {
         <div className='flex flex-col' ref={sectionRef}>
             <div className='flex justify-between px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24'>
                 <p className="font-josefinSans text-black text-[50px] sm:text-[70px] md:text-[120px] lg:text-[160px] xl:text-[200px] font-semibold text-primary-deep-purple leading-[89%] tracking-[-2px] sm:tracking-[-3px] md:tracking-[-4px] lg:tracking-[-5px] xl:tracking-[-6px]">
-                    Why<br />Choose<br />Laboro
+                    Why<br />Choose<br />Us
                 </p>
                 <div className='relative'>
                     <motion.div
@@ -72,7 +72,7 @@ function WhyLaboro() {
             </div>
             <div>
                 <p className="font-montserrat text-black text-[20px] sm:text-[24px] md:text-[32px] lg:text-[40px] xl:text-[50px] font-[500] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24">
-                    Unlike other platforms, LABORO<br className='hidden sm:block' /> stands out by offering
+                    Unlike other platforms, we<br className='hidden sm:block' /> stand out by offering
                 </p>
                 <div className='relative mt-4 sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12'>
                     <Image src={TheLine} alt='line' className='w-full translate-y-[-15%]' />

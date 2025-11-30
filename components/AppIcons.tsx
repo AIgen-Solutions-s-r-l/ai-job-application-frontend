@@ -206,7 +206,7 @@ export const CartIcon: FC<SvgIconProps> = ({ classname }) => (
 );
 
 
-export const LaboroSmileyIcon: FC<SvgIconProps> = ({ classname }) => (
+export const BrandSmileyIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg
     width='29'
     height='30'
@@ -229,7 +229,7 @@ export const LaboroSmileyIcon: FC<SvgIconProps> = ({ classname }) => (
   </svg>
 );
 
-export const LaboroSmileyPurpleIcon: FC<SvgIconProps> = ({ classname }) => (
+export const BrandSmileyPurpleIcon: FC<SvgIconProps> = ({ classname }) => (
   <svg
     width='55'
     height='56'

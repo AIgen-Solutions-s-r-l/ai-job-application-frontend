@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import CheckMark from '../svgs/CheckMarkPurple.svg'
 import { Transaction } from '@/libs/definitions';
-import { LaboroSmileyIcon } from '../AppIcons';
+import { BrandSmileyIcon } from '../AppIcons';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 interface PaymentHistoryProps {
@@ -151,7 +151,7 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Credits</span>
                                             <div className="flex items-center gap-1">
-                                                <LaboroSmileyIcon classname="w-4 h-4" />
+                                                <BrandSmileyIcon classname="w-4 h-4" />
                                                 <span>{parseFloat(transaction.amount).toFixed(0)}</span>
                                             </div>
                                         </div>
@@ -200,7 +200,7 @@ function PaymentHistory({ transactions }: PaymentHistoryProps) {
                                         </td>
                                         <td className="py-4">
                                             <div className="flex items-center gap-1">
-                                                <LaboroSmileyIcon classname="w-4 h-4" />
+                                                <BrandSmileyIcon classname="w-4 h-4" />
                                                 <span>{parseFloat(transaction.amount).toFixed(0)}</span>
                                             </div>
                                         </td>

@@ -54,7 +54,8 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
   //   remove(respIndex);
   // }
 
-  if (!fields.length) return null;
+  if (!fields.length) return <></>;
+
 
   return (
     <div className={cn('relative', template.education.coursesDetails)}>
@@ -119,7 +120,7 @@ export const ResumeEducation: FC = () => {
     update(educationIndex, {
       ...currentValue,
       exam: [
-        ...currentValue.exam,
+        ...(currentValue.exam ?? []),
         {
           subject: "",
           grade: ""

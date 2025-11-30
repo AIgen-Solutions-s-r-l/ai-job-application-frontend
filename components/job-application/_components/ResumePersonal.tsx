@@ -8,8 +8,8 @@ import { useCVTemplateContext } from '../../../contexts/cv-template-context';
 
 export const ResumePersonal: FC = () => {
   const { register, getValues, setValue } = useFormContext<Resume>();
-  const linkedin: string = getValues('personalInfo.linkedin');
-  const github: string = getValues('personalInfo.github');
+  const linkedin: string = getValues('personalInfo.linkedin') ?? '';
+  const github: string = getValues('personalInfo.github') ?? '';
   const [showLinkedin, setShowLinkedin] = useState(!!linkedin);
   const [showGithub, setShowGithub] = useState(!!github);
   const { activeSection, setActiveSection } = useActiveSectionContext();

@@ -201,7 +201,7 @@ export const JobFeedList: FC = () => {
           ))}
         </div>
 
-        <JobLargeCard job={focusedJob} />
+        {focusedJob && <JobLargeCard job={focusedJob} />}
       </Container>
     </div>
   );

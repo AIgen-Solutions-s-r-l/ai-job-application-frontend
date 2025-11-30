@@ -118,7 +118,7 @@ const Item = ({
   isOpen: boolean;
   setFeatureSelected: () => void;
 }) => {
-  const accordion = useRef(null);
+  const accordion = useRef<HTMLDivElement>(null);
   const { title, description, svg } = feature;
 
   return (
@@ -202,8 +202,8 @@ const Media = ({ feature }: { feature: Feature }) => {
   } else if (type === "image") {
     return (
       <Image
-        src={path}
-        alt={alt}
+        src={path || ''}
+        alt={alt || ''}
         className={`${style} object-cover object-center`}
         width={size.width}
         height={size.height}

@@ -27,7 +27,7 @@ export const CreateResumeOnboarding: React.FC = () => {
   const [defaultLocation, setDefaultLocation] = useState<string>('');
 
   const methods = useForm<CVFormData>({
-    defaultValues: CVData,
+    defaultValues: CVData ?? undefined,
     resolver: zodResolver(cvFormSchema)
   });
 
@@ -95,7 +95,7 @@ export const CreateResumeOnboarding: React.FC = () => {
                   e.preventDefault();
                 }
               }}
-              onSubmit={methods.handleSubmit(handleProfileSubmit)}
+              onSubmit={methods.handleSubmit((data) => handleProfileSubmit(data as JobProfile))}
             >
               <div className="font-jura">
                 {currentStep === 1 && <PersonalInformationOnboarding />}

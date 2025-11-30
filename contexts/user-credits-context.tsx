@@ -24,9 +24,9 @@ export default function UserCreditsProvider({ children }: UserCreditsProviderPro
         throw new Error(result.error);
       }
 
-      setCredits(parseInt(result.value.toString()));
+      setCredits(parseInt(result.value?.toString() ?? '0'));
     } catch (error) {
-      console.error("Error fetching credits:", error.message);
+      console.error("Error fetching credits:", error instanceof Error ? error.message : error);
     }
   }
 

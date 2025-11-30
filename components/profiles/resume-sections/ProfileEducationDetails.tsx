@@ -17,7 +17,8 @@ const ExamNestedFieldArray: FC<{ index: number; }> = ({
     name: `educationDetails.${index}.exam`
   })
 
-  if (!fields.length) return null;
+  if (!fields.length) return <></>;
+
 
   return (
     <div className="flex flex-col p-10 rounded-[22px] bg-white">

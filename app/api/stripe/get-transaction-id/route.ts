@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTransactionIdFromSession } from "@/libs/stripe";
-import { getTransactionIdSchema, createValidationErrorResponse } from "@/libs/validations/api-schemas";
+import { getTransactionIdSchema } from "@/libs/validations/api-schemas";
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,8 +9,9 @@ export async function GET(req: NextRequest) {
     // Validate query parameter
     const result = getTransactionIdSchema.safeParse({ session_id });
     if (!result.success) {
+      const errorDetails = 'error' in result ? result.error.flatten() : null;
       return NextResponse.json(
-        createValidationErrorResponse(result.error),
+        { error: 'Validation failed', details: errorDetails },
         { status: 400 }
       );
     }

@@ -72,7 +72,7 @@ export const JobFeedList: React.FC<Props> = ({ className, jobs }) => {
       </div>
       {jobs.map((job) => (
         <div key={job.id} className='flex items-center gap-[120px] pl-[200px]'>
-          <JobCard job={job} className={selectedJobs.some((j) => j.id === job.id) && 'border-primary'} />
+          <JobCard job={job} className={selectedJobs.some((j) => j.id === job.id) ? 'border-primary' : undefined} />
           <div
             onClick={() => handleJobSelect(job)} // Direct click handling
             className="w-[40px] h-[40px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200"

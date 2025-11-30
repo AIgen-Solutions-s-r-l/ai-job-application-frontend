@@ -15,7 +15,9 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    document.querySelector("html")?.setAttribute("data-theme", theme);
+    if (theme) {
+      document.querySelector("html")?.setAttribute("data-theme", theme);
+    }
   }, [theme]);
 
   return (

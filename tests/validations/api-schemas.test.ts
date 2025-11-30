@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { ZodError } from 'zod';
 import {
   createCheckoutSchema,
   createPaymentIntentSchema,
@@ -23,9 +24,7 @@ describe('createCheckoutSchema', () => {
       priceId: 'invalid_price_id',
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('Invalid Stripe price ID');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('Invalid Stripe price ID');
   });
 
   it('should reject invalid email format', () => {
@@ -34,9 +33,7 @@ describe('createCheckoutSchema', () => {
       userEmail: 'not-an-email',
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('Invalid email');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('Invalid email');
   });
 
   it('should reject missing required fields', () => {
@@ -87,9 +84,7 @@ describe('createPaymentIntentSchema', () => {
   it('should reject negative amounts', () => {
     const result = createPaymentIntentSchema.safeParse({ amount: -100 });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('positive');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('positive');
   });
 
   it('should reject zero amount', () => {
@@ -100,17 +95,13 @@ describe('createPaymentIntentSchema', () => {
   it('should reject non-integer amounts', () => {
     const result = createPaymentIntentSchema.safeParse({ amount: 10.5 });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('integer');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('integer');
   });
 
   it('should reject amounts exceeding maximum', () => {
     const result = createPaymentIntentSchema.safeParse({ amount: 999999999 });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('maximum');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('maximum');
   });
 
   it('should reject missing amount', () => {
@@ -132,9 +123,7 @@ describe('getTransactionIdSchema', () => {
       session_id: 'invalid_session',
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('Invalid Stripe session ID');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('Invalid Stripe session ID');
   });
 
   it('should reject empty session ID', () => {

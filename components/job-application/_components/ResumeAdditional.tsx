@@ -62,7 +62,7 @@ type FormData = Pick<Resume, "additionalInfo">
 //   ) : null;
 // }
 
-const LanguageNestedFieldArray: FC = (): ReactElement => {
+const LanguageNestedFieldArray: FC = (): ReactElement | null => {
   const { register } = useFormContext<FormData>();
   const { fields, append, insert, remove } = useFieldArray({
     name: `additionalInfo.languages`
@@ -159,7 +159,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
   ) : null;
 }
 
-const ProjectsNestedFieldArray: FC = (): ReactElement => {
+const ProjectsNestedFieldArray: FC = (): ReactElement | null => {
   const { register, getValues } = useFormContext<FormData>();
   const { fields, append, remove } = useFieldArray({
     name: `additionalInfo.projects`
@@ -251,7 +251,7 @@ const ProjectsNestedFieldArray: FC = (): ReactElement => {
   ) : null;
 }
 
-const AchievementsNestedFieldArray: FC = (): ReactElement => {
+const AchievementsNestedFieldArray: FC = (): ReactElement | null => {
   const { register } = useFormContext<FormData>();
   const { fields, append, insert, remove } = useFieldArray({
     name: `additionalInfo.achievements`
@@ -348,7 +348,7 @@ const AchievementsNestedFieldArray: FC = (): ReactElement => {
   ) : null;
 }
 
-const CertificationsNestedFieldArray: FC = (): ReactElement => {
+const CertificationsNestedFieldArray: FC = (): ReactElement | null => {
   const { register } = useFormContext<FormData>();
   const { fields, append, insert, remove } = useFieldArray({
     name: `additionalInfo.certifications`

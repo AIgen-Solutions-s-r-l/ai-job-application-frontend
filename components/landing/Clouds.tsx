@@ -33,7 +33,7 @@ export const Clouds: FC = () => {
 
   // Mobile Size Checker
   const { width } = useWindowSize();
-  const isMobile = width <= 1024;
+  const isMobile = width !== undefined && width <= 1024;
 
   return (
     <section ref={sectionRef} className='flex flex-col items-center font-montserrat relative overflow-x-clip'>

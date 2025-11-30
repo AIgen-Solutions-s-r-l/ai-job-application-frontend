@@ -13,7 +13,7 @@ import config from "@/config";
 const CrispChat = (): null => {
   const pathname = usePathname();
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<{ user?: { id: string } } | null>(null);
 
   useEffect(() => {
     if (config?.crisp?.id) {

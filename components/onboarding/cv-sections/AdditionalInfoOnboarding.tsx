@@ -44,7 +44,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                     ${errors.additionalInfo?.languages?.[index]?.language && "placeholder-shown:border-error"}`
                   }
                 />
-                {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].language.message}</p>}
+                {errors.additionalInfo?.languages?.[index]?.language && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages?.[index]?.language?.message}</p>}
               </div>
               <div className="w-full">
                 <select
@@ -66,7 +66,7 @@ const LanguageNestedFieldArray: FC = (): ReactElement => {
                   <option value="Intermediate">Intermediate</option>
                   <option value="Beginner">Beginner</option>
                 </select>
-                {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages[index].proficiency.message}</p>}
+                {errors.additionalInfo?.languages?.[index]?.proficiency && <p className="text-error mt-[2px] text-xs lg:text-sm">{errors.additionalInfo?.languages?.[index]?.proficiency?.message}</p>}
               </div>
             </div>
           </div>

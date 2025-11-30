@@ -1,6 +1,6 @@
 import { createCheckout } from "@/libs/stripe";
 import { NextRequest, NextResponse } from "next/server";
-import { createCheckoutSchema, createValidationErrorResponse } from "@/libs/validations/api-schemas";
+import { createCheckoutSchema } from "@/libs/validations/api-schemas";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,8 +9,9 @@ export async function POST(req: NextRequest) {
     // Validate request body
     const result = createCheckoutSchema.safeParse(body);
     if (!result.success) {
+      const errorDetails = 'error' in result ? result.error.flatten() : null;
       return NextResponse.json(
-        createValidationErrorResponse(result.error),
+        { error: 'Validation failed', details: errorDetails },
         { status: 400 }
       );
     }
@@ -19,9 +20,9 @@ export async function POST(req: NextRequest) {
 
     const checkoutData = {
       priceId,
-      mode,
-      successUrl,
-      cancelUrl,
+      mode: mode ?? 'payment',
+      successUrl: successUrl ?? `${process.env.NEXTAUTH_URL}/dashboard`,
+      cancelUrl: cancelUrl ?? `${process.env.NEXTAUTH_URL}/`,
       clientReferenceId: userId,
       user: {
         email: userEmail,

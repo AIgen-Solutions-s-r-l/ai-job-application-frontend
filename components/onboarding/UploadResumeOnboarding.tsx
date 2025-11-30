@@ -22,7 +22,7 @@ export const UploadResumeOnboarding: React.FC = () => {
   const { setCVData } = useCVDataContext();
 
   const { width } = useWindowSize();
-  const isMobile = width <= 740;
+  const isMobile = width !== undefined && width <= 740;
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ export const UploadResumeOnboarding: React.FC = () => {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) {
       const isPDF = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
       if (isPDF) {

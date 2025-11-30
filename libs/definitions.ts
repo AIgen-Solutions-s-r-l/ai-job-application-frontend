@@ -252,7 +252,7 @@ export interface JobDetail {
   field: string
   company_logo: string
   experience: string
-  timestamp: string
+  timestamp: string | null
   skills_required: string[]
 }
 

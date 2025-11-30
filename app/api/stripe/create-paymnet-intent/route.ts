@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createPaymentIntentSchema, createValidationErrorResponse } from "@/libs/validations/api-schemas";
+import { createPaymentIntentSchema } from "@/libs/validations/api-schemas";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -10,8 +10,9 @@ export async function POST(req: NextRequest) {
     // Validate request body
     const result = createPaymentIntentSchema.safeParse(body);
     if (!result.success) {
+      const errorDetails = 'error' in result ? result.error.flatten() : null;
       return NextResponse.json(
-        createValidationErrorResponse(result.error),
+        { error: 'Validation failed', details: errorDetails },
         { status: 400 }
       );
     }

@@ -161,7 +161,7 @@ const AppNavLinks: FC<Props> = ({ collapsed, onClick }) => {
     },
   ];
 
-  return collapsed && width > 767 ? (
+  return collapsed && width && width > 767 ? (
     // compact version menu's on small screen
     <nav className='flex flex-col md:gap-3'>
       {navLinks.map(({ id, links }) => (

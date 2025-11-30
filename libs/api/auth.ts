@@ -306,7 +306,7 @@ export async function resetPasswordForEmail(email: string): Promise<{ success: b
     return { success: true };
   } catch (error) {
     console.error(`Error when sending password reset email: ${email}`, error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -326,7 +326,7 @@ export async function resetPassword(new_password: string, token: string): Promis
 
     return { success: true };
   } catch (error) {
-    const status = error.response?.status;
+    const status = (error as any).response?.status;
     switch (status) {
       case 400:
         return {
@@ -341,7 +341,7 @@ export async function resetPassword(new_password: string, token: string): Promis
       }
       default: {
         console.error(`Error when updating password`, error);
-        return { success: false, error: error.message };
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
       }
     }
   }
@@ -363,7 +363,7 @@ export async function changePassword(current_password: string, new_password: str
 
     return { success: true };
   } catch (error) {
-    switch (error.response?.status) {
+    switch ((error as any).response?.status) {
       case 401:
         return {
           success: false,
@@ -382,7 +382,7 @@ export async function changePassword(current_password: string, new_password: str
       }
       default: {
         console.error(`Error when updating password`, error);
-        return { success: false, error: error.message };
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
       }
     }
   }
@@ -404,7 +404,7 @@ export async function changeEmail(current_password: string, new_email: string,):
 
     return { success: true };
   } catch (error) {
-    switch (error.response?.status) {
+    switch ((error as any).response?.status) {
       case 400:
         return {
           success: false,
@@ -428,7 +428,7 @@ export async function changeEmail(current_password: string, new_email: string,):
       }
       default: {
         console.error(`Error when updating password`, error);
-        return { success: false, error: error.message };
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
       }
     }
   }

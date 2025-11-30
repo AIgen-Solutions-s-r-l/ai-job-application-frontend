@@ -199,7 +199,7 @@ export const DesktopFeatures: FC = () => {
 
 export const Features: FC = () => {
   const { width } = useWindowSize();
-  const isMobile = width <= 1024;
+  const isMobile = width !== undefined && width <= 1024;
 
   // const MemoizedMobileFeatures = memo(MobileFeatures);
   const MemoizedDesktopFeatures = memo(DesktopFeatures);

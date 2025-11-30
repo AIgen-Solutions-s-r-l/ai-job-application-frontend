@@ -170,7 +170,7 @@ export const JobFeedList: FC<Props> = ({
           ) : (
             jobs.all.length > 0 ? (
               jobs.all.map((job, key) => (
-                <JobCard job={job} status={job.status} timestamp={job.timestamp} key={key} />
+                <JobCard job={job} status={job.status} timestamp={job.timestamp ?? ''} key={key} />
               ))
             ) : (
               searchTerm ? (

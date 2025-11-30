@@ -2,7 +2,7 @@ import { ResumeAdditionalInfo } from "../types/application.types";
 import { Resume } from "../types/application.types";
 import { EducationDetail } from "../types/response-application.types";
 
-export function toResumeType(resumeData: any): Resume {
+export function toResumeType(resumeData: any): Resume | null {
   if (!resumeData) {
     return null;
   }

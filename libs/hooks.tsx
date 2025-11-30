@@ -9,18 +9,19 @@ export function useLocalStorage<T>(
   const [state, setState] = useState<T>(initialValue);
 
   useEffect(() => {
-    const storedValue = JSON.parse(localStorage.getItem(key)) as T;
+    const item = localStorage.getItem(key);
+    const storedValue = item ? JSON.parse(item) as T : initialValue;
     console.log({ storedValue });
 
     setState(storedValue);
-  }, [key]);
+  }, [key, initialValue]);
 
-  const setValue = (value: T) => {
+  const setValue: Dispatch<SetStateAction<T>> = (value) => {
     try {
       const valueToStore = value instanceof Function ? value(state) : value;
       console.log({ valueToStore });
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      setState(value);
+      setState(valueToStore);
     } catch (error) {
       console.log(error);
     }
@@ -43,11 +44,11 @@ export const useLocalStorageWIP = <T,>(
     }
   });
 
-  const setValue = (value: T) => {
+  const setValue: Dispatch<SetStateAction<T>> = (value) => {
     try {
       const valueToStore = value instanceof Function ? value(state) : value;
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      setState(value);
+      setState(valueToStore);
     } catch (error) {
       console.log(error);
     }
@@ -96,9 +97,10 @@ export function useSessionStorage<T>(
 
   const [state, setState] = useState<T>(initial ?? initialValue);
 
-  const setValue = (value: T) => {
-    sessionStorage.setItem(key, JSON.stringify(value));
-    setState(value);
+  const setValue: Dispatch<SetStateAction<T>> = (value) => {
+    const valueToStore = value instanceof Function ? value(state) : value;
+    sessionStorage.setItem(key, JSON.stringify(valueToStore));
+    setState(valueToStore);
   };
 
   return [state, setValue];

@@ -8,8 +8,8 @@ type CVDataContextProviderProps = {
 };
 
 type CVDataContextType = {
-  CVData: JobProfile;
-  setCVData: React.Dispatch<React.SetStateAction<JobProfile>>;
+  CVData: JobProfile | null;
+  setCVData: React.Dispatch<React.SetStateAction<JobProfile | null>>;
 }
 
 const SESSION_STORAGE_KEY = "onboarding-cv-data";
@@ -17,7 +17,7 @@ const SESSION_STORAGE_KEY = "onboarding-cv-data";
 export const CVDataContext = createContext<CVDataContextType | null>(null);
 
 export default function CVDataContextProvider ({ children }: CVDataContextProviderProps) {
-  const [CVData, setCVData] = useState<JobProfile>(null);
+  const [CVData, setCVData] = useState<JobProfile | null>(null);
 
   useEffect(() => {
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(CVData));

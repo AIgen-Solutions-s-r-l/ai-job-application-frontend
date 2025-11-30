@@ -23,7 +23,7 @@ export const JobManagerCard: FC<Props> = ({ id, className, job, onClick }) => {
   const { selectedApplications, handleApplicationSelect } = useJobManager();
   const [mounted, setMounted] = useState(false);
   const { width } = useWindowSize();
-  const isMobile = width <= 1024;
+  const isMobile = width !== undefined && width <= 1024;
 
   useEffect(() => {
     setMounted(true);

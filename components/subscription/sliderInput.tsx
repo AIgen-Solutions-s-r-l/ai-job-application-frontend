@@ -24,7 +24,7 @@ function SliderInput({
             <div className='w-[1px] h-3 bg-slate-300 mt-1'></div>
 
             {/* Render "Current Plan" below the correct value */}
-            {activePlanValue !== null && val.value === activePlanValue.toString() && (
+            {activePlanValue !== null && activePlanValue !== undefined && val.value === activePlanValue.toString() && (
               <div className='absolute top-12 text-primary-deep-purple text-sm font-semibold whitespace-nowrap'>
                 Current Plan
               </div>

@@ -18,7 +18,7 @@ export const JobSearchBottomSheet: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isSubscriptionModal, setIsSubscriptionModal] = useState<boolean>(false);
   const [generateTemplate, setGenerateTemplate] = useState<boolean>(true);
-  const [selectedTemplate, setSelectedTemplate] = useState<number | null>(1);
+  const [selectedTemplate, setSelectedTemplate] = useState<number>(1);
   const { selectedJobs, setSelectedJobs } = useJobSearch();
   const router = useRouter();
   const [cvFile, setCVFile] = useState<File | null>(null);
@@ -31,9 +31,9 @@ export const JobSearchBottomSheet: React.FC = () => {
       const formData = new FormData();
       formData.append('job_ids', JSON.stringify(selectedJobs.map(job => job.id)));
 
-      if (generateTemplate) {
+      if (generateTemplate && selectedTemplate !== null) {
         formData.append('style', templateStyleByIndex[selectedTemplate]);
-      } else {
+      } else if (cvFile) {
         formData.append('cv', cvFile);
       }
 

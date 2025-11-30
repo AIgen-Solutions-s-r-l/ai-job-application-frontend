@@ -36,15 +36,6 @@ export const mailgunWebhookSchema = z.object({
   'body-html': z.string().min(1, 'Email body is required').max(1000000, 'Email body too large'),
 });
 
-// Helper function to create validation response
-export const createValidationErrorResponse = (error: z.ZodError) => {
-  const isDev = process.env.NODE_ENV === 'development';
-  return {
-    error: 'Validation failed',
-    ...(isDev && { details: error.flatten() }),
-  };
-};
-
 export type CreateCheckoutInput = z.infer<typeof createCheckoutSchema>;
 export type CreatePaymentIntentInput = z.infer<typeof createPaymentIntentSchema>;
 export type GetTransactionIdInput = z.infer<typeof getTransactionIdSchema>;

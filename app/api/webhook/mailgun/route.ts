@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
     });
 
     if (!result.success) {
-      console.error("Mailgun webhook validation failed:", result.error.flatten());
+      const errorDetails = 'error' in result ? result.error.flatten() : null;
+      console.error("Mailgun webhook validation failed:", errorDetails);
       return NextResponse.json({ error: "Invalid webhook data" }, { status: 400 });
     }
 

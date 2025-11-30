@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { ZodError } from 'zod';
 import {
   personalInfoSchema,
   educationSchema,
@@ -31,9 +32,7 @@ describe('personalInfoSchema', () => {
       name: 'John123',
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('cannot contain numbers');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('cannot contain numbers');
   });
 
   it('should reject name that is too short', () => {
@@ -42,9 +41,7 @@ describe('personalInfoSchema', () => {
       name: 'J',
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('at least 2 characters');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('at least 2 characters');
   });
 
   it('should reject invalid email format', () => {
@@ -53,9 +50,7 @@ describe('personalInfoSchema', () => {
       email: 'not-an-email',
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('Invalid email');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('Invalid email');
   });
 
   it('should reject future date of birth', () => {
@@ -66,9 +61,7 @@ describe('personalInfoSchema', () => {
       date_of_birth: futureDate.toISOString().split('T')[0],
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('cannot be in the future');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('cannot be in the future');
   });
 
   it('should reject invalid phone number format', () => {
@@ -117,7 +110,7 @@ describe('educationSchema', () => {
       country: 'United States',
       city: 'Cambridge',
     },
-    exam: [],
+    exam: [] as Array<{ subject?: string; grade?: string }>,
   };
 
   it('should validate correct education info', () => {
@@ -170,9 +163,7 @@ describe('experienceSchema', () => {
       key_responsibilities: [],
     });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toContain('At least one responsibility');
-    }
+    expect((result as { success: false; error: ZodError }).error.issues[0].message).toContain('At least one responsibility');
   });
 
   it('should reject company name that is too short', () => {
@@ -189,14 +180,14 @@ describe('additionalInfoSchema', () => {
     languages: [
       { language: 'English', proficiency: 'Native' },
     ],
-    projects: [],
-    certifications: [],
+    projects: [] as Array<{ name?: string | null; description?: string | null; link?: string | null }>,
+    certifications: [] as Array<{ name?: string | null; description?: string | null }>,
     self_identification: {
-      gender: null,
-      pronouns: null,
-      ethnicity: null,
-      veteran: null,
-      disability: null,
+      gender: null as string | null,
+      pronouns: null as string | null,
+      ethnicity: null as string | null,
+      veteran: null as boolean | null,
+      disability: null as boolean | null,
     },
     legal_authorization: {
       eu_work_authorization: true,
@@ -224,7 +215,7 @@ describe('additionalInfoSchema', () => {
       willing_to_undergo_drug_tests: true,
       willing_to_undergo_background_checks: true,
     },
-    achievements: [],
+    achievements: [] as Array<{ name?: string | null; description?: string | null }>,
     interests: ['coding', 'reading'],
   };
 

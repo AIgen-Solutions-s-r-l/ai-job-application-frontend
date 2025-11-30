@@ -95,7 +95,7 @@ const ChoseLocationModal = ({
             return;
         }
         setIsLoading(true);
-        setUser((prev) => ({ ...prev, exists: true }));
+        setUser((prev) => prev ? { ...prev, exists: true } : null);
         await setServerCookie('lastJobSearchData', JSON.stringify({ country, experience }), {});
         router.push('/search')
     };

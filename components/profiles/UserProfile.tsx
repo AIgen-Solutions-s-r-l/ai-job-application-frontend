@@ -60,7 +60,7 @@ export const UserProfile: FC<Props> = ({ profile }) => {
               e.preventDefault();
             }
           }}
-          onSubmit={methods.handleSubmit(onSubmit)}
+          onSubmit={methods.handleSubmit((data) => onSubmit(data as JobProfile))}
         >
           <ProfilePersonalInformation />
           <ProfileEducationDetails />

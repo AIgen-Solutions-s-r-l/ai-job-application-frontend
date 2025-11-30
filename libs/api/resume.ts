@@ -78,7 +78,7 @@ export async function createResume(entries: JobProfile): Promise<{ success: bool
     return { success: true };
   } catch (error) {
     console.error(`Error creating job profile: ${entries}`, error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -104,7 +104,7 @@ export async function updateResume(data: any): Promise<{ success: boolean; error
     return { success: true };
   } catch (error) {
     console.error(`Error updating job profile: ${data}`, error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -124,7 +124,7 @@ export async function pdfToJson(formData: FormData): Promise<{ data: any; error?
     return { data: response.data };
   } catch (error) {
     console.error('Error parsing PDF', error);
-    return { data: null, error: error.message };
+    return { data: null, error: error instanceof Error ? error.message : String(error) };
   }
 }
 

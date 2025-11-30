@@ -28,7 +28,7 @@ interface User {
 type UserContextType = {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>; // Allow null during initialization/logout
-  setAccessToken: Dispatch<SetStateAction<string>>;
+  setAccessToken: Dispatch<SetStateAction<string | null>>;
 };
 
 const UserContext = createContext<UserContextType | null>(null);

@@ -64,12 +64,12 @@ export async function fetchPassesData() {
 }
 
 export async function getMatchingJobsData(params?: JobSearchParams): Promise<MatchingJobsResponse> {
-    const queryString = Object.entries(params)
+    const queryString = Object.entries(params ?? {})
       .map(([key, value]) => {
         if (Array.isArray(value)) {
           return value.map((v) => `${key}=${encodeURIComponent(v)}`).join('&');
         } else {
-          return `${key}=${encodeURIComponent(value)}`;
+          return `${key}=${encodeURIComponent(String(value))}`;
         }
       })
       .join('&');
@@ -125,7 +125,7 @@ export const fetchBalanceData = async (): Promise<ServerActionResult<number>> =>
     return { success: true, value: response.balance };
   } catch (error) {
     console.error("Error fetching user balance:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 

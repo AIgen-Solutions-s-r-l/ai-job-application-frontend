@@ -24,7 +24,7 @@ const items = [
   {
     id: 3,
     image: '/landing/pravatar-3.jpg',
-    text: '"In consulting, it's all about standing out. %%APP_NAME%%\'s matching system helped me land interviews at top firms."',
+    text: '"In consulting, it\'s all about standing out. %%APP_NAME%%\'s matching system helped me land interviews at top firms."',
     name: '- Alex, Management Consultant'
   },
   {
@@ -48,7 +48,7 @@ const items = [
   {
     id: 7,
     image: '/landing/pravatar-7.jpg',
-    text: '"I didn't know applying was a numbers game until %%APP_NAME%% automated the process. It changed my career trajectory."',
+    text: '"I didn\'t know applying was a numbers game until %%APP_NAME%% automated the process. It changed my career trajectory."',
     name: '- Adam, Financial Analyst'
   },
   {
@@ -72,7 +72,7 @@ const items = [
   {
     id: 11,
     image: '/landing/pravatar-11.jpg',
-    text: '"I didn't know where to start with finance internships. %%APP_NAME%% matched me with roles I didn't even know existed, and I got multiple offers."',
+    text: '"I didn\'t know where to start with finance internships. %%APP_NAME%% matched me with roles I didn\'t even know existed, and I got multiple offers."',
     name: '- Nathan, Finance Intern'
   },
   {
@@ -106,14 +106,16 @@ export const Carousel: React.FC = () => {
   const { width } = useWindowSize();
 
   useEffect(() => {
-    if (width < 768) {
-      setItemsPerPage(1);
-    } else if (width < 1280) {
-      setItemsPerPage(2);
-    } else if (width < 1536) {
-      setItemsPerPage(3);
-    } else {
-      setItemsPerPage(4);
+    if (width !== undefined) {
+      if (width < 768) {
+        setItemsPerPage(1);
+      } else if (width < 1280) {
+        setItemsPerPage(2);
+      } else if (width < 1536) {
+        setItemsPerPage(3);
+      } else {
+        setItemsPerPage(4);
+      }
     }
   }, [width]);
 

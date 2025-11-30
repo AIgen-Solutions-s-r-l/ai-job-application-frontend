@@ -55,7 +55,7 @@ export async function applySelectedApplications(applications: string[]): Promise
     return { success: true };
   } catch (error) {
     console.error("Error creating applications:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -81,7 +81,7 @@ export async function updateApplicationResume(id: string, data: any): Promise<{ 
     return { success: true };
   } catch (error) {
     console.error(`Error updating job profile: ${data}`, error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -107,6 +107,6 @@ export async function updateApplicationLetter(id: string, data: any): Promise<{ 
     return { success: true };
   } catch (error) {
     console.error(`Error updating job profile: ${data}`, error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }

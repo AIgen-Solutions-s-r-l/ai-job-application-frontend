@@ -44,7 +44,7 @@ export const createJobProfile = async (profileData: JobProfile): Promise<{
     return { success: true };
   } catch (error) {
     console.error("Error saving job profile:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -69,7 +69,7 @@ export const updateJobProfile = async (profileData: JobProfile): Promise<{
     return { success: true };
   } catch (error) {
     console.error("Error updating job profile:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -107,7 +107,7 @@ export const applySelectedApplicationsAction = async (applications: string[]): P
     return { success: true };
   } catch (error) {
     console.error("Error when applying to selected jobs:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -134,7 +134,7 @@ export const updateApplicationResumeAction = async (id: string, resumeData: Resu
     return { success: true };
   } catch (error) {
     console.error("Error updating job profile:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -163,7 +163,7 @@ export const updateApplicationLetterAction = async (id: string, letterData: Cove
     return { success: true };
   } catch (error) {
     console.error("Error updating job profile:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -173,6 +173,6 @@ export const spendCreditsAction = async (amount: number): Promise<ServerActionRe
     return { success: true, value: response.new_balance };
   } catch (error) {
     console.error("Error fetching user balance:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 }

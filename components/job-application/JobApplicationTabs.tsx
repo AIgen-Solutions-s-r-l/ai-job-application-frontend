@@ -326,12 +326,12 @@ export const JobApplicationTabs: React.FC<Props> = ({ id, applicationDetails }) 
                         </div>
                     </Container>
                     <div className="pb-5">
-                        {activeTab === "resume" && (
+                        {activeTab === "resume" && converted && (
                             <CVTemplateProvider style={style as TemplateType}>
-                                <TemplateProfessional 
-                                    id={id} 
-                                    resume={converted} 
-                                    goBack={() => router.back()} 
+                                <TemplateProfessional
+                                    id={id}
+                                    resume={converted}
+                                    goBack={() => router.back()}
                                 />
                             </CVTemplateProvider>
                         )}
